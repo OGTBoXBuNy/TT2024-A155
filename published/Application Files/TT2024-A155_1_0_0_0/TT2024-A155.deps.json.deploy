@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "TT2024-A155/1.0.0": {
+        "runtime": {
+          "TT2024-A155.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TT2024-A155/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
