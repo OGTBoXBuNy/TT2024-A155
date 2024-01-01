@@ -22,5 +22,17 @@ namespace TT2024_A155.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost\\SQLEXPRESS;Initial Catalog=TTA155;Integrated Security=True")]
+        public string SecretMessage {
+            get {
+                return ((string)(this["SecretMessage"]));
+            }
+            set {
+                this["SecretMessage"] = value;
+            }
+        }
     }
 }
