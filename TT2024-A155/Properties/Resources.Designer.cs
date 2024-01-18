@@ -63,9 +63,9 @@ namespace TT2024_A155.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] VALE_JEIC {
+        internal static byte[] Comprobante {
             get {
-                object obj = ResourceManager.GetObject("VALE JEIC", resourceCulture);
+                object obj = ResourceManager.GetObject("Comprobante", resourceCulture);
                 return ((byte[])(obj));
             }
         }

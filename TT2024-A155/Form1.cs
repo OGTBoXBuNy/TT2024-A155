@@ -103,7 +103,7 @@ namespace TT2024_A155
         private void btnPDF_Click(object sender, EventArgs e)
         {
             string ruta = Application.StartupPath + "\\VALE JEIC.pdf";
-            File.WriteAllBytes(ruta, Properties.Resources.VALE_JEIC);
+            File.WriteAllBytes(ruta, Properties.Resources.Comprobante);
 
             fileRoute.InitialDirectory = @"C:\";
             fileRoute.Title = "PEDIDO";

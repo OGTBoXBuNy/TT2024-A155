@@ -34,6 +34,7 @@
             lblUsuario = new Label();
             lblContrasenia = new Label();
             picInicioSesion = new PictureBox();
+            lblRestablecerContrasenia = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)picInicioSesion).BeginInit();
             SuspendLayout();
             // 
@@ -53,7 +54,7 @@
             // 
             // btnAceptar
             // 
-            btnAceptar.Location = new Point(126, 237);
+            btnAceptar.Location = new Point(119, 260);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(94, 29);
             btnAceptar.TabIndex = 2;
@@ -87,11 +88,23 @@
             picInicioSesion.TabIndex = 5;
             picInicioSesion.TabStop = false;
             // 
+            // lblRestablecerContrasenia
+            // 
+            lblRestablecerContrasenia.AutoSize = true;
+            lblRestablecerContrasenia.Location = new Point(96, 222);
+            lblRestablecerContrasenia.Name = "lblRestablecerContrasenia";
+            lblRestablecerContrasenia.Size = new Size(152, 20);
+            lblRestablecerContrasenia.TabIndex = 6;
+            lblRestablecerContrasenia.TabStop = true;
+            lblRestablecerContrasenia.Text = "Recuperar contraseña";
+            lblRestablecerContrasenia.LinkClicked += lblRestablecerContrasenia_LinkClicked;
+            // 
             // inicioSesion
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(338, 315);
+            Controls.Add(lblRestablecerContrasenia);
             Controls.Add(picInicioSesion);
             Controls.Add(lblContrasenia);
             Controls.Add(lblUsuario);
@@ -115,5 +128,6 @@
         private Label lblUsuario;
         private Label lblContrasenia;
         private PictureBox picInicioSesion;
+        private LinkLabel lblRestablecerContrasenia;
     }
 }

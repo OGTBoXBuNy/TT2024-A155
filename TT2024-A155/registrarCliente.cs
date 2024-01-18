@@ -10,20 +10,16 @@ using System.Windows.Forms;
 
 namespace TT2024_A155
 {
-    public partial class Administrar : Form
+    public partial class registrarCliente : Form
     {
-        //CONSTRUCTOR DEL FORM
-        BD Consulta = new BD();
-        DataSet ds = new DataSet();
-        DataView dv = new DataView();
-        public Administrar()
+        public registrarCliente()
         {
             InitializeComponent();
         }
-
+        BD Consulta = new BD();
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            string rol = cmbRol.Text.Trim();
+            string rol = "Cliente";
             string usuario = txtUsuario.Text.Trim();
             string nombre = txtNombre.Text.Trim();
             string contra = txtContrasenia.Text.Trim();
@@ -37,15 +33,6 @@ namespace TT2024_A155
             string correo = txtCorreo.Text.Trim();
 
             Consulta.registroUsuario(rol, usuario, nombre, contra, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo);
-        }
-
-        private void Administrar_Load(object sender, EventArgs e)
-        {
-            ds = Consulta.Roles();
-            dv = ds.Tables[0].DefaultView;
-            cmbRol.DataSource = dv;
-            cmbRol.ValueMember = "nombre";
-            cmbRol.SelectedIndex = 0;
         }
     }
 }

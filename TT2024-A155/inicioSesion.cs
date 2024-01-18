@@ -23,19 +23,36 @@ namespace TT2024_A155
 
         private void inicioSesion_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            
 
 
-            
 
-            if (Consulta.inicioSesion(txtUsuario.Text, txtContrasenia.Text) == 1)
+
+
+            if (Consulta.inicioSesion(txtUsuario.Text.Trim(), txtContrasenia.Text.Trim()) == 1)
             {
-                MessageBox.Show("Inicio sesión exitoso");
+                
+                if (Consulta.validarContraTemp(txtUsuario.Text.Trim()) == 1)
+                {
+                    cambioContraseña cambioContra = new();
+                    AddOwnedForm(cambioContra);
+                    cambioContra.lblUsuario.Text = txtUsuario.Text.Trim();
+                    cambioContra.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    Inicio inicio = new Inicio();
+                    AddOwnedForm(inicio);
+                    inicio.lblUsuario.Text += txtUsuario.Text.Trim();
+                    inicio.Show();
+                    MessageBox.Show("Inicio sesión exitoso");
+                    this.Hide();
+                }
 
             }
             else
@@ -43,8 +60,16 @@ namespace TT2024_A155
                 MessageBox.Show("Usuario y/o contraseña incorrectos");
                 txtUsuario.Text = "";
                 txtContrasenia.Text = "";
-                
+
             }
+        }
+
+        private void lblRestablecerContrasenia_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            restablecerContraseña res = new();
+            
+            res.Show();
+
         }
     }
 }
