@@ -19,6 +19,10 @@ namespace TT2024_A155
         Producto producto = new Producto();
         BD Consulta = new BD();
         private DataTable dt;
+        double descuento = 0;
+        double precioVenta = 0;
+        double precioVentaDescuento = 0;
+        int cantidad = 0;
         double subTotal = 0;
         double total = 0;
 
@@ -28,8 +32,19 @@ namespace TT2024_A155
             string idVendedor = string.Empty;
             string idCliente = cmbCliente.SelectedValue.ToString();//ID USUARIO CLIENTE
             string comentarios = txtComentarios.Text.Trim();
-
-
+            string cantidad = string.Empty;
+            string idProducto = string.Empty;
+            string idVehiculo = string.Empty;
+            string precioVenta = string.Empty;
+            string descuento = string.Empty;
+            foreach (DataGridViewRow row in dgvPedido.Rows)
+            {
+                cantidad = row.Cells["Cantidad"].Value.ToString();
+                idProducto = row.Cells["idProducto"].Value.ToString();
+                precioVenta = row.Cells["Precio de venta\n($)"].Value.ToString();
+                descuento = row.Cells["Descuento\n(%)"].Value.ToString();
+                idVehiculo = row.Cells["idvehiculo"].Value.ToString();
+            }
 
 
 
@@ -38,8 +53,8 @@ namespace TT2024_A155
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            
-            
+
+            registrarPedido();
             //Consulta.generarVale();
 
         }
@@ -77,9 +92,15 @@ namespace TT2024_A155
             dt.Columns.Add("Descripción");
             dt.Columns.Add("Precio de venta\n($)");
             dt.Columns.Add("Descuento\n(%)");
-            
+
+            dt.Columns.Add("idProducto");
+            dt.Columns.Add("idvehiculo");
+
+
             //dt.Columns.Add("costo_proveedor\n($)");
             dgvPedido.DataSource = dt;
+            dgvPedido.Columns["idProducto"].Visible = false;
+            dgvPedido.Columns["idvehiculo"].Visible = false;
 
 
             //Carga los datos registros de clientes en el combobox
@@ -93,15 +114,14 @@ namespace TT2024_A155
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
 
-            //int cantidad = 0;
-            //double totalPrecio = 0;
+            
             DialogResult respuesta = producto.ShowDialog();
             if (respuesta == DialogResult.OK)
             {
 
                 double descuento = Convert.ToDouble(producto.datosMandar[4]) / 100;
                 double precioVenta = Convert.ToDouble(producto.datosMandar[3]);
-                double precioVentaDescuento = precioVenta - (precioVenta * descuento);
+                
                 int cantidad = Convert.ToInt32(producto.datosMandar[1]);
 
                 DataRow row = dt.NewRow();
@@ -112,46 +132,81 @@ namespace TT2024_A155
                 row[4] = producto.datosMandar[5];//DESCRIPCION
                 row[5] = precioVenta;//PRECIO VENTA
                 row[6] = producto.datosMandar[4];//DESCUENTO
+
+                row[7] = producto.datosMandar[11];//IDPRODUCTO
+                row[8] = producto.datosMandar[12];//IDVEHICULO
                 dt.Rows.Add(row);
 
-                
+                actualizarTotales();//Actualizar SubTotal y Totales
 
-                subTotal +=  (precioVentaDescuento * 0.84) * cantidad;
-                lblSubtotal.Text = "SubTotal: " + subTotal.ToString("0.##");
-
-                total += precioVentaDescuento * cantidad;
-                lblTotal.Text = "Total + IVA(16%): " + total.ToString("0.##");
-
-                //Es utilizado para que por defecto el combobox del dgv tenga seleccionada una opción
-                //dgvPedido.Rows[dgvPedido.Rows.Count - 1].Cells["dataGridViewStatusCombobox"].Value = 1;
-                ///>>>>>>>>>>>>>>>>>>>>>----IMPORTANTE------:
-                ///El tipo de dato al que se iguala tiene mucho que coincidir con el "ValueMember"
-                ///de la columna combobox del datagridview, en este caso funciona porque se ha
-                ///seleccionado toda la tabla desde la consulta y coincide el tipo con el id
+               
 
 
-                //foreach (DataGridViewRow dgvRow in dgvPedido.Rows)
-                //{
-                //    cantidad += Convert.ToInt32(dgvRow.Cells["Cantidad"].Value);
-                //    //subtotalPrecio += (Convert.ToInt32(dgvRow.Cells["Cantidad"].Value) * Convert.ToDouble(dgvRow.Cells["Precio de venta"].Value) /*+ Convert.ToDouble(dgvRow.Cells["Precio de reparación"].Value)*/);
-                //    totalPrecio += Convert.ToDouble(dgvRow.Cells["Precio de venta\n($)"].Value);
-                //}
-                //totalPrecio = (subtotalPrecio * .16) + subtotalPrecio;
-
-                //lblCantidadTotal.Text = cantidad.ToString();
-                //lblPrecioTotal.Text = "$" + totalPrecio.ToString();
             }
         }
 
+        public void actualizarTotales()
+        {
+            subTotal = 0;
+            total = 0;
+            
+
+            foreach (DataGridViewRow row in dgvPedido.Rows)
+            {
+                cantidad = Convert.ToInt32(row.Cells["Cantidad"].Value.ToString());
+                descuento = Convert.ToDouble(row.Cells["Descuento\n(%)"].Value.ToString()) / 100;
+                precioVenta = Convert.ToDouble(row.Cells["Precio de venta\n($)"].Value.ToString());
+                precioVentaDescuento = precioVenta - (precioVenta * descuento);
+
+                subTotal += (precioVentaDescuento * 0.84) * cantidad;
+                total += precioVentaDescuento * cantidad;
+                
+
+            }
+            lblSubtotal.Text = "SubTotal: " + subTotal.ToString("0.##");
+            lblTotal.Text = "Total + IVA(16%): " + total.ToString("0.##");
+        }
+
+
         private void cmbMarca_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblNombreCliente.Text = "Nombre: " + Consulta.recuperarNombreReal(cmbCliente.Text.Trim());
-            
+
+        }
+
+        private void dgvPedido_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+
+                //if click is on new row or header row
+                if (e.RowIndex == dgvPedido.NewRowIndex || e.RowIndex < 0)
+                    return;
+
+
+                //Check if click is on specific column
+                if (e.ColumnIndex == dgvPedido.Columns["dataGridViewDeleteButton"].Index)
+                {
+                    MessageBOX mes = new MessageBOX(4, "¿Esta seguro de eliminar esta pieza?");
+
+                    if (mes.ShowDialog() == DialogResult.OK)
+                    {
+                        dgvPedido.Rows.RemoveAt(dgvPedido.CurrentRow.Index);
+                        actualizarTotales();//Actualizar SubTotal y Totales
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

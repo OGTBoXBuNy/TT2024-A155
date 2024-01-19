@@ -19,7 +19,7 @@ namespace TT2024_A155
         BD Consulta = new BD();
         DataSet ds = new DataSet();
         DataView dv = new DataView();
-        internal string[] datosProducto = new string[11];
+        internal string[] datosProducto = new string[13];
         private void Producto_Load(object sender, EventArgs e)
         {
             //Carga los datos de las marcas de vehículos en el combobox
@@ -33,6 +33,7 @@ namespace TT2024_A155
             dv = ds.Tables[0].DefaultView;
             cmbProducto.DataSource = dv;
             cmbProducto.ValueMember = "nombre";
+            
         }
 
 
@@ -59,6 +60,8 @@ namespace TT2024_A155
                         datosProducto[8] = cmbMarca.Text.Trim(); //MARCA
                         datosProducto[9] = cmbModelo.Text.Trim(); //MODELO
                         datosProducto[10] = txtAnio.Text.Trim(); //ANIO
+                        producto[11] = Lector["idproducto"].ToString();//IDPRODUCTO
+                        datosProducto[12] = cmbModelo.SelectedValue.ToString();//IDVEHICULO
              */
         }
 
@@ -69,6 +72,7 @@ namespace TT2024_A155
             datosProducto[8] = cmbMarca.Text.Trim(); //MARCA
             datosProducto[9] = cmbModelo.Text.Trim(); //MODELO
             datosProducto[10] = txtAnio.Text.Trim(); //ANIO
+            datosProducto[12] = cmbModelo.SelectedValue.ToString();//IDVEHICULO
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -83,13 +87,14 @@ namespace TT2024_A155
                 txtPrecioVenta.Text = datosProducto[3].ToString();
             if (datosProducto[6] != null)
                 lblDisponible.Text = "Disponible: " + datosProducto[6].ToString();
+                
 
             cmbCantidad.Items.Clear();
             for (int i = 0; i < Convert.ToInt32(datosProducto[6]); i++)
             {
                 cmbCantidad.Items.Add(i + 1);
             }
-
+           
         }
 
         private void cmbProducto_KeyPress(object sender, KeyPressEventArgs e)

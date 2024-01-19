@@ -193,6 +193,7 @@
             txtAnio.Name = "txtAnio";
             txtAnio.Size = new Size(85, 27);
             txtAnio.TabIndex = 40;
+            txtAnio.Text = "2010";
             // 
             // Producto
             // 

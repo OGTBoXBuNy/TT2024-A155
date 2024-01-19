@@ -280,6 +280,7 @@
             dgvPedido.RowTemplate.Height = 29;
             dgvPedido.Size = new Size(954, 188);
             dgvPedido.TabIndex = 27;
+            dgvPedido.CellClick += dgvPedido_CellClick;
             // 
             // btnAceptar
             // 

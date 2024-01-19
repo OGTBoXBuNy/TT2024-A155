@@ -394,7 +394,7 @@ namespace TT2024_A155
         //OBETER EL PRECIO DEL PRODUCTO DE ACUERDO SU CODIGO
         public string[] datosProducto(string Nombre)
         {
-            string[] producto = new string[11];
+            string[] producto = new string[13];
 
             try
             {
@@ -402,7 +402,7 @@ namespace TT2024_A155
                 {
                     nuevaConexion.Open();
 
-                    this.Comando = new SqlCommand(string.Format("SELECT codigo,nombre,precio_venta,costo_proveedor,stock,descripcion FROM producto WHERE nombre = '{0}' AND estado = 1;", Nombre), nuevaConexion);
+                    this.Comando = new SqlCommand(string.Format("SELECT codigo,nombre,precio_venta,costo_proveedor,stock,descripcion,idproducto FROM producto WHERE nombre = '{0}' AND estado = 1;", Nombre), nuevaConexion);
                     Lector = this.Comando.ExecuteReader();
                     while (Lector.Read()) {
                         producto[0] = Lector["nombre"].ToString();
@@ -414,7 +414,8 @@ namespace TT2024_A155
                         producto[6] = Lector["stock"].ToString();
                         producto[7] = Lector["costo_proveedor"].ToString();
 
-
+                        producto[11] = Lector["idproducto"].ToString();//IDPRODUCTO
+                        
 
                     }
                     Lector.Close();
@@ -748,7 +749,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevaConexion = Conexion.conexion())
                 {
                     nuevaConexion.Open();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT DISTINCT veh.idvehiculo,veh.modelo FROM vehiculo veh INNER JOIN MARCA mar ON veh.idmarca = mar.idmarca WHERE mar.marca = @marca AND mar.estado = 1 AND veh.estado = 1;", nuevaConexion);// WHERE modelo NOT LIKE 'PARTICULAR%'
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT DISTINCT veh.modelo, veh.idvehiculo FROM vehiculo veh INNER JOIN MARCA mar ON veh.idmarca = mar.idmarca WHERE mar.marca = @marca AND mar.estado = 1 AND veh.estado = 1;", nuevaConexion);// WHERE modelo NOT LIKE 'PARTICULAR%'
                     dataAdapter.SelectCommand.Parameters.AddWithValue("@marca", marca);
                     dataAdapter.Fill(dataSet, "VEHICULO");
                     nuevaConexion.Close();
