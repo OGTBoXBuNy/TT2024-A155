@@ -31,12 +31,15 @@ namespace TT2024_A155
             string fechaCreacion = DateTime.Today.ToString("d");// FECHA_HORA
             string idVendedor = string.Empty;
             string idCliente = cmbCliente.SelectedValue.ToString();//ID USUARIO CLIENTE
-            string comentarios = txtComentarios.Text.Trim();
+            string comentarios = txtComentarios.Text.Trim();//COMENTARIOS
             string cantidad = string.Empty;
             string idProducto = string.Empty;
             string idVehiculo = string.Empty;
             string precioVenta = string.Empty;
             string descuento = string.Empty;
+
+            Consulta.registrarPedido(string.Empty, idCliente, fechaCreacion, subTotal.ToString("0.##"), total.ToString("0.##"), comentarios);//REGISTRAR PEDIDO
+
             foreach (DataGridViewRow row in dgvPedido.Rows)
             {
                 cantidad = row.Cells["Cantidad"].Value.ToString();
@@ -44,6 +47,9 @@ namespace TT2024_A155
                 precioVenta = row.Cells["Precio de venta\n($)"].Value.ToString();
                 descuento = row.Cells["Descuento\n(%)"].Value.ToString();
                 idVehiculo = row.Cells["idvehiculo"].Value.ToString();
+
+                Consulta.registrarDetallePedido(idProducto,cantidad,precioVenta,descuento,idVehiculo);
+
             }
 
 

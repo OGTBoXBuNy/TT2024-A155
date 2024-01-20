@@ -812,6 +812,101 @@ namespace TT2024_A155
             }
         }
 
+        public int registrarPedido(string idUsuarioVendedor, string idUsuarioCliente, string fecha_hora, string impuesto, string total, string comentarios)
+        {
+
+                int i = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+
+                    nuevacon.Open();
+                   
+                    Comando = new SqlCommand("INSERT INTO pedido (idusuarioVendedor, idusuarioCliente, fecha_hora, impuesto, total, comentarios)\r\nVALUES (@idUsuarioVendedor, @idUsuarioCliente, @fecha_hora, @impuesto, @total, @comentarios);", nuevacon);
+                    
+                    Comando.Parameters.AddWithValue("@idusuarioVendedor", Convert.ToInt32(idUsuarioCliente) /*Convert.ToInt32(idUsuarioVendedor)*/);
+                    Comando.Parameters.AddWithValue("@idusuarioCliente", Convert.ToInt32(idUsuarioCliente));
+                    Comando.Parameters.AddWithValue("@fecha_hora", Convert.ToDateTime(fecha_hora));
+                    Comando.Parameters.AddWithValue("@impuesto", Convert.ToDouble(impuesto));
+                    Comando.Parameters.AddWithValue("@total", Convert.ToDouble(total));
+                    Comando.Parameters.AddWithValue("@comentarios", comentarios);
+
+
+                    //Para saber si la inserción se hizo correctamente
+                    i = Comando.ExecuteNonQuery();
+                    nuevacon.Close();
+                    if (i == 1)
+                    {  
+                        MessageBOX.SHowDialog(1, "Se registró pedido correctamente");
+                    }
+                    else
+                        MessageBOX.SHowDialog(2, "Problemas al registar pedido");
+                }
+                return i;
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error registrar pedido: " + EX.Message);
+            }
+            return i;
+            
+        }
+
+
+        public int registrarDetallePedido(string idProducto, string cantidad, string precio, string descuento, string idVehiculo)
+        {
+
+            int i = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+                    nuevacon.Open();
+
+                    int idPedido = -1;
+
+                    this.Comando = new SqlCommand("SELECT TOP 1 idpedido FROM pedido WHERE estado = 1 ORDER BY idpedido desc;", nuevacon);
+                    Lector = this.Comando.ExecuteReader();
+                    while (Lector.Read()) { idPedido = Convert.ToInt32(Lector["idpedido"].ToString()); }
+                    Lector.Close();
+
+
+
+
+                    Comando = new SqlCommand("INSERT INTO detalle_pedido (idpedido, idproducto, cantidad, precio, descuento, idvehiculo)\r\nVALUES (@idPedido,@idProducto, @cantidad, @precio, @descuento, @idVehiculo);", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@idPedido", Convert.ToInt32(idPedido));
+                    Comando.Parameters.AddWithValue("@idProducto", Convert.ToInt32(idProducto));
+                    Comando.Parameters.AddWithValue("@cantidad", Convert.ToInt32(cantidad));
+                    Comando.Parameters.AddWithValue("@precio", Convert.ToDouble(precio));
+                    Comando.Parameters.AddWithValue("@descuento", Convert.ToDouble(descuento));
+                    Comando.Parameters.AddWithValue("@idVehiculo", Convert.ToInt32(idVehiculo));
+                    
+
+
+                    //Para saber si la inserción se hizo correctamente
+                    i = Comando.ExecuteNonQuery();
+                    nuevacon.Close();
+                    if (i == 1)
+                    {
+                        MessageBOX.SHowDialog(1, "Se registró pedido correctamente");
+                    }
+                    else
+                        MessageBOX.SHowDialog(2, "Problemas al registar pedido");
+                }
+                return i;
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error registrar pedido: " + EX.Message);
+            }
+            return i;
+
+        }
+
 
     }
 }
