@@ -212,7 +212,7 @@ namespace TT2024_A155
                     message.Body = new TextPart("plain")
                     {
                         Text = "Estimado(a) \r\nAcabamos de recibir la solicitud para recuperar la contraseña." +
-                            "\r\n\r\n Tu contraseña temporal es: " +
+                            "\r\n Tu contraseña temporal es: " +
                             "\r\n\r\n" + contra +
                             "\r\n\r\nIMPORTANTE:" +
                             "\r\nEste correo es informativo, favor no responder a esta dirección de correo, ya que no se encuentra habilitada para recibir mensajes.\r\n"
@@ -509,7 +509,7 @@ namespace TT2024_A155
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
-                    Comando = new SqlCommand(string.Format("SELECT COUNT(p.cve_pieza) FROM PEDIDO p LEFT OUTER JOIN VENTAS ven ON ven.cve_venta = p.cve_venta  LEFT OUTER JOIN PIEZA pi ON p.cve_pieza = pi.cve_pieza  LEFT OUTER JOIN VALUADOR v ON v.cve_valuador = ven.cve_valuador LEFT OUTER JOIN CLIENTE c ON c.cve_nombre = v.cve_cliente LEFT OUTER JOIN TALLER t ON t.cve_taller = ven.cve_taller LEFT OUTER JOIN ENTREGA e ON p.cve_entrega = e.cve_entrega LEFT OUTER JOIN SINIESTRO si ON si.cve_siniestro=ven.cve_siniestro LEFT OUTER JOIN VEHICULO veh ON veh.cve_vehiculo=si.cve_vehiculo where ven.cve_pedido='{0}'", idPedido), nuevacon);
+                    Comando = new SqlCommand(string.Format("SELECT COUNT (detp.idproducto) FROM detalle_pedido detp LEFT OUTER JOIN pedido p ON p.idpedido = detp.idpedido WHERE p.idpedido = {0};", idPedido), nuevacon);
                     nuevacon.Open();
                     Lector = Comando.ExecuteReader();
 
@@ -529,28 +529,31 @@ namespace TT2024_A155
             }
         }
 
-        //---------------------------LLENAR TABLA PARA DATOS DE MUESTRA PDF CODIGO DE BARRAS--------------------
-        public void datosPedidoPDF(DataGridView dgv/*, string idPedido*/)
+        //---------------------------OBTENER DATOS PARA GENERAR EL COMPROBANTE PDF--------------------
+        public void datosPedidoPDF(DataGridView dgv, string idPedido)
         {
+           
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
-                    da = new SqlDataAdapter("select TOP 1 p.idpedido, p.fecha_hora, p.idusuarioCliente, p.idusuarioVendedor, prod.nombre, detp.cantidad, prod.precio_venta, ma.marca, v.modelo, v.anio\r\nfrom pedido p \r\nLEFT OUTER JOIN usuario us ON us.idusuario = p.idusuarioCliente\r\nLEFT OUTER JOIN detalle_pedido detp ON detp.idpedido = p.idpedido\r\nLEFT OUTER JOIN vehiculo v ON v.idvehiculo = detp.idvehiculo\r\nLEFT OUTER JOIN marca ma ON ma.idmarca = v.idmarca\r\nLEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto\r\norder by p.idpedido\r\ndesc", nuevacon);
+                    da = new SqlDataAdapter(string.Format("select p.idpedido, p.fecha_hora, us.nombre_real, p.idusuarioVendedor, prod.nombre, detp.cantidad, prod.precio_venta, ma.marca, v.modelo, v.anio, detp.iddetalle_pedido from pedido p LEFT OUTER JOIN usuario us ON us.idusuario = p.idusuarioCliente LEFT OUTER JOIN detalle_pedido detp ON detp.idpedido = p.idpedido LEFT OUTER JOIN vehiculo v ON v.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca ma ON ma.idmarca = v.idmarca LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto WHERE p.idpedido = {0} order by p.idpedido;", idPedido), nuevacon);
                     dt = new DataTable();
                     da.Fill(dt);
                     dgv.DataSource = dt;
                     nuevacon.Close();
+                   
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+        
         }
 
-        //----------------------GENERAR PDF (VALE JEIC)
-        public void generarVale()
+        //----------------------GENERAR PDF COMPROBANTE
+        public void generarComprobante(string idPedido, DataGridView dgvDatosPDF)
         {
             try
             {
@@ -562,11 +565,12 @@ namespace TT2024_A155
                 fileRoute.Filter = "PDF files (*.pdf)|*.pdf";
                 fileRoute.FilterIndex = 2;
                 fileRoute.RestoreDirectory = true;
-                fileRoute.FileName = "Comprobante" + DateTime.Now.ToString();
-                DataGridView dgvDatosPDF = new DataGridView(); ;
+                fileRoute.FileName = "Comprobante_" + idPedido;
+                
+
                 if (fileRoute.ShowDialog() == DialogResult.OK)
                 {
-                    if (File.Exists(fileRoute.FileName))
+                    if (!File.Exists(fileRoute.FileName))
                     {
                         iText.Kernel.Pdf.PdfWriter pdfWriter = new iText.Kernel.Pdf.PdfWriter(fileRoute.FileName);
 
@@ -582,41 +586,47 @@ namespace TT2024_A155
                         iText.Kernel.Pdf.PdfDocument pdfdoc = new iText.Kernel.Pdf.PdfDocument(pdfReader, pdfWriter);
 
 
-                        datosPedidoPDF(dgvDatosPDF);
+                        datosPedidoPDF(dgvDatosPDF ,idPedido);
 
-                        int NumeroFila = 0;//NumeroFilas(idPedido);
+                        int NumeroFila = NumeroFilas(idPedido);
 
 
-                        PdfCanvas canvas = new PdfCanvas(pdfdoc.GetPage(1));
+                        PdfCanvas canvas = new PdfCanvas(pdfdoc.GetFirstPage());
                         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
 
-                        int y = 633;
-                        int x = 109;
+                        int y = 0;//633
+                        int x = 0;//109
                         int Items = 0;
 
 
+                        //PEDIDO
+                        canvas.BeginText().SetFontAndSize(font, 9)
+                                 .MoveText(x+26,y+540)
+                                 .ShowText("0,0")
+                                 .EndText();
 
                         //PEDIDO
                         canvas.BeginText().SetFontAndSize(font, 18)
-                                 .MoveText(x, y)
+                                 .MoveText(x + 105, y + 642)
                                  .ShowText(dgvDatosPDF.Rows[0].Cells[0].Value.ToString())
                                  .EndText();
 
                         //FECHA_CREACIÓN
                         canvas.BeginText().SetFontAndSize(font, 14)
-                                .MoveText(x - 74, y - 45)
-                                .ShowText(dgvDatosPDF.Rows[0].Cells[1].Value.ToString())
+                                .MoveText(x + 40, y + 590)
+                                .ShowText(dgvDatosPDF.Rows[0].Cells[1].Value.ToString().Substring(0,9))
                                 .EndText();
 
                         //CLIENTE
                         canvas.BeginText().SetFontAndSize(font, 9)
-                                .MoveText(x + 268, y - 1)
+                                .MoveText(x + 395, y + 638)
                                 .ShowText(dgvDatosPDF.Rows[0].Cells[2].Value.ToString())
                                 .EndText();
+
                         //VENDEDOR
                         canvas.BeginText().SetFontAndSize(font, 9)
-                                .MoveText(x + 268, y - 1)
-                                .ShowText(dgvDatosPDF.Rows[0].Cells[3].Value.ToString())
+                                .MoveText(x + 403, y + 605)
+                                .ShowText(nombreVendedor(dgvDatosPDF.Rows[0].Cells[3].Value.ToString()))
                                 .EndText();
 
                         //VEHICULO
@@ -640,24 +650,24 @@ namespace TT2024_A155
                         for (int count = 0; count < NumeroFila; count++)
                         {
 
-                            ///////////////generarEtiqueta(idPedido, dgvDatosPDF.Rows[count].Cells[!].Value.ToString());
+                            generarEtiqueta(idPedido, dgvDatosPDF.Rows[count].Cells[10].Value.ToString());
                             iText.IO.Image.ImageData img = iText.IO.Image.ImageDataFactory.Create(Application.StartupPath + "\\temp.png");
                             img.SetWidth(150);
                             img.SetHeight(17);
 
 
-                            canvas.AddImageAt(img, Convert.ToSingle(x - 76), Convert.ToSingle(y - 102.5), false);
+                            canvas.AddImageAt(img, Convert.ToSingle(x + 5), Convert.ToSingle(y + 537), false);
                             File.Delete(Application.StartupPath + "\\temp.png");
 
                             //PRODUCTOS
                             canvas.BeginText().SetFontAndSize(font, 7)
-                                    .MoveText(x + 88.6, y - 100)
+                                    .MoveText(x + 196, y +543)
                                     .SetFillColor(ColorConstants.BLACK)
                                     .ShowText(dgvDatosPDF.Rows[count].Cells[4].Value.ToString() + "-" + dgvDatosPDF.Rows[count].Cells[7].Value.ToString() + "-" + dgvDatosPDF.Rows[count].Cells[8].Value.ToString() + "-" + dgvDatosPDF.Rows[count].Cells[9].Value.ToString())
                                     .EndText();
                             //CANTIDAD
                             canvas.BeginText().SetFontAndSize(font, 10)
-                                    .MoveText(x + 260, y - 100)
+                                    .MoveText(x + 370, y + 543)
                                     .SetFillColor(ColorConstants.BLACK)
                                     .ShowText(dgvDatosPDF.Rows[count].Cells[5].Value.ToString())
                                     .EndText();
@@ -665,20 +675,20 @@ namespace TT2024_A155
 
                             //PRECIO UNITARIO
                             canvas.BeginText().SetFontAndSize(font, 10)
-                              .MoveText(x + 300, y - 100)
+                              .MoveText(x + 420, y + 543)
                               .SetFillColor(ColorConstants.BLACK)
                               .ShowText(dgvDatosPDF.Rows[count].Cells[6].Value.ToString())
                               .EndText();
 
 
-                            double totalXProd = Convert.ToInt32(dgvDatosPDF.Rows[count].Cells[5].Value.ToString()) * Convert.ToInt32(dgvDatosPDF.Rows[count].Cells[6].Value.ToString()) ;
+                            double totalXProd = Convert.ToDouble(Convert.ToInt32(dgvDatosPDF.Rows[count].Cells[5].Value.ToString()) * Convert.ToDouble(dgvDatosPDF.Rows[count].Cells[6].Value.ToString())) ;
                             Total += totalXProd; 
 
                             //PRECIO TOTAL POR PRODUCTO
                             canvas.BeginText().SetFontAndSize(font, 10)
-                              .MoveText(x + 300, y - 100)
+                              .MoveText(x + 520, y + 543)
                               .SetFillColor(ColorConstants.BLACK)
-                              .ShowText(totalXProd.ToString())
+                              .ShowText(totalXProd.ToString("#.00"))
                               .EndText();
 
 
@@ -688,20 +698,20 @@ namespace TT2024_A155
 
                         //TOTAL
                         canvas.BeginText().SetFontAndSize(font, 10)
-                          .MoveText(x + 300, y - 100)
+                          .MoveText(x + 510, 105)
                           .SetFillColor(ColorConstants.BLACK)
-                          .ShowText(Total.ToString())///////////////////////////////////
+                          .ShowText("Total: " + Total.ToString("#.00"))
                           .EndText();
 
                         //NUMERO DE ITEMS
                         canvas.BeginText().SetFontAndSize(font, 9)
-                                        .MoveText(x - 16, 96)
+                                        .MoveText(x +130, 105)
                                         .ShowText((Items + 1).ToString())
                                         .EndText();
 
                         pdfdoc.Close();
 
-                        //MessageBOX.SHowDialog(3, "PDF creado exitosamente 1");
+                        MessageBOX.SHowDialog(3, "PDF creado exitosamente 1");
 
                     }
 
@@ -713,6 +723,33 @@ namespace TT2024_A155
             }
 
         }
+
+        //OBTENER NOMBRE DEL VENDEDOR CON BASE EN SU ID
+        public string nombreVendedor(string idVendedor)
+        {
+            string nombreVendedor = "";
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+                    this.Comando = new SqlCommand(string.Format("SELECT nombre_real from usuario where idusuario = '{0}';", idVendedor), nuevacon);
+                    nuevacon.Open();
+                    Lector = this.Comando.ExecuteReader();
+                    if (Lector.Read())
+                        nombreVendedor = Lector["nombre_real"].ToString();
+                    nuevacon.Close();
+                }
+                return nombreVendedor;
+        }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return nombreVendedor;
+            }
+
+}
+
 
 
         //---------------- OBTENER CLIENTES REGISTRADOS
@@ -837,12 +874,12 @@ namespace TT2024_A155
                     //Para saber si la inserción se hizo correctamente
                     i = Comando.ExecuteNonQuery();
                     nuevacon.Close();
-                    if (i == 1)
-                    {  
-                        MessageBOX.SHowDialog(1, "Se registró pedido correctamente");
-                    }
-                    else
-                        MessageBOX.SHowDialog(2, "Problemas al registar pedido");
+                    //if (i == 1)
+                    //{  
+                    //    MessageBOX.SHowDialog(1, "Se registró pedido correctamente");
+                    //}
+                    //else
+                    //    MessageBOX.SHowDialog(2, "Problemas al registar pedido");
                 }
                 return i;
             }
@@ -859,6 +896,7 @@ namespace TT2024_A155
         {
 
             int i = 0;
+            int idPedido = 0;
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
@@ -866,7 +904,7 @@ namespace TT2024_A155
 
                     nuevacon.Open();
 
-                    int idPedido = -1;
+                    
 
                     this.Comando = new SqlCommand("SELECT TOP 1 idpedido FROM pedido WHERE estado = 1 ORDER BY idpedido desc;", nuevacon);
                     Lector = this.Comando.ExecuteReader();
@@ -892,18 +930,19 @@ namespace TT2024_A155
                     nuevacon.Close();
                     if (i == 1)
                     {
-                        MessageBOX.SHowDialog(1, "Se registró pedido correctamente");
+                        return idPedido;
+                        //generarComprobante(idPedido.ToString());
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al registar pedido");
                 }
-                return i;
+                return -1;
             }
             catch (Exception EX)
             {
                 MessageBox.Show("Error registrar pedido: " + EX.Message);
             }
-            return i;
+            return -1;
 
         }
 

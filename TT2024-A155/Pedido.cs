@@ -37,6 +37,7 @@ namespace TT2024_A155
             string idVehiculo = string.Empty;
             string precioVenta = string.Empty;
             string descuento = string.Empty;
+            int idPedido = -1;
 
             Consulta.registrarPedido(string.Empty, idCliente, fechaCreacion, subTotal.ToString("0.##"), total.ToString("0.##"), comentarios);//REGISTRAR PEDIDO
 
@@ -48,11 +49,12 @@ namespace TT2024_A155
                 descuento = row.Cells["Descuento\n(%)"].Value.ToString();
                 idVehiculo = row.Cells["idvehiculo"].Value.ToString();
 
-                Consulta.registrarDetallePedido(idProducto,cantidad,precioVenta,descuento,idVehiculo);
+                 idPedido =  Consulta.registrarDetallePedido(idProducto,cantidad,precioVenta,descuento,idVehiculo);
 
             }
 
-
+            if (idPedido != -1)
+                Consulta.generarComprobante(idPedido.ToString(), dgvDatosPDF);
 
         }
 

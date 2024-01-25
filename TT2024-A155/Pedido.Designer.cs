@@ -60,7 +60,9 @@
             lblNombreCliente = new Label();
             lblSubtotal = new Label();
             lblTotal = new Label();
+            dgvDatosPDF = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dgvPedido).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).BeginInit();
             SuspendLayout();
             // 
             // lblUsuario
@@ -340,11 +342,22 @@
             lblTotal.TabIndex = 37;
             lblTotal.Text = "Total + IVA(16%):";
             // 
+            // dgvDatosPDF
+            // 
+            dgvDatosPDF.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDatosPDF.Location = new Point(434, 533);
+            dgvDatosPDF.Name = "dgvDatosPDF";
+            dgvDatosPDF.RowHeadersWidth = 51;
+            dgvDatosPDF.RowTemplate.Height = 29;
+            dgvDatosPDF.Size = new Size(44, 10);
+            dgvDatosPDF.TabIndex = 38;
+            // 
             // Pedido
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1193, 555);
+            Controls.Add(dgvDatosPDF);
             Controls.Add(lblTotal);
             Controls.Add(lblSubtotal);
             Controls.Add(lblNombreCliente);
@@ -381,6 +394,7 @@
             Text = "Crear Pedido";
             Load += Pedido_Load;
             ((System.ComponentModel.ISupportInitialize)dgvPedido).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -419,5 +433,6 @@
         private Label lblNombreCliente;
         private Label lblSubtotal;
         private Label lblTotal;
+        private DataGridView dgvDatosPDF;
     }
 }
