@@ -650,7 +650,7 @@ namespace TT2024_A155
                             img.SetHeight(17);
 
 
-                            canvas.AddImageAt(img, Convert.ToSingle(x + 5), Convert.ToSingle(y + 537), false);
+                            canvas.AddImageAt(img, Convert.ToSingle(x + 12), Convert.ToSingle(y + 537), false);
                             File.Delete(Application.StartupPath + "\\temp.png");
 
                             //PRODUCTOS
@@ -727,6 +727,32 @@ namespace TT2024_A155
             catch (Exception err)
             {
                 MessageBox.Show("Ocurrió un problema\nMayor Detalle:\n" + err.Message + "\n\n*Si muestra en ingles, proceda a traducirlo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+        }
+
+        //OBTENER ID DEL USUARIO VENDEDOR U OTRO CON BASE EN SU NOMBRE DE USUARIO
+        public int idVendedor(string usuario)
+        {
+            int idVendedor = -1;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+                    Comando = new SqlCommand(string.Format("SELECT idusuario FROM usuario WHERE nombre_usuario = '{0}';", usuario), nuevacon);
+                    nuevacon.Open();
+                    Lector = Comando.ExecuteReader();
+                    if (Lector.Read())
+                        idVendedor = Convert.ToInt32(Lector["idusuario"].ToString());
+                    nuevacon.Close();
+                }
+                return idVendedor;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return idVendedor;
             }
 
         }
@@ -931,7 +957,11 @@ namespace TT2024_A155
                    
                     Comando = new SqlCommand("INSERT INTO pedido (idusuarioVendedor, idusuarioCliente, fecha_hora, impuesto, total, comentarios)\r\nVALUES (@idUsuarioVendedor, @idUsuarioCliente, @fecha_hora, @impuesto, @total, @comentarios);", nuevacon);
                     
-                    Comando.Parameters.AddWithValue("@idusuarioVendedor", Convert.ToInt32(idUsuarioCliente) /*Convert.ToInt32(idUsuarioVendedor)*/);
+                    if(idUsuarioVendedor != string.Empty)
+                        Comando.Parameters.AddWithValue("@idusuarioVendedor", Convert.ToInt32(idUsuarioVendedor));
+                    else
+                        Comando.Parameters.AddWithValue("@idusuarioVendedor", Convert.ToInt32(idUsuarioCliente));
+
                     Comando.Parameters.AddWithValue("@idusuarioCliente", Convert.ToInt32(idUsuarioCliente));
                     Comando.Parameters.AddWithValue("@fecha_hora", Convert.ToDateTime(fecha_hora));
                     Comando.Parameters.AddWithValue("@impuesto", Convert.ToDouble(impuesto));
@@ -1084,7 +1114,7 @@ namespace TT2024_A155
 
                         if (i > 0)
                         {
-                            MessageBox.Show("Datos Fiscales Registrados Exitosamente");
+                            //MessageBox.Show("Datos Fiscales Registrados Exitosamente");
                         }
                         else
                             MessageBox.Show("Datos Fiscales No Registrados");

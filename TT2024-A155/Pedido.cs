@@ -56,7 +56,7 @@ namespace TT2024_A155
         private void registrarPedido()
         {
             string fechaCreacion = DateTime.Today.ToString("d");// FECHA_HORA
-            
+            string idVendedor = string.Empty;
             string idCliente = cmbCliente.SelectedValue.ToString();//ID USUARIO CLIENTE
             string comentarios = txtComentarios.Text.Trim();//COMENTARIOS
             string cantidad = string.Empty;
@@ -65,12 +65,13 @@ namespace TT2024_A155
             string precioVenta = string.Empty;
             string descuento = string.Empty;
             int idPedido = -1;
-            
 
-            //if(tipoUsuario == 0)// 0 = CLIENTE,,, 1 = VENDEDOR U OTRO
-            //string idVendedor = string.Empty;
 
-            Consulta.registrarPedido(string.Empty, idCliente, fechaCreacion, subTotal.ToString("0.##"), total.ToString("0.##"), comentarios);//REGISTRAR PEDIDO
+
+            if (lblRol.Text.Trim() != "4")// 4 = CLIENTE,,, 1,2,3 = VENDEDOR U OTRO
+                idVendedor =  Consulta.idVendedor(lblUsuario.Text.ToString().Trim()).ToString();
+
+            Consulta.registrarPedido(idVendedor, idCliente, fechaCreacion, subTotal.ToString("0.##"), total.ToString("0.##"), comentarios);//REGISTRAR PEDIDO
 
             foreach (DataGridViewRow row in dgvPedido.Rows)
             {
