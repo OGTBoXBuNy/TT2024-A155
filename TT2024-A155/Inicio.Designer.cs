@@ -30,6 +30,7 @@
         {
             lblUsuario = new Label();
             btnCrearPedido = new Button();
+            lblRol = new Label();
             SuspendLayout();
             // 
             // lblUsuario
@@ -50,11 +51,21 @@
             btnCrearPedido.UseVisualStyleBackColor = true;
             btnCrearPedido.Click += btnCrearPedido_Click;
             // 
+            // lblRol
+            // 
+            lblRol.AutoSize = true;
+            lblRol.Location = new Point(12, 37);
+            lblRol.Name = "lblRol";
+            lblRol.Size = new Size(36, 20);
+            lblRol.TabIndex = 2;
+            lblRol.Text = "ROL";
+            // 
             // Inicio
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lblRol);
             Controls.Add(btnCrearPedido);
             Controls.Add(lblUsuario);
             Name = "Inicio";
@@ -67,5 +78,6 @@
 
         public Label lblUsuario;
         private Button btnCrearPedido;
+        public Label lblRol;
     }
 }

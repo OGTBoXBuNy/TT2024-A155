@@ -35,6 +35,7 @@
             txtContraRep = new TextBox();
             btnAceptar = new Button();
             lblUsuario = new Label();
+            lblRol = new Label();
             SuspendLayout();
             // 
             // lblTitulo
@@ -97,11 +98,21 @@
             lblUsuario.TabIndex = 6;
             lblUsuario.Text = "Usuario";
             // 
+            // lblRol
+            // 
+            lblRol.AutoSize = true;
+            lblRol.Location = new Point(12, 29);
+            lblRol.Name = "lblRol";
+            lblRol.Size = new Size(36, 20);
+            lblRol.TabIndex = 7;
+            lblRol.Text = "ROL";
+            // 
             // cambioContraseña
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(765, 206);
+            Controls.Add(lblRol);
             Controls.Add(lblUsuario);
             Controls.Add(btnAceptar);
             Controls.Add(txtContraRep);
@@ -124,5 +135,6 @@
         private TextBox txtContraRep;
         private Button btnAceptar;
         public Label lblUsuario;
+        public Label lblRol;
     }
 }

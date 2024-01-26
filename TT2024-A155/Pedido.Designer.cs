@@ -61,6 +61,7 @@
             lblSubtotal = new Label();
             lblTotal = new Label();
             dgvDatosPDF = new DataGridView();
+            lblRol = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvPedido).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).BeginInit();
             SuspendLayout();
@@ -68,10 +69,11 @@
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(12, 9);
+            lblUsuario.Location = new Point(1037, 9);
             lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(0, 20);
+            lblUsuario.Size = new Size(59, 20);
             lblUsuario.TabIndex = 0;
+            lblUsuario.Text = "Usuario";
             // 
             // lblCliente
             // 
@@ -352,11 +354,21 @@
             dgvDatosPDF.Size = new Size(44, 10);
             dgvDatosPDF.TabIndex = 38;
             // 
+            // lblRol
+            // 
+            lblRol.AutoSize = true;
+            lblRol.Location = new Point(1037, 29);
+            lblRol.Name = "lblRol";
+            lblRol.Size = new Size(36, 20);
+            lblRol.TabIndex = 39;
+            lblRol.Text = "ROL";
+            // 
             // Pedido
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1193, 555);
+            Controls.Add(lblRol);
             Controls.Add(dgvDatosPDF);
             Controls.Add(lblTotal);
             Controls.Add(lblSubtotal);
@@ -434,5 +446,6 @@
         private Label lblSubtotal;
         private Label lblTotal;
         private DataGridView dgvDatosPDF;
+        public Label lblRol;
     }
 }

@@ -18,6 +18,7 @@ using iText.Kernel.Pdf.Canvas;
 //PDF
 using iText.IO.Font.Constants;
 using BarcodeLib;
+using System.Net.Mime;
 
 
 
@@ -34,9 +35,9 @@ namespace TT2024_A155
 
 
         //----------------------------------INICIO DE SESION----------------------------------------------
-        public int inicioSesion(string us, string contra)
+        public int[] inicioSesion(string us, string contra)
         {
-            int contador = 0;
+            int[] contador = new int[2];// int[0] = Se VALIDO,,,, int[1] = ROL
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
@@ -45,13 +46,17 @@ namespace TT2024_A155
                     if (validarUsuario(us) == 1)
                     {
                         string contraHash = "";
-                        this.Comando = new SqlCommand(string.Format("SELECT contrasenia FROM usuario WHERE nombre_usuario = '{0}'", us), nuevacon);
+                        Comando = new SqlCommand(string.Format("SELECT contrasenia, idrol FROM usuario WHERE nombre_usuario = '{0}'", us), nuevacon);
                         nuevacon.Open();
-                        Lector = this.Comando.ExecuteReader();
+                        Lector = Comando.ExecuteReader();
                         if (Lector.Read())
+                        {
                             contraHash = Lector["contrasenia"].ToString();
-                        if (BC.Verify(contra, contraHash))
-                            contador++;
+                            contador[1] = Convert.ToInt32(Lector["idrol"].ToString());
+                        }
+                            
+                        if (BC.Verify(contra, contraHash)) 
+                            contador[0]++;
                     }
 
 
@@ -74,7 +79,7 @@ namespace TT2024_A155
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
-                    this.Comando = new SqlCommand(string.Format("SELECT * FROM usuario WHERE nombre_usuario = '{0}';", us), nuevacon);
+                    Comando = new SqlCommand(string.Format("SELECT * FROM usuario WHERE nombre_usuario = '{0}';", us), nuevacon);
                     nuevacon.Open();
                     Lector = Comando.ExecuteReader();
                     while (Lector.Read()) { contador++; }
@@ -98,7 +103,7 @@ namespace TT2024_A155
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
-                    this.Comando = new SqlCommand(string.Format("SELECT * FROM usuario WHERE correo = '{0}';", correo), nuevacon);
+                    Comando = new SqlCommand(string.Format("SELECT * FROM usuario WHERE correo = '{0}';", correo), nuevacon);
                     nuevacon.Open();
                     Lector = Comando.ExecuteReader();
                     while (Lector.Read()) { contador++; }
@@ -129,13 +134,13 @@ namespace TT2024_A155
 
                     if (validarUsuario(us) == 0)
                     {
-                        this.Comando = new SqlCommand(string.Format("SELECT idrol FROM ROL WHERE nombre = '{0}'", rol), nuevacon);
-                        Lector = this.Comando.ExecuteReader();
+                        Comando = new SqlCommand(string.Format("SELECT idrol FROM ROL WHERE nombre = '{0}'", rol), nuevacon);
+                        Lector = Comando.ExecuteReader();
                         while (Lector.Read()) { x = Int32.Parse(Lector["idrol"].ToString()); }
                         Lector.Close();
                         string contraHash = BC.HashPassword(contra);
-                        this.Comando = new SqlCommand(string.Format("INSERT INTO usuario (idrol,nombre_usuario,nombre_real,contrasenia,calle,colonia,noExt,noInt,cp,ciudad,telefono,correo) VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}');", x, us, nombre, contraHash, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo), nuevacon);
-                        this.Comando.ExecuteNonQuery();
+                        Comando = new SqlCommand(string.Format("INSERT INTO usuario (idrol,nombre_usuario,nombre_real,contrasenia,calle,colonia,noExt,noInt,cp,ciudad,telefono,correo) VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}');", x, us, nombre, contraHash, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo), nuevacon);
+                        Comando.ExecuteNonQuery();
                         MessageBox.Show("Se registro correctamente!");
                     }
                     else
@@ -180,7 +185,7 @@ namespace TT2024_A155
         }
 
         //ENVIAR CORREO
-        public void enviaCorreo(string destinatario, string contra)
+        public void enviaCorreoContrasenia(string destinatario, string contra)
         {
 
 
@@ -188,8 +193,8 @@ namespace TT2024_A155
 
                 string senderNombre = "TT2024-A155";
                 string senderCorreo = "correos-jeic@jeic.com.mx";
-                string senderAppPass = "rdvwqnbybxxomypq";//xldsjobozxjsrmpk
-                string responsableCorreoCopia = "";
+                string senderAppPass = "dgyvipbypyupufpm";//xldsjobozxjsrmpk
+                
 
 
                 try
@@ -258,15 +263,15 @@ namespace TT2024_A155
                         string contra = contraAleatoia();
                         string contraHash = BC.HashPassword(contra);
                         string destinatario = "";
-                        this.Comando = new SqlCommand(string.Format("UPDATE USUARIO SET contrasenia = '{0}', contrasenia_temp = 1 WHERE nombre_usuario = '{1}' OR correo = '{2}';", contraHash, dato, dato), nuevacon);
-                        this.Comando.ExecuteNonQuery();
+                        Comando = new SqlCommand(string.Format("UPDATE USUARIO SET contrasenia = '{0}', contrasenia_temp = 1 WHERE nombre_usuario = '{1}' OR correo = '{2}';", contraHash, dato, dato), nuevacon);
+                        Comando.ExecuteNonQuery();
 
-                        this.Comando = new SqlCommand(string.Format("SELECT correo FROM usuario WHERE nombre_usuario = '{0}' OR correo = '{1}';", dato, dato), nuevacon);
-                        Lector = this.Comando.ExecuteReader();
+                        Comando = new SqlCommand(string.Format("SELECT correo FROM usuario WHERE nombre_usuario = '{0}' OR correo = '{1}';", dato, dato), nuevacon);
+                        Lector = Comando.ExecuteReader();
                         while (Lector.Read()) { destinatario = Lector["correo"].ToString(); }
                         Lector.Close();
 
-                        this.enviaCorreo(destinatario, contra);
+                        this.enviaCorreoContrasenia(destinatario, contra);
 
                         MessageBox.Show("Favor de revisar su bandeja de entrada para recuperar su acceso");
 
@@ -276,15 +281,15 @@ namespace TT2024_A155
                         string contra = contraAleatoia();
                         string contraHash = BC.HashPassword(contra);
                         string destinatario = "";
-                        this.Comando = new SqlCommand(string.Format("UPDATE USUARIO SET contrasenia = '{0}', contrasenia_temp = 1 WHERE nombre_usuario = '{1}' OR correo = '{2}';", contraHash, dato, dato), nuevacon);
-                        this.Comando.ExecuteNonQuery();
+                        Comando = new SqlCommand(string.Format("UPDATE USUARIO SET contrasenia = '{0}', contrasenia_temp = 1 WHERE nombre_usuario = '{1}' OR correo = '{2}';", contraHash, dato, dato), nuevacon);
+                        Comando.ExecuteNonQuery();
 
-                        this.Comando = new SqlCommand(string.Format("SELECT correo FROM usuario WHERE nombre_usuario = '{0}' OR correo = '{1}';", dato, dato), nuevacon);
-                        Lector = this.Comando.ExecuteReader();
+                        Comando = new SqlCommand(string.Format("SELECT correo FROM usuario WHERE nombre_usuario = '{0}' OR correo = '{1}';", dato, dato), nuevacon);
+                        Lector = Comando.ExecuteReader();
                         while (Lector.Read()) { destinatario = Lector["correo"].ToString(); }
                         Lector.Close();
 
-                        this.enviaCorreo(destinatario, contra);
+                        this.enviaCorreoContrasenia(destinatario, contra);
 
                         MessageBox.Show("Favor de revisar su bandeja de entrada para recuperar su acceso");
                     }
@@ -314,8 +319,8 @@ namespace TT2024_A155
 
 
                     string contraHash = BC.HashPassword(contra);
-                    this.Comando = new SqlCommand(string.Format("UPDATE USUARIO SET contrasenia = '{0}', contrasenia_temp = 0 WHERE nombre_usuario = '{1}';", contraHash, us), nuevacon);
-                    this.Comando.ExecuteNonQuery();
+                    Comando = new SqlCommand(string.Format("UPDATE USUARIO SET contrasenia = '{0}', contrasenia_temp = 0 WHERE nombre_usuario = '{1}';", contraHash, us), nuevacon);
+                    Comando.ExecuteNonQuery();
 
 
 
@@ -345,7 +350,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     bool x = false;
-                    this.Comando = new SqlCommand(string.Format("SELECT contrasenia_temp FROM usuario WHERE nombre_usuario = '{0}';", us), nuevacon);
+                    Comando = new SqlCommand(string.Format("SELECT contrasenia_temp FROM usuario WHERE nombre_usuario = '{0}';", us), nuevacon);
                     nuevacon.Open();
                     Lector = Comando.ExecuteReader();
                     while (Lector.Read()) { x = Convert.ToBoolean(Lector["contrasenia_temp"].ToString()); }
@@ -402,8 +407,8 @@ namespace TT2024_A155
                 {
                     nuevaConexion.Open();
 
-                    this.Comando = new SqlCommand(string.Format("SELECT codigo,nombre,precio_venta,costo_proveedor,stock,descripcion,idproducto FROM producto WHERE nombre = '{0}' AND estado = 1;", Nombre), nuevaConexion);
-                    Lector = this.Comando.ExecuteReader();
+                    Comando = new SqlCommand(string.Format("SELECT codigo,nombre,precio_venta,costo_proveedor,stock,descripcion,idproducto FROM producto WHERE nombre = '{0}' AND estado = 1;", Nombre), nuevaConexion);
+                    Lector = Comando.ExecuteReader();
                     while (Lector.Read()) {
                         producto[0] = Lector["nombre"].ToString();
                         //producto[1] = Lector[""].ToString();CANTIDAD
@@ -537,7 +542,7 @@ namespace TT2024_A155
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
-                    da = new SqlDataAdapter(string.Format("select p.idpedido, p.fecha_hora, us.nombre_real, p.idusuarioVendedor, prod.nombre, detp.cantidad, prod.precio_venta, ma.marca, v.modelo, v.anio, detp.iddetalle_pedido from pedido p LEFT OUTER JOIN usuario us ON us.idusuario = p.idusuarioCliente LEFT OUTER JOIN detalle_pedido detp ON detp.idpedido = p.idpedido LEFT OUTER JOIN vehiculo v ON v.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca ma ON ma.idmarca = v.idmarca LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto WHERE p.idpedido = {0} order by p.idpedido;", idPedido), nuevacon);
+                    da = new SqlDataAdapter(string.Format("select p.idpedido, p.fecha_hora, us.nombre_real, p.idusuarioVendedor, prod.nombre, detp.cantidad, prod.precio_venta, ma.marca, v.modelo, v.anio, detp.iddetalle_pedido, us.correo from pedido p LEFT OUTER JOIN usuario us ON us.idusuario = p.idusuarioCliente LEFT OUTER JOIN detalle_pedido detp ON detp.idpedido = p.idpedido LEFT OUTER JOIN vehiculo v ON v.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca ma ON ma.idmarca = v.idmarca LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto WHERE p.idpedido = {0} order by p.idpedido;", idPedido), nuevacon);
                     dt = new DataTable();
                     da.Fill(dt);
                     dgv.DataSource = dt;
@@ -596,7 +601,11 @@ namespace TT2024_A155
 
                         int y = 0;//633
                         int x = 0;//109
+                        int cantidad = 0;
+                        double Total = 0;
                         int Items = 0;
+                        byte[] pdf;
+                        string correoCliente = dgvDatosPDF.Rows[0].Cells[11].Value.ToString();
 
 
                         //PEDIDO
@@ -629,24 +638,9 @@ namespace TT2024_A155
                                 .ShowText(nombreVendedor(dgvDatosPDF.Rows[0].Cells[3].Value.ToString()))
                                 .EndText();
 
-                        //VEHICULO
-                        //canvas.BeginText().SetFontAndSize(font, 9)
-                        //            .MoveText(x + 274, y - 34.5)
-                        //            .ShowText(dgvDatosPDF.Rows[0].Cells[3].Value.ToString() + "  -  " + dgvDatosPDF.Rows[0].Cells[4].Value.ToString() + " - " + dgvDatosPDF.Rows[0].Cells[12].Value.ToString())
-                        //            .EndText();
 
 
-
-                        //HORA DE CREACIÓN DEL VALE
-                        //canvas.BeginText().SetFontAndSize(font, 10)
-                        //        .MoveText(x - 77, y - 63)
-                        //        .SetFillColor(ColorConstants.RED)
-                        //        .ShowText("Creado: " + DateTime.Now.ToString())
-                        //        .EndText();
-
-
-
-                        double Total = 0;
+                        
                         for (int count = 0; count < NumeroFila; count++)
                         {
 
@@ -661,13 +655,22 @@ namespace TT2024_A155
 
                             //PRODUCTOS
                             canvas.BeginText().SetFontAndSize(font, 7)
-                                    .MoveText(x + 196, y +543)
+                                    .MoveText(x + 197, y +548)
                                     .SetFillColor(ColorConstants.BLACK)
-                                    .ShowText(dgvDatosPDF.Rows[count].Cells[4].Value.ToString() + "-" + dgvDatosPDF.Rows[count].Cells[7].Value.ToString() + "-" + dgvDatosPDF.Rows[count].Cells[8].Value.ToString() + "-" + dgvDatosPDF.Rows[count].Cells[9].Value.ToString())
+                                    .ShowText(dgvDatosPDF.Rows[count].Cells[4].Value.ToString())
                                     .EndText();
+
+                            //PRODUCTOS NOMBRE VEHICULO Y ANIO
+                            canvas.BeginText().SetFontAndSize(font, 7)
+                                    .MoveText(x + 197, y + 540)
+                                    .SetFillColor(ColorConstants.BLACK)
+                                    .ShowText(dgvDatosPDF.Rows[count].Cells[7].Value.ToString() + "-" + dgvDatosPDF.Rows[count].Cells[8].Value.ToString() + "-" + dgvDatosPDF.Rows[count].Cells[9].Value.ToString())
+                                    .EndText();
+
+                            cantidad = Convert.ToInt32(dgvDatosPDF.Rows[count].Cells[5].Value.ToString());
                             //CANTIDAD
                             canvas.BeginText().SetFontAndSize(font, 10)
-                                    .MoveText(x + 370, y + 543)
+                                    .MoveText(x + 370, y + 548)
                                     .SetFillColor(ColorConstants.BLACK)
                                     .ShowText(dgvDatosPDF.Rows[count].Cells[5].Value.ToString())
                                     .EndText();
@@ -675,7 +678,7 @@ namespace TT2024_A155
 
                             //PRECIO UNITARIO
                             canvas.BeginText().SetFontAndSize(font, 10)
-                              .MoveText(x + 420, y + 543)
+                              .MoveText(x + 420, y + 548)
                               .SetFillColor(ColorConstants.BLACK)
                               .ShowText(dgvDatosPDF.Rows[count].Cells[6].Value.ToString())
                               .EndText();
@@ -686,13 +689,13 @@ namespace TT2024_A155
 
                             //PRECIO TOTAL POR PRODUCTO
                             canvas.BeginText().SetFontAndSize(font, 10)
-                              .MoveText(x + 520, y + 543)
+                              .MoveText(x + 520, y + 548)
                               .SetFillColor(ColorConstants.BLACK)
-                              .ShowText(totalXProd.ToString("#.00"))
+                              .ShowText(totalXProd.ToString("0.##"))
                               .EndText();
 
 
-                            Items = count;
+                            Items += cantidad;
                             y -= 25;
                         }
 
@@ -700,18 +703,22 @@ namespace TT2024_A155
                         canvas.BeginText().SetFontAndSize(font, 10)
                           .MoveText(x + 510, 105)
                           .SetFillColor(ColorConstants.BLACK)
-                          .ShowText("Total: " + Total.ToString("#.00"))
+                          .ShowText("Total: " + Total.ToString("0.##"))
                           .EndText();
 
                         //NUMERO DE ITEMS
                         canvas.BeginText().SetFontAndSize(font, 9)
                                         .MoveText(x +130, 105)
-                                        .ShowText((Items + 1).ToString())
+                                        .ShowText((Items).ToString())
                                         .EndText();
 
                         pdfdoc.Close();
 
-                        MessageBOX.SHowDialog(3, "PDF creado exitosamente 1");
+                        pdf = File.ReadAllBytes(fileRoute.FileName);
+
+                        enviaCorreoPedido(correoCliente, pdf);
+
+                        //MessageBOX.SHowDialog(3, "PDF creado exitosamente 1");
 
                     }
 
@@ -733,9 +740,9 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
 
-                    this.Comando = new SqlCommand(string.Format("SELECT nombre_real from usuario where idusuario = '{0}';", idVendedor), nuevacon);
+                    Comando = new SqlCommand(string.Format("SELECT nombre_real from usuario where idusuario = '{0}';", idVendedor), nuevacon);
                     nuevacon.Open();
-                    Lector = this.Comando.ExecuteReader();
+                    Lector = Comando.ExecuteReader();
                     if (Lector.Read())
                         nombreVendedor = Lector["nombre_real"].ToString();
                     nuevacon.Close();
@@ -748,7 +755,68 @@ namespace TT2024_A155
                 return nombreVendedor;
             }
 
-}
+        }
+
+        //ENVIAR CORREO PEDIDO CREADO CORRECTAMENTE
+        public void enviaCorreoPedido(string destinatario, byte[] pdf)
+        {
+
+
+            {
+
+                string senderNombre = "TT2024-A155";
+                string senderCorreo = "correos-jeic@jeic.com.mx";
+                string senderAppPass = "dgyvipbypyupufpm";//xldsjobozxjsrmpk
+                
+
+
+                try
+                {
+
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress(senderNombre, senderCorreo));
+
+                    message.To.Add(new MailboxAddress("", destinatario));
+
+                    message.Subject = "Muchas Gracias Por Su Compra!!!!";
+
+
+                    var bodyBuilder = new BodyBuilder();
+
+                    bodyBuilder.Attachments.Add(fileName: "Comprobante",pdf, contentType: MimeKit.ContentType.Parse(MediaTypeNames.Application.Pdf));
+
+                    string contenido = "En los adjuntos de este correo encontraras el docuemnto PDF con toda la información de tu compra.";
+                    
+                    bodyBuilder.HtmlBody = contenido;
+
+                    message.Body = bodyBuilder.ToMessageBody();
+
+                    
+
+                    using (var client = new SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, false);
+
+                        // Note: only needed if the SMTP server requires authentication
+                        client.Authenticate(senderCorreo, senderAppPass);
+
+                        client.Send(message);
+                        client.Disconnect(true);
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+
+                }
+
+            }
+
+        }
+
+        //ENVIAR CORREO END
 
 
 
@@ -833,8 +901,8 @@ namespace TT2024_A155
                 {
                     nuevacon.Open();
 
-                        this.Comando = new SqlCommand(string.Format("SELECT nombre_real FROM usuario WHERE nombre_usuario = '{0}'", nombreUsuario), nuevacon);
-                        Lector = this.Comando.ExecuteReader();
+                        Comando = new SqlCommand(string.Format("SELECT nombre_real FROM usuario WHERE nombre_usuario = '{0}'", nombreUsuario), nuevacon);
+                        Lector = Comando.ExecuteReader();
                         while (Lector.Read()) { nombre = Lector["nombre_real"].ToString(); }
                         Lector.Close();
 
@@ -906,8 +974,8 @@ namespace TT2024_A155
 
                     
 
-                    this.Comando = new SqlCommand("SELECT TOP 1 idpedido FROM pedido WHERE estado = 1 ORDER BY idpedido desc;", nuevacon);
-                    Lector = this.Comando.ExecuteReader();
+                    Comando = new SqlCommand("SELECT TOP 1 idpedido FROM pedido WHERE estado = 1 ORDER BY idpedido desc;", nuevacon);
+                    Lector = Comando.ExecuteReader();
                     while (Lector.Read()) { idPedido = Convert.ToInt32(Lector["idpedido"].ToString()); }
                     Lector.Close();
 
@@ -944,6 +1012,186 @@ namespace TT2024_A155
             }
             return -1;
 
+        }
+
+
+        //----------------------------------VALIDAR QUE EL CLIENTE TENGA DATOS FISCALES REGISTRADOS----------------------------------------------
+        public int validarDatosFiscalesCliente(string us)
+        {
+            int contador = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    Comando = new SqlCommand(string.Format("SELECT iddatos_fiscales_cli FROM usuario WHERE nombre_usuario = '{0}';", us), nuevacon);
+                    nuevacon.Open();
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read()) { 
+                        if (Lector["iddatos_fiscales_cli"].ToString() != string.Empty)
+                            contador++;
+                    }
+                    Lector.Close();
+                    nuevacon.Close();
+                }
+                return contador;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return contador;
+            }
+        }
+
+
+        //----------------------------------REGISTRAR DATOS FISCALES CLIENTE ----------------------------------------------
+        public void registrarDatosFiscalesCliente(string usuario, string nombre, string cif, string calle, string colonia, string noExt, string noInt, string CP, string ciudad, string telefono, string correo)
+        {
+            int i = 0;
+            int idDatosFiscales = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    nuevacon.Open();
+
+                    Comando = new SqlCommand("INSERT INTO datos_fiscales_cliente (nombre,cif,calle,colonia,noExt,noInt,cp,ciudad,telefono,correo) VALUES (@nombre,@cif,@calle,@colonia,@noExt,@noInt,@cp,@ciudad,@telefono,@correo);", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@nombre", nombre);
+                    Comando.Parameters.AddWithValue("@cif", cif);
+                    Comando.Parameters.AddWithValue("@calle", calle);
+                    Comando.Parameters.AddWithValue("@colonia", colonia);
+                    Comando.Parameters.AddWithValue("@noExt", noExt);
+                    Comando.Parameters.AddWithValue("@noInt", noInt);
+                    Comando.Parameters.AddWithValue("@cp", CP);
+                    Comando.Parameters.AddWithValue("@ciudad", ciudad);
+                    Comando.Parameters.AddWithValue("@telefono", telefono);
+                    Comando.Parameters.AddWithValue("@correo", correo);
+
+
+
+                    //Para saber si la inserción se hizo correctamente
+                    i = Comando.ExecuteNonQuery();
+
+                    if (i > 0) {
+                        i = 0;
+                        Comando = new SqlCommand("SELECT TOP 1 iddatos_fiscales_cli FROM datos_fiscales_cliente WHERE estado = 1 ORDER BY iddatos_fiscales_cli desc;", nuevacon);
+                        Lector = Comando.ExecuteReader();
+                        while (Lector.Read()) { idDatosFiscales = Convert.ToInt32(Lector["iddatos_fiscales_cli"].ToString()); }
+                        Lector.Close();
+
+                        Comando = new SqlCommand(string.Format("UPDATE USUARIO SET iddatos_fiscales_cli = {0} WHERE nombre_usuario = '{1}';", idDatosFiscales,usuario), nuevacon) ;
+                        i =  Comando.ExecuteNonQuery();
+
+                        if (i > 0)
+                        {
+                            MessageBox.Show("Datos Fiscales Registrados Exitosamente");
+                        }
+                        else
+                            MessageBox.Show("Datos Fiscales No Registrados");
+
+                    }
+
+                    nuevacon.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
+        }
+
+        //----------------------------------ACTUALIZAR DATOS FISCALES CLIENTE ----------------------------------------------
+        public void actualizarDatosFiscalesCliente(string usuario, string nombre, string cif, string calle, string colonia, string noExt, string noInt, string CP, string ciudad, string telefono, string correo)
+        {
+            int i = 0;
+            int idDatosFiscales = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    nuevacon.Open();
+
+                    Comando = new SqlCommand("UPDATE  dfc SET nombre = @nombre, cif = @cif, calle = @calle, colonia = @colonia, noExt = @noExt, noInt = @noInt, cp = @cp, ciudad = @ciudad, telefono = @telefono, correo = @correo FROM datos_fiscales_cliente dfc INNER JOIN usuario us ON us.iddatos_fiscales_cli = dfc.iddatos_fiscales_cli WHERE us.nombre_usuario = @usuario;", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@nombre", nombre);
+                    Comando.Parameters.AddWithValue("@cif", cif);
+                    Comando.Parameters.AddWithValue("@calle", calle);
+                    Comando.Parameters.AddWithValue("@colonia", colonia);
+                    Comando.Parameters.AddWithValue("@noExt", noExt);
+                    Comando.Parameters.AddWithValue("@noInt", noInt);
+                    Comando.Parameters.AddWithValue("@cp", CP);
+                    Comando.Parameters.AddWithValue("@ciudad", ciudad);
+                    Comando.Parameters.AddWithValue("@telefono", telefono);
+                    Comando.Parameters.AddWithValue("@correo", correo);
+                    Comando.Parameters.AddWithValue("@usuario", usuario);
+
+
+
+                    //Para saber si la inserción se hizo correctamente
+                    i = Comando.ExecuteNonQuery();
+
+                    if (i > 0)
+                        {
+                            MessageBox.Show("Datos Fiscales Actualziados Exitosamente");
+                        }
+                    else
+                            MessageBox.Show("Datos Fiscales No Actualizados");
+
+                    
+
+                    nuevacon.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
+        }
+
+
+        //OBETER DATOS FISCALES CLIENTE 
+        public string[] datosFiscalesCliente(string usuario)
+        {
+            string[] datosFiscales = new string[10];
+
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    Comando = new SqlCommand(string.Format("SELECT dfc.nombre, dfc.cif, dfc.calle, dfc.colonia, dfc.noExt, dfc.noInt, dfc.cp, dfc.ciudad, dfc.telefono, dfc.correo FROM datos_fiscales_cliente dfc INNER JOIN usuario us ON us.iddatos_fiscales_cli = dfc.iddatos_fiscales_cli  WHERE  us.nombre_usuario = '{0}' AND us.estado = 1;", usuario), nuevaConexion);
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        datosFiscales[0] = Lector["nombre"].ToString();//NOMBRE
+                        datosFiscales[1] = Lector["cif"].ToString();//CIF
+                        datosFiscales[2] = Lector["calle"].ToString();//CALLE
+                        datosFiscales[3] = Lector["colonia"].ToString();//COLONIA
+                        datosFiscales[4] = Lector["noExt"].ToString();//NOEXT
+                        datosFiscales[5] = Lector["noInt"].ToString();//NOINT
+                        datosFiscales[6] = Lector["cp"].ToString();//CP
+                        datosFiscales[7] = Lector["ciudad"].ToString();//CIUDAD
+                        datosFiscales[8] = Lector["telefono"].ToString();//TELEFONO
+                        datosFiscales[9] = Lector["correo"].ToString();//CORREO
+                        
+                    }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return datosFiscales;
         }
 
 

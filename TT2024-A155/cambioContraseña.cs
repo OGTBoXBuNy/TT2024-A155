@@ -26,6 +26,7 @@ namespace TT2024_A155
                 Consulta.actualizarUsuario(lblUsuario.Text, txtContra.Text.Trim());
                 AddOwnedForm(inicio);
                 inicio.lblUsuario.Text = lblUsuario.Text;
+                inicio.lblRol.Text = lblRol.Text;
                 this.Hide();
                 inicio.Show();
 

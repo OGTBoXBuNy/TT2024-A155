@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iText.Kernel.Geom;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +13,7 @@ namespace TT2024_A155
 {
     public partial class Pedido : Form
     {
-        public Pedido()
-        {
-            InitializeComponent();
-        }
+
         Producto producto = new Producto();
         BD Consulta = new BD();
         private DataTable dt;
@@ -25,11 +23,40 @@ namespace TT2024_A155
         int cantidad = 0;
         double subTotal = 0;
         double total = 0;
+        int indexCMBCliente = -1;
+
+        public Pedido(int x)
+        {
+            InitializeComponent();
+
+            // X-->  0 = CREAR PEIDO,,,, 1 = ACTUALIZAR
+            if (x == 0)
+            {
+
+            }
+
+        }
+
+
+
+        private void registrarDatosFiscales(string usuario ,string nombre, string cif, string calle, string colonia, string noExt, string noInt, string CP, string ciudad, string telefono, string correo)
+        {
+            int tieneDatosFiscales = Consulta.validarDatosFiscalesCliente(cmbCliente.Text.Trim());// 0 = no tiene,,,,, 1 = YA TIENE DATOS FISCALES REGISTRADOS
+            
+            if (tieneDatosFiscales == 0)
+            {
+                Consulta.registrarDatosFiscalesCliente(usuario,nombre,cif,calle,colonia,noExt,noInt,CP,ciudad,telefono,correo);
+            }
+           else if(tieneDatosFiscales == 1)
+            {
+                Consulta.actualizarDatosFiscalesCliente(usuario, nombre, cif, calle, colonia, noExt, noInt, CP, ciudad, telefono, correo);
+            } 
+        }
 
         private void registrarPedido()
         {
             string fechaCreacion = DateTime.Today.ToString("d");// FECHA_HORA
-            string idVendedor = string.Empty;
+            
             string idCliente = cmbCliente.SelectedValue.ToString();//ID USUARIO CLIENTE
             string comentarios = txtComentarios.Text.Trim();//COMENTARIOS
             string cantidad = string.Empty;
@@ -38,6 +65,10 @@ namespace TT2024_A155
             string precioVenta = string.Empty;
             string descuento = string.Empty;
             int idPedido = -1;
+            
+
+            //if(tipoUsuario == 0)// 0 = CLIENTE,,, 1 = VENDEDOR U OTRO
+            //string idVendedor = string.Empty;
 
             Consulta.registrarPedido(string.Empty, idCliente, fechaCreacion, subTotal.ToString("0.##"), total.ToString("0.##"), comentarios);//REGISTRAR PEDIDO
 
@@ -52,6 +83,20 @@ namespace TT2024_A155
                  idPedido =  Consulta.registrarDetallePedido(idProducto,cantidad,precioVenta,descuento,idVehiculo);
 
             }
+
+
+            string usuario = cmbCliente.Text.Trim();
+            string nombre = txtNombreCliFact.Text.Trim();
+            string cif = txtCif.Text.Trim();
+            string calle = txtCalle.Text.Trim();
+            string colonia = txtCol.Text.Trim();
+            string noExt = txtNoExt.Text.Trim();
+            string noInt = txtNoInt.Text.Trim();
+            string CP = txtCP.Text.Trim();
+            string ciudad = txtCiudad.Text.Trim();
+            string telefono = txtTel.Text.Trim();
+            string correo = txtCorreo.Text.Trim();
+            registrarDatosFiscales(usuario, nombre, cif, calle, colonia, noExt, noInt, CP, ciudad, telefono, correo);
 
             if (idPedido != -1)
                 Consulta.generarComprobante(idPedido.ToString(), dgvDatosPDF);
@@ -69,10 +114,10 @@ namespace TT2024_A155
 
         private void Pedido_Load(object sender, EventArgs e)
         {
+            
+
             lblSubtotal.Text = "SubTotal: " + subTotal.ToString();
             lblTotal.Text = "Total + IVA(16%): " + total.ToString();
-
-
 
             var editButton = new DataGridViewButtonColumn();
             editButton.Name = "dataGridViewEditButton";
@@ -115,6 +160,16 @@ namespace TT2024_A155
             cmbCliente.DataSource = Consulta.ClientesRegistrados().Tables[0].DefaultView;
             cmbCliente.ValueMember = "idusuario";
             cmbCliente.DisplayMember = "nombre_usuario";
+
+
+            //SI ES CLIENTE EL CMB DE CLIENTE SE BLOQUEA Y SELECCIONA EL DEL CLIENTE
+            
+            indexCMBCliente =  cmbCliente.FindString(lblUsuario.Text);
+            if(indexCMBCliente != -1)
+            {
+                cmbCliente.SelectedIndex = indexCMBCliente;
+                cmbCliente.Enabled = false;
+            }
 
 
         }
@@ -183,7 +238,36 @@ namespace TT2024_A155
 
         private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
+            txtNombreCliFact.Text = string.Empty;
+            txtCif.Text = string.Empty;
+            txtCalle.Text = string.Empty;
+            txtCol.Text = string.Empty;
+            txtNoExt.Text = string.Empty;
+            txtNoInt.Text = string.Empty;
+            txtCP.Text = string.Empty;
+            txtCiudad.Text = string.Empty;
+            txtTel.Text = string.Empty;
+            txtCorreo.Text = string.Empty;
             lblNombreCliente.Text = "Nombre: " + Consulta.recuperarNombreReal(cmbCliente.Text.Trim());
+
+            int tieneDatosFiscales = Consulta.validarDatosFiscalesCliente(cmbCliente.Text.Trim());// 0 = no tiene,,,,, 1 = YA TIENE DATOS FISCALES REGISTRADOS
+
+            if (tieneDatosFiscales == 1)
+            {
+                string[] datosFiscalesCliente = Consulta.datosFiscalesCliente(cmbCliente.Text);
+                txtNombreCliFact.Text = datosFiscalesCliente[0];
+                txtCif.Text = datosFiscalesCliente[1];
+                txtCalle.Text = datosFiscalesCliente[2];
+                txtCol.Text = datosFiscalesCliente[3];
+                txtNoExt.Text = datosFiscalesCliente[4];
+                txtNoInt.Text = datosFiscalesCliente[5];
+                txtCP.Text = datosFiscalesCliente[6];
+                txtCiudad.Text = datosFiscalesCliente[7];
+                txtTel.Text = datosFiscalesCliente[8];
+                txtCorreo.Text = datosFiscalesCliente[9];
+            }
+           
+
 
         }
 

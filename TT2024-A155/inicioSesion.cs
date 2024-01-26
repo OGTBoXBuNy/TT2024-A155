@@ -29,11 +29,8 @@ namespace TT2024_A155
         private void btnAceptar_Click(object sender, EventArgs e)
         {
 
-
-
-
-
-            if (Consulta.inicioSesion(txtUsuario.Text.Trim(), txtContrasenia.Text.Trim()) == 1)
+            int[] inicioSesion = Consulta.inicioSesion(txtUsuario.Text.Trim(), txtContrasenia.Text.Trim());
+            if (inicioSesion[0] == 1)
             {
                 
                 if (Consulta.validarContraTemp(txtUsuario.Text.Trim()) == 1)
@@ -41,6 +38,7 @@ namespace TT2024_A155
                     cambioContraseña cambioContra = new();
                     AddOwnedForm(cambioContra);
                     cambioContra.lblUsuario.Text = txtUsuario.Text.Trim();
+                    cambioContra.lblRol.Text = inicioSesion[1].ToString();
                     cambioContra.Show();
                     this.Hide();
                 }
@@ -49,9 +47,11 @@ namespace TT2024_A155
                     Inicio inicio = new Inicio();
                     AddOwnedForm(inicio);
                     inicio.lblUsuario.Text += txtUsuario.Text.Trim();
+                    inicio.lblRol.Text = inicioSesion[1].ToString();
                     inicio.Show();
                     MessageBox.Show("Inicio sesión exitoso");
                     this.Hide();
+
                 }
 
             }

@@ -19,7 +19,10 @@ namespace TT2024_A155
 
         private void btnCrearPedido_Click(object sender, EventArgs e)
         {
-            Pedido pedido = new Pedido();
+            
+            Pedido pedido = new Pedido(0);//0 = CREAR PEDIDO,,,, 1 = ACTUALIZAR
+            pedido.lblUsuario.Text = lblUsuario.Text;
+            pedido.lblRol.Text = lblRol.Text;
             pedido.ShowDialog();
             //this.Hide();
 
