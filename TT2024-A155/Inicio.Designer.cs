@@ -31,6 +31,10 @@
             lblUsuario = new Label();
             btnCrearPedido = new Button();
             lblRol = new Label();
+            menuStrip1 = new MenuStrip();
+            otrasOpcionesToolStripMenuItem = new ToolStripMenuItem();
+            cuentaToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // lblUsuario
@@ -60,6 +64,32 @@
             lblRol.TabIndex = 2;
             lblRol.Text = "ROL";
             // 
+            // menuStrip1
+            // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { otrasOpcionesToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.TabIndex = 3;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // otrasOpcionesToolStripMenuItem
+            // 
+            otrasOpcionesToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
+            otrasOpcionesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cuentaToolStripMenuItem });
+            otrasOpcionesToolStripMenuItem.Enabled = false;
+            otrasOpcionesToolStripMenuItem.Name = "otrasOpcionesToolStripMenuItem";
+            otrasOpcionesToolStripMenuItem.Size = new Size(124, 24);
+            otrasOpcionesToolStripMenuItem.Text = "Otras Opciones";
+            otrasOpcionesToolStripMenuItem.Visible = false;
+            // 
+            // cuentaToolStripMenuItem
+            // 
+            cuentaToolStripMenuItem.Name = "cuentaToolStripMenuItem";
+            cuentaToolStripMenuItem.Size = new Size(224, 26);
+            cuentaToolStripMenuItem.Text = "Administrar Cuenta";
+            // 
             // Inicio
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -68,8 +98,12 @@
             Controls.Add(lblRol);
             Controls.Add(btnCrearPedido);
             Controls.Add(lblUsuario);
+            Controls.Add(menuStrip1);
             Name = "Inicio";
             Text = "Inicio";
+            Load += Inicio_Load;
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -79,5 +113,8 @@
         public Label lblUsuario;
         private Button btnCrearPedido;
         public Label lblRol;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem otrasOpcionesToolStripMenuItem;
+        private ToolStripMenuItem cuentaToolStripMenuItem;
     }
 }

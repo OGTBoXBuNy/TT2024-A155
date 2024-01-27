@@ -36,6 +36,46 @@ namespace TT2024_A155
         private SqlDataAdapter da;
 
 
+
+        //OBETER PERMISOS SEGUN EL TIPO DE USUARIO
+        public string[] obtenerPermisos(string idrol)
+        {
+            string[] permisos = new string[10];
+
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    Comando = new SqlCommand(string.Format("SELECT * FROM permiso WHERE idrol = '{0}';", idrol), nuevaConexion);
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        permisos[0] = Lector["crear_usuarios"].ToString();//CREAR USUARIOS
+                        permisos[1] = Lector["mod_usuarios"].ToString();//MODIFICAR USUARIOS
+                        permisos[2] = Lector["crear_pedidos"].ToString();//CREAR PEDIDOS
+                        permisos[3] = Lector["mod_pedidos"].ToString();//MODIFICAR PEDIDOS
+                        permisos[4] = Lector["conf_pedidos"].ToString();//CONFIRMAR PEDIDOS
+                        permisos[5] = Lector["registrar_entrega"].ToString();//REGISTRAR ENTREGA
+                        permisos[6] = Lector["registrar_devolucion"].ToString();//REGISTRAR DEVOLUCION
+                        permisos[7] = Lector["generar_firma"].ToString();//GENERAR FIRMA
+                        permisos[8] = Lector["generar_factura"].ToString();//GENERAR FACTURA 
+                        permisos[9] = Lector["generar_reporteVentas"].ToString();//GENERAR REPORTE VENTAS
+
+                    }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return permisos;
+        }
+
         //----------------------------------INICIO DE SESION----------------------------------------------
         public int[] inicioSesion(string us, string contra)
         {
