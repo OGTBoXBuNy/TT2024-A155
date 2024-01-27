@@ -71,8 +71,8 @@ namespace TT2024_A155
             datosProducto[4] = txtDescuento.Text.Trim();//DESCUENTO
             datosProducto[8] = cmbMarca.Text.Trim(); //MARCA
             datosProducto[9] = cmbModelo.Text.Trim(); //MODELO
-            datosProducto[10] = txtAnio.Text.Trim(); //ANIO
-            datosProducto[12] = cmbModelo.SelectedValue.ToString();//IDVEHICULO
+            datosProducto[10] = cmbAnio.Text.Trim(); //ANIO
+            datosProducto[12] = Consulta.idVehiculoProducto(cmbMarca.Text.Trim(), cmbModelo.Text.Trim(), cmbAnio.Text.Trim());//IDVEHICULO
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -105,9 +105,14 @@ namespace TT2024_A155
         private void cmbMarca_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Carga los datos de los modelos de vehículos en el combobox
-            cmbModelo.DataSource = Consulta.VehiculosRegistrados(cmbMarca.Text.Trim()).Tables[0].DefaultView;
-            cmbModelo.ValueMember = "idvehiculo";
+            //cmbModelo.DataSource = Consulta.VehiculosRegistrados(cmbMarca.Text.Trim()).Tables[0].DefaultView;
+            //cmbModelo.ValueMember = "idvehiculo";
+            //cmbModelo.DisplayMember = "modelo";
+            
+            cmbModelo.DataSource = Consulta.modelosRegistrados(cmbMarca.Text.Trim()).Tables[0].DefaultView;
+            cmbModelo.ValueMember = "modelo";
             cmbModelo.DisplayMember = "modelo";
+            
             if (cmbModelo.Items.Count == 0)
             {
                 cmbModelo.Text = "";
@@ -117,7 +122,14 @@ namespace TT2024_A155
 
         private void cmbModelo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            cmbAnio.DataSource = Consulta.modelosRegistrados(cmbMarca.Text.Trim(),cmbModelo.Text.Trim()).Tables[0].DefaultView;
+            cmbAnio.ValueMember = "anio";
+            cmbAnio.DisplayMember = "anio";
+
+            if(cmbAnio.Items.Count == 0)
+            {
+                cmbAnio.Text = "";
+            }
         }
     }
 }

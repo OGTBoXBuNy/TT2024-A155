@@ -19,6 +19,8 @@ using iText.Kernel.Pdf.Canvas;
 using iText.IO.Font.Constants;
 using BarcodeLib;
 using System.Net.Mime;
+using iText.Kernel.Pdf.Canvas.Wmf;
+using System.Reflection;
 
 
 
@@ -623,7 +625,7 @@ namespace TT2024_A155
                         //FECHA_CREACIÓN
                         canvas.BeginText().SetFontAndSize(font, 14)
                                 .MoveText(x + 40, y + 590)
-                                .ShowText(dgvDatosPDF.Rows[0].Cells[1].Value.ToString().Substring(0,9))
+                                .ShowText(dgvDatosPDF.Rows[0].Cells[1].Value.ToString().Substring(0,10))
                                 .EndText();
 
                         //CLIENTE
@@ -871,8 +873,9 @@ namespace TT2024_A155
         }
 
 
-        //---------------- VEHICULOS-REGISTRADOS-MODELOS
-        public DataSet VehiculosRegistrados(string marca)
+
+        //---------------- ANIOS DE MODELOS DE CARROS-REGISTRADOS-MODELOS
+        public DataSet modelosRegistrados(string marca, string modelo)
         {
             DataSet dataSet = new DataSet();
             try
@@ -880,9 +883,10 @@ namespace TT2024_A155
                 using (SqlConnection nuevaConexion = Conexion.conexion())
                 {
                     nuevaConexion.Open();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT DISTINCT veh.modelo, veh.idvehiculo FROM vehiculo veh INNER JOIN MARCA mar ON veh.idmarca = mar.idmarca WHERE mar.marca = @marca AND mar.estado = 1 AND veh.estado = 1;", nuevaConexion);// WHERE modelo NOT LIKE 'PARTICULAR%'
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT DISTINCT veh.anio FROM vehiculo veh INNER JOIN MARCA mar ON veh.idmarca = mar.idmarca WHERE mar.marca = @marca AND veh.modelo = @modelo AND mar.estado = 1 AND veh.estado = 1;", nuevaConexion);// WHERE modelo NOT LIKE 'PARTICULAR%'
                     dataAdapter.SelectCommand.Parameters.AddWithValue("@marca", marca);
-                    dataAdapter.Fill(dataSet, "VEHICULO");
+                    dataAdapter.SelectCommand.Parameters.AddWithValue("@modelo", modelo);
+                    dataAdapter.Fill(dataSet, "ANIO");
                     nuevaConexion.Close();
                 }
             }
@@ -891,6 +895,56 @@ namespace TT2024_A155
                 MessageBox.Show("Error: " + EX.Message);
             }
             return dataSet;
+        }
+
+
+        //---------------- MODELOS DE CARROS-REGISTRADOS-MODELOS
+        public DataSet modelosRegistrados(string marca)
+        {
+            DataSet dataSet = new DataSet();
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT DISTINCT veh.modelo FROM vehiculo veh INNER JOIN MARCA mar ON veh.idmarca = mar.idmarca WHERE mar.marca = @marca AND mar.estado = 1 AND veh.estado = 1;", nuevaConexion);// WHERE modelo NOT LIKE 'PARTICULAR%'
+                    dataAdapter.SelectCommand.Parameters.AddWithValue("@marca", marca);
+                    dataAdapter.Fill(dataSet, "MODELO");
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return dataSet;
+        }
+
+
+        
+        //---------------- OBTENER ID VEHICULOS- CON MARCA-MODELO-ANIO
+        public string idVehiculoProducto(string marca, string modelo, string anio)
+        {
+            string idVehiculoProducto = null;
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+                    Comando = new SqlCommand(string.Format("SELECT veh.idvehiculo FROM vehiculo veh INNER JOIN MARCA mar ON veh.idmarca = mar.idmarca WHERE mar.marca = '{0}' AND veh.modelo = '{1}' AND veh.anio = '{2}' AND mar.estado = 1 AND veh.estado = 1;", marca, modelo, anio), nuevaConexion);
+                    
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read()) { idVehiculoProducto = Lector["idvehiculo"].ToString(); }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return idVehiculoProducto;
         }
 
         //---------------- MARCAS VEHICULOS REGISTRADAS
@@ -943,6 +997,9 @@ namespace TT2024_A155
             }
         }
 
+
+
+
         public int registrarPedido(string idUsuarioVendedor, string idUsuarioCliente, string fecha_hora, string impuesto, string total, string comentarios)
         {
 
@@ -990,6 +1047,42 @@ namespace TT2024_A155
         }
 
 
+        //----------------------------------ACTUALIZAR STOCK PRODUCTO----------------------------------------------
+        public void actualizarStock(string idProducto, string cantidad)
+        {
+            int i = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    nuevacon.Open();
+
+
+                        Comando = new SqlCommand(string.Format("UPDATE producto SET stock = (stock + {0}) WHERE idproducto = {1};", cantidad, idProducto), nuevacon);
+                        i = Comando.ExecuteNonQuery();
+
+                        if (i > 0)
+                        {
+                            //MessageBox.Show("Stock Actualizado");
+                        }
+                        else
+                            MessageBox.Show("Stock No Actualizado");
+
+                   
+
+                    nuevacon.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
+        }
+
+
         public int registrarDetallePedido(string idProducto, string cantidad, string precio, string descuento, string idVehiculo)
         {
 
@@ -1028,6 +1121,7 @@ namespace TT2024_A155
                     nuevacon.Close();
                     if (i == 1)
                     {
+                        actualizarStock(idProducto,cantidad);
                         return idPedido;
                         //generarComprobante(idPedido.ToString());
                     }

@@ -51,68 +51,69 @@
             lblUsuario = new Label();
             txtContrasenia = new TextBox();
             txtUsuario = new TextBox();
+            lblTitulo = new Label();
             SuspendLayout();
             // 
             // txtNoInt
             // 
-            txtNoInt.Location = new Point(702, 236);
+            txtNoInt.Location = new Point(670, 198);
             txtNoInt.Name = "txtNoInt";
-            txtNoInt.Size = new Size(53, 27);
-            txtNoInt.TabIndex = 69;
+            txtNoInt.Size = new Size(68, 27);
+            txtNoInt.TabIndex = 5;
             // 
             // txtCorreo
             // 
-            txtCorreo.Location = new Point(463, 325);
+            txtCorreo.Location = new Point(421, 283);
             txtCorreo.Name = "txtCorreo";
             txtCorreo.Size = new Size(159, 27);
-            txtCorreo.TabIndex = 68;
+            txtCorreo.TabIndex = 9;
             // 
             // txtCiudad
             // 
-            txtCiudad.Location = new Point(463, 283);
+            txtCiudad.Location = new Point(421, 240);
             txtCiudad.Name = "txtCiudad";
             txtCiudad.Size = new Size(159, 27);
-            txtCiudad.TabIndex = 67;
+            txtCiudad.TabIndex = 7;
             // 
             // txtNoExt
             // 
-            txtNoExt.Location = new Point(463, 240);
+            txtNoExt.Location = new Point(420, 198);
             txtNoExt.Name = "txtNoExt";
             txtNoExt.Size = new Size(159, 27);
-            txtNoExt.TabIndex = 66;
+            txtNoExt.TabIndex = 4;
             // 
             // txtCol
             // 
-            txtCol.Location = new Point(203, 203);
+            txtCol.Location = new Point(97, 236);
             txtCol.Name = "txtCol";
-            txtCol.Size = new Size(159, 27);
-            txtCol.TabIndex = 65;
+            txtCol.Size = new Size(226, 27);
+            txtCol.TabIndex = 6;
             // 
             // txtTel
             // 
-            txtTel.Location = new Point(203, 323);
+            txtTel.Location = new Point(104, 330);
             txtTel.Name = "txtTel";
             txtTel.Size = new Size(159, 27);
-            txtTel.TabIndex = 64;
+            txtTel.TabIndex = 10;
             // 
             // txtCP
             // 
-            txtCP.Location = new Point(203, 279);
+            txtCP.Location = new Point(97, 279);
             txtCP.Name = "txtCP";
-            txtCP.Size = new Size(159, 27);
-            txtCP.TabIndex = 63;
+            txtCP.Size = new Size(226, 27);
+            txtCP.TabIndex = 8;
             // 
             // txtCalle
             // 
-            txtCalle.Location = new Point(203, 236);
+            txtCalle.Location = new Point(97, 194);
             txtCalle.Name = "txtCalle";
-            txtCalle.Size = new Size(159, 27);
-            txtCalle.TabIndex = 62;
+            txtCalle.Size = new Size(226, 27);
+            txtCalle.TabIndex = 3;
             // 
             // lblCorreo
             // 
             lblCorreo.AutoSize = true;
-            lblCorreo.Location = new Point(394, 330);
+            lblCorreo.Location = new Point(357, 286);
             lblCorreo.Name = "lblCorreo";
             lblCorreo.Size = new Size(57, 20);
             lblCorreo.TabIndex = 61;
@@ -121,7 +122,7 @@
             // lblTel
             // 
             lblTel.AutoSize = true;
-            lblTel.Location = new Point(127, 330);
+            lblTel.Location = new Point(28, 337);
             lblTel.Name = "lblTel";
             lblTel.Size = new Size(70, 20);
             lblTel.TabIndex = 60;
@@ -130,7 +131,7 @@
             // lblCiudad
             // 
             lblCiudad.AutoSize = true;
-            lblCiudad.Location = new Point(394, 286);
+            lblCiudad.Location = new Point(355, 243);
             lblCiudad.Name = "lblCiudad";
             lblCiudad.Size = new Size(59, 20);
             lblCiudad.TabIndex = 59;
@@ -139,7 +140,7 @@
             // lblCp
             // 
             lblCp.AutoSize = true;
-            lblCp.Location = new Point(127, 286);
+            lblCp.Location = new Point(56, 286);
             lblCp.Name = "lblCp";
             lblCp.Size = new Size(35, 20);
             lblCp.TabIndex = 58;
@@ -148,7 +149,7 @@
             // lblNoInt
             // 
             lblNoInt.AutoSize = true;
-            lblNoInt.Location = new Point(637, 243);
+            lblNoInt.Location = new Point(596, 201);
             lblNoInt.Name = "lblNoInt";
             lblNoInt.Size = new Size(59, 20);
             lblNoInt.TabIndex = 57;
@@ -157,7 +158,7 @@
             // lblNoExt
             // 
             lblNoExt.AutoSize = true;
-            lblNoExt.Location = new Point(394, 243);
+            lblNoExt.Location = new Point(352, 201);
             lblNoExt.Name = "lblNoExt";
             lblNoExt.Size = new Size(62, 20);
             lblNoExt.TabIndex = 56;
@@ -166,7 +167,7 @@
             // lblColonia
             // 
             lblColonia.AutoSize = true;
-            lblColonia.Location = new Point(134, 210);
+            lblColonia.Location = new Point(28, 243);
             lblColonia.Name = "lblColonia";
             lblColonia.Size = new Size(63, 20);
             lblColonia.TabIndex = 55;
@@ -175,7 +176,7 @@
             // lblCalle
             // 
             lblCalle.AutoSize = true;
-            lblCalle.Location = new Point(127, 243);
+            lblCalle.Location = new Point(46, 201);
             lblCalle.Name = "lblCalle";
             lblCalle.Size = new Size(45, 20);
             lblCalle.TabIndex = 54;
@@ -183,25 +184,25 @@
             // 
             // btnAceptar
             // 
-            btnAceptar.Location = new Point(486, 370);
+            btnAceptar.Location = new Point(463, 337);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(94, 29);
-            btnAceptar.TabIndex = 51;
+            btnAceptar.TabIndex = 11;
             btnAceptar.Text = "Aceptar";
             btnAceptar.UseVisualStyleBackColor = true;
             btnAceptar.Click += btnAceptar_Click;
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(203, 37);
+            txtNombre.Location = new Point(97, 59);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(125, 27);
-            txtNombre.TabIndex = 45;
+            txtNombre.Size = new Size(300, 27);
+            txtNombre.TabIndex = 0;
             // 
             // lblNombre
             // 
             lblNombre.AutoSize = true;
-            lblNombre.Location = new Point(46, 44);
+            lblNombre.Location = new Point(5, 66);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(67, 20);
             lblNombre.TabIndex = 52;
@@ -210,7 +211,7 @@
             // lblContrasenia
             // 
             lblContrasenia.AutoSize = true;
-            lblContrasenia.Location = new Point(46, 160);
+            lblContrasenia.Location = new Point(5, 145);
             lblContrasenia.Name = "lblContrasenia";
             lblContrasenia.Size = new Size(86, 20);
             lblContrasenia.TabIndex = 49;
@@ -219,7 +220,7 @@
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(46, 104);
+            lblUsuario.Location = new Point(5, 108);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(62, 20);
             lblUsuario.TabIndex = 48;
@@ -227,23 +228,33 @@
             // 
             // txtContrasenia
             // 
-            txtContrasenia.Location = new Point(203, 153);
+            txtContrasenia.Location = new Point(97, 138);
             txtContrasenia.Name = "txtContrasenia";
-            txtContrasenia.Size = new Size(125, 27);
-            txtContrasenia.TabIndex = 47;
+            txtContrasenia.Size = new Size(300, 27);
+            txtContrasenia.TabIndex = 2;
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(203, 97);
+            txtUsuario.Location = new Point(97, 101);
             txtUsuario.Name = "txtUsuario";
-            txtUsuario.Size = new Size(125, 27);
-            txtUsuario.TabIndex = 46;
+            txtUsuario.Size = new Size(300, 27);
+            txtUsuario.TabIndex = 1;
+            // 
+            // lblTitulo
+            // 
+            lblTitulo.AutoSize = true;
+            lblTitulo.Location = new Point(310, 9);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(188, 20);
+            lblTitulo.TabIndex = 62;
+            lblTitulo.Text = "REGISTRO NUEVO CLIENTE";
             // 
             // registrarCliente
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lblTitulo);
             Controls.Add(txtNoInt);
             Controls.Add(txtCorreo);
             Controls.Add(txtCiudad);
@@ -298,5 +309,6 @@
         private Label lblUsuario;
         private TextBox txtContrasenia;
         private TextBox txtUsuario;
+        private Label lblTitulo;
     }
 }

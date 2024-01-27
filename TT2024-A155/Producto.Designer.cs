@@ -43,7 +43,7 @@
             cmbMarca = new ComboBox();
             label1 = new Label();
             lblAnio = new Label();
-            txtAnio = new TextBox();
+            cmbAnio = new ComboBox();
             SuspendLayout();
             // 
             // lblPieza
@@ -187,20 +187,22 @@
             lblAnio.TabIndex = 39;
             lblAnio.Text = "Año:";
             // 
-            // txtAnio
+            // cmbAnio
             // 
-            txtAnio.Location = new Point(93, 138);
-            txtAnio.Name = "txtAnio";
-            txtAnio.Size = new Size(85, 27);
-            txtAnio.TabIndex = 40;
-            txtAnio.Text = "2010";
+            cmbAnio.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cmbAnio.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbAnio.FormattingEnabled = true;
+            cmbAnio.Location = new Point(93, 136);
+            cmbAnio.Name = "cmbAnio";
+            cmbAnio.Size = new Size(105, 28);
+            cmbAnio.TabIndex = 41;
             // 
             // Producto
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(457, 440);
-            Controls.Add(txtAnio);
+            Controls.Add(cmbAnio);
             Controls.Add(lblAnio);
             Controls.Add(cmbModelo);
             Controls.Add(label2);
@@ -240,6 +242,6 @@
         private ComboBox cmbMarca;
         private Label label1;
         private Label lblAnio;
-        private TextBox txtAnio;
+        private ComboBox cmbAnio;
     }
 }
