@@ -37,6 +37,67 @@ namespace TT2024_A155
 
 
 
+        //ENVIAR CORREO USUARIO CREADO CORRECTAMENTE
+        public void enviaCorreoPedido(string destinatario, string usuario)
+        {
+
+
+            {
+
+                string senderNombre = "TT2024-A155";
+                string senderCorreo = "correos-jeic@jeic.com.mx";
+                string senderAppPass = "dgyvipbypyupufpm";//xldsjobozxjsrmpk
+
+
+
+                try
+                {
+
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress(senderNombre, senderCorreo));
+
+                    message.To.Add(new MailboxAddress("", destinatario));
+
+                    message.Subject = "Bienvenido a TT2024-A155";
+
+
+                    var bodyBuilder = new BodyBuilder();
+
+                    
+
+                    string contenido = "Hola!!!! " + usuario + " Bienvenido al sistema de TT-2024-A155";
+
+                    bodyBuilder.HtmlBody = contenido;
+
+                    message.Body = bodyBuilder.ToMessageBody();
+
+
+
+                    using (var client = new SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, false);
+
+                        // Note: only needed if the SMTP server requires authentication
+                        client.Authenticate(senderCorreo, senderAppPass);
+
+                        client.Send(message);
+                        client.Disconnect(true);
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+
+                }
+
+            }
+
+        }
+
+        //ENVIAR CORREO END
+
         //OBETER PERMISOS SEGUN EL TIPO DE USUARIO
         public string[] obtenerPermisos(string idrol)
         {
@@ -184,6 +245,7 @@ namespace TT2024_A155
                         Comando = new SqlCommand(string.Format("INSERT INTO usuario (idrol,nombre_usuario,nombre_real,contrasenia,calle,colonia,noExt,noInt,cp,ciudad,telefono,correo) VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}');", x, us, nombre, contraHash, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo), nuevacon);
                         Comando.ExecuteNonQuery();
                         MessageBox.Show("Se registro correctamente!");
+                        enviaCorreoPedido(correo, nombre);
                     }
                     else
                     {
@@ -1358,6 +1420,53 @@ namespace TT2024_A155
             return datosFiscales;
         }
 
+
+
+        //---------------------------Inicializar DGV de Cliente al iniciar sesion--------------------
+        public void inicioClientePedidos(DataGridView dgv)
+        {
+            //SELECT TOP 10 * FROM PEDIDO
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    //MessageBox.Show(cvePedido);
+                    da = new SqlDataAdapter(string.Format("SELECT ped.idpedido, ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca ORDER BY ped.fecha_hora desc;"), nuevacon);
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        //---------------------------Inicializar DGV de Cliente al iniciar sesion--------------------
+        public void inicioPedidosEmpleados(DataGridView dgv)
+        {
+            //SELECT TOP 10 * FROM PEDIDO
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    //MessageBox.Show(cvePedido);
+                    da = new SqlDataAdapter(string.Format(""), nuevacon);
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
 
     }
 }

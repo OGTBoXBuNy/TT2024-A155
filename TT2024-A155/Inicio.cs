@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iText.Kernel.Colors;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,25 +17,28 @@ namespace TT2024_A155
         {
             InitializeComponent();
         }
-        BD Consulta = new BD();
-        private string[] permisos; 
+        BD Consulta = new();
+        private string[] permisos;
 
         private void Inicio_Load(object sender, EventArgs e)
         {
             //OBTENER PERMISOS SEGUN USUARIO
-            permisos = Consulta.obtenerPermisos(lblRol.Text.Trim());
+            permisos = Consulta.obtenerPermisos(lblRol.Text.Trim()); //1 ENABLE AND VISIBLE.... 0 DISABLE AND NO VISIBLE 
 
             if (permisos[0] == "1")//CREAR USUARIOS
             {
-
+                crearUsuariosToolStripMenuItem.Enabled = true;
+                crearUsuariosToolStripMenuItem.Visible = true;
             }
             if (permisos[1] == "1")//MODIFICAR USUARIOS
             {
-
+                modificarUsuariosToolStripMenuItem.Enabled = true;
+                modificarUsuariosToolStripMenuItem.Visible = true;
             }
             if (permisos[2] == "1")//CREAR PEDIDOS
             {
-
+                btnCrearPedido.Enabled = true;
+                btnCrearPedido.Visible = true;
             }
             if (permisos[3] == "1")//MODIFICAR PEDIDOS
             {
@@ -65,6 +69,37 @@ namespace TT2024_A155
 
             }
 
+            if(lblRol.Text == "4")//LLENAR EL DATAGRIDVIEW SEGUN SI ES CLIENTE O EMPLEADO
+            {
+                Consulta.inicioClientePedidos(dgvPedido);
+                dgvPedido.Columns["idpedido"].Visible = false;
+                //dgvPedido.Columns["Autorizado"]. = true;
+                dgvPedido.Columns["impuesto"].Visible = false;
+                dgvPedido.Columns["total"].Visible = false;
+                dgvPedido.Columns["comentarios"].Visible = false;
+
+                foreach (DataGridViewRow row in dgvPedido.Rows)
+                {
+                    if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()) == true)
+                    {
+                        row.DefaultCellStyle.BackColor = System.Drawing.Color.Green;
+                        //row.Cells["Autorizado"].Value = "Autorizado";
+                    }
+                    else
+                    {
+                        row.DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+                        //row.Cells["Autorizado"].Value = "En revisión";
+                    }
+                }
+
+
+
+            }
+            else
+            {
+
+            }
+
 
         }
 
@@ -80,6 +115,10 @@ namespace TT2024_A155
 
         }
 
-        
+        private void Inicio_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            inicioSesion inicioSesion = new();
+            inicioSesion.Show();
+        }
     }
 }
