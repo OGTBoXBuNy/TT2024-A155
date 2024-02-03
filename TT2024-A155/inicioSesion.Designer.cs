@@ -114,6 +114,7 @@
             Name = "inicioSesion";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Inicio Sesión";
+            FormClosed += inicioSesion_FormClosed;
             Load += inicioSesion_Load;
             ((System.ComponentModel.ISupportInitialize)picInicioSesion).EndInit();
             ResumeLayout(false);

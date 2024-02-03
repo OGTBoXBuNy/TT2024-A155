@@ -32,7 +32,7 @@ namespace TT2024_A155
             int[] inicioSesion = Consulta.inicioSesion(txtUsuario.Text.Trim(), txtContrasenia.Text.Trim());
             if (inicioSesion[0] == 1)
             {
-                
+
                 if (Consulta.validarContraTemp(txtUsuario.Text.Trim()) == 1)
                 {
                     cambioContraseña cambioContra = new();
@@ -67,9 +67,14 @@ namespace TT2024_A155
         private void lblRestablecerContrasenia_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             restablecerContraseña res = new();
-            
+
             res.Show();
 
+        }
+
+        private void inicioSesion_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

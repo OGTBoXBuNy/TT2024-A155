@@ -22,6 +22,19 @@ namespace TT2024_A155
 
         private void Inicio_Load(object sender, EventArgs e)
         {
+            var btnAceptarPedido = new DataGridViewButtonColumn();
+            btnAceptarPedido.Name = "dataGridViewAceptarPedido";
+            btnAceptarPedido.HeaderText = "Estado pedido";
+            btnAceptarPedido.Text = "";
+            btnAceptarPedido.FlatStyle = FlatStyle.Popup;
+            btnAceptarPedido.CellTemplate.Style.BackColor = System.Drawing.Color.DarkGoldenrod;
+            //btnAceptarPedido.UseColumnTextForButtonValue = true;
+            dgvPedido.Columns.Add(btnAceptarPedido);
+
+
+
+
+
             //OBTENER PERMISOS SEGUN USUARIO
             permisos = Consulta.obtenerPermisos(lblRol.Text.Trim()); //1 ENABLE AND VISIBLE.... 0 DISABLE AND NO VISIBLE 
 
@@ -69,11 +82,12 @@ namespace TT2024_A155
 
             }
 
-            if(lblRol.Text == "4")//LLENAR EL DATAGRIDVIEW SEGUN SI ES CLIENTE O EMPLEADO
+            if (lblRol.Text == "4")//LLENAR EL DATAGRIDVIEW SEGUN SI ES CLIENTE O EMPLEADO
             {
+
                 Consulta.inicioClientePedidos(dgvPedido);
                 dgvPedido.Columns["idpedido"].Visible = false;
-                //dgvPedido.Columns["Autorizado"]. = true;
+                dgvPedido.Columns["Autorizado"].Visible = false;
                 dgvPedido.Columns["impuesto"].Visible = false;
                 dgvPedido.Columns["total"].Visible = false;
                 dgvPedido.Columns["comentarios"].Visible = false;
@@ -83,12 +97,15 @@ namespace TT2024_A155
                     if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()) == true)
                     {
                         row.DefaultCellStyle.BackColor = System.Drawing.Color.Green;
-                        //row.Cells["Autorizado"].Value = "Autorizado";
+
+                        row.Cells["dataGridViewAceptarPedido"].Value = "Revisado";
+
                     }
                     else
                     {
+
                         row.DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
-                        //row.Cells["Autorizado"].Value = "En revisión";
+                        row.Cells["dataGridViewAceptarPedido"].Value = "En Revisión";
                     }
                 }
 
@@ -119,6 +136,22 @@ namespace TT2024_A155
         {
             inicioSesion inicioSesion = new();
             inicioSesion.Show();
+        }
+
+        private void dgvPedido_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //if click is on new row or header row
+            if (e.RowIndex == dgvPedido.NewRowIndex || e.RowIndex < 0)
+                return;
+
+            //Check if click is on specific column
+            if (e.ColumnIndex == dgvPedido.Columns["dataGridViewAceptarPedido"].Index)
+            {
+                foreach (DataGridViewRow row in dgvPedido.SelectedRows)
+                {
+                    MessageBox.Show(row.Cells["Producto"].Value.ToString());
+                }
+            }
         }
     }
 }
