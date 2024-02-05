@@ -19,6 +19,7 @@ namespace TT2024_A155
         }
         BD Consulta = new();
         private string[] permisos;
+        private string[] detallesPedido;
 
         private void Inicio_Load(object sender, EventArgs e)
         {
@@ -90,11 +91,12 @@ namespace TT2024_A155
                 dgvPedido.Columns["Autorizado"].Visible = false;
                 dgvPedido.Columns["impuesto"].Visible = false;
                 dgvPedido.Columns["total"].Visible = false;
-                dgvPedido.Columns["comentarios"].Visible = false;
+                dgvPedido.Columns["comentarios"].Visible = false; 
+                dgvPedido.Columns["iddetalle_pedido"].Visible = false;
 
                 foreach (DataGridViewRow row in dgvPedido.Rows)
                 {
-                    if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()) == true)
+                    if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
                     {
                         row.DefaultCellStyle.BackColor = System.Drawing.Color.Green;
 
@@ -138,8 +140,34 @@ namespace TT2024_A155
             inicioSesion.Show();
         }
 
+
+        public void llenarDetallesPedido(string[] detallesPedido) 
+        {
+
+            lblNoPedido.Text = "# Pedido: " + detallesPedido[0];
+            lblFechaCreacion.Text = "Fecha Creación: " + detallesPedido[1];
+            lblCliente.Text = "Cliente: " + detallesPedido[2] + "-" + detallesPedido[3];
+            lblVendedor.Text = "Vendedor: " + detallesPedido[16];
+            lblProducto.Text = "Producto: " + detallesPedido[4];
+            lblCantidad.Text = "Cantidad: " + detallesPedido[5];
+            lblPrecio.Text = "Precio Venta: $" + detallesPedido[6];
+            lblDescuento.Text = "Descuento: " + detallesPedido[7];
+            lblMarca.Text = "Marca: " + detallesPedido[8];
+            lblModelo.Text = "Modelo: " + detallesPedido[9];
+            lblComentarios.Text = "Comentarios: " + detallesPedido[10];
+            lblAprobacion.Text = "Estado: " + detallesPedido[11];
+            lblFactura.Text = "# Factura: " + detallesPedido[12];
+            lblFactSinIva.Text = "Factura sin IVA: " + detallesPedido[13];
+            lblImpuesto.Text = "Impuesto: " + detallesPedido[15];
+            lblFactIVA.Text = "Factura con IVA: " + detallesPedido[14];
+
+
+        }
+
         private void dgvPedido_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            int fila = Int32.Parse(e.RowIndex.ToString());
+
             //if click is on new row or header row
             if (e.RowIndex == dgvPedido.NewRowIndex || e.RowIndex < 0)
                 return;
@@ -149,9 +177,54 @@ namespace TT2024_A155
             {
                 foreach (DataGridViewRow row in dgvPedido.SelectedRows)
                 {
-                    MessageBox.Show(row.Cells["Producto"].Value.ToString());
+                    
+
+                    if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))//Si le da clic al boton para aceptar el pedido
+                    {
+                        MessageBox.Show("Ya se autorizo previamente, ya no es posible modificarlo");
+                    }
+                    else
+                    {
+                        MessageBOX mes = new MessageBOX(4, "¿Esta seguro de querer autorizar este pedido?");
+
+                        if (mes.ShowDialog() == DialogResult.OK)
+                        {
+                            MessageBox.Show("SI");//AGREGAR QUE ACTUALICE EN PEIDDO aprobacionCliente
+                            
+                        }
+
+                    }
+
+
+                }
+
+
+                return;
+            }
+
+           
+
+            if (fila == -1) { }
+            else if (e.ColumnIndex == -1)
+            {
+
+                detallesPedido = Consulta.detallesPedido(dgvPedido.Rows[fila].Cells[1].Value.ToString());
+                llenarDetallesPedido(detallesPedido);
+                return;
+                
+            }
+            else 
+            {
+
+
+
+                foreach (DataGridViewRow row in dgvPedido.SelectedRows)
+                {
+                    MessageBox.Show(row.Cells["iddetalle_pedido"].Value.ToString());
                 }
             }
-        }
+
+
+            }
     }
 }

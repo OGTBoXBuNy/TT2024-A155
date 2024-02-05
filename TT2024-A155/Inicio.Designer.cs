@@ -38,10 +38,33 @@
             modificarUsuariosToolStripMenuItem = new ToolStripMenuItem();
             generarReporteDeVentasToolStripMenuItem = new ToolStripMenuItem();
             panelInfoPedido = new Panel();
+            lblFactIVA = new Label();
+            lblFactSinIva = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            pbFactura = new PictureBox();
+            label2 = new Label();
+            label1 = new Label();
+            lblPrecio = new Label();
+            lblModelo = new Label();
+            lblMarca = new Label();
+            lblDescuento = new Label();
+            lblAprobacion = new Label();
+            lblComentarios = new Label();
+            lblTotal = new Label();
+            lblImpuesto = new Label();
+            lblFechaCreacion = new Label();
+            lblFactura = new Label();
+            lblCliente = new Label();
+            lblVendedor = new Label();
+            lblCantidad = new Label();
+            lblProducto = new Label();
+            lblNoPedido = new Label();
             lblTituloInfoPedido = new Label();
             dgvPedido = new DataGridView();
             menuStrip1.SuspendLayout();
             panelInfoPedido.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbFactura).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvPedido).BeginInit();
             SuspendLayout();
             // 
@@ -125,12 +148,235 @@
             // panelInfoPedido
             // 
             panelInfoPedido.BorderStyle = BorderStyle.Fixed3D;
+            panelInfoPedido.Controls.Add(lblFactIVA);
+            panelInfoPedido.Controls.Add(lblFactSinIva);
+            panelInfoPedido.Controls.Add(label4);
+            panelInfoPedido.Controls.Add(label3);
+            panelInfoPedido.Controls.Add(pbFactura);
+            panelInfoPedido.Controls.Add(label2);
+            panelInfoPedido.Controls.Add(label1);
+            panelInfoPedido.Controls.Add(lblPrecio);
+            panelInfoPedido.Controls.Add(lblModelo);
+            panelInfoPedido.Controls.Add(lblMarca);
+            panelInfoPedido.Controls.Add(lblDescuento);
+            panelInfoPedido.Controls.Add(lblAprobacion);
+            panelInfoPedido.Controls.Add(lblComentarios);
+            panelInfoPedido.Controls.Add(lblTotal);
+            panelInfoPedido.Controls.Add(lblImpuesto);
+            panelInfoPedido.Controls.Add(lblFechaCreacion);
+            panelInfoPedido.Controls.Add(lblFactura);
+            panelInfoPedido.Controls.Add(lblCliente);
+            panelInfoPedido.Controls.Add(lblVendedor);
+            panelInfoPedido.Controls.Add(lblCantidad);
+            panelInfoPedido.Controls.Add(lblProducto);
+            panelInfoPedido.Controls.Add(lblNoPedido);
             panelInfoPedido.Controls.Add(lblTituloInfoPedido);
             panelInfoPedido.Location = new Point(0, 140);
             panelInfoPedido.Margin = new Padding(4);
             panelInfoPedido.Name = "panelInfoPedido";
             panelInfoPedido.Size = new Size(425, 589);
             panelInfoPedido.TabIndex = 4;
+            // 
+            // lblFactIVA
+            // 
+            lblFactIVA.AutoSize = true;
+            lblFactIVA.Location = new Point(10, 453);
+            lblFactIVA.Name = "lblFactIVA";
+            lblFactIVA.Size = new Size(113, 20);
+            lblFactIVA.TabIndex = 27;
+            lblFactIVA.Text = "Factura con IVA:";
+            // 
+            // lblFactSinIva
+            // 
+            lblFactSinIva.AutoSize = true;
+            lblFactSinIva.Location = new Point(10, 411);
+            lblFactSinIva.Name = "lblFactSinIva";
+            lblFactSinIva.Size = new Size(107, 20);
+            lblFactSinIva.TabIndex = 26;
+            lblFactSinIva.Text = "Factura sin IVA:";
+            // 
+            // label4
+            // 
+            label4.BackColor = Color.FromArgb(106, 109, 119);
+            label4.Location = new Point(0, 500);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(427, 2);
+            label4.TabIndex = 25;
+            // 
+            // label3
+            // 
+            label3.BackColor = Color.FromArgb(106, 109, 119);
+            label3.Location = new Point(0, 358);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(427, 2);
+            label3.TabIndex = 24;
+            // 
+            // pbFactura
+            // 
+            pbFactura.Cursor = Cursors.Hand;
+            pbFactura.Image = Properties.Resources.file;
+            pbFactura.Location = new Point(359, 453);
+            pbFactura.Margin = new Padding(4);
+            pbFactura.Name = "pbFactura";
+            pbFactura.Size = new Size(55, 43);
+            pbFactura.SizeMode = PictureBoxSizeMode.Zoom;
+            pbFactura.TabIndex = 23;
+            pbFactura.TabStop = false;
+            // 
+            // label2
+            // 
+            label2.BackColor = Color.FromArgb(106, 109, 119);
+            label2.Location = new Point(0, 253);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(427, 2);
+            label2.TabIndex = 22;
+            // 
+            // label1
+            // 
+            label1.BackColor = Color.FromArgb(106, 109, 119);
+            label1.Location = new Point(-2, 130);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(427, 2);
+            label1.TabIndex = 21;
+            // 
+            // lblPrecio
+            // 
+            lblPrecio.AutoSize = true;
+            lblPrecio.Location = new Point(9, 192);
+            lblPrecio.Name = "lblPrecio";
+            lblPrecio.Size = new Size(94, 20);
+            lblPrecio.TabIndex = 20;
+            lblPrecio.Text = "Precio Venta:";
+            // 
+            // lblModelo
+            // 
+            lblModelo.AutoSize = true;
+            lblModelo.Location = new Point(186, 233);
+            lblModelo.Name = "lblModelo";
+            lblModelo.Size = new Size(64, 20);
+            lblModelo.TabIndex = 19;
+            lblModelo.Text = "Modelo:";
+            // 
+            // lblMarca
+            // 
+            lblMarca.AutoSize = true;
+            lblMarca.Location = new Point(9, 233);
+            lblMarca.Name = "lblMarca";
+            lblMarca.Size = new Size(53, 20);
+            lblMarca.TabIndex = 18;
+            lblMarca.Text = "Marca:";
+            // 
+            // lblDescuento
+            // 
+            lblDescuento.AutoSize = true;
+            lblDescuento.Location = new Point(186, 192);
+            lblDescuento.Name = "lblDescuento";
+            lblDescuento.Size = new Size(82, 20);
+            lblDescuento.TabIndex = 17;
+            lblDescuento.Text = "Descuento:";
+            // 
+            // lblAprobacion
+            // 
+            lblAprobacion.AutoSize = true;
+            lblAprobacion.Location = new Point(10, 338);
+            lblAprobacion.Name = "lblAprobacion";
+            lblAprobacion.Size = new Size(57, 20);
+            lblAprobacion.TabIndex = 16;
+            lblAprobacion.Text = "Estado:";
+            // 
+            // lblComentarios
+            // 
+            lblComentarios.AutoSize = true;
+            lblComentarios.Location = new Point(3, 264);
+            lblComentarios.Name = "lblComentarios";
+            lblComentarios.Size = new Size(96, 20);
+            lblComentarios.TabIndex = 15;
+            lblComentarios.Text = "Comentarios:";
+            // 
+            // lblTotal
+            // 
+            lblTotal.AutoSize = true;
+            lblTotal.Location = new Point(205, 526);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(45, 20);
+            lblTotal.TabIndex = 14;
+            lblTotal.Text = "Total:";
+            // 
+            // lblImpuesto
+            // 
+            lblImpuesto.AutoSize = true;
+            lblImpuesto.Location = new Point(228, 411);
+            lblImpuesto.Name = "lblImpuesto";
+            lblImpuesto.Size = new Size(74, 20);
+            lblImpuesto.TabIndex = 13;
+            lblImpuesto.Text = "Impuesto:";
+            // 
+            // lblFechaCreacion
+            // 
+            lblFechaCreacion.AutoSize = true;
+            lblFechaCreacion.Location = new Point(186, 24);
+            lblFechaCreacion.Name = "lblFechaCreacion";
+            lblFechaCreacion.Size = new Size(116, 20);
+            lblFechaCreacion.TabIndex = 12;
+            lblFechaCreacion.Text = "Fecha Creación: ";
+            // 
+            // lblFactura
+            // 
+            lblFactura.AutoSize = true;
+            lblFactura.Location = new Point(10, 377);
+            lblFactura.Name = "lblFactura";
+            lblFactura.Size = new Size(72, 20);
+            lblFactura.TabIndex = 11;
+            lblFactura.Text = "# Factura:";
+            // 
+            // lblCliente
+            // 
+            lblCliente.AutoSize = true;
+            lblCliente.Location = new Point(10, 65);
+            lblCliente.Name = "lblCliente";
+            lblCliente.Size = new Size(58, 20);
+            lblCliente.TabIndex = 10;
+            lblCliente.Text = "Cliente:";
+            // 
+            // lblVendedor
+            // 
+            lblVendedor.AutoSize = true;
+            lblVendedor.Location = new Point(9, 110);
+            lblVendedor.Name = "lblVendedor";
+            lblVendedor.Size = new Size(76, 20);
+            lblVendedor.TabIndex = 9;
+            lblVendedor.Text = "Vendedor:";
+            // 
+            // lblCantidad
+            // 
+            lblCantidad.AutoSize = true;
+            lblCantidad.Location = new Point(317, 151);
+            lblCantidad.Name = "lblCantidad";
+            lblCantidad.Size = new Size(76, 20);
+            lblCantidad.TabIndex = 8;
+            lblCantidad.Text = "Cantidad: ";
+            // 
+            // lblProducto
+            // 
+            lblProducto.AutoSize = true;
+            lblProducto.Location = new Point(9, 151);
+            lblProducto.Name = "lblProducto";
+            lblProducto.Size = new Size(72, 20);
+            lblProducto.TabIndex = 7;
+            lblProducto.Text = "Producto:";
+            // 
+            // lblNoPedido
+            // 
+            lblNoPedido.AutoSize = true;
+            lblNoPedido.Location = new Point(10, 24);
+            lblNoPedido.Name = "lblNoPedido";
+            lblNoPedido.Size = new Size(71, 20);
+            lblNoPedido.TabIndex = 6;
+            lblNoPedido.Text = "# Pedido:";
             // 
             // lblTituloInfoPedido
             // 
@@ -186,6 +432,8 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             panelInfoPedido.ResumeLayout(false);
+            panelInfoPedido.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbFactura).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvPedido).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -205,5 +453,27 @@
         private Panel panelInfoPedido;
         private Label lblTituloInfoPedido;
         private DataGridView dgvPedido;
+        private Label lblNoPedido;
+        private Label lblFechaCreacion;
+        private Label lblFactura;
+        private Label lblCliente;
+        private Label lblVendedor;
+        private Label lblCantidad;
+        private Label lblProducto;
+        private Label lblAprobacion;
+        private Label lblComentarios;
+        private Label lblTotal;
+        private Label lblImpuesto;
+        private Label lblModelo;
+        private Label lblMarca;
+        private Label lblDescuento;
+        private Label lblPrecio;
+        private Label label2;
+        private Label label1;
+        private PictureBox pbFactura;
+        private Label label4;
+        private Label label3;
+        private Label lblFactSinIva;
+        private Label lblFactIVA;
     }
 }

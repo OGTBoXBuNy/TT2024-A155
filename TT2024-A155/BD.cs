@@ -1431,7 +1431,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT ped.idpedido, ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca ORDER BY ped.fecha_hora desc;"), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido, ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca ORDER BY ped.fecha_hora desc;"), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1448,7 +1448,7 @@ namespace TT2024_A155
         //---------------------------Inicializar DGV de Cliente al iniciar sesion--------------------
         public void inicioPedidosEmpleados(DataGridView dgv)
         {
-            //SELECT TOP 10 * FROM PEDIDO
+            
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
@@ -1466,6 +1466,70 @@ namespace TT2024_A155
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        //---------------------------Llenar Datos pedido--------------------
+        public string[] detallesPedido(string idDetallePedido)
+        {
+            string[] detallesPedido = new string[17];
+            double impuesto;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    
+                    nuevacon.Open();
+                    Comando = new SqlCommand(string.Format("SELECT ped.idpedido, ped.fecha_hora, us.nombre_real, us.nombre_usuario, prod.nombre, detp.cantidad, prod.precio_venta, detp.descuento, mar.marca, veh.modelo, ped.comentarios, ped.aprobacionCliente, fact.idfactura, fact.fact_sinIVA, fact.fact_neto, ped.idusuarioVendedor   FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE detp.iddetalle_pedido = '{0}';", idDetallePedido), nuevacon);
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        detallesPedido[0] = Lector["idpedido"].ToString();//IDPEDIDO
+                        detallesPedido[1] = Lector["fecha_hora"].ToString().Substring(0,10);//FECHA_HORA
+                        detallesPedido[2] = Lector["nombre_real"].ToString();//NOMBRE CLIENTE
+                        detallesPedido[3] = Lector["nombre_usuario"].ToString();//USUARIO 
+                        detallesPedido[4] = Lector["nombre"].ToString();//NOMBRE PRODUCTO
+                        detallesPedido[5] = Lector["cantidad"].ToString();//CANTIDAD PRODUCTO
+                        detallesPedido[6] = Lector["precio_venta"].ToString();//PRECIO VENTA
+                        detallesPedido[7] = Lector["descuento"].ToString();//DESCUENTO
+                        detallesPedido[8] = Lector["marca"].ToString();//MARCA
+                        detallesPedido[9] = Lector["modelo"].ToString();//MODELO
+                        detallesPedido[10] = Lector["comentarios"].ToString();//COMENTARIOS
+
+                        if (Lector["aprobacionCliente"].ToString() == "true")//ESTADO PEDIDO
+                            detallesPedido[11] = "Autorizado";
+                        else detallesPedido[11] = "En revisión";
+                        
+
+                        if (Lector["idfactura"].ToString() != string.Empty) {
+                            detallesPedido[12] = Lector["idfactura"].ToString();//IDFACTURA
+                            detallesPedido[13] = Lector["fact_sinIVA"].ToString();//FACTURA SIN IVA
+                            detallesPedido[14] = Lector["fact_neto"].ToString();//FACTURA CON IVA
+
+                            impuesto = Convert.ToDouble(Lector["fact_neto"].ToString()) - Convert.ToDouble(Lector["fact_sinIVA"].ToString());
+                            detallesPedido[15] = impuesto.ToString("0.##");//IMPUESTO
+                        }
+                        else
+                        {
+                            detallesPedido[12] = "";//IDFACTURA
+                            detallesPedido[13] = "";//FACTURA SIN IVA
+                            detallesPedido[14] = "";//FACTURA CON 
+                            detallesPedido[15] = "";//IMPUESTO
+                        }
+
+                       
+                        detallesPedido[16] = nombreVendedor(Lector["idusuarioVendedor"].ToString());//NOMBRE VENDEDOR
+
+                    }
+                    Lector.Close();
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+
+            return detallesPedido;
         }
 
     }
