@@ -38,6 +38,7 @@
             modificarUsuariosToolStripMenuItem = new ToolStripMenuItem();
             generarReporteDeVentasToolStripMenuItem = new ToolStripMenuItem();
             panelInfoPedido = new Panel();
+            dgvDatosPDF = new DataGridView();
             lblFactIVA = new Label();
             lblFactSinIva = new Label();
             label4 = new Label();
@@ -50,7 +51,6 @@
             lblMarca = new Label();
             lblDescuento = new Label();
             lblAprobacion = new Label();
-            lblComentarios = new Label();
             lblTotal = new Label();
             lblImpuesto = new Label();
             lblFechaCreacion = new Label();
@@ -62,8 +62,11 @@
             lblNoPedido = new Label();
             lblTituloInfoPedido = new Label();
             dgvPedido = new DataGridView();
+            txtComentarios = new TextBox();
+            lblComentarios = new Label();
             menuStrip1.SuspendLayout();
             panelInfoPedido.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbFactura).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvPedido).BeginInit();
             SuspendLayout();
@@ -148,6 +151,8 @@
             // panelInfoPedido
             // 
             panelInfoPedido.BorderStyle = BorderStyle.Fixed3D;
+            panelInfoPedido.Controls.Add(txtComentarios);
+            panelInfoPedido.Controls.Add(dgvDatosPDF);
             panelInfoPedido.Controls.Add(lblFactIVA);
             panelInfoPedido.Controls.Add(lblFactSinIva);
             panelInfoPedido.Controls.Add(label4);
@@ -176,6 +181,17 @@
             panelInfoPedido.Name = "panelInfoPedido";
             panelInfoPedido.Size = new Size(425, 589);
             panelInfoPedido.TabIndex = 4;
+            // 
+            // dgvDatosPDF
+            // 
+            dgvDatosPDF.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDatosPDF.Location = new Point(370, 436);
+            dgvDatosPDF.Name = "dgvDatosPDF";
+            dgvDatosPDF.RowHeadersWidth = 51;
+            dgvDatosPDF.RowTemplate.Height = 29;
+            dgvDatosPDF.Size = new Size(44, 10);
+            dgvDatosPDF.TabIndex = 39;
+            dgvDatosPDF.Visible = false;
             // 
             // lblFactIVA
             // 
@@ -224,6 +240,7 @@
             pbFactura.SizeMode = PictureBoxSizeMode.Zoom;
             pbFactura.TabIndex = 23;
             pbFactura.TabStop = false;
+            pbFactura.Click += pbFactura_Click;
             // 
             // label2
             // 
@@ -287,15 +304,6 @@
             lblAprobacion.Size = new Size(57, 20);
             lblAprobacion.TabIndex = 16;
             lblAprobacion.Text = "Estado:";
-            // 
-            // lblComentarios
-            // 
-            lblComentarios.AutoSize = true;
-            lblComentarios.Location = new Point(3, 264);
-            lblComentarios.Name = "lblComentarios";
-            lblComentarios.Size = new Size(96, 20);
-            lblComentarios.TabIndex = 15;
-            lblComentarios.Text = "Comentarios:";
             // 
             // lblTotal
             // 
@@ -414,6 +422,24 @@
             dgvPedido.TabIndex = 5;
             dgvPedido.CellClick += dgvPedido_CellClick;
             // 
+            // txtComentarios
+            // 
+            txtComentarios.Location = new Point(101, 264);
+            txtComentarios.Multiline = true;
+            txtComentarios.Name = "txtComentarios";
+            txtComentarios.ReadOnly = true;
+            txtComentarios.Size = new Size(313, 74);
+            txtComentarios.TabIndex = 40;
+            // 
+            // lblComentarios
+            // 
+            lblComentarios.AutoSize = true;
+            lblComentarios.Location = new Point(3, 264);
+            lblComentarios.Name = "lblComentarios";
+            lblComentarios.Size = new Size(96, 20);
+            lblComentarios.TabIndex = 15;
+            lblComentarios.Text = "Comentarios:";
+            // 
             // Inicio
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -433,6 +459,7 @@
             menuStrip1.PerformLayout();
             panelInfoPedido.ResumeLayout(false);
             panelInfoPedido.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbFactura).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvPedido).EndInit();
             ResumeLayout(false);
@@ -461,7 +488,6 @@
         private Label lblCantidad;
         private Label lblProducto;
         private Label lblAprobacion;
-        private Label lblComentarios;
         private Label lblTotal;
         private Label lblImpuesto;
         private Label lblModelo;
@@ -475,5 +501,8 @@
         private Label label3;
         private Label lblFactSinIva;
         private Label lblFactIVA;
+        private DataGridView dgvDatosPDF;
+        private TextBox txtComentarios;
+        private Label lblComentarios;
     }
 }

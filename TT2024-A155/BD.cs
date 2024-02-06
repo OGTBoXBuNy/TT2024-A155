@@ -662,7 +662,7 @@ namespace TT2024_A155
         }
 
         //----------------------GENERAR PDF COMPROBANTE
-        public void generarComprobante(string idPedido, DataGridView dgvDatosPDF)
+        public void generarComprobante(string idPedido, DataGridView dgvDatosPDF, bool enviaCorreo)
         {
             try
             {
@@ -712,11 +712,11 @@ namespace TT2024_A155
                         string correoCliente = dgvDatosPDF.Rows[0].Cells[11].Value.ToString();
 
 
-                        //PEDIDO
-                        canvas.BeginText().SetFontAndSize(font, 9)
-                                 .MoveText(x+26,y+540)
-                                 .ShowText("0,0")
-                                 .EndText();
+                        //ORIGEN
+                        //canvas.BeginText().SetFontAndSize(font, 9)
+                        //         .MoveText(x+26,y+540)
+                        //         .ShowText("0,0")
+                        //         .EndText();
 
                         //PEDIDO
                         canvas.BeginText().SetFontAndSize(font, 18)
@@ -754,7 +754,7 @@ namespace TT2024_A155
                             img.SetHeight(17);
 
 
-                            canvas.AddImageAt(img, Convert.ToSingle(x + 12), Convert.ToSingle(y + 537), false);
+                            canvas.AddImageAt(img, Convert.ToSingle(x + 27), Convert.ToSingle(y + 537), false);
                             File.Delete(Application.StartupPath + "\\temp.png");
 
                             //PRODUCTOS
@@ -820,7 +820,8 @@ namespace TT2024_A155
 
                         pdf = File.ReadAllBytes(fileRoute.FileName);
 
-                        enviaCorreoPedido(correoCliente, pdf);
+                        if(enviaCorreo)
+                            enviaCorreoPedido(correoCliente, pdf);
 
                         //MessageBOX.SHowDialog(3, "PDF creado exitosamente 1");
 
@@ -836,7 +837,7 @@ namespace TT2024_A155
         }
 
         //OBTENER ID DEL USUARIO VENDEDOR U OTRO CON BASE EN SU NOMBRE DE USUARIO
-        public int idVendedor(string usuario)
+        public int idUsuario(string usuario)
         {
             int idVendedor = -1;
             try
@@ -1423,15 +1424,15 @@ namespace TT2024_A155
 
 
         //---------------------------Inicializar DGV de Cliente al iniciar sesion--------------------
-        public void inicioClientePedidos(DataGridView dgv)
+        public void inicioClientePedidos(DataGridView dgv, string usuario)
         {
-            //SELECT TOP 10 * FROM PEDIDO
+            
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido, ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca ORDER BY ped.fecha_hora desc;"), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido, ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1446,7 +1447,7 @@ namespace TT2024_A155
         }
 
         //---------------------------Inicializar DGV de Cliente al iniciar sesion--------------------
-        public void inicioPedidosEmpleados(DataGridView dgv)
+        public void inicioPedidosEmpleados(DataGridView dgv, string usuario)
         {
             
             try
@@ -1454,7 +1455,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format(""), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido, ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1530,6 +1531,42 @@ namespace TT2024_A155
             }
 
             return detallesPedido;
+        }
+
+
+        //----------------------------------ACTUALIZAR STOCK PRODUCTO----------------------------------------------
+        public void aprobarPedidoCliente(string idPedido)
+        {
+            int i = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    nuevacon.Open();
+
+
+                    Comando = new SqlCommand(string.Format("UPDATE ped SET ped.aprobacionCliente = 1 FROM pedido ped WHERE ped.idpedido = '{0}';", idPedido), nuevacon);
+                    i = Comando.ExecuteNonQuery();
+
+                    if (i > 0)
+                    {
+                        MessageBox.Show("Pedido autorizado");
+                    }
+                    else
+                        MessageBox.Show("Error al autorizar el pedido");
+
+
+
+                    nuevacon.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
         }
 
     }

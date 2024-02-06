@@ -69,7 +69,7 @@ namespace TT2024_A155
 
 
             if (lblRol.Text.Trim() != "4")// 4 = CLIENTE,,, 1,2,3 = VENDEDOR U OTRO
-                idVendedor =  Consulta.idVendedor(lblUsuario.Text.ToString().Trim()).ToString();
+                idVendedor =  Consulta.idUsuario(lblUsuario.Text.ToString().Trim()).ToString();
 
             Consulta.registrarPedido(idVendedor, idCliente, fechaCreacion, subTotal.ToString("0.##"), total.ToString("0.##"), comentarios);//REGISTRAR PEDIDO
 
@@ -100,7 +100,7 @@ namespace TT2024_A155
             registrarDatosFiscales(usuario, nombre, cif, calle, colonia, noExt, noInt, CP, ciudad, telefono, correo);
 
             if (idPedido != -1)
-                Consulta.generarComprobante(idPedido.ToString(), dgvDatosPDF);
+                Consulta.generarComprobante(idPedido.ToString(), dgvDatosPDF, true);
 
         }
 
@@ -109,6 +109,8 @@ namespace TT2024_A155
         {
 
             registrarPedido();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
             //Consulta.generarVale();
 
         }

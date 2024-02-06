@@ -23,18 +23,6 @@ namespace TT2024_A155
 
         private void Inicio_Load(object sender, EventArgs e)
         {
-            var btnAceptarPedido = new DataGridViewButtonColumn();
-            btnAceptarPedido.Name = "dataGridViewAceptarPedido";
-            btnAceptarPedido.HeaderText = "Estado pedido";
-            btnAceptarPedido.Text = "";
-            btnAceptarPedido.FlatStyle = FlatStyle.Popup;
-            btnAceptarPedido.CellTemplate.Style.BackColor = System.Drawing.Color.DarkGoldenrod;
-            //btnAceptarPedido.UseColumnTextForButtonValue = true;
-            dgvPedido.Columns.Add(btnAceptarPedido);
-
-
-
-
 
             //OBTENER PERMISOS SEGUN USUARIO
             permisos = Consulta.obtenerPermisos(lblRol.Text.Trim()); //1 ENABLE AND VISIBLE.... 0 DISABLE AND NO VISIBLE 
@@ -85,38 +73,20 @@ namespace TT2024_A155
 
             if (lblRol.Text == "4")//LLENAR EL DATAGRIDVIEW SEGUN SI ES CLIENTE O EMPLEADO
             {
+                var btnAceptarPedido = new DataGridViewButtonColumn();
+                btnAceptarPedido.Name = "dataGridViewAceptarPedido";
+                btnAceptarPedido.HeaderText = "Estado pedido";
+                btnAceptarPedido.Text = "";
+                btnAceptarPedido.FlatStyle = FlatStyle.Popup;
+                btnAceptarPedido.CellTemplate.Style.BackColor = System.Drawing.Color.DarkGoldenrod;
+                //btnAceptarPedido.UseColumnTextForButtonValue = true;
+                dgvPedido.Columns.Add(btnAceptarPedido);
 
-                Consulta.inicioClientePedidos(dgvPedido);
-                dgvPedido.Columns["idpedido"].Visible = false;
-                dgvPedido.Columns["Autorizado"].Visible = false;
-                dgvPedido.Columns["impuesto"].Visible = false;
-                dgvPedido.Columns["total"].Visible = false;
-                dgvPedido.Columns["comentarios"].Visible = false; 
-                dgvPedido.Columns["iddetalle_pedido"].Visible = false;
-
-                foreach (DataGridViewRow row in dgvPedido.Rows)
-                {
-                    if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
-                    {
-                        row.DefaultCellStyle.BackColor = System.Drawing.Color.Green;
-
-                        row.Cells["dataGridViewAceptarPedido"].Value = "Revisado";
-
-                    }
-                    else
-                    {
-
-                        row.DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
-                        row.Cells["dataGridViewAceptarPedido"].Value = "En Revisión";
-                    }
-                }
-
-
-
+                inicializarDgvCliente(lblUsuario.Text);
             }
             else
             {
-
+                inicializarDgvEmpleado(lblUsuario.Text);
             }
 
 
@@ -129,7 +99,18 @@ namespace TT2024_A155
             Pedido pedido = new Pedido(0);//0 = CREAR PEDIDO,,,, 1 = ACTUALIZAR
             pedido.lblUsuario.Text = lblUsuario.Text;
             pedido.lblRol.Text = lblRol.Text;
-            pedido.ShowDialog();
+            if (pedido.ShowDialog() == DialogResult.OK)
+            {
+                if (lblRol.Text == "4")
+                {
+                    inicializarDgvCliente(lblUsuario.Text);
+                }
+                else
+                {
+                    inicializarDgvEmpleado(lblUsuario.Text);
+                }
+                    
+            }
             //this.Hide();
 
         }
@@ -141,7 +122,7 @@ namespace TT2024_A155
         }
 
 
-        public void llenarDetallesPedido(string[] detallesPedido) 
+        public void llenarDetallesPedido(string[] detallesPedido)
         {
 
             lblNoPedido.Text = "# Pedido: " + detallesPedido[0];
@@ -154,7 +135,7 @@ namespace TT2024_A155
             lblDescuento.Text = "Descuento: " + detallesPedido[7];
             lblMarca.Text = "Marca: " + detallesPedido[8];
             lblModelo.Text = "Modelo: " + detallesPedido[9];
-            lblComentarios.Text = "Comentarios: " + detallesPedido[10];
+            txtComentarios.Text = detallesPedido[10];
             lblAprobacion.Text = "Estado: " + detallesPedido[11];
             lblFactura.Text = "# Factura: " + detallesPedido[12];
             lblFactSinIva.Text = "Factura sin IVA: " + detallesPedido[13];
@@ -173,11 +154,11 @@ namespace TT2024_A155
                 return;
 
             //Check if click is on specific column
-            if (e.ColumnIndex == dgvPedido.Columns["dataGridViewAceptarPedido"].Index)
+            if (dgvPedido.Columns["dataGridViewAceptarPedido"] != null && e.ColumnIndex == dgvPedido.Columns["dataGridViewAceptarPedido"].Index)
             {
                 foreach (DataGridViewRow row in dgvPedido.SelectedRows)
                 {
-                    
+
 
                     if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))//Si le da clic al boton para aceptar el pedido
                     {
@@ -189,8 +170,9 @@ namespace TT2024_A155
 
                         if (mes.ShowDialog() == DialogResult.OK)
                         {
-                            MessageBox.Show("SI");//AGREGAR QUE ACTUALICE EN PEIDDO aprobacionCliente
-                            
+                            Consulta.aprobarPedidoCliente(dgvPedido.Rows[fila].Cells[2].Value.ToString());
+                            inicializarDgvCliente(lblUsuario.Text);
+
                         }
 
                     }
@@ -202,7 +184,7 @@ namespace TT2024_A155
                 return;
             }
 
-           
+
 
             if (fila == -1) { }
             else if (e.ColumnIndex == -1)
@@ -211,9 +193,9 @@ namespace TT2024_A155
                 detallesPedido = Consulta.detallesPedido(dgvPedido.Rows[fila].Cells[1].Value.ToString());
                 llenarDetallesPedido(detallesPedido);
                 return;
-                
+
             }
-            else 
+            else
             {
 
 
@@ -225,6 +207,73 @@ namespace TT2024_A155
             }
 
 
+        }
+
+        private void pbFactura_Click(object sender, EventArgs e)
+        {
+            //detallesPedido[0] = idPedido
+            if (detallesPedido != null)
+                Consulta.generarComprobante(detallesPedido[0], dgvDatosPDF, false);
+        }
+
+        private void inicializarDgvCliente(string usuario)
+        {
+            Consulta.inicioClientePedidos(dgvPedido, usuario);
+            dgvPedido.Columns["idpedido"].Visible = false;
+            dgvPedido.Columns["Autorizado"].Visible = false;
+            dgvPedido.Columns["impuesto"].Visible = false;
+            dgvPedido.Columns["total"].Visible = false;
+            dgvPedido.Columns["comentarios"].Visible = false;
+            dgvPedido.Columns["iddetalle_pedido"].Visible = false;
+
+            foreach (DataGridViewRow row in dgvPedido.Rows)
+            {
+                if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
+                {
+                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Green;
+
+                    row.Cells["dataGridViewAceptarPedido"].Value = "Revisado";
+
+                }
+                else
+                {
+
+                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+                    row.Cells["dataGridViewAceptarPedido"].Value = "En Revisión";
+                }
             }
+        }
+
+
+        private void inicializarDgvEmpleado(string usuario)
+        {
+            Consulta.inicioPedidosEmpleados(dgvPedido, usuario);
+            //dgvPedido.Columns["idpedido"].Visible = false;
+            dgvPedido.Columns["Usuario"].Visible = false;
+            dgvPedido.Columns["Nombre"].Visible = false;
+            dgvPedido.Columns["Autorizado"].Visible = false;
+            dgvPedido.Columns["impuesto"].Visible = false;
+            dgvPedido.Columns["total"].Visible = false;
+            dgvPedido.Columns["comentarios"].Visible = false;
+            dgvPedido.Columns["iddetalle_pedido"].Visible = false;
+
+            foreach (DataGridViewRow row in dgvPedido.Rows)
+            {
+                if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
+                {
+                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Green;
+
+                }
+                else
+                {
+
+                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+                    
+                }
+            }
+        }
+
     }
 }
+
+
