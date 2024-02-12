@@ -38,6 +38,7 @@
             modificarUsuariosToolStripMenuItem = new ToolStripMenuItem();
             generarReporteDeVentasToolStripMenuItem = new ToolStripMenuItem();
             panelInfoPedido = new Panel();
+            txtComentarios = new TextBox();
             dgvDatosPDF = new DataGridView();
             lblFactIVA = new Label();
             lblFactSinIva = new Label();
@@ -51,6 +52,7 @@
             lblMarca = new Label();
             lblDescuento = new Label();
             lblAprobacion = new Label();
+            lblComentarios = new Label();
             lblTotal = new Label();
             lblImpuesto = new Label();
             lblFechaCreacion = new Label();
@@ -62,8 +64,16 @@
             lblNoPedido = new Label();
             lblTituloInfoPedido = new Label();
             dgvPedido = new DataGridView();
-            txtComentarios = new TextBox();
-            lblComentarios = new Label();
+            lblPedido = new Label();
+            lblNomCliente = new Label();
+            lblNombreUsuario = new Label();
+            lblFecha = new Label();
+            txtFiltroPedido = new TextBox();
+            txtFiltroCliente = new TextBox();
+            txtFiltroUsuario = new TextBox();
+            dtpInicio = new DateTimePicker();
+            lblFecha2 = new Label();
+            dtpFin = new DateTimePicker();
             menuStrip1.SuspendLayout();
             panelInfoPedido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).BeginInit();
@@ -181,6 +191,15 @@
             panelInfoPedido.Name = "panelInfoPedido";
             panelInfoPedido.Size = new Size(425, 589);
             panelInfoPedido.TabIndex = 4;
+            // 
+            // txtComentarios
+            // 
+            txtComentarios.Location = new Point(101, 264);
+            txtComentarios.Multiline = true;
+            txtComentarios.Name = "txtComentarios";
+            txtComentarios.ReadOnly = true;
+            txtComentarios.Size = new Size(313, 74);
+            txtComentarios.TabIndex = 40;
             // 
             // dgvDatosPDF
             // 
@@ -305,6 +324,15 @@
             lblAprobacion.TabIndex = 16;
             lblAprobacion.Text = "Estado:";
             // 
+            // lblComentarios
+            // 
+            lblComentarios.AutoSize = true;
+            lblComentarios.Location = new Point(3, 264);
+            lblComentarios.Name = "lblComentarios";
+            lblComentarios.Size = new Size(96, 20);
+            lblComentarios.TabIndex = 15;
+            lblComentarios.Text = "Comentarios:";
+            // 
             // lblTotal
             // 
             lblTotal.AutoSize = true;
@@ -422,29 +450,108 @@
             dgvPedido.TabIndex = 5;
             dgvPedido.CellClick += dgvPedido_CellClick;
             // 
-            // txtComentarios
+            // lblPedido
             // 
-            txtComentarios.Location = new Point(101, 264);
-            txtComentarios.Multiline = true;
-            txtComentarios.Name = "txtComentarios";
-            txtComentarios.ReadOnly = true;
-            txtComentarios.Size = new Size(313, 74);
-            txtComentarios.TabIndex = 40;
+            lblPedido.AutoSize = true;
+            lblPedido.Location = new Point(181, 69);
+            lblPedido.Name = "lblPedido";
+            lblPedido.Size = new Size(71, 20);
+            lblPedido.TabIndex = 6;
+            lblPedido.Text = "# Pedido:";
             // 
-            // lblComentarios
+            // lblNomCliente
             // 
-            lblComentarios.AutoSize = true;
-            lblComentarios.Location = new Point(3, 264);
-            lblComentarios.Name = "lblComentarios";
-            lblComentarios.Size = new Size(96, 20);
-            lblComentarios.TabIndex = 15;
-            lblComentarios.Text = "Comentarios:";
+            lblNomCliente.AutoSize = true;
+            lblNomCliente.Location = new Point(437, 69);
+            lblNomCliente.Name = "lblNomCliente";
+            lblNomCliente.Size = new Size(117, 20);
+            lblNomCliente.TabIndex = 7;
+            lblNomCliente.Text = "Nombre Cliente:";
+            // 
+            // lblNombreUsuario
+            // 
+            lblNombreUsuario.AutoSize = true;
+            lblNombreUsuario.Location = new Point(753, 69);
+            lblNombreUsuario.Name = "lblNombreUsuario";
+            lblNombreUsuario.Size = new Size(121, 20);
+            lblNombreUsuario.TabIndex = 8;
+            lblNombreUsuario.Text = "Nombre Usuario:";
+            // 
+            // lblFecha
+            // 
+            lblFecha.AutoSize = true;
+            lblFecha.Location = new Point(1081, 37);
+            lblFecha.Name = "lblFecha";
+            lblFecha.Size = new Size(87, 20);
+            lblFecha.TabIndex = 9;
+            lblFecha.Text = "De la fecha:";
+            // 
+            // txtFiltroPedido
+            // 
+            txtFiltroPedido.Location = new Point(258, 62);
+            txtFiltroPedido.Name = "txtFiltroPedido";
+            txtFiltroPedido.Size = new Size(158, 27);
+            txtFiltroPedido.TabIndex = 10;
+            txtFiltroPedido.KeyUp += txtFiltroPedido_KeyUp;
+            // 
+            // txtFiltroCliente
+            // 
+            txtFiltroCliente.Location = new Point(560, 62);
+            txtFiltroCliente.Name = "txtFiltroCliente";
+            txtFiltroCliente.Size = new Size(158, 27);
+            txtFiltroCliente.TabIndex = 11;
+            txtFiltroCliente.KeyUp += txtFiltroCliente_KeyUp;
+            // 
+            // txtFiltroUsuario
+            // 
+            txtFiltroUsuario.Location = new Point(880, 62);
+            txtFiltroUsuario.Name = "txtFiltroUsuario";
+            txtFiltroUsuario.Size = new Size(158, 27);
+            txtFiltroUsuario.TabIndex = 12;
+            txtFiltroUsuario.KeyUp += txtFiltroUsuario_KeyUp;
+            // 
+            // dtpInicio
+            // 
+            dtpInicio.Format = DateTimePickerFormat.Short;
+            dtpInicio.Location = new Point(1081, 64);
+            dtpInicio.Name = "dtpInicio";
+            dtpInicio.Size = new Size(112, 27);
+            dtpInicio.TabIndex = 13;
+            dtpInicio.ValueChanged += dtpInicio_ValueChanged;
+            // 
+            // lblFecha2
+            // 
+            lblFecha2.AutoSize = true;
+            lblFecha2.Location = new Point(1211, 71);
+            lblFecha2.Name = "lblFecha2";
+            lblFecha2.Size = new Size(24, 20);
+            lblFecha2.TabIndex = 14;
+            lblFecha2.Text = "a :";
+            // 
+            // dtpFin
+            // 
+            dtpFin.Format = DateTimePickerFormat.Short;
+            dtpFin.Location = new Point(1255, 64);
+            dtpFin.Name = "dtpFin";
+            dtpFin.Size = new Size(112, 27);
+            dtpFin.TabIndex = 15;
+            dtpFin.ValueChanged += dtpFin_ValueChanged;
             // 
             // Inicio
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1447, 732);
+            Controls.Add(dtpFin);
+            Controls.Add(lblFecha2);
+            Controls.Add(dtpInicio);
+            Controls.Add(txtFiltroUsuario);
+            Controls.Add(txtFiltroCliente);
+            Controls.Add(txtFiltroPedido);
+            Controls.Add(lblFecha);
+            Controls.Add(lblNombreUsuario);
+            Controls.Add(lblNomCliente);
+            Controls.Add(lblPedido);
             Controls.Add(dgvPedido);
             Controls.Add(panelInfoPedido);
             Controls.Add(lblRol);
@@ -504,5 +611,15 @@
         private DataGridView dgvDatosPDF;
         private TextBox txtComentarios;
         private Label lblComentarios;
+        private Label lblPedido;
+        private Label lblNomCliente;
+        private Label lblNombreUsuario;
+        private Label lblFecha;
+        private TextBox txtFiltroPedido;
+        private TextBox txtFiltroCliente;
+        private TextBox txtFiltroUsuario;
+        private DateTimePicker dtpInicio;
+        private Label lblFecha2;
+        private DateTimePicker dtpFin;
     }
 }

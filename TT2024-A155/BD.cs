@@ -1432,7 +1432,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido, ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1446,7 +1446,7 @@ namespace TT2024_A155
             }
         }
 
-        //---------------------------Inicializar DGV de Cliente al iniciar sesion--------------------
+        //---------------------------Inicializar DGV de Empleado al iniciar sesion--------------------
         public void inicioPedidosEmpleados(DataGridView dgv, string usuario)
         {
             
@@ -1455,7 +1455,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido, ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1568,6 +1568,172 @@ namespace TT2024_A155
             }
 
         }
+
+
+
+        //---------------------------Llenar datos DGV Pedido Filtro # Pedido  CLIENTE--------------------
+        public void filtroPedidoCliente(DataGridView dgv, string idPedido, string usuario)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    //MessageBox.Show(cvePedido);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idpedido = '{0}' AND us.nombre_usuario = '{1}' ORDER BY ped.fecha_hora desc;", idPedido, usuario), nuevacon);
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        //---------------------------Llenar datos DGV Pedido Filtro Fechas  CLIENTE--------------------
+        public void filtroFechaCliente(DataGridView dgv, string fechaInicio, string fechaFinal, string usuario)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    //MessageBox.Show(cvePedido);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND ped.fecha_hora between '{1}' and '{2}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario), fechaInicio, fechaFinal ), nuevacon);
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+
+        //---------------------------Llenar datos DGV Pedido Filtro Nombre Cliente  CLIENTE--------------------
+        public void filtroNombreCliente(DataGridView dgv, string nombreCliente, string usuario)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    //MessageBox.Show(cvePedido);
+                    da = new SqlDataAdapter(string.Format("", nombreCliente, usuario), nuevacon);
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+
+        //---------------------------Llenar datos DGV Pedido Filtro # Pedido EMPLEADO--------------------
+        public void filtroPedidoEmpleado(DataGridView dgv, string idPedido, string usuario)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    //MessageBox.Show(cvePedido);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND ped.idpedido = '{1}' ORDER BY ped.fecha_hora desc;",idUsuario(usuario) ,idPedido), nuevacon);
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        //---------------------------Llenar datos DGV Pedido Filtro Nombre Cliente EMPLEADO--------------------
+        public void filtroNombreClienteEmpleado(DataGridView dgv, string nombreCliente, string usuario)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    //MessageBox.Show(cvePedido);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND us.nombre_real LIKE '%{1}%' ORDER BY ped.fecha_hora desc;", idUsuario(usuario), nombreCliente), nuevacon);
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        //---------------------------Llenar datos DGV Pedido Filtro Nombre Usuario EMPLEADO--------------------
+        public void filtroNombreUsuarioEmpleado(DataGridView dgv, string nombreUsuario, string usuario)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    //MessageBox.Show(cvePedido);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND us.nombre_usuario LIKE '%{1}%' ORDER BY ped.fecha_hora desc;", idUsuario(usuario), nombreUsuario), nuevacon);
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        //---------------------------Llenar datos DGV Pedido Filtro Fecha EMPLEADO--------------------
+        public void filtroFechaEmpleado(DataGridView dgv, string fechaInicio, string fechaFin, string usuario)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    //MessageBox.Show(cvePedido);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND ped.fecha_hora between '{1}' and '{2}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario), fechaInicio, fechaFin), nuevacon);
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
 
     }
 }

@@ -83,6 +83,11 @@ namespace TT2024_A155
                 dgvPedido.Columns.Add(btnAceptarPedido);
 
                 inicializarDgvCliente(lblUsuario.Text);
+
+                lblNomCliente.Visible = false;
+                txtFiltroCliente.Visible = false;
+                lblNombreUsuario.Visible = false;
+                txtFiltroUsuario.Visible = false;
             }
             else
             {
@@ -109,7 +114,7 @@ namespace TT2024_A155
                 {
                     inicializarDgvEmpleado(lblUsuario.Text);
                 }
-                    
+
             }
             //this.Hide();
 
@@ -189,10 +194,20 @@ namespace TT2024_A155
             if (fila == -1) { }
             else if (e.ColumnIndex == -1)
             {
+                if (lblRol.Text == "4")
+                {
+                    detallesPedido = Consulta.detallesPedido(dgvPedido.Rows[fila].Cells[1].Value.ToString());
+                    llenarDetallesPedido(detallesPedido);
+                    return;
+                }
+                else if (lblRol.Text == "2")
+                {
+                    detallesPedido = Consulta.detallesPedido(dgvPedido.Rows[fila].Cells[0].Value.ToString());
+                    llenarDetallesPedido(detallesPedido);
+                    return;
+                }
+                else { }
 
-                detallesPedido = Consulta.detallesPedido(dgvPedido.Rows[fila].Cells[1].Value.ToString());
-                llenarDetallesPedido(detallesPedido);
-                return;
 
             }
             else
@@ -216,16 +231,8 @@ namespace TT2024_A155
                 Consulta.generarComprobante(detallesPedido[0], dgvDatosPDF, false);
         }
 
-        private void inicializarDgvCliente(string usuario)
+        private void estadoPedidoColorCliente()
         {
-            Consulta.inicioClientePedidos(dgvPedido, usuario);
-            dgvPedido.Columns["idpedido"].Visible = false;
-            dgvPedido.Columns["Autorizado"].Visible = false;
-            dgvPedido.Columns["impuesto"].Visible = false;
-            dgvPedido.Columns["total"].Visible = false;
-            dgvPedido.Columns["comentarios"].Visible = false;
-            dgvPedido.Columns["iddetalle_pedido"].Visible = false;
-
             foreach (DataGridViewRow row in dgvPedido.Rows)
             {
                 if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
@@ -244,11 +251,25 @@ namespace TT2024_A155
             }
         }
 
-
-        private void inicializarDgvEmpleado(string usuario)
+        private void estadoPedidoColorEmpleado()
         {
-            Consulta.inicioPedidosEmpleados(dgvPedido, usuario);
-            //dgvPedido.Columns["idpedido"].Visible = false;
+            foreach (DataGridViewRow row in dgvPedido.Rows)
+            {
+                if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
+                {
+                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+                }
+            }
+        }
+
+        private void inicializarDgvCliente(string usuario)
+        {
+            Consulta.inicioClientePedidos(dgvPedido, usuario);
+            dgvPedido.Columns["# Pedido"].Visible = true;
             dgvPedido.Columns["Usuario"].Visible = false;
             dgvPedido.Columns["Nombre"].Visible = false;
             dgvPedido.Columns["Autorizado"].Visible = false;
@@ -257,22 +278,145 @@ namespace TT2024_A155
             dgvPedido.Columns["comentarios"].Visible = false;
             dgvPedido.Columns["iddetalle_pedido"].Visible = false;
 
-            foreach (DataGridViewRow row in dgvPedido.Rows)
-            {
-                if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
-                {
-                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Green;
+            estadoPedidoColorCliente();
+        }
 
+
+        private void inicializarDgvEmpleado(string usuario)
+        {
+            Consulta.inicioPedidosEmpleados(dgvPedido, usuario);
+            dgvPedido.Columns["# Pedido"].Visible = true;
+            dgvPedido.Columns["Usuario"].Visible = false;
+            dgvPedido.Columns["Nombre"].Visible = false;
+            dgvPedido.Columns["Autorizado"].Visible = false;
+            dgvPedido.Columns["impuesto"].Visible = false;
+            dgvPedido.Columns["total"].Visible = false;
+            dgvPedido.Columns["comentarios"].Visible = false;
+            dgvPedido.Columns["iddetalle_pedido"].Visible = false;
+
+            estadoPedidoColorEmpleado();
+
+        }
+
+        private void txtFiltroPedido_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (lblRol.Text == "4")
+            {
+                if (txtFiltroPedido.Text.Trim() == string.Empty)
+                {
+                    inicializarDgvCliente(lblUsuario.Text);
                 }
                 else
                 {
+                    Consulta.filtroPedidoCliente(dgvPedido, txtFiltroPedido.Text.Trim(), lblUsuario.Text.Trim());
+                    estadoPedidoColorCliente();
+                }
 
-                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
-                    
+
+
+            }
+            else if (lblRol.Text == "2")
+            {
+                if (txtFiltroPedido.Text.Trim() == string.Empty)
+                {
+                    inicializarDgvEmpleado(lblUsuario.Text);
+                }
+                else
+                {
+                    Consulta.filtroPedidoEmpleado(dgvPedido, txtFiltroPedido.Text.Trim(), lblUsuario.Text);
+                    estadoPedidoColorEmpleado();
                 }
             }
+            else { }
+
+
+
         }
 
+        private void txtFiltroCliente_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (lblRol.Text == "4")
+            {
+
+            }
+            else if (lblRol.Text == "2")
+            {
+                if (txtFiltroCliente.Text.Trim() == string.Empty)
+                {
+                    inicializarDgvEmpleado(lblUsuario.Text);
+                }
+                else
+                {
+                    Consulta.filtroNombreClienteEmpleado(dgvPedido, txtFiltroCliente.Text.Trim(), lblUsuario.Text);
+                    estadoPedidoColorEmpleado();
+                }
+            }
+            else { }
+        }
+
+        private void txtFiltroUsuario_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (lblRol.Text == "4")
+            {
+
+            }
+            else if (lblRol.Text == "2")
+            {
+                if (txtFiltroUsuario.Text.Trim() == string.Empty)
+                {
+                    inicializarDgvEmpleado(lblUsuario.Text);
+                }
+                else
+                {
+                    Consulta.filtroNombreUsuarioEmpleado(dgvPedido, txtFiltroUsuario.Text.Trim(), lblUsuario.Text);
+                    estadoPedidoColorEmpleado();
+                }
+            }
+            else { }
+        }
+
+        private void dtpFin_ValueChanged(object sender, EventArgs e)
+        {
+            string Fecha_inicio = dtpFin.Value.Year.ToString() + "-" + dtpFin.Value.Month.ToString() + "-" + dtpFin.Value.Day.ToString();
+            string Fecha_Final = dtpFin.Value.Year.ToString() + "-" + dtpFin.Value.Month.ToString() + "-" + dtpFin.Value.Day.ToString();
+
+            if (lblRol.Text == "4")
+            {
+                Consulta.filtroFechaCliente(dgvPedido, Fecha_inicio, Fecha_Final, lblUsuario.Text);
+                estadoPedidoColorCliente();
+            }
+            else if (lblRol.Text == "2")
+            {
+
+
+                Consulta.filtroFechaEmpleado(dgvPedido, Fecha_inicio, Fecha_Final, lblUsuario.Text);
+                estadoPedidoColorEmpleado();
+
+            }
+            else { }
+
+        }
+
+        private void dtpInicio_ValueChanged(object sender, EventArgs e)
+        {
+            string Fecha_inicio = dtpFin.Value.Year.ToString() + "-" + dtpFin.Value.Month.ToString() + "-" + dtpFin.Value.Day.ToString();
+            string Fecha_Final = dtpFin.Value.Year.ToString() + "-" + dtpFin.Value.Month.ToString() + "-" + dtpFin.Value.Day.ToString();
+
+            if (lblRol.Text == "4")
+            {
+                Consulta.filtroFechaCliente(dgvPedido, Fecha_inicio, Fecha_Final, lblUsuario.Text);
+                estadoPedidoColorCliente();
+            }
+            else if (lblRol.Text == "2")
+            {
+
+
+                Consulta.filtroFechaEmpleado(dgvPedido, Fecha_inicio, Fecha_Final, lblUsuario.Text);
+                estadoPedidoColorEmpleado();
+
+            }
+            else { }
+        }
     }
 }
 
