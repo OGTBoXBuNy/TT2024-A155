@@ -212,24 +212,53 @@ namespace TT2024_A155
             }
             else
             {
+                string idPedido;
 
+                if (lblRol.Text == "4")
+                {
+                    
+                    idPedido = dgvPedido.Rows[fila].Cells[2].Value.ToString();
+                    SubMenu subMenu = new ();
+                    subMenu.lblUsuario.Text = lblUsuario.Text;
+                    subMenu.lblRol.Text = lblRol.Text;
+                    subMenu.lblIdPedido.Text = idPedido;
+                    subMenu.ShowDialog();
+                   
+                }
+                else if (lblRol.Text == "2")
+                {
+
+                    idPedido = dgvPedido.Rows[fila].Cells[1].Value.ToString();
+                    SubMenu subMenu = new();
+                    subMenu.lblUsuario.Text = lblUsuario.Text;
+                    subMenu.lblRol.Text = lblRol.Text;
+                    subMenu.lblIdPedido.Text = idPedido;
+                    subMenu.ShowDialog();
+                }
+                else { }
 
 
                 foreach (DataGridViewRow row in dgvPedido.SelectedRows)
                 {
-                    MessageBox.Show(row.Cells["iddetalle_pedido"].Value.ToString());
+                    //MessageBox.Show(row.Cells["iddetalle_pedido"].Value.ToString());
                 }
             }
 
 
         }
 
-        private void pbFactura_Click(object sender, EventArgs e)
+        private void pbComprobante_Click(object sender, EventArgs e)
         {
             //detallesPedido[0] = idPedido
             if (detallesPedido != null)
                 Consulta.generarComprobante(detallesPedido[0], dgvDatosPDF, false);
         }
+
+        private void pbFactura_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         private void estadoPedidoColorCliente()
         {
@@ -417,6 +446,8 @@ namespace TT2024_A155
             }
             else { }
         }
+
+        
     }
 }
 

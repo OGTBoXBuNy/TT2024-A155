@@ -24,16 +24,14 @@ namespace TT2024_A155
         double subTotal = 0;
         double total = 0;
         int indexCMBCliente = -1;
+        int actualizar = 0;
 
         public Pedido(int x)
         {
             InitializeComponent();
 
             // X-->  0 = CREAR PEIDO,,,, 1 = ACTUALIZAR
-            if (x == 0)
-            {
-
-            }
+            actualizar = x;
 
         }
 
@@ -59,11 +57,11 @@ namespace TT2024_A155
             string idVendedor = string.Empty;
             string idCliente = cmbCliente.SelectedValue.ToString();//ID USUARIO CLIENTE
             string comentarios = txtComentarios.Text.Trim();//COMENTARIOS
-            string cantidad = string.Empty;
-            string idProducto = string.Empty;
-            string idVehiculo = string.Empty;
-            string precioVenta = string.Empty;
-            string descuento = string.Empty;
+            string cantidad;
+            string idProducto;
+            string idVehiculo;
+            string precioVenta;
+            string descuento;
             int idPedido = -1;
 
 
@@ -104,14 +102,95 @@ namespace TT2024_A155
 
         }
 
+        private void actualizarPedido()
+        {
+            
+            string comentarios = txtComentarios.Text.Trim();//COMENTARIOS
+            string cantidad;
+            string idProducto;
+            string idVehiculo;
+            string precioVenta;
+            string descuento;
+            string iddetalle_pedido;
+            string idPedido = lblIdPedido.Text;
+
+            int idPedidoPDF = -1;
+
+
+
+            
+
+            //Consulta.actualizarPedido();//ACTUALIZAR PEDIDO
+
+            foreach (DataGridViewRow row in dgvPedido.Rows)
+            {
+                if (row.Cells["iddetalle_pedido"].Value.ToString() == "") 
+                {
+                    cantidad = row.Cells["Cantidad"].Value.ToString();
+                    idProducto = row.Cells["idProducto"].Value.ToString();
+                    precioVenta = row.Cells["Precio de venta\n($)"].Value.ToString();
+                    descuento = row.Cells["Descuento\n(%)"].Value.ToString();
+                    idVehiculo = row.Cells["idvehiculo"].Value.ToString();
+                    iddetalle_pedido = row.Cells["iddetalle_pedido"].Value.ToString();
+
+                    Consulta.registrarDetallePedidoActualizar(idProducto,cantidad,precioVenta,descuento,idVehiculo,idPedido, comentarios);
+                }
+                else
+                {
+                    cantidad = row.Cells["Cantidad"].Value.ToString();
+                    idProducto = row.Cells["idProducto"].Value.ToString();
+                    precioVenta = row.Cells["Precio de venta\n($)"].Value.ToString();
+                    descuento = row.Cells["Descuento\n(%)"].Value.ToString();
+                    idVehiculo = row.Cells["idvehiculo"].Value.ToString();
+                    iddetalle_pedido = row.Cells["iddetalle_pedido"].Value.ToString();
+
+                    Consulta.actualizarDatosPedido(idVehiculo, cantidad, descuento, iddetalle_pedido, comentarios, idPedido);
+                }
+
+
+                
+
+                //idPedido = Consulta.registrarDetallePedido(idProducto, cantidad, precioVenta, descuento, idVehiculo);
+
+            }
+
+
+            string usuario = cmbCliente.Text.Trim();
+            string nombre = txtNombreCliFact.Text.Trim();
+            string cif = txtCif.Text.Trim();
+            string calle = txtCalle.Text.Trim();
+            string colonia = txtCol.Text.Trim();
+            string noExt = txtNoExt.Text.Trim();
+            string noInt = txtNoInt.Text.Trim();
+            string CP = txtCP.Text.Trim();
+            string ciudad = txtCiudad.Text.Trim();
+            string telefono = txtTel.Text.Trim();
+            string correo = txtCorreo.Text.Trim();
+            //registrarDatosFiscales(usuario, nombre, cif, calle, colonia, noExt, noInt, CP, ciudad, telefono, correo);
+
+            if (idPedidoPDF != -1)
+                Consulta.generarComprobante(idPedido.ToString(), dgvDatosPDF, true);
+
+        }
+
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (actualizar == 0)
+            {
+                registrarPedido();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+                //Consulta.generarVale();
+            }
+            else if (actualizar == 1)
+            {
+                actualizarPedido();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else { }
 
-            registrarPedido();
-            this.DialogResult = DialogResult.OK;
-            this.Close();
-            //Consulta.generarVale();
 
         }
 
@@ -155,8 +234,8 @@ namespace TT2024_A155
 
             //dt.Columns.Add("costo_proveedor\n($)");
             dgvPedido.DataSource = dt;
-            dgvPedido.Columns["idProducto"].Visible = false;
-            dgvPedido.Columns["idvehiculo"].Visible = false;
+            dgvPedido.Columns["idProducto"].Visible = true;
+            dgvPedido.Columns["idvehiculo"].Visible = true;
 
 
             //Carga los datos registros de clientes en el combobox
@@ -174,6 +253,20 @@ namespace TT2024_A155
                 cmbCliente.Enabled = false;
             }
 
+
+            //----------ACTUALIZAR--------///
+            if(actualizar == 1)
+            {
+                
+                Consulta.datosPedidoActualizar(dgvPedido,dt, lblIdPedido.Text);
+                dgvPedido.Columns["Comentarios"].Visible = true;
+                dgvPedido.Columns["fecha_hora"].Visible = true;
+                dgvPedido.Columns["idusuarioVendedor"].Visible = true;
+                dgvPedido.Columns["iddetalle_pedido"].Visible = true;
+
+                txtComentarios.Text = dgvPedido.Rows[0].Cells[11].Value.ToString();
+                lblFechaCreacion.Text = "Fecha Creación: " + dgvPedido.Rows[0].Cells[12].Value.ToString();
+            }
 
         }
 

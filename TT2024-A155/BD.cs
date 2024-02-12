@@ -1735,5 +1735,137 @@ namespace TT2024_A155
         }
 
 
+
+        //---------------------------Llenar datos DGV Pedido al ACTUALIZAR--------------------
+        public void datosPedidoActualizar(DataGridView dgv, DataTable dt, string idPedido)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    //MessageBox.Show(cvePedido);
+                    da = new SqlDataAdapter(string.Format("SELECT prod.nombre AS 'Producto', CONCAT(mar.marca,'-',veh.modelo,'-', veh.anio) AS 'Vehiculo',  detp.cantidad AS 'Cantidad', prod.codigo AS 'Clave de producto', prod.descripcion AS 'Descripción', prod.precio_venta AS 'Precio de venta\n($)', detp.descuento AS 'Descuento\n(%)', prod.idproducto, veh.idvehiculo ,ped.comentarios AS 'Comentarios', ped.fecha_hora , ped.idusuarioVendedor, detp.iddetalle_pedido FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idpedido = '{0}';", idPedido), nuevacon);
+                    nuevacon.Open();
+                    //dt = new DataTable();
+                    da.Fill(dt);
+                    dgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+
+        //----------------------------------ACTUALIZAR DATOS PEDIDO ----------------------------------------------
+        public void actualizarDatosPedido(string idvehiculo, string cantidad, string descuento, string iddetalle_pedido, string comentarios, string idPedido)
+        {
+            int i = 0;
+            
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    nuevacon.Open();
+
+                    Comando = new SqlCommand("UPDATE ped SET ped.comentarios = @comentarios FROM pedido ped WHERE ped.idpedido = @idpedido;", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@comentarios", comentarios);
+                    Comando.Parameters.AddWithValue("@idpedido", Convert.ToInt32(idPedido));
+                    Comando.ExecuteNonQuery();
+
+
+                    Comando = new SqlCommand("UPDATE detp SET detp.idvehiculo = @idvehiculo, detp.cantidad = @cantidad, detp.descuento = @descuento FROM detalle_pedido detp WHERE detp.iddetalle_pedido = @iddetalle_pedido;", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@idvehiculo", Convert.ToInt32(idvehiculo));
+                    Comando.Parameters.AddWithValue("@cantidad", Convert.ToInt32(cantidad));
+                    Comando.Parameters.AddWithValue("@descuento", Convert.ToDouble(descuento));
+                    Comando.Parameters.AddWithValue("@iddetalle_pedido", Convert.ToInt32(iddetalle_pedido));
+                    
+
+
+
+                    //Para saber si la inserción se hizo correctamente
+                    i = Comando.ExecuteNonQuery();
+
+                    if (i > 0)
+                    {
+                        MessageBox.Show("Datos del pedido actualizado correctamente");
+                    }
+                    else
+                        MessageBox.Show("Datos del pedido no actualizados");
+
+
+
+                    nuevacon.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
+        }
+
+        //REGISTRAR PRODUCTO NUEVO AL MOMENTO DE ESTAR ACTUALIZANDO
+
+        public int registrarDetallePedidoActualizar(string idProducto, string cantidad, string precio, string descuento, string idVehiculo, string idPedido, string comentarios)
+        {
+
+            int i;
+            
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+                    nuevacon.Open();
+
+                    Comando = new SqlCommand("UPDATE ped SET ped.comentarios = @comentarios FROM pedido ped WHERE ped.idpedido = @idpedido;", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@comentarios", comentarios);
+                    Comando.Parameters.AddWithValue("@idpedido", Convert.ToInt32(idPedido));
+                    Comando.ExecuteNonQuery();
+
+
+                    Comando = new SqlCommand("INSERT INTO detalle_pedido (idpedido, idproducto, cantidad, precio, descuento, idvehiculo)\r\nVALUES (@idPedido,@idProducto, @cantidad, @precio, @descuento, @idVehiculo);", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@idPedido", Convert.ToInt32(idPedido));
+                    Comando.Parameters.AddWithValue("@idProducto", Convert.ToInt32(idProducto));
+                    Comando.Parameters.AddWithValue("@cantidad", Convert.ToInt32(cantidad));
+                    Comando.Parameters.AddWithValue("@precio", Convert.ToDouble(precio));
+                    Comando.Parameters.AddWithValue("@descuento", Convert.ToDouble(descuento));
+                    Comando.Parameters.AddWithValue("@idVehiculo", Convert.ToInt32(idVehiculo));
+
+
+
+                    //Para saber si la inserción se hizo correctamente
+                    i = Comando.ExecuteNonQuery();
+                    nuevacon.Close();
+                    if (i == 1)
+                    {
+                        actualizarStock(idProducto, cantidad);
+                       
+                        
+                    }
+                    else
+                        MessageBOX.SHowDialog(2, "Problemas al registar pedido");
+                }
+                return -1;
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error registrar pedido: " + EX.Message);
+            }
+            return -1;
+
+        }
+
+
     }
 }

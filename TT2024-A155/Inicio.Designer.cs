@@ -38,13 +38,15 @@
             modificarUsuariosToolStripMenuItem = new ToolStripMenuItem();
             generarReporteDeVentasToolStripMenuItem = new ToolStripMenuItem();
             panelInfoPedido = new Panel();
+            pbFactura = new PictureBox();
+            lblComprobantePDF = new Label();
             txtComentarios = new TextBox();
             dgvDatosPDF = new DataGridView();
             lblFactIVA = new Label();
             lblFactSinIva = new Label();
             label4 = new Label();
             label3 = new Label();
-            pbFactura = new PictureBox();
+            pbComprobante = new PictureBox();
             label2 = new Label();
             label1 = new Label();
             lblPrecio = new Label();
@@ -76,8 +78,9 @@
             dtpFin = new DateTimePicker();
             menuStrip1.SuspendLayout();
             panelInfoPedido.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbFactura).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbComprobante).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvPedido).BeginInit();
             SuspendLayout();
             // 
@@ -161,13 +164,15 @@
             // panelInfoPedido
             // 
             panelInfoPedido.BorderStyle = BorderStyle.Fixed3D;
+            panelInfoPedido.Controls.Add(pbFactura);
+            panelInfoPedido.Controls.Add(lblComprobantePDF);
             panelInfoPedido.Controls.Add(txtComentarios);
             panelInfoPedido.Controls.Add(dgvDatosPDF);
             panelInfoPedido.Controls.Add(lblFactIVA);
             panelInfoPedido.Controls.Add(lblFactSinIva);
             panelInfoPedido.Controls.Add(label4);
             panelInfoPedido.Controls.Add(label3);
-            panelInfoPedido.Controls.Add(pbFactura);
+            panelInfoPedido.Controls.Add(pbComprobante);
             panelInfoPedido.Controls.Add(label2);
             panelInfoPedido.Controls.Add(label1);
             panelInfoPedido.Controls.Add(lblPrecio);
@@ -192,6 +197,28 @@
             panelInfoPedido.Size = new Size(425, 589);
             panelInfoPedido.TabIndex = 4;
             // 
+            // pbFactura
+            // 
+            pbFactura.Cursor = Cursors.Hand;
+            pbFactura.Image = Properties.Resources.file;
+            pbFactura.Location = new Point(362, 436);
+            pbFactura.Margin = new Padding(4);
+            pbFactura.Name = "pbFactura";
+            pbFactura.Size = new Size(55, 43);
+            pbFactura.SizeMode = PictureBoxSizeMode.Zoom;
+            pbFactura.TabIndex = 42;
+            pbFactura.TabStop = false;
+            pbFactura.Click += pbFactura_Click;
+            // 
+            // lblComprobantePDF
+            // 
+            lblComprobantePDF.AutoSize = true;
+            lblComprobantePDF.Location = new Point(3, 510);
+            lblComprobantePDF.Name = "lblComprobantePDF";
+            lblComprobantePDF.Size = new Size(108, 20);
+            lblComprobantePDF.TabIndex = 41;
+            lblComprobantePDF.Text = "Comprobante: ";
+            // 
             // txtComentarios
             // 
             txtComentarios.Location = new Point(101, 264);
@@ -199,7 +226,7 @@
             txtComentarios.Name = "txtComentarios";
             txtComentarios.ReadOnly = true;
             txtComentarios.Size = new Size(313, 74);
-            txtComentarios.TabIndex = 40;
+            txtComentarios.TabIndex = 99;
             // 
             // dgvDatosPDF
             // 
@@ -248,18 +275,18 @@
             label3.Size = new Size(427, 2);
             label3.TabIndex = 24;
             // 
-            // pbFactura
+            // pbComprobante
             // 
-            pbFactura.Cursor = Cursors.Hand;
-            pbFactura.Image = Properties.Resources.file;
-            pbFactura.Location = new Point(359, 453);
-            pbFactura.Margin = new Padding(4);
-            pbFactura.Name = "pbFactura";
-            pbFactura.Size = new Size(55, 43);
-            pbFactura.SizeMode = PictureBoxSizeMode.Zoom;
-            pbFactura.TabIndex = 23;
-            pbFactura.TabStop = false;
-            pbFactura.Click += pbFactura_Click;
+            pbComprobante.Cursor = Cursors.Hand;
+            pbComprobante.Image = Properties.Resources.file;
+            pbComprobante.Location = new Point(26, 534);
+            pbComprobante.Margin = new Padding(4);
+            pbComprobante.Name = "pbComprobante";
+            pbComprobante.Size = new Size(55, 43);
+            pbComprobante.SizeMode = PictureBoxSizeMode.Zoom;
+            pbComprobante.TabIndex = 23;
+            pbComprobante.TabStop = false;
+            pbComprobante.Click += pbComprobante_Click;
             // 
             // label2
             // 
@@ -447,7 +474,7 @@
             dgvPedido.RowTemplate.Height = 29;
             dgvPedido.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPedido.Size = new Size(1041, 591);
-            dgvPedido.TabIndex = 5;
+            dgvPedido.TabIndex = 100;
             dgvPedido.CellClick += dgvPedido_CellClick;
             // 
             // lblPedido
@@ -491,7 +518,7 @@
             txtFiltroPedido.Location = new Point(258, 62);
             txtFiltroPedido.Name = "txtFiltroPedido";
             txtFiltroPedido.Size = new Size(158, 27);
-            txtFiltroPedido.TabIndex = 10;
+            txtFiltroPedido.TabIndex = 2;
             txtFiltroPedido.KeyUp += txtFiltroPedido_KeyUp;
             // 
             // txtFiltroCliente
@@ -499,7 +526,7 @@
             txtFiltroCliente.Location = new Point(560, 62);
             txtFiltroCliente.Name = "txtFiltroCliente";
             txtFiltroCliente.Size = new Size(158, 27);
-            txtFiltroCliente.TabIndex = 11;
+            txtFiltroCliente.TabIndex = 3;
             txtFiltroCliente.KeyUp += txtFiltroCliente_KeyUp;
             // 
             // txtFiltroUsuario
@@ -507,7 +534,7 @@
             txtFiltroUsuario.Location = new Point(880, 62);
             txtFiltroUsuario.Name = "txtFiltroUsuario";
             txtFiltroUsuario.Size = new Size(158, 27);
-            txtFiltroUsuario.TabIndex = 12;
+            txtFiltroUsuario.TabIndex = 4;
             txtFiltroUsuario.KeyUp += txtFiltroUsuario_KeyUp;
             // 
             // dtpInicio
@@ -516,7 +543,7 @@
             dtpInicio.Location = new Point(1081, 64);
             dtpInicio.Name = "dtpInicio";
             dtpInicio.Size = new Size(112, 27);
-            dtpInicio.TabIndex = 13;
+            dtpInicio.TabIndex = 5;
             dtpInicio.ValueChanged += dtpInicio_ValueChanged;
             // 
             // lblFecha2
@@ -534,7 +561,7 @@
             dtpFin.Location = new Point(1255, 64);
             dtpFin.Name = "dtpFin";
             dtpFin.Size = new Size(112, 27);
-            dtpFin.TabIndex = 15;
+            dtpFin.TabIndex = 6;
             dtpFin.ValueChanged += dtpFin_ValueChanged;
             // 
             // Inicio
@@ -566,8 +593,9 @@
             menuStrip1.PerformLayout();
             panelInfoPedido.ResumeLayout(false);
             panelInfoPedido.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbFactura).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbComprobante).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvPedido).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -603,7 +631,7 @@
         private Label lblPrecio;
         private Label label2;
         private Label label1;
-        private PictureBox pbFactura;
+        private PictureBox pbComprobante;
         private Label label4;
         private Label label3;
         private Label lblFactSinIva;
@@ -621,5 +649,7 @@
         private DateTimePicker dtpInicio;
         private Label lblFecha2;
         private DateTimePicker dtpFin;
+        private PictureBox pbFactura;
+        private Label lblComprobantePDF;
     }
 }

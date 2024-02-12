@@ -62,6 +62,8 @@
             lblTotal = new Label();
             dgvDatosPDF = new DataGridView();
             lblRol = new Label();
+            lblIdPedido = new Label();
+            lblFechaCreacion = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvPedido).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).BeginInit();
             SuspendLayout();
@@ -363,11 +365,32 @@
             lblRol.TabIndex = 39;
             lblRol.Text = "ROL";
             // 
+            // lblIdPedido
+            // 
+            lblIdPedido.AutoSize = true;
+            lblIdPedido.Location = new Point(1037, 49);
+            lblIdPedido.Name = "lblIdPedido";
+            lblIdPedido.Size = new Size(70, 20);
+            lblIdPedido.TabIndex = 40;
+            lblIdPedido.Text = "IDPedido";
+            // 
+            // lblFechaCreacion
+            // 
+            lblFechaCreacion.AutoSize = true;
+            lblFechaCreacion.Location = new Point(16, 108);
+            lblFechaCreacion.Name = "lblFechaCreacion";
+            lblFechaCreacion.Size = new Size(116, 20);
+            lblFechaCreacion.TabIndex = 41;
+            lblFechaCreacion.Text = "Fecha Creación: ";
+            lblFechaCreacion.Visible = false;
+            // 
             // Pedido
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1193, 555);
+            Controls.Add(lblFechaCreacion);
+            Controls.Add(lblIdPedido);
             Controls.Add(lblRol);
             Controls.Add(dgvDatosPDF);
             Controls.Add(lblTotal);
@@ -447,5 +470,7 @@
         private Label lblTotal;
         private DataGridView dgvDatosPDF;
         public Label lblRol;
+        public Label lblIdPedido;
+        private Label lblFechaCreacion;
     }
 }
