@@ -12,27 +12,70 @@ namespace TT2024_A155
 {
     public partial class Producto : Form
     {
-        public Producto()
+        public Producto(int x, string iddetallePedido)
         {
             InitializeComponent();
+
+            actualizar = x;// X = 0 NUEVO,,,,, X= 1 ACTUALIZAR
+            this.iddetallePedido = iddetallePedido;
         }
         BD Consulta = new BD();
         DataSet ds = new DataSet();
         DataView dv = new DataView();
         internal string[] datosProducto = new string[13];
+        
+        int actualizar;
+        string iddetallePedido;
         private void Producto_Load(object sender, EventArgs e)
         {
-            //Carga los datos de las marcas de vehículos en el combobox
-            cmbMarca.DataSource = Consulta.MarcasRegistradas(1).Tables[0].DefaultView;
-            cmbMarca.ValueMember = "marca";
-            //cmbMarca.ValueMember = "cve_marca";
-            //cmbMarca.DisplayMember = "marca";
+
+            if(actualizar == 0)
+            {
+                //Carga los datos de las marcas de vehículos en el combobox
+                cmbMarca.DataSource = Consulta.MarcasRegistradas(1).Tables[0].DefaultView;
+                cmbMarca.ValueMember = "marca";
+                //cmbMarca.ValueMember = "cve_marca";
+                //cmbMarca.DisplayMember = "marca";
 
 
-            ds = Consulta.Productos();
-            dv = ds.Tables[0].DefaultView;
-            cmbProducto.DataSource = dv;
-            cmbProducto.ValueMember = "nombre";
+                ds = Consulta.Productos();
+                dv = ds.Tables[0].DefaultView;
+                cmbProducto.DataSource = dv;
+                cmbProducto.ValueMember = "nombre";
+                
+
+            }
+            else if(actualizar == 1)
+            {
+
+                //Carga los datos de las marcas de vehículos en el combobox
+                cmbMarca.DataSource = Consulta.MarcasRegistradas(1).Tables[0].DefaultView;
+                cmbMarca.ValueMember = "marca";
+                //cmbMarca.ValueMember = "cve_marca";
+                //cmbMarca.DisplayMember = "marca";
+
+
+                
+
+                string[] datosActualizar = Consulta.datosProductoActualizar(iddetallePedido);
+
+                ds = Consulta.ProductoActualizar(datosActualizar[0]);
+                dv = ds.Tables[0].DefaultView;
+                cmbProducto.DataSource = dv;
+                cmbProducto.ValueMember = "idproducto";
+                cmbProducto.DisplayMember = "nombre";
+
+                cmbProducto.SelectedValue = datosActualizar[0];
+                cmbCantidad.Text = datosActualizar[1];
+                cmbMarca.SelectedValue = datosActualizar[4];
+                cmbModelo.SelectedValue = datosActualizar[2];
+                cmbAnio.SelectedValue = datosActualizar[3];
+                txtDescuento.Text = datosActualizar[5];
+
+
+            }
+            else { }
+            
             
         }
 
@@ -65,6 +108,8 @@ namespace TT2024_A155
              */
         }
 
+       
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             datosProducto[1] = cmbCantidad.Text.Trim();//CANTIDAD
@@ -94,7 +139,8 @@ namespace TT2024_A155
             {
                 cmbCantidad.Items.Add(i + 1);
             }
-           
+           if(cmbCantidad.Items.Count > 0)
+                cmbCantidad.SelectedIndex = 0;
         }
 
         private void cmbProducto_KeyPress(object sender, KeyPressEventArgs e)

@@ -487,7 +487,30 @@ namespace TT2024_A155
                 {
                     nuevaConexion.Open();
 
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT TOP 100 nombre, codigo FROM producto WHERE estado = 1 ORDER BY NEWID();", nuevaConexion);
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT TOP 100 nombre, codigo, idproducto FROM producto WHERE estado = 1 ORDER BY NEWID();", nuevaConexion);
+                    dataAdapter.Fill(dataSet, "PRODUCTO");
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return dataSet;
+        }
+
+        //OBTENER INFO DEL PRODUCTO A ACTUALIZAR
+        public DataSet ProductoActualizar(string idProducto)
+        {
+            DataSet dataSet = new DataSet();
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(string.Format("SELECT nombre, codigo, idproducto FROM producto WHERE estado = 1 AND idproducto = '{0}' ORDER BY NEWID();",idProducto), nuevaConexion);
                     dataAdapter.Fill(dataSet, "PRODUCTO");
 
                     nuevaConexion.Close();
@@ -1432,7 +1455,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1455,7 +1478,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1580,7 +1603,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idpedido = '{0}' AND us.nombre_usuario = '{1}' ORDER BY ped.fecha_hora desc;", idPedido, usuario), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idpedido = '{0}' AND us.nombre_usuario = '{1}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idPedido, usuario), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1603,7 +1626,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND ped.fecha_hora between '{1}' and '{2}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario), fechaInicio, fechaFinal ), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND ped.fecha_hora between '{1}' and '{2}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), fechaInicio, fechaFinal ), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1651,7 +1674,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND ped.idpedido = '{1}' ORDER BY ped.fecha_hora desc;",idUsuario(usuario) ,idPedido), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND ped.idpedido = '{1}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario) ,idPedido), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1674,7 +1697,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND us.nombre_real LIKE '%{1}%' ORDER BY ped.fecha_hora desc;", idUsuario(usuario), nombreCliente), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND us.nombre_real LIKE '%{1}%' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), nombreCliente), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1697,7 +1720,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND us.nombre_usuario LIKE '%{1}%' ORDER BY ped.fecha_hora desc;", idUsuario(usuario), nombreUsuario), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND us.nombre_usuario LIKE '%{1}%' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), nombreUsuario), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1720,7 +1743,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND ped.fecha_hora between '{1}' and '{2}' ORDER BY ped.fecha_hora desc;", idUsuario(usuario), fechaInicio, fechaFin), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND ped.fecha_hora between '{1}' and '{2}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), fechaInicio, fechaFin), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1745,7 +1768,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT prod.nombre AS 'Producto', CONCAT(mar.marca,'-',veh.modelo,'-', veh.anio) AS 'Vehiculo',  detp.cantidad AS 'Cantidad', prod.codigo AS 'Clave de producto', prod.descripcion AS 'Descripción', prod.precio_venta AS 'Precio de venta\n($)', detp.descuento AS 'Descuento\n(%)', prod.idproducto, veh.idvehiculo ,ped.comentarios AS 'Comentarios', ped.fecha_hora , ped.idusuarioVendedor, detp.iddetalle_pedido FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idpedido = '{0}';", idPedido), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT prod.nombre AS 'Producto', CONCAT(mar.marca,'-',veh.modelo,'-', veh.anio) AS 'Vehiculo',  detp.cantidad AS 'Cantidad', prod.codigo AS 'Clave de producto', prod.descripcion AS 'Descripción', prod.precio_venta AS 'Precio de venta\n($)', detp.descuento AS 'Descuento\n(%)', prod.idproducto, veh.idvehiculo ,ped.comentarios AS 'Comentarios', ped.fecha_hora , ped.idusuarioVendedor, detp.iddetalle_pedido FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idpedido = '{0}' AND detp.estado = 1;", idPedido), nuevacon);
                     nuevacon.Open();
                     //dt = new DataTable();
                     da.Fill(dt);
@@ -1761,7 +1784,7 @@ namespace TT2024_A155
 
 
         //----------------------------------ACTUALIZAR DATOS PEDIDO ----------------------------------------------
-        public void actualizarDatosPedido(string idvehiculo, string cantidad, string descuento, string iddetalle_pedido, string comentarios, string idPedido)
+        public void actualizarDatosPedido(string idvehiculo, string cantidad, string descuento, string iddetalle_pedido, string comentarios, string idPedido, string impuesto, string total)
         {
             int i = 0;
             
@@ -1771,10 +1794,12 @@ namespace TT2024_A155
                 {
                     nuevacon.Open();
 
-                    Comando = new SqlCommand("UPDATE ped SET ped.comentarios = @comentarios FROM pedido ped WHERE ped.idpedido = @idpedido;", nuevacon);
+                    Comando = new SqlCommand("UPDATE ped SET ped.comentarios = @comentarios, ped.impuesto = @impuesto, ped.total = @total FROM pedido ped WHERE ped.idpedido = @idpedido;", nuevacon);
 
                     Comando.Parameters.AddWithValue("@comentarios", comentarios);
                     Comando.Parameters.AddWithValue("@idpedido", Convert.ToInt32(idPedido));
+                    Comando.Parameters.AddWithValue("@impuesto", Convert.ToDouble(impuesto));
+                    Comando.Parameters.AddWithValue("@total", Convert.ToDouble(total));
                     Comando.ExecuteNonQuery();
 
 
@@ -1814,7 +1839,7 @@ namespace TT2024_A155
 
         //REGISTRAR PRODUCTO NUEVO AL MOMENTO DE ESTAR ACTUALIZANDO
 
-        public int registrarDetallePedidoActualizar(string idProducto, string cantidad, string precio, string descuento, string idVehiculo, string idPedido, string comentarios)
+        public int registrarDetallePedidoActualizar(string idProducto, string cantidad, string precio, string descuento, string idVehiculo, string idPedido, string comentarios, string impuesto, string total)
         {
 
             int i;
@@ -1826,10 +1851,12 @@ namespace TT2024_A155
 
                     nuevacon.Open();
 
-                    Comando = new SqlCommand("UPDATE ped SET ped.comentarios = @comentarios FROM pedido ped WHERE ped.idpedido = @idpedido;", nuevacon);
+                    Comando = new SqlCommand("UPDATE ped SET ped.comentarios = @comentarios, ped.impuesto = @impuesto, ped.total = @total FROM pedido ped WHERE ped.idpedido = @idpedido;", nuevacon);
 
                     Comando.Parameters.AddWithValue("@comentarios", comentarios);
                     Comando.Parameters.AddWithValue("@idpedido", Convert.ToInt32(idPedido));
+                    Comando.Parameters.AddWithValue("@impuesto", Convert.ToDouble(impuesto));
+                    Comando.Parameters.AddWithValue("@total", Convert.ToDouble(total));
                     Comando.ExecuteNonQuery();
 
 
@@ -1864,6 +1891,79 @@ namespace TT2024_A155
             }
             return -1;
 
+        }
+
+        //QUITAR PIEZA DE PEDIDO PASAR ESTADO = 0 EN ACTUALIZAR PEDIDO
+
+        public int eliminarProductoPedido(string iddetalle_pedido)
+        {
+
+            int i;
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+                    nuevacon.Open();
+
+                    Comando = new SqlCommand("UPDATE detp SET detp.estado = 0 FROM detalle_pedido detp WHERE detp.iddetalle_pedido = @iddetalle_pedido;", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@iddetalle_pedido", Convert.ToInt32(iddetalle_pedido));
+                    Comando.ExecuteNonQuery();
+
+                    //Para saber si la inserción se hizo correctamente
+                    i = Comando.ExecuteNonQuery();
+                    nuevacon.Close();
+                    if (i == 1)
+                    {
+                        MessageBox.Show("Producto eliminado correctamente");
+                    }
+                    else
+                        MessageBOX.SHowDialog(2, "Problemas al eliminar el producto");
+                }
+                return -1;
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error al eliminar el producto: " + EX.Message);
+            }
+            return -1;
+
+        }
+
+        //OBETER DATOS DEL PRODUCTO QUE SE ESTA ACTUALIZANDO
+        public string[] datosProductoActualizar(string iddetalle_pedido)
+        {
+            string[] producto = new string[6];
+
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    Comando = new SqlCommand(string.Format("SELECT detp.idproducto, detp.cantidad, veh.modelo, veh.anio, mar.marca, detp.descuento FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE detp.iddetalle_pedido = '{0}' AND detp.estado = 1;", iddetalle_pedido), nuevaConexion);
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        producto[0] = Lector["idproducto"].ToString();//idproducto
+                        producto[1] = Lector["cantidad"].ToString();//cantidad
+                        producto[2] = Lector["modelo"].ToString();//modelo
+                        producto[3] = Lector["anio"].ToString();//anio
+                        producto[4] = Lector["marca"].ToString();//marca
+                        producto[5] = Lector["descuento"].ToString();//descuento
+                    }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return producto;
         }
 
 

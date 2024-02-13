@@ -14,7 +14,7 @@ namespace TT2024_A155
     public partial class Pedido : Form
     {
 
-        Producto producto = new Producto();
+        
         BD Consulta = new BD();
         private DataTable dt;
         double descuento = 0;
@@ -133,7 +133,7 @@ namespace TT2024_A155
                     idVehiculo = row.Cells["idvehiculo"].Value.ToString();
                     iddetalle_pedido = row.Cells["iddetalle_pedido"].Value.ToString();
 
-                    Consulta.registrarDetallePedidoActualizar(idProducto,cantidad,precioVenta,descuento,idVehiculo,idPedido, comentarios);
+                    Consulta.registrarDetallePedidoActualizar(idProducto,cantidad,precioVenta,descuento,idVehiculo,idPedido, comentarios, subTotal.ToString("0.##"), total.ToString("0.##"));
                 }
                 else
                 {
@@ -144,7 +144,7 @@ namespace TT2024_A155
                     idVehiculo = row.Cells["idvehiculo"].Value.ToString();
                     iddetalle_pedido = row.Cells["iddetalle_pedido"].Value.ToString();
 
-                    Consulta.actualizarDatosPedido(idVehiculo, cantidad, descuento, iddetalle_pedido, comentarios, idPedido);
+                    Consulta.actualizarDatosPedido(idVehiculo, cantidad, descuento, iddetalle_pedido, comentarios, idPedido, subTotal.ToString("0.##"), total.ToString("0.##"));
                 }
 
 
@@ -265,6 +265,7 @@ namespace TT2024_A155
                 dgvPedido.Columns["iddetalle_pedido"].Visible = true;
 
                 txtComentarios.Text = dgvPedido.Rows[0].Cells[11].Value.ToString();
+                lblFechaCreacion.Visible = true;
                 lblFechaCreacion.Text = "Fecha Creación: " + dgvPedido.Rows[0].Cells[12].Value.ToString();
             }
 
@@ -273,7 +274,7 @@ namespace TT2024_A155
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
 
-            
+            Producto producto = new Producto(0, string.Empty);
             DialogResult respuesta = producto.ShowDialog();
             if (respuesta == DialogResult.OK)
             {
@@ -380,14 +381,62 @@ namespace TT2024_A155
                 //Check if click is on specific column
                 if (e.ColumnIndex == dgvPedido.Columns["dataGridViewDeleteButton"].Index)
                 {
+                    
                     MessageBOX mes = new MessageBOX(4, "¿Esta seguro de eliminar esta pieza?");
 
-                    if (mes.ShowDialog() == DialogResult.OK)
+                    if (actualizar == 0)
                     {
-                        dgvPedido.Rows.RemoveAt(dgvPedido.CurrentRow.Index);
-                        actualizarTotales();//Actualizar SubTotal y Totales
+                        if (mes.ShowDialog() == DialogResult.OK)
+                        {
+                            dgvPedido.Rows.RemoveAt(dgvPedido.CurrentRow.Index);
+                            actualizarTotales();//Actualizar SubTotal y Totales
+                        }
                     }
+                    else if (actualizar == 1)
+                    {
+                        if (mes.ShowDialog() == DialogResult.OK)
+                        {
+                            Consulta.eliminarProductoPedido(dgvPedido.Rows[e.RowIndex].Cells[14].Value.ToString());
+                            dgvPedido.Rows.RemoveAt(dgvPedido.CurrentRow.Index);
+                            actualizarTotales();//Actualizar SubTotal y Totales
+                        }
+                    }
+                    else { }
+                }
+                else if (e.ColumnIndex == dgvPedido.Columns["dataGridViewEditButton"].Index)
+                {
+                    
+                    string iddetallepedido = dgvPedido.Rows[e.RowIndex].Cells[14].Value.ToString();
+                    int index = dgvPedido.CurrentCell.RowIndex;
+                    
+                    Producto producto = new Producto(1, iddetallepedido);
+                    DialogResult respuesta = producto.ShowDialog();
+                    if (respuesta == DialogResult.OK)
+                    {
 
+                        double descuento = Convert.ToDouble(producto.datosMandar[4]) / 100;
+                        double precioVenta = Convert.ToDouble(producto.datosMandar[3]);
+
+                        int cantidad = Convert.ToInt32(producto.datosMandar[1]);
+
+
+                        dgvPedido["Producto",index].Value = producto.datosMandar[0];//PRODUCTO
+                        dgvPedido["Vehiculo", index].Value = producto.datosMandar[8] + "-" + producto.datosMandar[9] + "-" + producto.datosMandar[10]; //CARRO
+                        dgvPedido["Cantidad", index].Value = cantidad;//CANTIDAD
+                        dgvPedido["Clave de producto", index].Value = producto.datosMandar[2];//CLAVE PRODUCTO
+                        dgvPedido["Descripción", index].Value = producto.datosMandar[5];//DESCRIPCION
+                        dgvPedido["Precio de venta\n($)", index].Value = precioVenta;//PRECIO VENTA
+                        dgvPedido["Descuento\n(%)", index].Value = producto.datosMandar[4];//DESCUENTO
+                        dgvPedido["idProducto", index].Value = producto.datosMandar[11];//IDPRODUCTO
+                        dgvPedido["idvehiculo", index].Value = producto.datosMandar[12];//IDVEHICULO
+
+                        
+                       
+
+
+                        actualizarTotales();//Actualizar SubTotal y Totales
+
+                    }
                 }
             }
             catch (Exception)
