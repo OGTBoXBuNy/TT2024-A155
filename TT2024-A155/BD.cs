@@ -573,7 +573,7 @@ namespace TT2024_A155
                 {
                     nuevaConexion.Open();
 
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT nombre FROM rol WHERE estado = 1", nuevaConexion);
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT nombre, idrol FROM rol WHERE estado = 1", nuevaConexion);
                     dataAdapter.Fill(dataSet, "ROL");
 
                     nuevaConexion.Close();
@@ -1334,7 +1334,7 @@ namespace TT2024_A155
 
                         if (i > 0)
                         {
-                            //MessageBox.Show("Datos Fiscales Registrados Exitosamente");
+                            MessageBox.Show("Datos Fiscales Registrados Exitosamente");
                         }
                         else
                             MessageBox.Show("Datos Fiscales No Registrados");
@@ -1996,6 +1996,222 @@ namespace TT2024_A155
             return cliente;
         }
 
+        //OBETER DATOS PERSONALES DEL USUARIO
+        public string[] datosPersonalesUsuario(string usuario)
+        {
+            string[] datos = new string[9];
+
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    
+                    
+                    Comando = new SqlCommand(string.Format("SELECT us.nombre_real, us.colonia, us.calle, us.noExt, us.noInt, us.cp, us.ciudad, us.telefono, us.correo FROM usuario us WHERE us.nombre_usuario = '{0}' AND us.estado =1;", usuario), nuevaConexion);
+                    
+
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        datos[0] = Lector["nombre_real"].ToString();
+                        datos[1] = Lector["colonia"].ToString();
+                        datos[2] = Lector["calle"].ToString();
+                        datos[3] = Lector["noExt"].ToString();
+                        datos[4] = Lector["noInt"].ToString();
+                        datos[5] = Lector["cp"].ToString();
+                        datos[6] = Lector["ciudad"].ToString();
+                        datos[7] = Lector["telefono"].ToString();
+                        datos[8] = Lector["correo"].ToString();
+                    }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return datos;
+        }
+
+        //OBETER DATOS FISCALES DEL USUARIO
+        public string[] datosFiscalesUsuario(string usuario)
+        {
+            string[] datos = new string[10];
+
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+
+
+                    Comando = new SqlCommand(string.Format("SELECT dfc.nombre, dfc.colonia, dfc.calle, dfc.noExt, dfc.noInt, dfc.cp, dfc.ciudad, dfc.telefono, dfc.correo, dfc.cif FROM usuario us LEFT OUTER JOIN datos_fiscales_cliente dfc ON dfc.iddatos_fiscales_cli = us.iddatos_fiscales_cli WHERE us.nombre_usuario = '{0}' AND us.estado =1;", usuario), nuevaConexion);
+
+
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        datos[0] = Lector["nombre"].ToString();
+                        datos[1] = Lector["colonia"].ToString();
+                        datos[2] = Lector["calle"].ToString();
+                        datos[3] = Lector["noExt"].ToString();
+                        datos[4] = Lector["noInt"].ToString();
+                        datos[5] = Lector["cp"].ToString();
+                        datos[6] = Lector["ciudad"].ToString();
+                        datos[7] = Lector["telefono"].ToString();
+                        datos[8] = Lector["correo"].ToString();
+                        datos[9] = Lector["cif"].ToString();
+                    }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return datos;
+        }
+
+
+
+        //----------------------------------ACTUALIZAR CONTRASENIA----------------------------------------------
+        public void actualizarContrasenia(string usuario, string contrasenia)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    nuevacon.Open();
+                        string contraHash = BC.HashPassword(contrasenia);
+                        
+                        Comando = new SqlCommand(string.Format("UPDATE USUARIO SET contrasenia = '{0}' WHERE nombre_usuario = '{1}';", contraHash, usuario), nuevacon);
+                        Comando.ExecuteNonQuery();
+
+                        
+
+                        
+                    nuevacon.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
+        }
+
+        //ACTUALIZAR DATOS PERSONALES DE UN USUARIO
+
+        public int actualizarDatosPersonales(int actualizarContrasenia,string contrasenia, string nombre_usuario, string nombre_real, string colonia, string calle, string noExt, string noInt, string cp, string ciudad, string telefono, string correo)
+        {
+
+            int i;
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+                    nuevacon.Open();
+
+                    Comando = new SqlCommand("UPDATE us SET us.nombre_real = @nombre_real, us.colonia = @colonia, us.calle = @calle, us.noExt = @noExt, us.noInt = @noInt, us.cp = @cp, us.ciudad = @ciudad, us.telefono = @telefono, us.correo = @correo FROM usuario us WHERE us.nombre_usuario = @nombre_usuario AND estado =1;", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@nombre_usuario", nombre_usuario);
+                    Comando.Parameters.AddWithValue("@nombre_real", nombre_real);
+                    Comando.Parameters.AddWithValue("@colonia", colonia);
+                    Comando.Parameters.AddWithValue("@calle", calle);
+                    Comando.Parameters.AddWithValue("@noExt", noExt);
+                    Comando.Parameters.AddWithValue("@noInt", noInt);
+                    Comando.Parameters.AddWithValue("@cp", cp);
+                    Comando.Parameters.AddWithValue("@ciudad", ciudad);
+                    Comando.Parameters.AddWithValue("@telefono", telefono);
+                    Comando.Parameters.AddWithValue("@correo", correo);
+                    Comando.ExecuteNonQuery();
+
+                    //Para saber si la inserción se hizo correctamente
+                    i = Comando.ExecuteNonQuery();
+                    nuevacon.Close();
+                    if (i == 1)
+                    {
+                        if (actualizarContrasenia == 1)
+                        {
+                            this.actualizarContrasenia(nombre_usuario, contrasenia);
+                        }
+                        else { }
+                        MessageBox.Show("Datos personales actualizados");
+                    }
+                    else
+                        MessageBOX.SHowDialog(2, "Problemas al actualizar datos personales");
+                }
+                return -1;
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error actualizar datos personales: " + EX.Message);
+            }
+            return -1;
+
+        }
+
+        //ACTUALIZAR DATOS FISCALES DE UN USUARIO
+
+        public int actualizarDatosFiscales(string nombre_usuario, string nombre, string cif, string colonia, string calle, string noExt, string noInt, string cp, string ciudad, string telefono, string correo)
+        {
+
+            int i;
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+                    nuevacon.Open();
+
+                    Comando = new SqlCommand("UPDATE dfc SET dfc.nombre = @nombre, dfc.cif = @cif, dfc.colonia = @colonia, dfc.calle = @calle, dfc.noExt = @noExt, dfc.noInt = @noInt, dfc.cp = @cp, dfc.ciudad = @ciudad, dfc.telefono = @telefono, dfc.correo = @correo FROM usuario us LEFT OUTHER JOIN datos_fiscales_cliente dfc ON dfc.iddatos_fiscales_cli = us.iddatos_fiscales_cli WHERE us.nombre_usuario = @nombre_usuario AND us.estado =1;", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@nombre_usuario", nombre_usuario);
+                    Comando.Parameters.AddWithValue("@nombre", nombre);
+                    Comando.Parameters.AddWithValue("@cif", cif);
+                    Comando.Parameters.AddWithValue("@colonia", colonia);
+                    Comando.Parameters.AddWithValue("@calle", calle);
+                    Comando.Parameters.AddWithValue("@noExt", noExt);
+                    Comando.Parameters.AddWithValue("@noInt", noInt);
+                    Comando.Parameters.AddWithValue("@cp", cp);
+                    Comando.Parameters.AddWithValue("@ciudad", ciudad);
+                    Comando.Parameters.AddWithValue("@telefono", telefono);
+                    Comando.Parameters.AddWithValue("@correo", correo);
+                    Comando.ExecuteNonQuery();
+
+                    //Para saber si la inserción se hizo correctamente
+                    i = Comando.ExecuteNonQuery();
+                    nuevacon.Close();
+                    if (i == 1)
+                    {
+
+                        MessageBox.Show("Datos fiscales actualizados");
+                    }
+                    else
+                        MessageBOX.SHowDialog(2, "Problemas al actualizar datos fiscales");
+                }
+                return -1;
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error actualizar datos fiscales: " + EX.Message);
+            }
+            return -1;
+
+        }
 
 
     }

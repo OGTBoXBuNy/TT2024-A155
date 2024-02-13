@@ -38,6 +38,7 @@
             modificarUsuariosToolStripMenuItem = new ToolStripMenuItem();
             generarReporteDeVentasToolStripMenuItem = new ToolStripMenuItem();
             panelInfoPedido = new Panel();
+            lblAnio = new Label();
             pbFactura = new PictureBox();
             lblComprobantePDF = new Label();
             txtComentarios = new TextBox();
@@ -76,7 +77,6 @@
             dtpInicio = new DateTimePicker();
             lblFecha2 = new Label();
             dtpFin = new DateTimePicker();
-            lblAnio = new Label();
             menuStrip1.SuspendLayout();
             panelInfoPedido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbFactura).BeginInit();
@@ -137,6 +137,7 @@
             cuentaToolStripMenuItem.Name = "cuentaToolStripMenuItem";
             cuentaToolStripMenuItem.Size = new Size(264, 26);
             cuentaToolStripMenuItem.Text = "Administrar Cuenta";
+            cuentaToolStripMenuItem.Click += cuentaToolStripMenuItem_Click;
             // 
             // crearUsuariosToolStripMenuItem
             // 
@@ -198,6 +199,15 @@
             panelInfoPedido.Name = "panelInfoPedido";
             panelInfoPedido.Size = new Size(425, 589);
             panelInfoPedido.TabIndex = 4;
+            // 
+            // lblAnio
+            // 
+            lblAnio.AutoSize = true;
+            lblAnio.Location = new Point(336, 233);
+            lblAnio.Name = "lblAnio";
+            lblAnio.Size = new Size(39, 20);
+            lblAnio.TabIndex = 100;
+            lblAnio.Text = "Año:";
             // 
             // pbFactura
             // 
@@ -565,15 +575,6 @@
             dtpFin.Size = new Size(112, 27);
             dtpFin.TabIndex = 6;
             dtpFin.ValueChanged += dtpFin_ValueChanged;
-            // 
-            // lblAnio
-            // 
-            lblAnio.AutoSize = true;
-            lblAnio.Location = new Point(336, 233);
-            lblAnio.Name = "lblAnio";
-            lblAnio.Size = new Size(39, 20);
-            lblAnio.TabIndex = 100;
-            lblAnio.Text = "Año:";
             // 
             // Inicio
             // 

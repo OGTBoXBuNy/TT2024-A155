@@ -217,14 +217,14 @@ namespace TT2024_A155
 
                 if (lblRol.Text == "4")
                 {
-                    
+
                     idPedido = dgvPedido.Rows[fila].Cells[2].Value.ToString();
-                    SubMenu subMenu = new ();
+                    SubMenu subMenu = new();
                     subMenu.lblUsuario.Text = lblUsuario.Text;
                     subMenu.lblRol.Text = lblRol.Text;
                     subMenu.lblIdPedido.Text = idPedido;
                     subMenu.ShowDialog();
-                   
+
                 }
                 else if (lblRol.Text == "2")
                 {
@@ -448,7 +448,13 @@ namespace TT2024_A155
             else { }
         }
 
-        
+        private void cuentaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Administrar administrar = new();
+            administrar.lblRolF.Text = lblRol.Text;
+            administrar.lblUsuarioF.Text = lblUsuario.Text;
+            administrar.ShowDialog();
+        }
     }
 }
 
