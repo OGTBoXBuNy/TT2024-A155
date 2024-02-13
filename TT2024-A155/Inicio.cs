@@ -140,6 +140,7 @@ namespace TT2024_A155
             lblDescuento.Text = "Descuento: " + detallesPedido[7];
             lblMarca.Text = "Marca: " + detallesPedido[8];
             lblModelo.Text = "Modelo: " + detallesPedido[9];
+            lblAnio.Text = "Año: " + detallesPedido[17];
             txtComentarios.Text = detallesPedido[10];
             lblAprobacion.Text = "Estado: " + detallesPedido[11];
             lblFactura.Text = "# Factura: " + detallesPedido[12];

@@ -1495,7 +1495,7 @@ namespace TT2024_A155
         //---------------------------Llenar Datos pedido--------------------
         public string[] detallesPedido(string idDetallePedido)
         {
-            string[] detallesPedido = new string[17];
+            string[] detallesPedido = new string[18];
             double impuesto;
             try
             {
@@ -1503,7 +1503,7 @@ namespace TT2024_A155
                 {
                     
                     nuevacon.Open();
-                    Comando = new SqlCommand(string.Format("SELECT ped.idpedido, ped.fecha_hora, us.nombre_real, us.nombre_usuario, prod.nombre, detp.cantidad, prod.precio_venta, detp.descuento, mar.marca, veh.modelo, ped.comentarios, ped.aprobacionCliente, fact.idfactura, fact.fact_sinIVA, fact.fact_neto, ped.idusuarioVendedor   FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE detp.iddetalle_pedido = '{0}';", idDetallePedido), nuevacon);
+                    Comando = new SqlCommand(string.Format("SELECT ped.idpedido, ped.fecha_hora, us.nombre_real, us.nombre_usuario, prod.nombre, detp.cantidad, prod.precio_venta, detp.descuento, mar.marca, veh.modelo, ped.comentarios, ped.aprobacionCliente, fact.idfactura, fact.fact_sinIVA, fact.fact_neto, ped.idusuarioVendedor, veh.anio FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE detp.iddetalle_pedido = '{0}';", idDetallePedido), nuevacon);
                     Lector = Comando.ExecuteReader();
                     while (Lector.Read())
                     {
@@ -1518,6 +1518,7 @@ namespace TT2024_A155
                         detallesPedido[8] = Lector["marca"].ToString();//MARCA
                         detallesPedido[9] = Lector["modelo"].ToString();//MODELO
                         detallesPedido[10] = Lector["comentarios"].ToString();//COMENTARIOS
+                        detallesPedido[17] = Lector["anio"].ToString();//ANIO VEHICULO
 
                         if (Lector["aprobacionCliente"].ToString() == "true")//ESTADO PEDIDO
                             detallesPedido[11] = "Autorizado";
@@ -1542,7 +1543,7 @@ namespace TT2024_A155
 
                        
                         detallesPedido[16] = nombreVendedor(Lector["idusuarioVendedor"].ToString());//NOMBRE VENDEDOR
-
+                        
                     }
                     Lector.Close();
                     nuevacon.Close();
@@ -1965,6 +1966,36 @@ namespace TT2024_A155
             }
             return producto;
         }
+
+        //OBETER NOMBRE DEL CLIENTE AL ENTRAR A ACTUALIZAR UN PEDIDO 
+        public string nombreCliente(string idPedido)
+        {
+            string cliente = string.Empty;
+
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    Comando = new SqlCommand(string.Format("SELECT us.nombre_usuario FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idpedido = '{0}' AND us.estado = 1;", idPedido), nuevaConexion);
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        cliente = Lector["nombre_usuario"].ToString();//Nombre Cliente
+                    }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return cliente;
+        }
+
 
 
     }

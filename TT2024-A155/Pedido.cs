@@ -210,6 +210,7 @@ namespace TT2024_A155
             editButton.UseColumnTextForButtonValue = true;
             this.dgvPedido.Columns.Add(editButton);
 
+
             var deleteButton = new DataGridViewButtonColumn();
             deleteButton.Name = "dataGridViewDeleteButton";
             deleteButton.HeaderText = "Eliminar";
@@ -234,8 +235,9 @@ namespace TT2024_A155
 
             //dt.Columns.Add("costo_proveedor\n($)");
             dgvPedido.DataSource = dt;
-            dgvPedido.Columns["idProducto"].Visible = true;
-            dgvPedido.Columns["idvehiculo"].Visible = true;
+            dgvPedido.Columns["idProducto"].Visible = false;
+            dgvPedido.Columns["idvehiculo"].Visible = false;
+            dgvPedido.Columns["dataGridViewEditButton"].Visible = false;
 
 
             //Carga los datos registros de clientes en el combobox
@@ -259,14 +261,24 @@ namespace TT2024_A155
             {
                 
                 Consulta.datosPedidoActualizar(dgvPedido,dt, lblIdPedido.Text);
-                dgvPedido.Columns["Comentarios"].Visible = true;
-                dgvPedido.Columns["fecha_hora"].Visible = true;
-                dgvPedido.Columns["idusuarioVendedor"].Visible = true;
-                dgvPedido.Columns["iddetalle_pedido"].Visible = true;
+                dgvPedido.Columns["Comentarios"].Visible = false;
+                dgvPedido.Columns["fecha_hora"].Visible = false;
+                dgvPedido.Columns["idusuarioVendedor"].Visible = false;
+                dgvPedido.Columns["iddetalle_pedido"].Visible = false;
+                dgvPedido.Columns["dataGridViewEditButton"].Visible = true;
 
                 txtComentarios.Text = dgvPedido.Rows[0].Cells[11].Value.ToString();
                 lblFechaCreacion.Visible = true;
-                lblFechaCreacion.Text = "Fecha Creación: " + dgvPedido.Rows[0].Cells[12].Value.ToString();
+                lblFechaCreacion.Text = "Fecha Creación: " + dgvPedido.Rows[0].Cells[12].Value.ToString().Substring(0,10);
+
+
+                indexCMBCliente = cmbCliente.FindString(Consulta.nombreCliente(lblIdPedido.Text));
+                if (indexCMBCliente != -1)
+                {
+                    cmbCliente.SelectedIndex = indexCMBCliente;
+                    cmbCliente.Enabled = false;
+                }
+
             }
 
         }

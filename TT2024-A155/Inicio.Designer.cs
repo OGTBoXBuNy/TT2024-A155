@@ -76,6 +76,7 @@
             dtpInicio = new DateTimePicker();
             lblFecha2 = new Label();
             dtpFin = new DateTimePicker();
+            lblAnio = new Label();
             menuStrip1.SuspendLayout();
             panelInfoPedido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbFactura).BeginInit();
@@ -164,6 +165,7 @@
             // panelInfoPedido
             // 
             panelInfoPedido.BorderStyle = BorderStyle.Fixed3D;
+            panelInfoPedido.Controls.Add(lblAnio);
             panelInfoPedido.Controls.Add(pbFactura);
             panelInfoPedido.Controls.Add(lblComprobantePDF);
             panelInfoPedido.Controls.Add(txtComentarios);
@@ -564,6 +566,15 @@
             dtpFin.TabIndex = 6;
             dtpFin.ValueChanged += dtpFin_ValueChanged;
             // 
+            // lblAnio
+            // 
+            lblAnio.AutoSize = true;
+            lblAnio.Location = new Point(336, 233);
+            lblAnio.Name = "lblAnio";
+            lblAnio.Size = new Size(39, 20);
+            lblAnio.TabIndex = 100;
+            lblAnio.Text = "Año:";
+            // 
             // Inicio
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -651,5 +662,6 @@
         private DateTimePicker dtpFin;
         private PictureBox pbFactura;
         private Label lblComprobantePDF;
+        private Label lblAnio;
     }
 }
