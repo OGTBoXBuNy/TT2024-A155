@@ -146,6 +146,7 @@
             crearUsuariosToolStripMenuItem.Size = new Size(264, 26);
             crearUsuariosToolStripMenuItem.Text = "Crear Usuarios";
             crearUsuariosToolStripMenuItem.Visible = false;
+            crearUsuariosToolStripMenuItem.Click += crearUsuariosToolStripMenuItem_Click;
             // 
             // modificarUsuariosToolStripMenuItem
             // 
@@ -154,6 +155,7 @@
             modificarUsuariosToolStripMenuItem.Size = new Size(264, 26);
             modificarUsuariosToolStripMenuItem.Text = "Modificar Usuarios";
             modificarUsuariosToolStripMenuItem.Visible = false;
+            modificarUsuariosToolStripMenuItem.Click += modificarUsuariosToolStripMenuItem_Click;
             // 
             // generarReporteDeVentasToolStripMenuItem
             // 

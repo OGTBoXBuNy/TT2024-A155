@@ -2213,6 +2213,86 @@ namespace TT2024_A155
 
         }
 
+        //OBTENER LA INFORMACI[ON DE LOS USUARIOS REGISTRADOS EN LA BASE DE DATOS PARA LLENAR EL CMB DE USUARIOS PARA MODIFICAR
+        //---------------- DATOS DE USUARIOS REGISTRADOS
+        public DataSet Usuarios()
+        {
+            DataSet dataSet = new DataSet();
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT idusuario, nombre_usuario, idrol FROM usuario WHERE estado = 1;", nuevaConexion);
+                    dataAdapter.Fill(dataSet, "USUARIO");
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return dataSet;
+        }
+
+        //ACTUALIZAR DATOS PERSONALES DE UN USUARIO
+
+        public int actualizarDatosPersonalesAdmin(int actualizarContrasenia, string contrasenia, string nombre_usuario, string nombre_real, string colonia, string calle, string noExt, string noInt, string cp, string ciudad, string telefono, string correo, string idrol)
+        {
+
+            int i;
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+                    nuevacon.Open();
+
+                    Comando = new SqlCommand("UPDATE us SET us.nombre_real = @nombre_real, us.colonia = @colonia, us.calle = @calle, us.noExt = @noExt, us.noInt = @noInt, us.cp = @cp, us.ciudad = @ciudad, us.telefono = @telefono, us.correo = @correo, us.idrol = @idrol FROM usuario us WHERE us.nombre_usuario = @nombre_usuario AND estado =1;", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@nombre_usuario", nombre_usuario);
+                    Comando.Parameters.AddWithValue("@nombre_real", nombre_real);
+                    Comando.Parameters.AddWithValue("@colonia", colonia);
+                    Comando.Parameters.AddWithValue("@calle", calle);
+                    Comando.Parameters.AddWithValue("@noExt", noExt);
+                    Comando.Parameters.AddWithValue("@noInt", noInt);
+                    Comando.Parameters.AddWithValue("@cp", cp);
+                    Comando.Parameters.AddWithValue("@ciudad", ciudad);
+                    Comando.Parameters.AddWithValue("@telefono", telefono);
+                    Comando.Parameters.AddWithValue("@correo", correo);
+                    Comando.Parameters.AddWithValue("@idrol", idrol);
+                    Comando.ExecuteNonQuery();
+
+                    //Para saber si la inserción se hizo correctamente
+                    i = Comando.ExecuteNonQuery();
+                    nuevacon.Close();
+                    if (i == 1)
+                    {
+                        if (actualizarContrasenia == 1)
+                        {
+                            this.actualizarContrasenia(nombre_usuario, contrasenia);
+                        }
+                        else { }
+                        MessageBox.Show("Datos personales actualizados");
+                    }
+                    else
+                        MessageBOX.SHowDialog(2, "Problemas al actualizar datos personales");
+                }
+                return -1;
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error actualizar datos personales: " + EX.Message);
+            }
+            return -1;
+
+        }
+
+
+
 
     }
 }

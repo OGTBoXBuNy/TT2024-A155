@@ -455,6 +455,18 @@ namespace TT2024_A155
             administrar.lblUsuarioF.Text = lblUsuario.Text;
             administrar.ShowDialog();
         }
+
+        private void crearUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CrearUsuario crearUsuario = new();
+            crearUsuario.ShowDialog();
+        }
+
+        private void modificarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModificarUsuario modificarUsuario = new();
+            modificarUsuario.ShowDialog();
+        }
     }
 }
 
