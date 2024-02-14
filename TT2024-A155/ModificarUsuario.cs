@@ -21,9 +21,12 @@ namespace TT2024_A155
         DataSet ds = new DataSet();
         DataView dv = new DataView();
         string[] datosCuenta;
+        private string[] permisos;
 
         private void ModificarUsuario_Load(object sender, EventArgs e)
         {
+            
+
             ds = Consulta.Usuarios();
             dv = ds.Tables[0].DefaultView;
             cmbNombreUsuario.DataSource = dv;
@@ -90,6 +93,8 @@ namespace TT2024_A155
         private void rbtnDatosPersonales_CheckedChanged(object sender, EventArgs e)
         {
             datosPersonales();
+            panelDatos.Enabled = true;
+            panelDatos.Visible = true;
         }
 
 
@@ -127,11 +132,14 @@ namespace TT2024_A155
         private void rbtnDatosFiscales_CheckedChanged(object sender, EventArgs e)
         {
             datosFiscales();
+            panelDatos.Enabled = true;
+            panelDatos.Visible = true;
         }
 
         private void rbtnPermisos_CheckedChanged(object sender, EventArgs e)
         {
-
+            panelDatos.Enabled = false;
+            panelDatos.Visible = false;
         }
 
         private void cmbNombreUsuario_SelectedIndexChanged(object sender, EventArgs e)
@@ -155,6 +163,9 @@ namespace TT2024_A155
             else if (rbtnDatosFiscales.Checked)
                 datosFiscales();
             else { }
+
+            //OBTENER PERMISOS SEGUN USUARIO
+            permisos = Consulta.obtenerPermisos(lblRol.Text.Trim()); //1 ENABLE AND VISIBLE.... 0 DISABLE AND NO VISIBLE
 
         }
 
