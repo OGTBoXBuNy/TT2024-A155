@@ -68,7 +68,8 @@ namespace TT2024_A155
             }
             if (permisos[9] == "1")//GENERAR REPORTE VENTAS
             {
-
+                generarReporteDeVentasToolStripMenuItem.Enabled = true;
+                generarReporteDeVentasToolStripMenuItem.Visible = true;
             }
 
             if (lblRol.Text == "4")//LLENAR EL DATAGRIDVIEW SEGUN SI ES CLIENTE O EMPLEADO
@@ -466,6 +467,12 @@ namespace TT2024_A155
         {
             ModificarUsuario modificarUsuario = new();
             modificarUsuario.ShowDialog();
+        }
+
+        private void generarReporteDeVentasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReporteVentas reporteVentas = new();
+            reporteVentas.ShowDialog();
         }
     }
 }

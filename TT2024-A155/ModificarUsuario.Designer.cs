@@ -63,18 +63,12 @@
             lblCliente = new Label();
             panelDatos = new Panel();
             panelPermisos = new Panel();
-            rbtnCrearUsuarioT = new RadioButton();
-            rbtnCrearUsuarioF = new RadioButton();
-            label1 = new Label();
-            label2 = new Label();
-            rbtnModificarUsuarioF = new RadioButton();
-            rbtnModificarUsuarioT = new RadioButton();
-            label3 = new Label();
-            rbtnModificarPedidoF = new RadioButton();
-            rbtnModificarPedidoT = new RadioButton();
-            label4 = new Label();
-            rbtnCrearPedidoF = new RadioButton();
-            rbtnCrearPedidoT = new RadioButton();
+            label9 = new Label();
+            rbtnGenerarReporteF = new RadioButton();
+            rbtnGenerarReporteT = new RadioButton();
+            label10 = new Label();
+            rbtnGenerarFacturaF = new RadioButton();
+            rbtnGenerarFacturaT = new RadioButton();
             label5 = new Label();
             rbtnGenerarFirmaF = new RadioButton();
             rbtnGenerarFirmaT = new RadioButton();
@@ -87,12 +81,18 @@
             label8 = new Label();
             rbtnConfirmarPedidoF = new RadioButton();
             rbtnConfirmarPedidoT = new RadioButton();
-            label9 = new Label();
-            rbtnGenerarReporteF = new RadioButton();
-            rbtnGenerarReporteT = new RadioButton();
-            label10 = new Label();
-            rbtnGenerarFacturaF = new RadioButton();
-            rbtnGenerarFacturaT = new RadioButton();
+            label3 = new Label();
+            rbtnModificarPedidoF = new RadioButton();
+            rbtnModificarPedidoT = new RadioButton();
+            label4 = new Label();
+            rbtnCrearPedidoF = new RadioButton();
+            rbtnCrearPedidoT = new RadioButton();
+            label2 = new Label();
+            rbtnModificarUsuarioF = new RadioButton();
+            rbtnModificarUsuarioT = new RadioButton();
+            label1 = new Label();
+            rbtnCrearUsuarioF = new RadioButton();
+            rbtnCrearUsuarioT = new RadioButton();
             panelDatos.SuspendLayout();
             panelPermisos.SuspendLayout();
             SuspendLayout();
@@ -354,12 +354,14 @@
             // rbtnPermisos
             // 
             rbtnPermisos.AutoSize = true;
+            rbtnPermisos.Enabled = false;
             rbtnPermisos.Location = new Point(661, 62);
             rbtnPermisos.Name = "rbtnPermisos";
             rbtnPermisos.Size = new Size(88, 24);
             rbtnPermisos.TabIndex = 81;
             rbtnPermisos.Text = "Permisos";
             rbtnPermisos.UseVisualStyleBackColor = true;
+            rbtnPermisos.Visible = false;
             rbtnPermisos.CheckedChanged += rbtnPermisos_CheckedChanged;
             // 
             // cmbNombreUsuario
@@ -447,134 +449,74 @@
             panelPermisos.Controls.Add(label1);
             panelPermisos.Controls.Add(rbtnCrearUsuarioF);
             panelPermisos.Controls.Add(rbtnCrearUsuarioT);
+            panelPermisos.Enabled = false;
             panelPermisos.Location = new Point(836, 104);
             panelPermisos.Name = "panelPermisos";
             panelPermisos.Size = new Size(417, 334);
             panelPermisos.TabIndex = 80;
+            panelPermisos.Visible = false;
             // 
-            // rbtnCrearUsuarioT
+            // label9
             // 
-            rbtnCrearUsuarioT.AutoSize = true;
-            rbtnCrearUsuarioT.Location = new Point(208, 25);
-            rbtnCrearUsuarioT.Name = "rbtnCrearUsuarioT";
-            rbtnCrearUsuarioT.Size = new Size(42, 24);
-            rbtnCrearUsuarioT.TabIndex = 0;
-            rbtnCrearUsuarioT.TabStop = true;
-            rbtnCrearUsuarioT.Text = "Si";
-            rbtnCrearUsuarioT.UseVisualStyleBackColor = true;
+            label9.AutoSize = true;
+            label9.Location = new Point(47, 293);
+            label9.Name = "label9";
+            label9.Size = new Size(121, 20);
+            label9.TabIndex = 29;
+            label9.Text = "Generar Reporte:";
             // 
-            // rbtnCrearUsuarioF
+            // rbtnGenerarReporteF
             // 
-            rbtnCrearUsuarioF.AutoSize = true;
-            rbtnCrearUsuarioF.Location = new Point(261, 25);
-            rbtnCrearUsuarioF.Name = "rbtnCrearUsuarioF";
-            rbtnCrearUsuarioF.Size = new Size(50, 24);
-            rbtnCrearUsuarioF.TabIndex = 1;
-            rbtnCrearUsuarioF.TabStop = true;
-            rbtnCrearUsuarioF.Text = "No";
-            rbtnCrearUsuarioF.UseVisualStyleBackColor = true;
+            rbtnGenerarReporteF.AutoSize = true;
+            rbtnGenerarReporteF.Location = new Point(261, 291);
+            rbtnGenerarReporteF.Name = "rbtnGenerarReporteF";
+            rbtnGenerarReporteF.Size = new Size(50, 24);
+            rbtnGenerarReporteF.TabIndex = 28;
+            rbtnGenerarReporteF.TabStop = true;
+            rbtnGenerarReporteF.Text = "No";
+            rbtnGenerarReporteF.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // rbtnGenerarReporteT
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(47, 27);
-            label1.Name = "label1";
-            label1.Size = new Size(101, 20);
-            label1.TabIndex = 2;
-            label1.Text = "Crear Usuario:";
+            rbtnGenerarReporteT.AutoSize = true;
+            rbtnGenerarReporteT.Location = new Point(208, 291);
+            rbtnGenerarReporteT.Name = "rbtnGenerarReporteT";
+            rbtnGenerarReporteT.Size = new Size(42, 24);
+            rbtnGenerarReporteT.TabIndex = 27;
+            rbtnGenerarReporteT.TabStop = true;
+            rbtnGenerarReporteT.Text = "Si";
+            rbtnGenerarReporteT.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // label10
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(47, 57);
-            label2.Name = "label2";
-            label2.Size = new Size(130, 20);
-            label2.TabIndex = 5;
-            label2.Text = "Modificar Usuario:";
+            label10.AutoSize = true;
+            label10.Location = new Point(47, 263);
+            label10.Name = "label10";
+            label10.Size = new Size(115, 20);
+            label10.TabIndex = 26;
+            label10.Text = "Generar Factura:";
             // 
-            // rbtnModificarUsuarioF
+            // rbtnGenerarFacturaF
             // 
-            rbtnModificarUsuarioF.AutoSize = true;
-            rbtnModificarUsuarioF.Location = new Point(261, 55);
-            rbtnModificarUsuarioF.Name = "rbtnModificarUsuarioF";
-            rbtnModificarUsuarioF.Size = new Size(50, 24);
-            rbtnModificarUsuarioF.TabIndex = 4;
-            rbtnModificarUsuarioF.TabStop = true;
-            rbtnModificarUsuarioF.Text = "No";
-            rbtnModificarUsuarioF.UseVisualStyleBackColor = true;
+            rbtnGenerarFacturaF.AutoSize = true;
+            rbtnGenerarFacturaF.Location = new Point(261, 261);
+            rbtnGenerarFacturaF.Name = "rbtnGenerarFacturaF";
+            rbtnGenerarFacturaF.Size = new Size(50, 24);
+            rbtnGenerarFacturaF.TabIndex = 25;
+            rbtnGenerarFacturaF.TabStop = true;
+            rbtnGenerarFacturaF.Text = "No";
+            rbtnGenerarFacturaF.UseVisualStyleBackColor = true;
             // 
-            // rbtnModificarUsuarioT
+            // rbtnGenerarFacturaT
             // 
-            rbtnModificarUsuarioT.AutoSize = true;
-            rbtnModificarUsuarioT.Location = new Point(208, 55);
-            rbtnModificarUsuarioT.Name = "rbtnModificarUsuarioT";
-            rbtnModificarUsuarioT.Size = new Size(42, 24);
-            rbtnModificarUsuarioT.TabIndex = 3;
-            rbtnModificarUsuarioT.TabStop = true;
-            rbtnModificarUsuarioT.Text = "Si";
-            rbtnModificarUsuarioT.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(47, 117);
-            label3.Name = "label3";
-            label3.Size = new Size(132, 20);
-            label3.TabIndex = 11;
-            label3.Text = "Modificar Pedidos:";
-            // 
-            // rbtnModificarPedidoF
-            // 
-            rbtnModificarPedidoF.AutoSize = true;
-            rbtnModificarPedidoF.Location = new Point(261, 115);
-            rbtnModificarPedidoF.Name = "rbtnModificarPedidoF";
-            rbtnModificarPedidoF.Size = new Size(50, 24);
-            rbtnModificarPedidoF.TabIndex = 10;
-            rbtnModificarPedidoF.TabStop = true;
-            rbtnModificarPedidoF.Text = "No";
-            rbtnModificarPedidoF.UseVisualStyleBackColor = true;
-            // 
-            // rbtnModificarPedidoT
-            // 
-            rbtnModificarPedidoT.AutoSize = true;
-            rbtnModificarPedidoT.Location = new Point(208, 115);
-            rbtnModificarPedidoT.Name = "rbtnModificarPedidoT";
-            rbtnModificarPedidoT.Size = new Size(42, 24);
-            rbtnModificarPedidoT.TabIndex = 9;
-            rbtnModificarPedidoT.TabStop = true;
-            rbtnModificarPedidoT.Text = "Si";
-            rbtnModificarPedidoT.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(47, 87);
-            label4.Name = "label4";
-            label4.Size = new Size(97, 20);
-            label4.TabIndex = 8;
-            label4.Text = "Crear Pedido:";
-            // 
-            // rbtnCrearPedidoF
-            // 
-            rbtnCrearPedidoF.AutoSize = true;
-            rbtnCrearPedidoF.Location = new Point(261, 85);
-            rbtnCrearPedidoF.Name = "rbtnCrearPedidoF";
-            rbtnCrearPedidoF.Size = new Size(50, 24);
-            rbtnCrearPedidoF.TabIndex = 7;
-            rbtnCrearPedidoF.TabStop = true;
-            rbtnCrearPedidoF.Text = "No";
-            rbtnCrearPedidoF.UseVisualStyleBackColor = true;
-            // 
-            // rbtnCrearPedidoT
-            // 
-            rbtnCrearPedidoT.AutoSize = true;
-            rbtnCrearPedidoT.Location = new Point(208, 85);
-            rbtnCrearPedidoT.Name = "rbtnCrearPedidoT";
-            rbtnCrearPedidoT.Size = new Size(42, 24);
-            rbtnCrearPedidoT.TabIndex = 6;
-            rbtnCrearPedidoT.TabStop = true;
-            rbtnCrearPedidoT.Text = "Si";
-            rbtnCrearPedidoT.UseVisualStyleBackColor = true;
+            rbtnGenerarFacturaT.AutoSize = true;
+            rbtnGenerarFacturaT.Location = new Point(208, 261);
+            rbtnGenerarFacturaT.Name = "rbtnGenerarFacturaT";
+            rbtnGenerarFacturaT.Size = new Size(42, 24);
+            rbtnGenerarFacturaT.TabIndex = 24;
+            rbtnGenerarFacturaT.TabStop = true;
+            rbtnGenerarFacturaT.Text = "Si";
+            rbtnGenerarFacturaT.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -700,73 +642,135 @@
             rbtnConfirmarPedidoT.Text = "Si";
             rbtnConfirmarPedidoT.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // label3
             // 
-            label9.AutoSize = true;
-            label9.Location = new Point(47, 293);
-            label9.Name = "label9";
-            label9.Size = new Size(121, 20);
-            label9.TabIndex = 29;
-            label9.Text = "Generar Reporte:";
+            label3.AutoSize = true;
+            label3.Location = new Point(47, 117);
+            label3.Name = "label3";
+            label3.Size = new Size(132, 20);
+            label3.TabIndex = 11;
+            label3.Text = "Modificar Pedidos:";
             // 
-            // rbtnGenerarReporteF
+            // rbtnModificarPedidoF
             // 
-            rbtnGenerarReporteF.AutoSize = true;
-            rbtnGenerarReporteF.Location = new Point(261, 291);
-            rbtnGenerarReporteF.Name = "rbtnGenerarReporteF";
-            rbtnGenerarReporteF.Size = new Size(50, 24);
-            rbtnGenerarReporteF.TabIndex = 28;
-            rbtnGenerarReporteF.TabStop = true;
-            rbtnGenerarReporteF.Text = "No";
-            rbtnGenerarReporteF.UseVisualStyleBackColor = true;
+            rbtnModificarPedidoF.AutoSize = true;
+            rbtnModificarPedidoF.Location = new Point(261, 115);
+            rbtnModificarPedidoF.Name = "rbtnModificarPedidoF";
+            rbtnModificarPedidoF.Size = new Size(50, 24);
+            rbtnModificarPedidoF.TabIndex = 10;
+            rbtnModificarPedidoF.TabStop = true;
+            rbtnModificarPedidoF.Text = "No";
+            rbtnModificarPedidoF.UseVisualStyleBackColor = true;
             // 
-            // rbtnGenerarReporteT
+            // rbtnModificarPedidoT
             // 
-            rbtnGenerarReporteT.AutoSize = true;
-            rbtnGenerarReporteT.Location = new Point(208, 291);
-            rbtnGenerarReporteT.Name = "rbtnGenerarReporteT";
-            rbtnGenerarReporteT.Size = new Size(42, 24);
-            rbtnGenerarReporteT.TabIndex = 27;
-            rbtnGenerarReporteT.TabStop = true;
-            rbtnGenerarReporteT.Text = "Si";
-            rbtnGenerarReporteT.UseVisualStyleBackColor = true;
+            rbtnModificarPedidoT.AutoSize = true;
+            rbtnModificarPedidoT.Location = new Point(208, 115);
+            rbtnModificarPedidoT.Name = "rbtnModificarPedidoT";
+            rbtnModificarPedidoT.Size = new Size(42, 24);
+            rbtnModificarPedidoT.TabIndex = 9;
+            rbtnModificarPedidoT.TabStop = true;
+            rbtnModificarPedidoT.Text = "Si";
+            rbtnModificarPedidoT.UseVisualStyleBackColor = true;
             // 
-            // label10
+            // label4
             // 
-            label10.AutoSize = true;
-            label10.Location = new Point(47, 263);
-            label10.Name = "label10";
-            label10.Size = new Size(115, 20);
-            label10.TabIndex = 26;
-            label10.Text = "Generar Factura:";
+            label4.AutoSize = true;
+            label4.Location = new Point(47, 87);
+            label4.Name = "label4";
+            label4.Size = new Size(97, 20);
+            label4.TabIndex = 8;
+            label4.Text = "Crear Pedido:";
             // 
-            // rbtnGenerarFacturaF
+            // rbtnCrearPedidoF
             // 
-            rbtnGenerarFacturaF.AutoSize = true;
-            rbtnGenerarFacturaF.Location = new Point(261, 261);
-            rbtnGenerarFacturaF.Name = "rbtnGenerarFacturaF";
-            rbtnGenerarFacturaF.Size = new Size(50, 24);
-            rbtnGenerarFacturaF.TabIndex = 25;
-            rbtnGenerarFacturaF.TabStop = true;
-            rbtnGenerarFacturaF.Text = "No";
-            rbtnGenerarFacturaF.UseVisualStyleBackColor = true;
+            rbtnCrearPedidoF.AutoSize = true;
+            rbtnCrearPedidoF.Location = new Point(261, 85);
+            rbtnCrearPedidoF.Name = "rbtnCrearPedidoF";
+            rbtnCrearPedidoF.Size = new Size(50, 24);
+            rbtnCrearPedidoF.TabIndex = 7;
+            rbtnCrearPedidoF.TabStop = true;
+            rbtnCrearPedidoF.Text = "No";
+            rbtnCrearPedidoF.UseVisualStyleBackColor = true;
             // 
-            // rbtnGenerarFacturaT
+            // rbtnCrearPedidoT
             // 
-            rbtnGenerarFacturaT.AutoSize = true;
-            rbtnGenerarFacturaT.Location = new Point(208, 261);
-            rbtnGenerarFacturaT.Name = "rbtnGenerarFacturaT";
-            rbtnGenerarFacturaT.Size = new Size(42, 24);
-            rbtnGenerarFacturaT.TabIndex = 24;
-            rbtnGenerarFacturaT.TabStop = true;
-            rbtnGenerarFacturaT.Text = "Si";
-            rbtnGenerarFacturaT.UseVisualStyleBackColor = true;
+            rbtnCrearPedidoT.AutoSize = true;
+            rbtnCrearPedidoT.Location = new Point(208, 85);
+            rbtnCrearPedidoT.Name = "rbtnCrearPedidoT";
+            rbtnCrearPedidoT.Size = new Size(42, 24);
+            rbtnCrearPedidoT.TabIndex = 6;
+            rbtnCrearPedidoT.TabStop = true;
+            rbtnCrearPedidoT.Text = "Si";
+            rbtnCrearPedidoT.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(47, 57);
+            label2.Name = "label2";
+            label2.Size = new Size(130, 20);
+            label2.TabIndex = 5;
+            label2.Text = "Modificar Usuario:";
+            // 
+            // rbtnModificarUsuarioF
+            // 
+            rbtnModificarUsuarioF.AutoSize = true;
+            rbtnModificarUsuarioF.Location = new Point(261, 55);
+            rbtnModificarUsuarioF.Name = "rbtnModificarUsuarioF";
+            rbtnModificarUsuarioF.Size = new Size(50, 24);
+            rbtnModificarUsuarioF.TabIndex = 4;
+            rbtnModificarUsuarioF.TabStop = true;
+            rbtnModificarUsuarioF.Text = "No";
+            rbtnModificarUsuarioF.UseVisualStyleBackColor = true;
+            // 
+            // rbtnModificarUsuarioT
+            // 
+            rbtnModificarUsuarioT.AutoSize = true;
+            rbtnModificarUsuarioT.Location = new Point(208, 55);
+            rbtnModificarUsuarioT.Name = "rbtnModificarUsuarioT";
+            rbtnModificarUsuarioT.Size = new Size(42, 24);
+            rbtnModificarUsuarioT.TabIndex = 3;
+            rbtnModificarUsuarioT.TabStop = true;
+            rbtnModificarUsuarioT.Text = "Si";
+            rbtnModificarUsuarioT.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(47, 27);
+            label1.Name = "label1";
+            label1.Size = new Size(101, 20);
+            label1.TabIndex = 2;
+            label1.Text = "Crear Usuario:";
+            // 
+            // rbtnCrearUsuarioF
+            // 
+            rbtnCrearUsuarioF.AutoSize = true;
+            rbtnCrearUsuarioF.Location = new Point(261, 25);
+            rbtnCrearUsuarioF.Name = "rbtnCrearUsuarioF";
+            rbtnCrearUsuarioF.Size = new Size(50, 24);
+            rbtnCrearUsuarioF.TabIndex = 1;
+            rbtnCrearUsuarioF.TabStop = true;
+            rbtnCrearUsuarioF.Text = "No";
+            rbtnCrearUsuarioF.UseVisualStyleBackColor = true;
+            // 
+            // rbtnCrearUsuarioT
+            // 
+            rbtnCrearUsuarioT.AutoSize = true;
+            rbtnCrearUsuarioT.Location = new Point(208, 25);
+            rbtnCrearUsuarioT.Name = "rbtnCrearUsuarioT";
+            rbtnCrearUsuarioT.Size = new Size(42, 24);
+            rbtnCrearUsuarioT.TabIndex = 0;
+            rbtnCrearUsuarioT.TabStop = true;
+            rbtnCrearUsuarioT.Text = "Si";
+            rbtnCrearUsuarioT.UseVisualStyleBackColor = true;
             // 
             // ModificarUsuario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1765, 450);
+            ClientSize = new Size(814, 450);
             Controls.Add(panelPermisos);
             Controls.Add(cmbNombreUsuario);
             Controls.Add(lblCliente);

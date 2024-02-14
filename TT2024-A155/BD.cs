@@ -21,6 +21,11 @@ using BarcodeLib;
 using System.Net.Mime;
 using iText.Kernel.Pdf.Canvas.Wmf;
 using System.Reflection;
+using System.Globalization;
+//EXCEL
+using SpreadsheetLight;
+
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 
@@ -2290,6 +2295,125 @@ namespace TT2024_A155
             return -1;
 
         }
+
+
+        public void test()
+        {
+            SLDocument sl = new SLDocument();
+        }
+
+        //------------- GENERAR REPORTE DE VENTAS
+        //public void generarReporte(string ruta, string fecha1, string fecha2)
+        //{
+            
+        //    int totalRegistrosExportar;
+
+
+
+
+
+        //    File.WriteAllBytes(ruta, Properties.Resources.Reporte);
+
+        //    SLDocument sl = new SLDocument(ruta);
+            
+        //    DateTime hoy = DateTime.Today;
+        //    sl.SetCellValue("M2", hoy.ToString("dd-MM-yyyy"));//Se agrega la fecha al excel
+
+
+        //    using (SqlConnection nuevaConexion = Conexion.conexion())
+        //    {
+        //        nuevaConexion.Open();
+        //        int celdaContenido = 9;
+               
+
+               
+        //        Comando = new SqlCommand("SELECT Count(detp.iddetalle_pedido) AS 'TOTAL DE REGISTROS A EXPORTAR' FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido WHERE ped.fecha_hora BETWEEN @fecha1 AND @fecha2 AND ped.estado =1;", nuevaConexion);
+
+        //        Comando.Parameters.AddWithValue("@fecha1", fecha1);
+        //        Comando.Parameters.AddWithValue("@fecha2", fecha2);
+        //        totalRegistrosExportar = Int32.Parse(Comando.ExecuteScalar().ToString());
+        //        MessageBox.Show("El número de registros encontrados son: " + totalRegistrosExportar.ToString() + "\n" + "Antes de dar clic en Aceptar revisa que tu conexión a internet sea estable, para evitar error a la hora de generar", "Generar Reporte", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
+
+                
+        //        Comando = new SqlCommand("SELECT ped.idpedido, ped.fecha_hora, ped.estado, us.nombre_usuario, us.nombre_real, prod.nombre, detp.cantidad, mar.marca, veh.modelo, veh.anio, prod.precio_venta, detp.descuento, ((prod.precio_venta) *((100 - detp.descuento)/100)) AS 'Precio Final', fact.num_factura, fact.fact_sinIVA, fact.fact_neto  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE ped.fecha_hora BETWEEN @fecha1 AND @fecha2 AND detp.estado = 1;", nuevaConexion);
+
+        //        Comando.Parameters.AddWithValue("@fecha1", fecha1);
+        //        Comando.Parameters.AddWithValue("@fecha2", fecha2);
+                
+        //        Lector = Comando.ExecuteReader();
+                
+        //        for (int r = 0; r < totalRegistrosExportar; r++)
+                
+        //        {
+        //            Lector.Read();
+
+
+
+        //            sl.SetCellValue("A" + celdaContenido, Lector["idpedido"].ToString());
+
+        //            sl.SetCellValue("B" + celdaContenido, Lector["fecha_hora"].ToString());
+
+        //            sl.SetCellValue("C" + celdaContenido, Lector["estado"].ToString());
+
+        //            sl.SetCellValue("D" + celdaContenido, Lector["nombre_usuario"].ToString());
+
+        //            sl.SetCellValue("E" + celdaContenido, Lector["nombre_real"].ToString());
+
+        //            sl.SetCellValue("F" + celdaContenido, Lector["nombre"].ToString());
+
+        //            sl.SetCellValue("G" + celdaContenido, Lector["cantidad"].ToString());
+
+        //            sl.SetCellValue("H" + celdaContenido, Lector["marca"].ToString());
+
+        //            sl.SetCellValue("I" + celdaContenido, Lector["modelo"].ToString());
+
+        //            sl.SetCellValue("J" + celdaContenido, Lector["anio"].ToString());
+                    
+        //            sl.SetCellValue("K" + celdaContenido, Lector["precio_venta"].ToString());
+
+        //            sl.SetCellValue("L" + celdaContenido, Lector["descuento"].ToString());
+
+        //            sl.SetCellValue("M" + celdaContenido, Lector["Precio Final"].ToString());
+
+        //            //sl.SetCellValue("N" + celdaContenido, Lector["num_factura"].ToString());
+
+        //            //sl.SetCellValue("O" + celdaContenido, Lector["fact_sinIVA"].ToString());
+
+        //            //sl.SetCellValue("P" + celdaContenido, Lector["fact_neto"].ToString());
+
+                    
+
+
+        //            celdaContenido++;
+        //        }
+
+        //        SLStyle estiloContenido = new SLStyle();
+                
+        //        estiloContenido.FormatCode = "$ #,###.00";
+        //        sl.SetCellStyle("K9", "M9" + celdaContenido, estiloContenido);
+        //        sl.SetCellStyle("O9", "P9" + celdaContenido, estiloContenido);
+                
+        //        /*estiloContenido.FormatCode = "d mmm yyyy";
+        //        sl.SetCellStyle("V9", estiloContenido);*/
+
+        //        sl.AutoFitColumn("A", "P");
+
+
+        //        SaveFileDialog guarda = new();
+        //        guarda.Filter = "Libro de Excel|*.xlsx";
+        //        guarda.Title = "Guardar Reporte";
+        //        guarda.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        //        if (guarda.ShowDialog() == DialogResult.OK)
+        //        {
+        //            sl.SaveAs(guarda.FileName);
+        //            MessageBOX.SHowDialog(3, "Archivo Guardado");
+        //        }
+        //        Lector.Close();
+        //        nuevaConexion.Close();
+        //    }
+            
+        //}
 
 
 

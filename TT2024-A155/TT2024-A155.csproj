@@ -15,10 +15,12 @@
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.2.1">
       <Aliases>NewBouncy</Aliases>
     </PackageReference>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.1" />
     <PackageReference Include="itext7" Version="8.0.2" />
     <PackageReference Include="itext7.bouncy-castle-fips-adapter" Version="8.0.2" />
     <PackageReference Include="MailKit" Version="4.3.0" />
     <PackageReference Include="MimeKit" Version="4.3.0" />
+    <PackageReference Include="SpreadsheetLight" Version="3.5.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 

@@ -164,6 +164,7 @@
             generarReporteDeVentasToolStripMenuItem.Size = new Size(264, 26);
             generarReporteDeVentasToolStripMenuItem.Text = "Generar reporte de ventas";
             generarReporteDeVentasToolStripMenuItem.Visible = false;
+            generarReporteDeVentasToolStripMenuItem.Click += generarReporteDeVentasToolStripMenuItem_Click;
             // 
             // panelInfoPedido
             // 

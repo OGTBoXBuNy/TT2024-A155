@@ -129,5 +129,15 @@ namespace TT2024_A155.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Reporte {
+            get {
+                object obj = ResourceManager.GetObject("Reporte", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

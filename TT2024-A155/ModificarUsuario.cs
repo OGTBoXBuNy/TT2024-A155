@@ -146,7 +146,13 @@ namespace TT2024_A155
         {
 
             if (cmbNombreUsuario.SelectedValue.ToString() != "System.Data.DataRowView")
+            {
                 cmbRol.SelectedIndex = Convert.ToInt32(cmbNombreUsuario.SelectedValue.ToString()) - 1;
+                //OBTENER PERMISOS SEGUN TIPO USUARIO
+
+                permisos = Consulta.obtenerPermisos(cmbNombreUsuario.SelectedValue.ToString()); //1 ENABLE AND VISIBLE.... 0 DISABLE AND NO VISIBLE
+            }
+                
 
             if(cmbRol.Text == "Cliente")
             {
@@ -164,8 +170,7 @@ namespace TT2024_A155
                 datosFiscales();
             else { }
 
-            //OBTENER PERMISOS SEGUN USUARIO
-            permisos = Consulta.obtenerPermisos(lblRol.Text.Trim()); //1 ENABLE AND VISIBLE.... 0 DISABLE AND NO VISIBLE
+            
 
         }
 
