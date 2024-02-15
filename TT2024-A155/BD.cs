@@ -23,7 +23,10 @@ using iText.Kernel.Pdf.Canvas.Wmf;
 using System.Reflection;
 using System.Globalization;
 //EXCEL
-using SpreadsheetLight;
+//using System.IO;
+//using Excel = Microsoft.Office.Interop.Excel;
+//using Microsoft.Office.Interop.Excel;
+//using ExcelDataReader;
 
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -2297,9 +2300,13 @@ namespace TT2024_A155
         }
 
 
-        public void test()
+        public void test(string ruta, string fecha1, string fecha2)
         {
-            SLDocument sl = new SLDocument();
+            File.WriteAllBytes(ruta, Properties.Resources.Reporte);
+
+            BDExcel bDExcel = new ();
+
+            bDExcel.generarExcelTest(ruta, fecha1, fecha2);
         }
 
         //------------- GENERAR REPORTE DE VENTAS
