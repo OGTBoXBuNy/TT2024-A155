@@ -38,6 +38,8 @@
             modificarUsuariosToolStripMenuItem = new ToolStripMenuItem();
             generarReporteDeVentasToolStripMenuItem = new ToolStripMenuItem();
             panelInfoPedido = new Panel();
+            lblComentariosFact = new Label();
+            txtComenatriosFact = new TextBox();
             lblAnio = new Label();
             pbFactura = new PictureBox();
             lblComprobantePDF = new Label();
@@ -169,6 +171,8 @@
             // panelInfoPedido
             // 
             panelInfoPedido.BorderStyle = BorderStyle.Fixed3D;
+            panelInfoPedido.Controls.Add(lblComentariosFact);
+            panelInfoPedido.Controls.Add(txtComenatriosFact);
             panelInfoPedido.Controls.Add(lblAnio);
             panelInfoPedido.Controls.Add(pbFactura);
             panelInfoPedido.Controls.Add(lblComprobantePDF);
@@ -203,6 +207,25 @@
             panelInfoPedido.Size = new Size(425, 589);
             panelInfoPedido.TabIndex = 4;
             // 
+            // lblComentariosFact
+            // 
+            lblComentariosFact.AutoSize = true;
+            lblComentariosFact.Location = new Point(201, 379);
+            lblComentariosFact.Name = "lblComentariosFact";
+            lblComentariosFact.Size = new Size(100, 20);
+            lblComentariosFact.TabIndex = 102;
+            lblComentariosFact.Text = "Comentarios: ";
+            // 
+            // txtComenatriosFact
+            // 
+            txtComenatriosFact.Enabled = false;
+            txtComenatriosFact.Location = new Point(201, 402);
+            txtComenatriosFact.Multiline = true;
+            txtComenatriosFact.Name = "txtComenatriosFact";
+            txtComenatriosFact.ReadOnly = true;
+            txtComenatriosFact.Size = new Size(213, 95);
+            txtComenatriosFact.TabIndex = 101;
+            // 
             // lblAnio
             // 
             lblAnio.AutoSize = true;
@@ -216,7 +239,7 @@
             // 
             pbFactura.Cursor = Cursors.Hand;
             pbFactura.Image = Properties.Resources.file;
-            pbFactura.Location = new Point(362, 436);
+            pbFactura.Location = new Point(247, 534);
             pbFactura.Margin = new Padding(4);
             pbFactura.Name = "pbFactura";
             pbFactura.Size = new Size(55, 43);
@@ -236,6 +259,7 @@
             // 
             // txtComentarios
             // 
+            txtComentarios.Enabled = false;
             txtComentarios.Location = new Point(101, 264);
             txtComentarios.Multiline = true;
             txtComentarios.Name = "txtComentarios";
@@ -257,7 +281,7 @@
             // lblFactIVA
             // 
             lblFactIVA.AutoSize = true;
-            lblFactIVA.Location = new Point(10, 453);
+            lblFactIVA.Location = new Point(10, 468);
             lblFactIVA.Name = "lblFactIVA";
             lblFactIVA.Size = new Size(113, 20);
             lblFactIVA.TabIndex = 27;
@@ -266,7 +290,7 @@
             // lblFactSinIva
             // 
             lblFactSinIva.AutoSize = true;
-            lblFactSinIva.Location = new Point(10, 411);
+            lblFactSinIva.Location = new Point(10, 402);
             lblFactSinIva.Name = "lblFactSinIva";
             lblFactSinIva.Size = new Size(107, 20);
             lblFactSinIva.TabIndex = 26;
@@ -294,7 +318,7 @@
             // 
             pbComprobante.Cursor = Cursors.Hand;
             pbComprobante.Image = Properties.Resources.file;
-            pbComprobante.Location = new Point(26, 534);
+            pbComprobante.Location = new Point(101, 534);
             pbComprobante.Margin = new Padding(4);
             pbComprobante.Name = "pbComprobante";
             pbComprobante.Size = new Size(55, 43);
@@ -378,16 +402,16 @@
             // lblTotal
             // 
             lblTotal.AutoSize = true;
-            lblTotal.Location = new Point(205, 526);
+            lblTotal.Location = new Point(191, 510);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(45, 20);
+            lblTotal.Size = new Size(59, 20);
             lblTotal.TabIndex = 14;
-            lblTotal.Text = "Total:";
+            lblTotal.Text = "Factura:";
             // 
             // lblImpuesto
             // 
             lblImpuesto.AutoSize = true;
-            lblImpuesto.Location = new Point(228, 411);
+            lblImpuesto.Location = new Point(10, 436);
             lblImpuesto.Name = "lblImpuesto";
             lblImpuesto.Size = new Size(74, 20);
             lblImpuesto.TabIndex = 13;
@@ -405,7 +429,7 @@
             // lblFactura
             // 
             lblFactura.AutoSize = true;
-            lblFactura.Location = new Point(10, 377);
+            lblFactura.Location = new Point(10, 369);
             lblFactura.Name = "lblFactura";
             lblFactura.Size = new Size(72, 20);
             lblFactura.TabIndex = 11;
@@ -667,5 +691,7 @@
         private PictureBox pbFactura;
         private Label lblComprobantePDF;
         private Label lblAnio;
+        private Label lblComentariosFact;
+        private TextBox txtComenatriosFact;
     }
 }

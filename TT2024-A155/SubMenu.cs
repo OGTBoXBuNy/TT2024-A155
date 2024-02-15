@@ -31,9 +31,17 @@ namespace TT2024_A155
             pedido.lblRol.Text = lblRol.Text;
             pedido.lblIdPedido.Text = lblIdPedido.Text;
             if (pedido.ShowDialog() == DialogResult.OK)
-            { 
+            {
 
             }
+        }
+
+        private void btnGenerarFactura_Click(object sender, EventArgs e)
+        {
+            Factura factura = new();
+            factura.lblIDPedido.Text = lblIdPedido.Text;
+            factura.ShowDialog();
+
         }
     }
 }

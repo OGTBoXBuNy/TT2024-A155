@@ -26,7 +26,7 @@ namespace TT2024_A155
             string ruta = Application.StartupPath + "Reporte.xlsx";
             if (ruta != "")
             {
-                Consulta.test(ruta, Fecha_inicio, Fecha_Final);
+                Consulta.generarReporteVentas(ruta, Fecha_inicio, Fecha_Final);
                 //Consulta.generarReporte(ruta, Fecha_inicio, Fecha_Final);
                 this.Close();
             }

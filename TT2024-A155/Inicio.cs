@@ -148,7 +148,7 @@ namespace TT2024_A155
             lblFactSinIva.Text = "Factura sin IVA: " + detallesPedido[13];
             lblImpuesto.Text = "Impuesto: " + detallesPedido[15];
             lblFactIVA.Text = "Factura con IVA: " + detallesPedido[14];
-
+            txtComenatriosFact.Text = detallesPedido[18];
 
         }
 

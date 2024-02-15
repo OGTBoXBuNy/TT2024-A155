@@ -337,6 +337,7 @@
             // 
             // txtUsuario
             // 
+            txtUsuario.Enabled = false;
             txtUsuario.Location = new Point(100, 40);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(273, 27);

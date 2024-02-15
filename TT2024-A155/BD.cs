@@ -669,6 +669,8 @@ namespace TT2024_A155
             }
         }
 
+
+
         //---------------------------OBTENER DATOS PARA GENERAR EL COMPROBANTE PDF--------------------
         public void datosPedidoPDF(DataGridView dgv, string idPedido)
         {
@@ -690,6 +692,29 @@ namespace TT2024_A155
                 MessageBox.Show(ex.ToString());
             }
         
+        }
+
+        //---------------------------OBTENER DATOS PARA GENERAR LA FACTURA--------------------
+        public void datosFacturaPDF(DataGridView dgv, string idPedido)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    da = new SqlDataAdapter(string.Format("SELECT (1) AS 'Datos Fiscales Empresa', fact.num_factura, fact.fecha_emision, fact.comentario, dfc.iddatos_fiscales_cli, ped.impuesto, ped.total, dfc.nombre, dfc.calle, dfc.noExt, dfc.noInt, dfc.colonia, dfc.cp, dfc.ciudad, dfc.telefono, dfc.correo, dfc.cif, prod.nombre, mar.marca, veh.modelo, veh.anio, detp.cantidad, prod.precio_venta, detp.descuento, ((prod.precio_venta * ((100 - detp.descuento)/100)) * detp.cantidad) AS 'Total'   FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN datos_fiscales_cliente dfc ON dfc.iddatos_fiscales_cli = us.iddatos_fiscales_cli LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE ped.idpedido = '{0}';", idPedido), nuevacon);
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dgv.DataSource = dt;
+                    nuevacon.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
         }
 
         //----------------------GENERAR PDF COMPROBANTE
@@ -1503,7 +1528,7 @@ namespace TT2024_A155
         //---------------------------Llenar Datos pedido--------------------
         public string[] detallesPedido(string idDetallePedido)
         {
-            string[] detallesPedido = new string[18];
+            string[] detallesPedido = new string[19];
             double impuesto;
             try
             {
@@ -1511,7 +1536,7 @@ namespace TT2024_A155
                 {
                     
                     nuevacon.Open();
-                    Comando = new SqlCommand(string.Format("SELECT ped.idpedido, ped.fecha_hora, us.nombre_real, us.nombre_usuario, prod.nombre, detp.cantidad, prod.precio_venta, detp.descuento, mar.marca, veh.modelo, ped.comentarios, ped.aprobacionCliente, fact.idfactura, fact.fact_sinIVA, fact.fact_neto, ped.idusuarioVendedor, veh.anio FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE detp.iddetalle_pedido = '{0}';", idDetallePedido), nuevacon);
+                    Comando = new SqlCommand(string.Format("SELECT ped.idpedido, ped.fecha_hora, us.nombre_real, us.nombre_usuario, prod.nombre, detp.cantidad, prod.precio_venta, detp.descuento, mar.marca, veh.modelo, ped.comentarios, ped.aprobacionCliente, fact.idfactura, fact.fact_sinIVA, fact.fact_neto, ped.idusuarioVendedor, veh.anio, fact.num_factura AS 'numFact', fact.comentario AS 'factComen' FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE detp.iddetalle_pedido = '{0}';", idDetallePedido), nuevacon);
                     Lector = Comando.ExecuteReader();
                     while (Lector.Read())
                     {
@@ -1534,12 +1559,14 @@ namespace TT2024_A155
                         
 
                         if (Lector["idfactura"].ToString() != string.Empty) {
-                            detallesPedido[12] = Lector["idfactura"].ToString();//IDFACTURA
+                            detallesPedido[12] = Lector["numFact"].ToString();//IDFACTURA
                             detallesPedido[13] = Lector["fact_sinIVA"].ToString();//FACTURA SIN IVA
                             detallesPedido[14] = Lector["fact_neto"].ToString();//FACTURA CON IVA
 
                             impuesto = Convert.ToDouble(Lector["fact_neto"].ToString()) - Convert.ToDouble(Lector["fact_sinIVA"].ToString());
                             detallesPedido[15] = impuesto.ToString("0.##");//IMPUESTO
+                            detallesPedido[18] = Lector["factComen"].ToString();//COMENTARIO
+
                         }
                         else
                         {
@@ -1547,11 +1574,13 @@ namespace TT2024_A155
                             detallesPedido[13] = "";//FACTURA SIN IVA
                             detallesPedido[14] = "";//FACTURA CON 
                             detallesPedido[15] = "";//IMPUESTO
+                            detallesPedido[18] = "";//COMENTARIO
                         }
 
                        
                         detallesPedido[16] = nombreVendedor(Lector["idusuarioVendedor"].ToString());//NOMBRE VENDEDOR
                         
+
                     }
                     Lector.Close();
                     nuevacon.Close();
@@ -2300,7 +2329,7 @@ namespace TT2024_A155
         }
 
 
-        public void test(string ruta, string fecha1, string fecha2)
+        public void generarReporteVentas(string ruta, string fecha1, string fecha2)
         {
             File.WriteAllBytes(ruta, Properties.Resources.Reporte);
 
@@ -2309,118 +2338,237 @@ namespace TT2024_A155
             bDExcel.generarExcelTest(ruta, fecha1, fecha2);
         }
 
-        //------------- GENERAR REPORTE DE VENTAS
-        //public void generarReporte(string ruta, string fecha1, string fecha2)
-        //{
-            
-        //    int totalRegistrosExportar;
+        //----------------------GENERAR PDF FACTURA
+        public void generarFactura(string idPedido, DataGridView dgvDatosFactura)
+        {
+            try
+            {
+                SaveFileDialog fileRoute = new SaveFileDialog();
+                fileRoute.InitialDirectory = @"C:\";
+                fileRoute.Title = "FACTURA";
+                fileRoute.CheckPathExists = true;
+                fileRoute.DefaultExt = "pdf";
+                fileRoute.Filter = "PDF files (*.pdf)|*.pdf";
+                fileRoute.FilterIndex = 2;
+                fileRoute.RestoreDirectory = true;
+                fileRoute.FileName = "Factura_Pedido_" + idPedido;
+
+
+                if (fileRoute.ShowDialog() == DialogResult.OK)
+                {
+                    if (!File.Exists(fileRoute.FileName))
+                    {
+                        iText.Kernel.Pdf.PdfWriter pdfWriter = new iText.Kernel.Pdf.PdfWriter(fileRoute.FileName);
+
+                        string ruta = Application.StartupPath + "\\Factura.pdf";
+                        File.WriteAllBytes(ruta, Properties.Resources.Factura);
+
+
+                        iText.Kernel.Pdf.PdfReader pdfReader = new iText.Kernel.Pdf.PdfReader(Application.StartupPath + "\\Factura.pdf");
 
 
 
 
-
-        //    File.WriteAllBytes(ruta, Properties.Resources.Reporte);
-
-        //    SLDocument sl = new SLDocument(ruta);
-            
-        //    DateTime hoy = DateTime.Today;
-        //    sl.SetCellValue("M2", hoy.ToString("dd-MM-yyyy"));//Se agrega la fecha al excel
+                        iText.Kernel.Pdf.PdfDocument pdfdoc = new iText.Kernel.Pdf.PdfDocument(pdfReader, pdfWriter);
 
 
-        //    using (SqlConnection nuevaConexion = Conexion.conexion())
-        //    {
-        //        nuevaConexion.Open();
-        //        int celdaContenido = 9;
-               
+                        datosFacturaPDF(dgvDatosFactura, idPedido);
 
-               
-        //        Comando = new SqlCommand("SELECT Count(detp.iddetalle_pedido) AS 'TOTAL DE REGISTROS A EXPORTAR' FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido WHERE ped.fecha_hora BETWEEN @fecha1 AND @fecha2 AND ped.estado =1;", nuevaConexion);
-
-        //        Comando.Parameters.AddWithValue("@fecha1", fecha1);
-        //        Comando.Parameters.AddWithValue("@fecha2", fecha2);
-        //        totalRegistrosExportar = Int32.Parse(Comando.ExecuteScalar().ToString());
-        //        MessageBox.Show("El número de registros encontrados son: " + totalRegistrosExportar.ToString() + "\n" + "Antes de dar clic en Aceptar revisa que tu conexión a internet sea estable, para evitar error a la hora de generar", "Generar Reporte", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                
-
-                
-        //        Comando = new SqlCommand("SELECT ped.idpedido, ped.fecha_hora, ped.estado, us.nombre_usuario, us.nombre_real, prod.nombre, detp.cantidad, mar.marca, veh.modelo, veh.anio, prod.precio_venta, detp.descuento, ((prod.precio_venta) *((100 - detp.descuento)/100)) AS 'Precio Final', fact.num_factura, fact.fact_sinIVA, fact.fact_neto  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE ped.fecha_hora BETWEEN @fecha1 AND @fecha2 AND detp.estado = 1;", nuevaConexion);
-
-        //        Comando.Parameters.AddWithValue("@fecha1", fecha1);
-        //        Comando.Parameters.AddWithValue("@fecha2", fecha2);
-                
-        //        Lector = Comando.ExecuteReader();
-                
-        //        for (int r = 0; r < totalRegistrosExportar; r++)
-                
-        //        {
-        //            Lector.Read();
+                        int NumeroFila = NumeroFilas(idPedido);
 
 
+                        PdfCanvas canvas = new PdfCanvas(pdfdoc.GetFirstPage());
+                        PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
 
-        //            sl.SetCellValue("A" + celdaContenido, Lector["idpedido"].ToString());
-
-        //            sl.SetCellValue("B" + celdaContenido, Lector["fecha_hora"].ToString());
-
-        //            sl.SetCellValue("C" + celdaContenido, Lector["estado"].ToString());
-
-        //            sl.SetCellValue("D" + celdaContenido, Lector["nombre_usuario"].ToString());
-
-        //            sl.SetCellValue("E" + celdaContenido, Lector["nombre_real"].ToString());
-
-        //            sl.SetCellValue("F" + celdaContenido, Lector["nombre"].ToString());
-
-        //            sl.SetCellValue("G" + celdaContenido, Lector["cantidad"].ToString());
-
-        //            sl.SetCellValue("H" + celdaContenido, Lector["marca"].ToString());
-
-        //            sl.SetCellValue("I" + celdaContenido, Lector["modelo"].ToString());
-
-        //            sl.SetCellValue("J" + celdaContenido, Lector["anio"].ToString());
-                    
-        //            sl.SetCellValue("K" + celdaContenido, Lector["precio_venta"].ToString());
-
-        //            sl.SetCellValue("L" + celdaContenido, Lector["descuento"].ToString());
-
-        //            sl.SetCellValue("M" + celdaContenido, Lector["Precio Final"].ToString());
-
-        //            //sl.SetCellValue("N" + celdaContenido, Lector["num_factura"].ToString());
-
-        //            //sl.SetCellValue("O" + celdaContenido, Lector["fact_sinIVA"].ToString());
-
-        //            //sl.SetCellValue("P" + celdaContenido, Lector["fact_neto"].ToString());
-
-                    
+                        int y = 0;//633
+                        int x = 0;//109
+                        int cantidad = 0;
+                        double Total = 0;
+                        int Items = 0;
+                        byte[] pdf;
+                        string correoCliente = dgvDatosFactura.Rows[0].Cells[11].Value.ToString();
 
 
-        //            celdaContenido++;
-        //        }
+                        //ORIGEN
+                        canvas.BeginText().SetFontAndSize(font, 9)
+                                 .MoveText(x + 26, y + 540)
+                                 .ShowText("0,0")
+                                 .EndText();
 
-        //        SLStyle estiloContenido = new SLStyle();
-                
-        //        estiloContenido.FormatCode = "$ #,###.00";
-        //        sl.SetCellStyle("K9", "M9" + celdaContenido, estiloContenido);
-        //        sl.SetCellStyle("O9", "P9" + celdaContenido, estiloContenido);
-                
-        //        /*estiloContenido.FormatCode = "d mmm yyyy";
-        //        sl.SetCellStyle("V9", estiloContenido);*/
+                        ////PEDIDO
+                        //canvas.BeginText().SetFontAndSize(font, 18)
+                        //         .MoveText(x + 105, y + 642)
+                        //         .ShowText(dgvDatosFactura.Rows[0].Cells[0].Value.ToString())
+                        //         .EndText();
 
-        //        sl.AutoFitColumn("A", "P");
+                        ////FECHA_CREACIÓN
+                        //canvas.BeginText().SetFontAndSize(font, 14)
+                        //        .MoveText(x + 40, y + 590)
+                        //        .ShowText(dgvDatosFactura.Rows[0].Cells[1].Value.ToString().Substring(0, 10))
+                        //        .EndText();
+
+                        ////CLIENTE
+                        //canvas.BeginText().SetFontAndSize(font, 9)
+                        //        .MoveText(x + 395, y + 638)
+                        //        .ShowText(dgvDatosFactura.Rows[0].Cells[2].Value.ToString())
+                        //        .EndText();
+
+                        ////VENDEDOR
+                        //canvas.BeginText().SetFontAndSize(font, 9)
+                        //        .MoveText(x + 403, y + 605)
+                        //        .ShowText(nombreVendedor(dgvDatosFactura.Rows[0].Cells[3].Value.ToString()))
+                        //        .EndText();
 
 
-        //        SaveFileDialog guarda = new();
-        //        guarda.Filter = "Libro de Excel|*.xlsx";
-        //        guarda.Title = "Guardar Reporte";
-        //        guarda.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        //        if (guarda.ShowDialog() == DialogResult.OK)
-        //        {
-        //            sl.SaveAs(guarda.FileName);
-        //            MessageBOX.SHowDialog(3, "Archivo Guardado");
-        //        }
-        //        Lector.Close();
-        //        nuevaConexion.Close();
-        //    }
-            
-        //}
+
+
+                        for (int count = 0; count < NumeroFila; count++)
+                        {
+
+                            //generarEtiqueta(idFactura, dgvDatosFactura.Rows[count].Cells[10].Value.ToString());
+                            //iText.IO.Image.ImageData img = iText.IO.Image.ImageDataFactory.Create(Application.StartupPath + "\\temp.png");
+                            //img.SetWidth(150);
+                            //img.SetHeight(17);
+
+
+                            //canvas.AddImageAt(img, Convert.ToSingle(x + 27), Convert.ToSingle(y + 537), false);
+                            //File.Delete(Application.StartupPath + "\\temp.png");
+
+                            ////PRODUCTOS
+                            //canvas.BeginText().SetFontAndSize(font, 7)
+                            //        .MoveText(x + 197, y + 548)
+                            //        .SetFillColor(ColorConstants.BLACK)
+                            //        .ShowText(dgvDatosFactura.Rows[count].Cells[4].Value.ToString())
+                            //        .EndText();
+
+                            ////PRODUCTOS NOMBRE VEHICULO Y ANIO
+                            //canvas.BeginText().SetFontAndSize(font, 7)
+                            //        .MoveText(x + 197, y + 540)
+                            //        .SetFillColor(ColorConstants.BLACK)
+                            //        .ShowText(dgvDatosFactura.Rows[count].Cells[7].Value.ToString() + "-" + dgvDatosFactura.Rows[count].Cells[8].Value.ToString() + "-" + dgvDatosFactura.Rows[count].Cells[9].Value.ToString())
+                            //        .EndText();
+
+                            //cantidad = Convert.ToInt32(dgvDatosFactura.Rows[count].Cells[5].Value.ToString());
+                            ////CANTIDAD
+                            //canvas.BeginText().SetFontAndSize(font, 10)
+                            //        .MoveText(x + 370, y + 548)
+                            //        .SetFillColor(ColorConstants.BLACK)
+                            //        .ShowText(dgvDatosFactura.Rows[count].Cells[5].Value.ToString())
+                            //        .EndText();
+
+
+                            ////PRECIO UNITARIO
+                            //canvas.BeginText().SetFontAndSize(font, 10)
+                            //  .MoveText(x + 420, y + 548)
+                            //  .SetFillColor(ColorConstants.BLACK)
+                            //  .ShowText(dgvDatosFactura.Rows[count].Cells[6].Value.ToString())
+                            //  .EndText();
+
+
+                            //double totalXProd = Convert.ToDouble(Convert.ToInt32(dgvDatosFactura.Rows[count].Cells[5].Value.ToString()) * Convert.ToDouble(dgvDatosFactura.Rows[count].Cells[6].Value.ToString()));
+                            //Total += totalXProd;
+
+                            ////PRECIO TOTAL POR PRODUCTO
+                            //canvas.BeginText().SetFontAndSize(font, 10)
+                            //  .MoveText(x + 520, y + 548)
+                            //  .SetFillColor(ColorConstants.BLACK)
+                            //  .ShowText(totalXProd.ToString("0.##"))
+                            //  .EndText();
+
+
+                            Items += cantidad;
+                            y -= 25;
+                        }
+
+                        ////TOTAL
+                        //canvas.BeginText().SetFontAndSize(font, 10)
+                        //  .MoveText(x + 510, 105)
+                        //  .SetFillColor(ColorConstants.BLACK)
+                        //  .ShowText("Total: " + Total.ToString("0.##"))
+                        //  .EndText();
+
+                        ////NUMERO DE ITEMS
+                        //canvas.BeginText().SetFontAndSize(font, 9)
+                        //                .MoveText(x + 130, 105)
+                        //                .ShowText((Items).ToString())
+                        //                .EndText();
+
+                        pdfdoc.Close();
+
+                        pdf = File.ReadAllBytes(fileRoute.FileName);
+
+                        
+
+                        //MessageBOX.SHowDialog(3, "PDF creado exitosamente 1");
+
+                    }
+
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Ocurrió un problema FACTURA \nMayor Detalle:\n" + err.Message + "\n\n*Si muestra en ingles, proceda a traducirlo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+        }
+
+        public int registrarFactura(string idPedido,string iddatos_fiscales_emp, string iddatos_fiscales_cliente, string num_factura, string fecha_emision, string fact_sinIVA, string descuento, string fact_neto, string comentario)
+        {
+
+            int i;
+            int idfactura = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+                    nuevacon.Open();
+
+                    Comando = new SqlCommand("INSERT INTO factura (iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentario) VALUES (@iddatos_fiscales_emp, @iddatos_fiscales_cliente, @num_factura, @fecha_emision, @fact_sinIVA, @descuento, @fact_neto, @comentario);", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@iddatos_fiscales_emp", Convert.ToInt32(iddatos_fiscales_emp));
+                    Comando.Parameters.AddWithValue("@iddatos_fiscales_cliente", Convert.ToInt32(iddatos_fiscales_cliente));
+                    Comando.Parameters.AddWithValue("@num_factura", num_factura);
+                    Comando.Parameters.AddWithValue("@fecha_emision", fecha_emision);
+                    Comando.Parameters.AddWithValue("@fact_sinIVA",Convert.ToDouble(fact_sinIVA));
+                    Comando.Parameters.AddWithValue("@descuento", Convert.ToDouble(descuento));
+                    Comando.Parameters.AddWithValue("@fact_neto", Convert.ToDouble(fact_neto));
+                    Comando.Parameters.AddWithValue("@comentario", comentario);
+
+                    //Para saber si la inserción se hizo correctamente
+                    i = Comando.ExecuteNonQuery();
+
+
+                    Comando = new SqlCommand("SELECT TOP 1 idfactura FROM factura WHERE estado = 1 ORDER BY idfactura desc;", nuevacon);
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read()) { idfactura = Convert.ToInt32(Lector["idfactura"].ToString()); }
+                    Lector.Close();
+
+                    Comando = new SqlCommand("UPDATE pedido SET idfactura = @idfactura WHERE idpedido = @idpedido;", nuevacon);
+
+                    Comando.Parameters.AddWithValue("@idfactura", idfactura);
+                    Comando.Parameters.AddWithValue("@idpedido", Convert.ToInt32(idPedido));
+
+
+
+
+                    nuevacon.Close();
+                    if (i == 1)
+                    {
+                        MessageBox.Show("Factura registrada correctamente");
+                    }
+                    else
+                        MessageBOX.SHowDialog(2, "Problemas al registrar la factura");
+                }
+                return -1;
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error registrar factura: " + EX.Message);
+            }
+            return -1;
+
+        }
 
 
 

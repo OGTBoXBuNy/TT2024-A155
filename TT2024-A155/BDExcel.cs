@@ -64,7 +64,7 @@ namespace TT2024_A155
                 MessageBox.Show("El número de registros encontrados son: " + totalRegistrosExportar.ToString() + "\n" + "Antes de dar clic en Aceptar revisa que tu conexión a internet sea estable, para evitar error a la hora de generar", "Generar Reporte", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
 
-                Comando = new SqlCommand("SELECT ped.idpedido, ped.fecha_hora, ped.estado, us.nombre_usuario, us.nombre_real, prod.nombre, detp.cantidad, mar.marca, veh.modelo, veh.anio, prod.precio_venta, detp.descuento, ((prod.precio_venta) *((100 - detp.descuento)/100)) AS 'Precio Final', fact.num_factura, fact.fact_sinIVA, fact.fact_neto  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE ped.fecha_hora BETWEEN @fecha1 AND @fecha2 AND detp.estado = 1;", nuevaConexion);
+                Comando = new SqlCommand("SELECT ped.idpedido, ped.fecha_hora, ped.aprobacionCliente, us.nombre_usuario, us.nombre_real, prod.nombre, detp.cantidad, mar.marca, veh.modelo, veh.anio, prod.precio_venta, detp.descuento, ((prod.precio_venta) *((100 - detp.descuento)/100)) AS 'Precio Final', fact.num_factura, fact.fact_sinIVA, fact.fact_neto  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE ped.fecha_hora BETWEEN @fecha1 AND @fecha2 AND detp.estado = 1;", nuevaConexion);
 
                 Comando.Parameters.AddWithValue("@fecha1", fecha1);
                 Comando.Parameters.AddWithValue("@fecha2", fecha2);
@@ -80,7 +80,7 @@ namespace TT2024_A155
 
                     worksheet.Cells[celdaContenido, 2] = Lector["fecha_hora"].ToString().Substring(0,10);
 
-                    if(bool.Parse(Lector["estado"].ToString()))
+                    if(bool.Parse(Lector["aprobacionCliente"].ToString()))
                         worksheet.Cells[celdaContenido, 3] = "Revisado";
                     else
                         worksheet.Cells[celdaContenido, 3] = "En Revisión";

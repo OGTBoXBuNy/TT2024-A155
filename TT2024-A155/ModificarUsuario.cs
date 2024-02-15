@@ -151,6 +151,7 @@ namespace TT2024_A155
                 //OBTENER PERMISOS SEGUN TIPO USUARIO
 
                 permisos = Consulta.obtenerPermisos(cmbNombreUsuario.SelectedValue.ToString()); //1 ENABLE AND VISIBLE.... 0 DISABLE AND NO VISIBLE
+                txtUsuario.Text = cmbNombreUsuario.Text;
             }
                 
 
