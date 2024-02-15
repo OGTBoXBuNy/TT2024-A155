@@ -121,10 +121,10 @@ namespace TT2024_A155
                 nuevaConexion.Close();
             }
 
-            var style = GetStyleHeader(workbook);
-            excelApp.Range[excelApp.Cells[8, 1], excelApp.Cells[totalRegistrosExportar + 8, 16]].Style = style;
+            //var style = GetStyleHeader(workbook);
+            //excelApp.Range[excelApp.Cells[8, 1], excelApp.Cells[totalRegistrosExportar + 8, 16]].Style = style;
 
-            worksheet.Range[excelApp.Cells[8, 1], excelApp.Cells[totalRegistrosExportar + 8, 16]].AutoFit();
+            worksheet.Range["A:P"].Columns.AutoFit();
 
 
 
