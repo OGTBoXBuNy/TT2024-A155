@@ -625,6 +625,7 @@
             Controls.Add(lblUsuario);
             Controls.Add(menuStrip1);
             Name = "Inicio";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Inicio";
             FormClosed += Inicio_FormClosed;
             Load += Inicio_Load;

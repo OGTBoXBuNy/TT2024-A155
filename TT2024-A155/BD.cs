@@ -29,6 +29,7 @@ using System.Globalization;
 //using ExcelDataReader;
 
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using QRCoder;
 
 
 
@@ -640,6 +641,7 @@ namespace TT2024_A155
 
         }
 
+        
 
         //------------------------OBETNER EL NUMERO DE FILAS DENTRO DE UN PEDIDO-------------------------------------------------------
         public int NumeroFilas(string idPedido)
@@ -2344,7 +2346,7 @@ namespace TT2024_A155
             try
             {
                 SaveFileDialog fileRoute = new SaveFileDialog();
-                fileRoute.InitialDirectory = @"C:\";
+                fileRoute.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 fileRoute.Title = "FACTURA";
                 fileRoute.CheckPathExists = true;
                 fileRoute.DefaultExt = "pdf";
@@ -2366,9 +2368,6 @@ namespace TT2024_A155
 
                         iText.Kernel.Pdf.PdfReader pdfReader = new iText.Kernel.Pdf.PdfReader(Application.StartupPath + "\\Factura.pdf");
 
-
-
-
                         iText.Kernel.Pdf.PdfDocument pdfdoc = new iText.Kernel.Pdf.PdfDocument(pdfReader, pdfWriter);
 
 
@@ -2382,117 +2381,144 @@ namespace TT2024_A155
 
                         int y = 0;//633
                         int x = 0;//109
-                        int cantidad = 0;
-                        double Total = 0;
-                        int Items = 0;
                         byte[] pdf;
-                        string correoCliente = dgvDatosFactura.Rows[0].Cells[11].Value.ToString();
+                        string correoCliente = dgvDatosFactura.Rows[0].Cells[14].Value.ToString();
 
+                        string direccion = dgvDatosFactura.Rows[0].Cells[8].Value.ToString() +" "+ dgvDatosFactura.Rows[0].Cells[9].Value.ToString() +" "+
+                           dgvDatosFactura.Rows[0].Cells[10].Value.ToString();
+
+                        string direccion2 = dgvDatosFactura.Rows[0].Cells[11].Value.ToString() +" "+ 
+                            dgvDatosFactura.Rows[0].Cells[12].Value.ToString() +" "+ dgvDatosFactura.Rows[0].Cells[13].Value.ToString();
+
+                        string direccion3 = dgvDatosFactura.Rows[0].Cells[14].Value.ToString() +" "+ dgvDatosFactura.Rows[0].Cells[15].Value.ToString();
+
+                        string cif = "CIF: " + dgvDatosFactura.Rows[0].Cells[16].Value.ToString();
+
+                        string impuestos = Convert.ToString( (Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[6].Value.ToString()) - Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[5].Value.ToString())));
+                        decimal impuestosX = Convert.ToDecimal(impuestos);
+                        decimal subtotal = Convert.ToDecimal(dgvDatosFactura.Rows[0].Cells[5].Value.ToString());
+
+                        //"\r\n
 
                         //ORIGEN
-                        canvas.BeginText().SetFontAndSize(font, 9)
-                                 .MoveText(x + 26, y + 540)
-                                 .ShowText("0,0")
-                                 .EndText();
-
-                        ////PEDIDO
-                        //canvas.BeginText().SetFontAndSize(font, 18)
-                        //         .MoveText(x + 105, y + 642)
-                        //         .ShowText(dgvDatosFactura.Rows[0].Cells[0].Value.ToString())
+                        //canvas.BeginText().SetFontAndSize(font, 12)
+                        //         .MoveText(x + 463, y + 214)//470,190,
+                        //         .ShowText("Nombre")
                         //         .EndText();
 
-                        ////FECHA_CREACIÓN
-                        //canvas.BeginText().SetFontAndSize(font, 14)
-                        //        .MoveText(x + 40, y + 590)
-                        //        .ShowText(dgvDatosFactura.Rows[0].Cells[1].Value.ToString().Substring(0, 10))
-                        //        .EndText();
+                        //NUMERO FACTURA
+                        canvas.BeginText().SetFontAndSize(font, 18)
+                                 .MoveText(x + 242, y + 679)
+                                 .ShowText(dgvDatosFactura.Rows[0].Cells[1].Value.ToString())
+                                 .EndText();
 
-                        ////CLIENTE
-                        //canvas.BeginText().SetFontAndSize(font, 9)
-                        //        .MoveText(x + 395, y + 638)
-                        //        .ShowText(dgvDatosFactura.Rows[0].Cells[2].Value.ToString())
-                        //        .EndText();
+                        //DATOS FISCALES CLIENTE-NOMBRE
+                        canvas.BeginText().SetFontAndSize(font, 12)
+                                .MoveText(x + 18, y + 607)
+                                .ShowText(dgvDatosFactura.Rows[0].Cells[7].Value.ToString())
+                                .EndText();
+                        //DATOS FISCALES CLIENTE-DIRECCION 1
+                        canvas.BeginText().SetFontAndSize(font, 12)
+                                .MoveText(x + 18, y + 592)
+                                .ShowText(direccion)
+                                .EndText();
 
-                        ////VENDEDOR
-                        //canvas.BeginText().SetFontAndSize(font, 9)
-                        //        .MoveText(x + 403, y + 605)
-                        //        .ShowText(nombreVendedor(dgvDatosFactura.Rows[0].Cells[3].Value.ToString()))
-                        //        .EndText();
+                        //DATOS FISCALES CLIENTE-DIRECCION 2
+                        canvas.BeginText().SetFontAndSize(font, 12)
+                                .MoveText(x + 18, y + 577)
+                                .ShowText(direccion2)
+                                .EndText();
 
+                        //DATOS FISCALES CLIENTE-DIRECCION 3
+                        canvas.BeginText().SetFontAndSize(font, 12)
+                                .MoveText(x + 18, y + 562)
+                                .ShowText(direccion3)
+                                .EndText();
 
+                        //DATOS FISCALES CIF
+                        canvas.BeginText().SetFontAndSize(font, 12)
+                                .MoveText(x + 18, y + 547)
+                                .ShowText(cif)
+                                .EndText();
 
+                        //SUBTOTAL
+                        canvas.BeginText().SetFontAndSize(font, 12)
+                                .MoveText(x + 463, y + 214)
+                                .ShowText(decimal.Round(subtotal,2).ToString())
+                                .EndText();
 
+                        //IMPUESTOS
+                        canvas.BeginText().SetFontAndSize(font, 12)
+                                .MoveText(x + 463, y + 194)
+                                .ShowText(decimal.Round(impuestosX,2).ToString())
+                                .EndText();
+
+                        //TOTAL
+                        canvas.BeginText().SetFontAndSize(font, 16)
+                                .MoveText(x + 463, y + 160)
+                                .ShowText("$" + dgvDatosFactura.Rows[0].Cells[6].Value.ToString())
+                                .EndText();
+                        
+                        //CADENA DE SELLO
+                        canvas.BeginText().SetFontAndSize(font, 9)
+                                .MoveText(x + 300, y + 100)
+                                .ShowText("Cadena de sello: ")
+                                .EndText();
+
+                        generarQr(dgvDatosFactura.Rows[0].Cells[1].Value.ToString());
+                        iText.IO.Image.ImageData img = iText.IO.Image.ImageDataFactory.Create(Application.StartupPath + "\\tempQr.png");
+                        canvas.AddImageAt(img, Convert.ToSingle(x + 490), Convert.ToSingle(y + 25), false);
+                        File.Delete(Application.StartupPath + "\\tempQr.png");
+
+                        string producto;
                         for (int count = 0; count < NumeroFila; count++)
                         {
+                            producto = dgvDatosFactura.Rows[count].Cells[17].Value.ToString() + " " + dgvDatosFactura.Rows[count].Cells[18].Value.ToString() + " " +
+                            dgvDatosFactura.Rows[count].Cells[19].Value.ToString() + " " + dgvDatosFactura.Rows[count].Cells[20].Value.ToString();
 
-                            //generarEtiqueta(idFactura, dgvDatosFactura.Rows[count].Cells[10].Value.ToString());
-                            //iText.IO.Image.ImageData img = iText.IO.Image.ImageDataFactory.Create(Application.StartupPath + "\\temp.png");
-                            //img.SetWidth(150);
-                            //img.SetHeight(17);
+                            
 
+                            //PRODUCTOS
+                            canvas.BeginText().SetFontAndSize(font, 9)
+                                    .MoveText(x + 10, y + 465)
+                                    .SetFillColor(ColorConstants.BLACK)
+                                    .ShowText(producto)
+                                    .EndText();
 
-                            //canvas.AddImageAt(img, Convert.ToSingle(x + 27), Convert.ToSingle(y + 537), false);
-                            //File.Delete(Application.StartupPath + "\\temp.png");
+                            //CANTIDAD
+                            canvas.BeginText().SetFontAndSize(font, 10)
+                                    .MoveText(x + 300, y + 465)
+                                    .SetFillColor(ColorConstants.BLACK)
+                                    .ShowText(dgvDatosFactura.Rows[count].Cells[21].Value.ToString())
+                                    .EndText(); 
 
-                            ////PRODUCTOS
-                            //canvas.BeginText().SetFontAndSize(font, 7)
-                            //        .MoveText(x + 197, y + 548)
-                            //        .SetFillColor(ColorConstants.BLACK)
-                            //        .ShowText(dgvDatosFactura.Rows[count].Cells[4].Value.ToString())
-                            //        .EndText();
+                            //PRECIO POR PRODUCTO
+                            canvas.BeginText().SetFontAndSize(font, 10)
+                                    .MoveText(x + 375, y + 465)
+                                    .SetFillColor(ColorConstants.BLACK)
+                                    .ShowText(dgvDatosFactura.Rows[count].Cells[22].Value.ToString())
+                                    .EndText(); 
 
-                            ////PRODUCTOS NOMBRE VEHICULO Y ANIO
-                            //canvas.BeginText().SetFontAndSize(font, 7)
-                            //        .MoveText(x + 197, y + 540)
-                            //        .SetFillColor(ColorConstants.BLACK)
-                            //        .ShowText(dgvDatosFactura.Rows[count].Cells[7].Value.ToString() + "-" + dgvDatosFactura.Rows[count].Cells[8].Value.ToString() + "-" + dgvDatosFactura.Rows[count].Cells[9].Value.ToString())
-                            //        .EndText();
+                            //DESCUENTO POR PRODUCTO
+                            canvas.BeginText().SetFontAndSize(font, 10)
+                                    .MoveText(x + 470, y + 465)
+                                    .SetFillColor(ColorConstants.BLACK)
+                                    .ShowText(dgvDatosFactura.Rows[count].Cells[23].Value.ToString() + "%")
+                                    .EndText();
 
-                            //cantidad = Convert.ToInt32(dgvDatosFactura.Rows[count].Cells[5].Value.ToString());
-                            ////CANTIDAD
-                            //canvas.BeginText().SetFontAndSize(font, 10)
-                            //        .MoveText(x + 370, y + 548)
-                            //        .SetFillColor(ColorConstants.BLACK)
-                            //        .ShowText(dgvDatosFactura.Rows[count].Cells[5].Value.ToString())
-                            //        .EndText();
+                            decimal totalXProd = Convert.ToDecimal(dgvDatosFactura.Rows[count].Cells[24].Value.ToString());
+                            //TOTAL POR PRODUCTO CON DESCUENTO
+                            canvas.BeginText().SetFontAndSize(font, 10)
+                                    .MoveText(x + 540, y + 465)
+                                    .SetFillColor(ColorConstants.BLACK)
+                                    .ShowText(decimal.Round(totalXProd,2).ToString())
+                                    .EndText();
 
-
-                            ////PRECIO UNITARIO
-                            //canvas.BeginText().SetFontAndSize(font, 10)
-                            //  .MoveText(x + 420, y + 548)
-                            //  .SetFillColor(ColorConstants.BLACK)
-                            //  .ShowText(dgvDatosFactura.Rows[count].Cells[6].Value.ToString())
-                            //  .EndText();
-
-
-                            //double totalXProd = Convert.ToDouble(Convert.ToInt32(dgvDatosFactura.Rows[count].Cells[5].Value.ToString()) * Convert.ToDouble(dgvDatosFactura.Rows[count].Cells[6].Value.ToString()));
-                            //Total += totalXProd;
-
-                            ////PRECIO TOTAL POR PRODUCTO
-                            //canvas.BeginText().SetFontAndSize(font, 10)
-                            //  .MoveText(x + 520, y + 548)
-                            //  .SetFillColor(ColorConstants.BLACK)
-                            //  .ShowText(totalXProd.ToString("0.##"))
-                            //  .EndText();
-
-
-                            Items += cantidad;
-                            y -= 25;
+                            
+                            y -= 22;
                         }
 
-                        ////TOTAL
-                        //canvas.BeginText().SetFontAndSize(font, 10)
-                        //  .MoveText(x + 510, 105)
-                        //  .SetFillColor(ColorConstants.BLACK)
-                        //  .ShowText("Total: " + Total.ToString("0.##"))
-                        //  .EndText();
-
-                        ////NUMERO DE ITEMS
-                        //canvas.BeginText().SetFontAndSize(font, 9)
-                        //                .MoveText(x + 130, 105)
-                        //                .ShowText((Items).ToString())
-                        //                .EndText();
-
+                   
                         pdfdoc.Close();
 
                         pdf = File.ReadAllBytes(fileRoute.FileName);
@@ -2512,7 +2538,36 @@ namespace TT2024_A155
 
         }
 
-        public int registrarFactura(string idPedido,string iddatos_fiscales_emp, string iddatos_fiscales_cliente, string num_factura, string fecha_emision, string fact_sinIVA, string descuento, string fact_neto, string comentario)
+        //---------------------------GENERAR CODIGO QR PARA PDF--------------------
+        public void generarQr(string cadena)
+        {
+
+
+            try
+            {
+
+            QRCodeGenerator qrGenerador = new QRCodeGenerator();
+            QRCodeData qrDatos = qrGenerador.CreateQrCode(cadena, QRCodeGenerator.ECCLevel.H);
+            QRCode qrCodigo = new QRCode(qrDatos);
+
+            Bitmap qrImagen = qrCodigo.GetGraphic(3, System.Drawing.Color.Black, System.Drawing.Color.White, true);
+
+            qrImagen.Save(Application.StartupPath + "\\tempQr.png", System.Drawing.Imaging.ImageFormat.Png);
+            qrImagen.Dispose();
+
+            qrImagen.Dispose();
+
+            //MessageBox.Show("Etiqueta Generada!", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+            catch (Exception err)
+            {
+                MessageBox.Show("Ocurrió un problema\nMayor Detalle:\n" + err.Message + "\n\n*Si muestra en ingles, proceda a traducirlo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+}
+
+        public int registrarFactura(string idPedido,string iddatos_fiscales_emp, string iddatos_fiscales_cliente, string num_factura, string fecha_emision, string fact_sinIVA, string descuento, string fact_neto, string comentario, DataGridView dgvDatosFactura)
         {
 
             int i;
@@ -2549,13 +2604,14 @@ namespace TT2024_A155
                     Comando.Parameters.AddWithValue("@idfactura", idfactura);
                     Comando.Parameters.AddWithValue("@idpedido", Convert.ToInt32(idPedido));
 
-
+                    Comando.ExecuteNonQuery();
 
 
                     nuevacon.Close();
                     if (i == 1)
                     {
                         MessageBox.Show("Factura registrada correctamente");
+                        generarFactura(idPedido, dgvDatosFactura);
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al registrar la factura");

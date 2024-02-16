@@ -38,8 +38,18 @@ namespace TT2024_A155
             string iddatos_fiscales_emp = dgvDatosFactura.Rows[1].Cells[0].Value.ToString();
             string iddatos_fiscales_cliente = dgvDatosFactura.Rows[1].Cells[4].Value.ToString();
 
+            //Consulta.generarFactura("1", dgvDatosFactura);
+            Consulta.registrarFactura(idPedido, iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentarios, dgvDatosFactura);
+        }
 
-            Consulta.registrarFactura(idPedido, iddatos_fiscales_emp,iddatos_fiscales_cliente,num_factura,fecha_emision,fact_sinIVA, descuento,fact_neto,comentarios);
+        private void btnpubKey_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnprivKey_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

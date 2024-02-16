@@ -44,13 +44,20 @@
             dtpFechEmision = new DateTimePicker();
             lblIDPedido = new Label();
             dgvDatosFactura = new DataGridView();
+            label8 = new Label();
+            label9 = new Label();
+            btnprivKey = new Button();
+            btnpubKey = new Button();
+            txtprivKey = new TextBox();
+            txtpubKey = new TextBox();
+            fileRoute = new SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)dgvDatosFactura).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(326, 9);
+            label1.Location = new Point(137, 9);
             label1.Name = "label1";
             label1.Size = new Size(140, 20);
             label1.TabIndex = 0;
@@ -104,7 +111,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(12, 233);
+            label7.Location = new Point(12, 317);
             label7.Name = "label7";
             label7.Size = new Size(100, 20);
             label7.TabIndex = 6;
@@ -142,7 +149,7 @@
             // 
             // txtComentarios
             // 
-            txtComentarios.Location = new Point(151, 230);
+            txtComentarios.Location = new Point(151, 314);
             txtComentarios.Multiline = true;
             txtComentarios.Name = "txtComentarios";
             txtComentarios.Size = new Size(285, 70);
@@ -150,7 +157,7 @@
             // 
             // btnAceptar
             // 
-            btnAceptar.Location = new Point(342, 315);
+            btnAceptar.Location = new Point(342, 399);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(94, 29);
             btnAceptar.TabIndex = 12;
@@ -177,18 +184,80 @@
             // dgvDatosFactura
             // 
             dgvDatosFactura.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDatosFactura.Enabled = false;
             dgvDatosFactura.Location = new Point(452, 188);
             dgvDatosFactura.Name = "dgvDatosFactura";
             dgvDatosFactura.RowHeadersWidth = 51;
             dgvDatosFactura.RowTemplate.Height = 29;
             dgvDatosFactura.Size = new Size(300, 188);
             dgvDatosFactura.TabIndex = 15;
+            dgvDatosFactura.Visible = false;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(12, 266);
+            label8.Name = "label8";
+            label8.Size = new Size(128, 20);
+            label8.TabIndex = 21;
+            label8.Text = "Ruta llave privada";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(13, 233);
+            label9.Name = "label9";
+            label9.Size = new Size(127, 20);
+            label9.TabIndex = 20;
+            label9.Text = "Ruta llave publica";
+            // 
+            // btnprivKey
+            // 
+            btnprivKey.Location = new Point(342, 261);
+            btnprivKey.Name = "btnprivKey";
+            btnprivKey.Size = new Size(94, 29);
+            btnprivKey.TabIndex = 19;
+            btnprivKey.Text = "...";
+            btnprivKey.UseVisualStyleBackColor = true;
+            btnprivKey.Click += btnprivKey_Click;
+            // 
+            // btnpubKey
+            // 
+            btnpubKey.Location = new Point(342, 229);
+            btnpubKey.Name = "btnpubKey";
+            btnpubKey.Size = new Size(94, 29);
+            btnpubKey.TabIndex = 18;
+            btnpubKey.Text = "...";
+            btnpubKey.UseVisualStyleBackColor = true;
+            btnpubKey.Click += btnpubKey_Click;
+            // 
+            // txtprivKey
+            // 
+            txtprivKey.Enabled = false;
+            txtprivKey.Location = new Point(151, 263);
+            txtprivKey.Name = "txtprivKey";
+            txtprivKey.Size = new Size(185, 27);
+            txtprivKey.TabIndex = 17;
+            // 
+            // txtpubKey
+            // 
+            txtpubKey.Enabled = false;
+            txtpubKey.Location = new Point(151, 230);
+            txtpubKey.Name = "txtpubKey";
+            txtpubKey.Size = new Size(185, 27);
+            txtpubKey.TabIndex = 16;
             // 
             // Factura
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(446, 439);
+            Controls.Add(label8);
+            Controls.Add(label9);
+            Controls.Add(btnprivKey);
+            Controls.Add(btnpubKey);
+            Controls.Add(txtprivKey);
+            Controls.Add(txtpubKey);
             Controls.Add(dgvDatosFactura);
             Controls.Add(lblIDPedido);
             Controls.Add(dtpFechEmision);
@@ -231,5 +300,12 @@
         private DateTimePicker dtpFechEmision;
         public Label lblIDPedido;
         private DataGridView dgvDatosFactura;
+        private Label label8;
+        private Label label9;
+        private Button btnprivKey;
+        private Button btnpubKey;
+        private TextBox txtprivKey;
+        private TextBox txtpubKey;
+        private SaveFileDialog fileRoute;
     }
 }
