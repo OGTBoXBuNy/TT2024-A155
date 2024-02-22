@@ -51,6 +51,7 @@
             txtprivKey = new TextBox();
             txtpubKey = new TextBox();
             fileRoute = new SaveFileDialog();
+            lblUsuario = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvDatosFactura).BeginInit();
             SuspendLayout();
             // 
@@ -175,7 +176,7 @@
             // lblIDPedido
             // 
             lblIDPedido.AutoSize = true;
-            lblIDPedido.Location = new Point(667, 9);
+            lblIDPedido.Location = new Point(359, 9);
             lblIDPedido.Name = "lblIDPedido";
             lblIDPedido.Size = new Size(77, 20);
             lblIDPedido.TabIndex = 14;
@@ -247,11 +248,20 @@
             txtpubKey.Size = new Size(185, 27);
             txtpubKey.TabIndex = 16;
             // 
+            // lblUsuario
+            // 
+            lblUsuario.AutoSize = true;
+            lblUsuario.Location = new Point(359, 36);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(0, 20);
+            lblUsuario.TabIndex = 22;
+            // 
             // Factura
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(446, 439);
+            Controls.Add(lblUsuario);
             Controls.Add(label8);
             Controls.Add(label9);
             Controls.Add(btnprivKey);
@@ -307,5 +317,6 @@
         private TextBox txtprivKey;
         private TextBox txtpubKey;
         private SaveFileDialog fileRoute;
+        public Label lblUsuario;
     }
 }

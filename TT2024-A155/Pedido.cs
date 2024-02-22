@@ -1,4 +1,5 @@
-﻿using iText.Kernel.Geom;
+﻿//using DocumentFormat.OpenXml.Drawing.Charts;
+using iText.Kernel.Geom;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -100,6 +101,22 @@ namespace TT2024_A155
             if (idPedido != -1)
                 Consulta.generarComprobante(idPedido.ToString(), dgvDatosPDF, true);
 
+            if(lblRol.Text.Trim() != "4")
+            {
+                string vendedor = lblUsuario.Text.ToString().Trim();
+                string pedido = Consulta.recuperarUltimoPedido();
+                string descripcionLog = "El vendedor :  " + vendedor + " generó el pedido:" + pedido + " para el cliente: " + cmbCliente.Text.Trim()+ " el día: " + DateTime.Now.ToString();
+                Consulta.Log(vendedor, pedido, descripcionLog, "5");
+            }
+            else
+            {
+                string cliente = cmbCliente.Text.Trim();
+                string pedido = Consulta.recuperarUltimoPedido();
+                string descripcionLog = "El cliente :  " + cliente + " generó el pedido: " + pedido + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(cliente, pedido, descripcionLog, "5");
+            }
+            
+
         }
 
         private void actualizarPedido()
@@ -171,6 +188,10 @@ namespace TT2024_A155
             if (idPedidoPDF != -1)
                 Consulta.generarComprobante(idPedido.ToString(), dgvDatosPDF, true);
 
+            string vendedor = lblUsuario.Text.ToString().Trim();
+            string descripcionLog = "El vendedor :  " + vendedor + " actualizó el pedido:" + idPedido + " para el cliente: " + cmbCliente.Text.Trim() + " el día: " + DateTime.Now.ToString();
+            Consulta.Log(vendedor, idPedido, descripcionLog, "8");
+
         }
 
 
@@ -178,6 +199,7 @@ namespace TT2024_A155
         {
             if (actualizar == 0)
             {
+
                 registrarPedido();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
@@ -311,7 +333,14 @@ namespace TT2024_A155
 
                 actualizarTotales();//Actualizar SubTotal y Totales
 
-               
+                if(lblIdPedido.Text != "IDPedido")
+                {
+                    string usuario = lblUsuario.Text.ToString().Trim();
+                    string pedido = lblIdPedido.Text;
+                    string descripcionLog = "El usuario :  " + usuario + " añadió un producto al pedido:" + pedido + " para el cliente: " + cmbCliente.Text.Trim() + " el día: " + DateTime.Now.ToString();
+                    Consulta.Log(usuario, pedido, descripcionLog, "6");
+                }
+
 
 
             }
@@ -411,6 +440,11 @@ namespace TT2024_A155
                             Consulta.eliminarProductoPedido(dgvPedido.Rows[e.RowIndex].Cells[14].Value.ToString());
                             dgvPedido.Rows.RemoveAt(dgvPedido.CurrentRow.Index);
                             actualizarTotales();//Actualizar SubTotal y Totales
+
+                            string usuario = lblUsuario.Text.ToString().Trim();
+                            string pedido = lblIdPedido.Text;
+                            string descripcionLog = "El usuario :  " + usuario + " eliminó un producto al pedido:" + pedido + " para el cliente: " + cmbCliente.Text.Trim() + " el día: " + DateTime.Now.ToString();
+                            Consulta.Log(usuario, pedido, descripcionLog, "10");
                         }
                     }
                     else { }
@@ -441,12 +475,12 @@ namespace TT2024_A155
                         dgvPedido["Descuento\n(%)", index].Value = producto.datosMandar[4];//DESCUENTO
                         dgvPedido["idProducto", index].Value = producto.datosMandar[11];//IDPRODUCTO
                         dgvPedido["idvehiculo", index].Value = producto.datosMandar[12];//IDVEHICULO
-
-                        
-                       
-
-
                         actualizarTotales();//Actualizar SubTotal y Totales
+
+                        string usuario = lblUsuario.Text.ToString().Trim();
+                        string pedido = lblIdPedido.Text;
+                        string descripcionLog = "El usuario :  " + usuario + " editó un producto al pedido:" + pedido + " para el cliente: " + cmbCliente.Text.Trim() + " el día: " + DateTime.Now.ToString();
+                        Consulta.Log(usuario, pedido, descripcionLog, "9");
 
                     }
                 }

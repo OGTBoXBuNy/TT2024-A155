@@ -28,6 +28,9 @@ namespace TT2024_A155
             {
                 Consulta.generarReporteVentas(ruta, Fecha_inicio, Fecha_Final);
                 //Consulta.generarReporte(ruta, Fecha_inicio, Fecha_Final);
+                string usuario = lblUsuario.Text;
+                string descripcionLog = "El usuario : " + usuario + " generó el reporte de ventas de la fecha: " + Fecha_inicio + "hasta: " + Fecha_Final+  " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, "", descripcionLog, "20");
                 this.Close();
             }
         }

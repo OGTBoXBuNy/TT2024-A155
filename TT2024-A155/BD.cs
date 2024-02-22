@@ -110,7 +110,7 @@ namespace TT2024_A155
         //OBETER PERMISOS SEGUN EL TIPO DE USUARIO
         public string[] obtenerPermisos(string idrol)
         {
-            string[] permisos = new string[10];
+            string[] permisos = new string[11];
 
             try
             {
@@ -132,6 +132,7 @@ namespace TT2024_A155
                         permisos[7] = Lector["generar_firma"].ToString();//GENERAR FIRMA
                         permisos[8] = Lector["generar_factura"].ToString();//GENERAR FACTURA 
                         permisos[9] = Lector["generar_reporteVentas"].ToString();//GENERAR REPORTE VENTAS
+                        permisos[10] = Lector["revisarLog"].ToString();//Revisar Log
 
                     }
                     Lector.Close();
@@ -725,7 +726,7 @@ namespace TT2024_A155
             try
             {
                 SaveFileDialog fileRoute = new SaveFileDialog();
-                fileRoute.InitialDirectory = @"C:\";
+                fileRoute.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 fileRoute.Title = "PEDIDO";
                 fileRoute.CheckPathExists = true;
                 fileRoute.DefaultExt = "pdf";
@@ -1299,6 +1300,32 @@ namespace TT2024_A155
 
         }
 
+        public string recuperarUltimoPedido()
+        {
+
+            string idPedido = "";
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+                    nuevacon.Open();
+                    Comando = new SqlCommand("SELECT TOP 1 idpedido FROM pedido WHERE estado = 1 ORDER BY idpedido desc;", nuevacon);
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read()) { idPedido = Lector["idpedido"].ToString(); }
+                    Lector.Close();                
+                    nuevacon.Close();
+                    
+                }
+                return idPedido;
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error registrar pedido: " + EX.Message);
+            }
+            return idPedido;
+
+        }
 
         //----------------------------------VALIDAR QUE EL CLIENTE TENGA DATOS FISCALES REGISTRADOS----------------------------------------------
         public int validarDatosFiscalesCliente(string us)
@@ -2626,7 +2653,113 @@ namespace TT2024_A155
 
         }
 
+        //----------------------------------REGISTAR CAMBIO LOG ----------------------------------------------
+        public void Log(string usuario, string idPedido, string descripcion, string cveCambio)
+        {
+            int x = 0;
+            DateTime hoy = DateTime.Today;
+            hoy.Date.Year.ToString();
+            string fecha = hoy.Date.Year.ToString() + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
+            //hoy.ToString("dd-MM-yyyy");
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    nuevacon.Open();
 
+                    this.Comando = new SqlCommand(string.Format("SELECT * FROM usuario WHERE nombre_usuario = '{0}';", usuario), nuevacon);
+                    Lector = this.Comando.ExecuteReader();
+                    while (Lector.Read()) { x = Int32.Parse(Lector["idusuario"].ToString()); }
+                    Lector.Close();
+
+
+                    this.Comando = new SqlCommand("INSERT INTO LOG (descripcion, idpedido, idUsuario, idCambio, fecha) VALUES (@descripcion, @idpedido, @idUsuario, @idCambio, @fecha);", nuevacon);
+
+                    this.Comando.Parameters.AddWithValue("@descripcion", descripcion);
+                    this.Comando.Parameters.AddWithValue("@idpedido", idPedido);
+                    this.Comando.Parameters.AddWithValue("@idUsuario", x);
+                    this.Comando.Parameters.AddWithValue("@idCambio", Convert.ToInt32(cveCambio));
+                    this.Comando.Parameters.AddWithValue("@fecha", fecha);
+                    this.Comando.ExecuteNonQuery();
+                    //MessageBox.Show("Se registro Log");
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //----------------LLENAR TABLA LOG LOAD----------------------------------
+        public void LogLoad(DataGridView dtgv)
+        {
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    da = new SqlDataAdapter("SELECT TOP 200 l.idCambio AS 'ID DE CAMBIO',l.descripcion AS 'DESCRIPCIÓN',l.idpedido AS 'PEDIDO', us.nombre_usuario AS 'USUARIO', us.nombre_real AS 'NOMBRE REAL', clog.tipo AS 'TIPO DE MOVIMIENTO',l.fecha AS 'FECHA'  FROM LOG l LEFT OUTER JOIN USUARIO us ON us.idusuario = l.idpedido LEFT OUTER JOIN CAMBIOSLOG clog ON clog.idCambio = l.idCambio ORDER BY fecha desc;", nuevacon);
+
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dtgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        //----------------LLENAR TABLA LOG BUSCAR----------------------------------
+        public void LogBuscar(DataGridView dtgv, string idPedido, string usuario, string nombreReal, string tipo, string fechaInicial, string fechaFinal)
+        {
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    da = new SqlDataAdapter(string.Format("SELECT l.idLog AS 'ID DE CAMBIO',l.descripcion AS 'DESCRIPCIÓN',l.idpedido AS 'PEDIDO', us.nombre_usuario AS 'USUARIO', us.nombre_real AS 'NOMBRE REAL', clog.tipo AS 'TIPO DE MOVIMIENTO',l.fecha AS 'FECHA' FROM LOG l LEFT OUTER JOIN USUARIO us ON us.idusuario = l.idUsuario LEFT OUTER JOIN CAMBIOSLOG clog ON clog.idCambio = l.idCambio WHERE l.idpedido LIKE '%{0}%' AND us.nombre_usuario LIKE '%{1}%' AND us.nombre_real LIKE '%{2}%' AND clog.tipo = '{3}' AND fecha BETWEEN '{4}' AND '{5}';", idPedido, usuario, nombreReal, tipo, fechaInicial, fechaFinal), nuevacon);
+
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dtgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+
+
+        //---------------- NOMBRES DE LOS CAMBIOS LOG (TIPO)
+        public DataSet cLogTipo()
+        {
+            DataSet dataSet = new DataSet();
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT * FROM CAMBIOSLOG;", nuevaConexion);
+                    dataAdapter.Fill(dataSet, "CLOG");
+
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return dataSet;
+        }
 
 
     }

@@ -54,6 +54,7 @@
             txtUsuario = new TextBox();
             lblRol = new Label();
             cmbRol = new ComboBox();
+            lblUsuarioLog = new Label();
             SuspendLayout();
             // 
             // lblTitulo
@@ -270,11 +271,20 @@
             cmbRol.Size = new Size(151, 28);
             cmbRol.TabIndex = 87;
             // 
+            // lblUsuarioLog
+            // 
+            lblUsuarioLog.AutoSize = true;
+            lblUsuarioLog.Location = new Point(685, 8);
+            lblUsuarioLog.Name = "lblUsuarioLog";
+            lblUsuarioLog.Size = new Size(0, 20);
+            lblUsuarioLog.TabIndex = 89;
+            // 
             // CrearUsuario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lblUsuarioLog);
             Controls.Add(lblRol);
             Controls.Add(cmbRol);
             Controls.Add(lblTitulo);
@@ -336,5 +346,6 @@
         private TextBox txtUsuario;
         private Label lblRol;
         private ComboBox cmbRol;
+        public Label lblUsuarioLog;
     }
 }

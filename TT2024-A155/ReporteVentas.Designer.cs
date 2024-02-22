@@ -34,6 +34,7 @@
             btnAceptar = new Button();
             dtpFechaInicio = new DateTimePicker();
             dtpFechaFinal = new DateTimePicker();
+            lblUsuario = new Label();
             SuspendLayout();
             // 
             // label1
@@ -87,11 +88,20 @@
             dtpFechaFinal.Size = new Size(250, 27);
             dtpFechaFinal.TabIndex = 5;
             // 
+            // lblUsuario
+            // 
+            lblUsuario.AutoSize = true;
+            lblUsuario.Location = new Point(375, 9);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(0, 20);
+            lblUsuario.TabIndex = 6;
+            // 
             // ReporteVentas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(437, 198);
+            Controls.Add(lblUsuario);
             Controls.Add(dtpFechaFinal);
             Controls.Add(dtpFechaInicio);
             Controls.Add(btnAceptar);
@@ -112,5 +122,6 @@
         private Button btnAceptar;
         private DateTimePicker dtpFechaInicio;
         private DateTimePicker dtpFechaFinal;
+        public Label lblUsuario;
     }
 }

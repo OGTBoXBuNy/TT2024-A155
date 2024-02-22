@@ -40,6 +40,10 @@ namespace TT2024_A155
 
             //Consulta.generarFactura("1", dgvDatosFactura);
             Consulta.registrarFactura(idPedido, iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentarios, dgvDatosFactura);
+
+            string usuario = lblUsuario.Text.ToString().Trim();
+            string descripcionLog = "El usuario : " + usuario + " generó la factura de venta (PDF) del pedido: " + idPedido + " el día: " + DateTime.Now.ToString();
+            Consulta.Log(usuario, idPedido, descripcionLog, "11");
         }
 
         private void btnpubKey_Click(object sender, EventArgs e)

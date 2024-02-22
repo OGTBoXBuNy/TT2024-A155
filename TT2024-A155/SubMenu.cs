@@ -40,6 +40,7 @@ namespace TT2024_A155
         {
             Factura factura = new();
             factura.lblIDPedido.Text = lblIdPedido.Text;
+            factura.lblUsuario.Text = lblUsuario.Text;
             factura.ShowDialog();
 
         }

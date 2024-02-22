@@ -37,6 +37,7 @@
             crearUsuariosToolStripMenuItem = new ToolStripMenuItem();
             modificarUsuariosToolStripMenuItem = new ToolStripMenuItem();
             generarReporteDeVentasToolStripMenuItem = new ToolStripMenuItem();
+            logCambiosSistemaToolStripMenuItem = new ToolStripMenuItem();
             panelInfoPedido = new Panel();
             lblComentariosFact = new Label();
             txtComenatriosFact = new TextBox();
@@ -129,7 +130,7 @@
             // otrasOpcionesToolStripMenuItem
             // 
             otrasOpcionesToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
-            otrasOpcionesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cuentaToolStripMenuItem, crearUsuariosToolStripMenuItem, modificarUsuariosToolStripMenuItem, generarReporteDeVentasToolStripMenuItem });
+            otrasOpcionesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cuentaToolStripMenuItem, crearUsuariosToolStripMenuItem, modificarUsuariosToolStripMenuItem, generarReporteDeVentasToolStripMenuItem, logCambiosSistemaToolStripMenuItem });
             otrasOpcionesToolStripMenuItem.Name = "otrasOpcionesToolStripMenuItem";
             otrasOpcionesToolStripMenuItem.Size = new Size(124, 24);
             otrasOpcionesToolStripMenuItem.Text = "Otras Opciones";
@@ -167,6 +168,15 @@
             generarReporteDeVentasToolStripMenuItem.Text = "Generar reporte de ventas";
             generarReporteDeVentasToolStripMenuItem.Visible = false;
             generarReporteDeVentasToolStripMenuItem.Click += generarReporteDeVentasToolStripMenuItem_Click;
+            // 
+            // logCambiosSistemaToolStripMenuItem
+            // 
+            logCambiosSistemaToolStripMenuItem.Enabled = false;
+            logCambiosSistemaToolStripMenuItem.Name = "logCambiosSistemaToolStripMenuItem";
+            logCambiosSistemaToolStripMenuItem.Size = new Size(264, 26);
+            logCambiosSistemaToolStripMenuItem.Text = "Log (Cambios Sistema)";
+            logCambiosSistemaToolStripMenuItem.Visible = false;
+            logCambiosSistemaToolStripMenuItem.Click += logCambiosSistemaToolStripMenuItem_Click;
             // 
             // panelInfoPedido
             // 
@@ -694,5 +704,6 @@
         private Label lblAnio;
         private Label lblComentariosFact;
         private TextBox txtComenatriosFact;
+        private ToolStripMenuItem logCambiosSistemaToolStripMenuItem;
     }
 }

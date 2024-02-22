@@ -74,46 +74,45 @@ namespace TT2024_A155
                 for (int r = 0; r < totalRegistrosExportar; r++)
 
                 {
-                    Lector.Read();
-                    
-                    worksheet.Cells[celdaContenido, 1] = Lector["idpedido"].ToString();
+                    if (Lector.Read())
+                    {
+                        worksheet.Cells[celdaContenido, 1] = Lector["idpedido"].ToString();
 
-                    worksheet.Cells[celdaContenido, 2] = Lector["fecha_hora"].ToString().Substring(0,10);
+                        worksheet.Cells[celdaContenido, 2] = Lector["fecha_hora"].ToString().Substring(0, 10);
 
-                    if(bool.Parse(Lector["aprobacionCliente"].ToString()))
-                        worksheet.Cells[celdaContenido, 3] = "Revisado";
-                    else
-                        worksheet.Cells[celdaContenido, 3] = "En Revisión";
+                        if (bool.Parse(Lector["aprobacionCliente"].ToString()))
+                            worksheet.Cells[celdaContenido, 3] = "Revisado";
+                        else
+                            worksheet.Cells[celdaContenido, 3] = "En Revisión";
 
-                    worksheet.Cells[celdaContenido, 4] = Lector["nombre_usuario"].ToString();
+                        worksheet.Cells[celdaContenido, 4] = Lector["nombre_usuario"].ToString();
 
-                    worksheet.Cells[celdaContenido, 5] = Lector["nombre_real"].ToString();
+                        worksheet.Cells[celdaContenido, 5] = Lector["nombre_real"].ToString();
 
-                    worksheet.Cells[celdaContenido, 6] = Lector["nombre"].ToString();
+                        worksheet.Cells[celdaContenido, 6] = Lector["nombre"].ToString();
 
-                    worksheet.Cells[celdaContenido, 7] = Lector["cantidad"].ToString();
+                        worksheet.Cells[celdaContenido, 7] = Lector["cantidad"].ToString();
 
-                    worksheet.Cells[celdaContenido, 8] = Lector["marca"].ToString();
+                        worksheet.Cells[celdaContenido, 8] = Lector["marca"].ToString();
 
-                    worksheet.Cells[celdaContenido, 9] = Lector["modelo"].ToString();
+                        worksheet.Cells[celdaContenido, 9] = Lector["modelo"].ToString();
 
-                    worksheet.Cells[celdaContenido, 10] = Lector["anio"].ToString();
+                        worksheet.Cells[celdaContenido, 10] = Lector["anio"].ToString();
 
-                    worksheet.Cells[celdaContenido, 11] = Lector["precio_venta"].ToString();
+                        worksheet.Cells[celdaContenido, 11] = Lector["precio_venta"].ToString();
 
-                    worksheet.Cells[celdaContenido, 12] = Lector["descuento"].ToString();
+                        worksheet.Cells[celdaContenido, 12] = Lector["descuento"].ToString();
 
-                    worksheet.Cells[celdaContenido, 13] = Lector["Precio Final"].ToString();
+                        worksheet.Cells[celdaContenido, 13] = Lector["Precio Final"].ToString();
 
-                    worksheet.Cells[celdaContenido, 14] = Lector["num_factura"].ToString();
+                        worksheet.Cells[celdaContenido, 14] = Lector["num_factura"].ToString();
 
-                    worksheet.Cells[celdaContenido, 15] = Lector["fact_sinIVA"].ToString();
+                        worksheet.Cells[celdaContenido, 15] = Lector["fact_sinIVA"].ToString();
 
-                    worksheet.Cells[celdaContenido, 16] = Lector["fact_neto"].ToString();
+                        worksheet.Cells[celdaContenido, 16] = Lector["fact_neto"].ToString();
 
-
-                    
-                    celdaContenido++;
+                        celdaContenido++;
+                    }
                 }
 
 

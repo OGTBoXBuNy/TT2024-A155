@@ -49,10 +49,15 @@ namespace TT2024_A155
                 {
                     Consulta.actualizarDatosPersonales(0, contra, usuario, nombre, colonia, calle, noExt, noInt, cp, ciudad, telefono, correo);
                 }
+                
+                string descripcionLog = "El usuario : " + usuario + " actualizó datos personales de la cuenta: " +  " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, "", descripcionLog, "18");
             }
             else if(rbtnDatosFiscales.Checked)
             {
                 Consulta.actualizarDatosFiscalesCliente(usuario, nombre, cif, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo);
+                string descripcionLog = "El usuario : " + usuario + " actualizó datos fiscales de la cuenta: " + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, "", descripcionLog, "18");
             }
             else { }
 

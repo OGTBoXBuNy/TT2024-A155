@@ -93,6 +93,7 @@
             label1 = new Label();
             rbtnCrearUsuarioF = new RadioButton();
             rbtnCrearUsuarioT = new RadioButton();
+            lblUsuarioLog = new Label();
             panelDatos.SuspendLayout();
             panelPermisos.SuspendLayout();
             SuspendLayout();
@@ -767,11 +768,20 @@
             rbtnCrearUsuarioT.Text = "Si";
             rbtnCrearUsuarioT.UseVisualStyleBackColor = true;
             // 
+            // lblUsuarioLog
+            // 
+            lblUsuarioLog.AutoSize = true;
+            lblUsuarioLog.Location = new Point(694, 7);
+            lblUsuarioLog.Name = "lblUsuarioLog";
+            lblUsuarioLog.Size = new Size(0, 20);
+            lblUsuarioLog.TabIndex = 85;
+            // 
             // ModificarUsuario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(814, 450);
+            Controls.Add(lblUsuarioLog);
             Controls.Add(panelPermisos);
             Controls.Add(cmbNombreUsuario);
             Controls.Add(lblCliente);
@@ -859,5 +869,6 @@
         private Label label2;
         private RadioButton rbtnModificarUsuarioF;
         private RadioButton rbtnModificarUsuarioT;
+        public Label lblUsuarioLog;
     }
 }

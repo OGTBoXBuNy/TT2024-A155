@@ -40,6 +40,7 @@ namespace TT2024_A155
                     cambioContra.lblUsuario.Text = txtUsuario.Text.Trim();
                     cambioContra.lblRol.Text = inicioSesion[1].ToString();
                     cambioContra.Show();
+                    
                     this.Hide();
                 }
                 else
@@ -50,6 +51,8 @@ namespace TT2024_A155
                     inicio.lblRol.Text = inicioSesion[1].ToString();
                     inicio.Show();
                     MessageBox.Show("Inicio sesión exitoso");
+                    string descripcionLog = "El usuario " + txtUsuario.Text + " Inicio sesión al sistema el día: " + DateTime.Now.ToString();
+                    Consulta.Log(txtUsuario.Text, "", descripcionLog, "1");
                     this.Hide();
 
                 }

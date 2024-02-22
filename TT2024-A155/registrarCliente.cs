@@ -33,6 +33,9 @@ namespace TT2024_A155
             string correo = txtCorreo.Text.Trim();
 
             Consulta.registroUsuario(rol, usuario, nombre, contra, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo);
+
+            string descripcionLog = "Se registró un nuevo cliente con nombre de usuario:  " + usuario + " el día: " + DateTime.Now.ToString();
+            Consulta.Log(usuario, "", descripcionLog, "4");
         }
     }
 }

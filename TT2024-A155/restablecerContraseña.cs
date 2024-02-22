@@ -12,7 +12,7 @@ namespace TT2024_A155
 {
     public partial class restablecerContraseña : Form
     {
-        BD consulta = new BD();
+        BD Consulta = new BD();
         public restablecerContraseña()
         {
             InitializeComponent();
@@ -20,7 +20,9 @@ namespace TT2024_A155
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            consulta.recuperarContra(txtRecuperacion.Text.Trim());
+            Consulta.recuperarContra(txtRecuperacion.Text.Trim());
+            string descripcionLog = "Se solicitó restablecer la contraseña del usuario/correo:  " + txtRecuperacion.Text.Trim() + " el día: " + DateTime.Now.ToString();
+            Consulta.Log(txtRecuperacion.Text.Trim(), "", descripcionLog, "3");
         }
 
         private void lblCrearCuenta_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

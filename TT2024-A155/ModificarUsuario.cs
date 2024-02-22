@@ -202,10 +202,16 @@ namespace TT2024_A155
                 {
                     Consulta.actualizarDatosPersonalesAdmin(0, contra, usuario, nombre, colonia, calle, noExt, noInt, cp, ciudad, telefono, correo, idrol);
                 }
+                string usuarioLog = lblUsuarioLog.Text.Trim();
+                string descripcionLog = "El usuario : " + usuarioLog + " modificó los datos personales del usuario: " + usuario + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, "", descripcionLog, "19");
             }
             else if (rbtnDatosFiscales.Checked)
             {
                 Consulta.actualizarDatosFiscalesCliente(usuario, nombre, cif, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo);
+                string usuarioLog = lblUsuarioLog.Text.Trim();
+                string descripcionLog = "El usuario : " + usuarioLog + " modificó los datos fiscales del usuario: " + usuario + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, "", descripcionLog, "19");
             }
             else if (rbtnPermisos.Checked) 
             {

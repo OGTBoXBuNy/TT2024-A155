@@ -71,6 +71,11 @@ namespace TT2024_A155
                 generarReporteDeVentasToolStripMenuItem.Enabled = true;
                 generarReporteDeVentasToolStripMenuItem.Visible = true;
             }
+            if (permisos[10] == "1")//REVISAR LOG
+            {
+                logCambiosSistemaToolStripMenuItem.Enabled = true;
+                logCambiosSistemaToolStripMenuItem.Visible = true;
+            }
 
             if (lblRol.Text == "4")//LLENAR EL DATAGRIDVIEW SEGUN SI ES CLIENTE O EMPLEADO
             {
@@ -179,6 +184,10 @@ namespace TT2024_A155
                         {
                             Consulta.aprobarPedidoCliente(dgvPedido.Rows[fila].Cells[2].Value.ToString());
                             inicializarDgvCliente(lblUsuario.Text);
+                            string usuario = lblUsuario.Text;
+                            string pedido = dgvPedido.Rows[fila].Cells[2].Value.ToString();
+                            string descripcionLog = "El usuario : " + usuario + " autorizó el pedido : " + pedido + " el día: " + DateTime.Now.ToString();
+                            Consulta.Log(usuario, "", descripcionLog, "7");
 
                         }
 
@@ -253,12 +262,26 @@ namespace TT2024_A155
         {
             //detallesPedido[0] = idPedido
             if (detallesPedido != null)
+            {
                 Consulta.generarComprobante(detallesPedido[0], dgvDatosPDF, false);
+                string usuario = lblUsuario.Text.ToString().Trim();
+                string pedido = detallesPedido[0];
+                string descripcionLog = "El usuario : " + usuario + " generó el comprobante de venta (PDF) del pedido: " + pedido + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, pedido, descripcionLog, "15");
+            }
+
         }
 
         private void pbFactura_Click(object sender, EventArgs e)
         {
-
+            if (detallesPedido != null)
+            {
+                Consulta.generarFactura(detallesPedido[0], dgvDatosPDF);
+                string usuario = lblUsuario.Text.ToString().Trim();
+                string pedido = detallesPedido[0];
+                string descripcionLog = "El usuario : " + usuario + " generó la factura (PDF) del pedido: " + pedido + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, pedido, descripcionLog, "16");
+            }
         }
 
 
@@ -460,19 +483,28 @@ namespace TT2024_A155
         private void crearUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CrearUsuario crearUsuario = new();
+            crearUsuario.lblUsuarioLog.Text = lblUsuario.Text;
             crearUsuario.ShowDialog();
         }
 
         private void modificarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ModificarUsuario modificarUsuario = new();
+            modificarUsuario.lblUsuarioLog.Text = lblUsuario.Text;
             modificarUsuario.ShowDialog();
         }
 
         private void generarReporteDeVentasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ReporteVentas reporteVentas = new();
+            reporteVentas.lblUsuario.Text = lblUsuario.Text;
             reporteVentas.ShowDialog();
+        }
+
+        private void logCambiosSistemaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Log log = new();
+            log.ShowDialog();
         }
     }
 }
