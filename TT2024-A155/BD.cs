@@ -935,8 +935,11 @@ namespace TT2024_A155
                     Lector = Comando.ExecuteReader();
                     if (Lector.Read())
                         nombreVendedor = Lector["nombre_real"].ToString();
+
+                    Lector.Close();
                     nuevacon.Close();
                 }
+                
                 return nombreVendedor;
         }
             catch (Exception ex)
@@ -1557,7 +1560,7 @@ namespace TT2024_A155
         //---------------------------Llenar Datos pedido--------------------
         public string[] detallesPedido(string idDetallePedido)
         {
-            string[] detallesPedido = new string[19];
+            string[] detallesPedido = new string[23];
             double impuesto;
             try
             {
@@ -1565,7 +1568,7 @@ namespace TT2024_A155
                 {
                     
                     nuevacon.Open();
-                    Comando = new SqlCommand(string.Format("SELECT ped.idpedido, ped.fecha_hora, us.nombre_real, us.nombre_usuario, prod.nombre, detp.cantidad, prod.precio_venta, detp.descuento, mar.marca, veh.modelo, ped.comentarios, ped.aprobacionCliente, fact.idfactura, fact.fact_sinIVA, fact.fact_neto, ped.idusuarioVendedor, veh.anio, fact.num_factura AS 'numFact', fact.comentario AS 'factComen' FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE detp.iddetalle_pedido = '{0}';", idDetallePedido), nuevacon);
+                    Comando = new SqlCommand(string.Format("SELECT ped.idpedido, ped.fecha_hora, us.nombre_real, us.nombre_usuario, prod.nombre, detp.cantidad, prod.precio_venta, detp.descuento, mar.marca, veh.modelo, ped.comentarios, ped.aprobacionCliente, fact.idfactura, fact.fact_sinIVA, fact.fact_neto, ped.idusuarioVendedor, veh.anio, fact.num_factura AS 'numFact', fact.comentario AS 'factComen', ent.idusuario AS 'Entrega realizada por', ent.fecha AS 'Fecha entrega', dev.idusuario AS 'Devolución realizada por', dev.fecha AS 'Fecha devolución' FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura LEFT OUTER JOIN entrega ent ON ent.idpedido = ped.idpedido LEFT OUTER JOIN devolucion dev ON dev.idpedido = ped.idpedido WHERE detp.iddetalle_pedido = '{0}';", idDetallePedido), nuevacon);
                     Lector = Comando.ExecuteReader();
                     while (Lector.Read())
                     {
@@ -1581,6 +1584,29 @@ namespace TT2024_A155
                         detallesPedido[9] = Lector["modelo"].ToString();//MODELO
                         detallesPedido[10] = Lector["comentarios"].ToString();//COMENTARIOS
                         detallesPedido[17] = Lector["anio"].ToString();//ANIO VEHICULO
+
+                        if(Lector["Entrega realizada por"].ToString() != "")
+                        {
+                            detallesPedido[19] = Lector["Entrega realizada por"].ToString();//Entrega realizada por
+                            detallesPedido[20] = Lector["Fecha entrega"].ToString().Substring(0,10);//Fecha entrega
+                        }
+                        else
+                        {
+                            detallesPedido[19] = "";
+                            detallesPedido[20] = "";
+                        }
+
+                        if (Lector["Devolución realizada por"].ToString() != "")
+                        {
+                            detallesPedido[21] = Lector["Devolución realizada por"].ToString();//Devolución realizada por
+                            detallesPedido[22] = Lector["Fecha devolución"].ToString().Substring(0,10);//Fecha devolución
+                        }
+                        else
+                        {
+                            detallesPedido[21] = "";
+                            detallesPedido[22] = "";
+                        }
+
 
                         if (Lector["aprobacionCliente"].ToString() == "true")//ESTADO PEDIDO
                             detallesPedido[11] = "Autorizado";
@@ -1607,7 +1633,7 @@ namespace TT2024_A155
                         }
 
                        
-                        detallesPedido[16] = nombreVendedor(Lector["idusuarioVendedor"].ToString());//NOMBRE VENDEDOR
+                        detallesPedido[16] = Lector["idusuarioVendedor"].ToString();//NOMBRE VENDEDOR
                         
 
                     }
@@ -2761,6 +2787,75 @@ namespace TT2024_A155
             return dataSet;
         }
 
+        //----------------------------------REGISTRAR ENTREGA DE PEDIDO----------------------------------------------
+        public void entregarPedido(string idPedido, string usuario, string fecha)
+        {
+            int i;
+            int idUsuario;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    nuevacon.Open();
+
+                    idUsuario = this.idUsuario(usuario);
+
+                    Comando = new SqlCommand(string.Format("INSERT INTO entrega (idusuario, idpedido, fecha) VALUES ({0}, '{1}', '{2}');", idUsuario, idPedido, fecha), nuevacon);
+                    i = Comando.ExecuteNonQuery();
+
+                    if (i > 0)
+                    {
+                        MessageBox.Show("Pedido entregado");
+                    }
+                    else
+                        MessageBox.Show("Error al entregar el pedido");
+
+                    nuevacon.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
+        }
+
+        //----------------------------------REGISTRAR DEVOLUCIÓN DE PEDIDO----------------------------------------------
+        public void devolverPedido(string idPedido, string usuario, string fecha)
+        {
+            int i;
+            int idUsuario;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    nuevacon.Open();
+
+                    idUsuario = this.idUsuario(usuario);
+
+                    Comando = new SqlCommand(string.Format("INSERT INTO devolucion (idusuario, idpedido, fecha) VALUES ({0}, '{1}', '{2}');", idUsuario, idPedido, fecha), nuevacon);
+                    i = Comando.ExecuteNonQuery();
+
+                    if (i > 0)
+                    {
+                        MessageBox.Show("Pedido devuelto");
+                    }
+                    else
+                        MessageBox.Show("Error al devolver el pedido");
+
+                    nuevacon.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
+        }
 
     }
 }

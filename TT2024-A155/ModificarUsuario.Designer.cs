@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModificarUsuario));
             txtCif = new TextBox();
             lblCif = new Label();
             rbtnDatosFiscales = new RadioButton();
@@ -791,6 +792,7 @@
             Controls.Add(rbtnDatosPersonales);
             Controls.Add(btnAceptar);
             Controls.Add(panelDatos);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ModificarUsuario";
             Text = "ModificarUsuario";
             Load += ModificarUsuario_Load;

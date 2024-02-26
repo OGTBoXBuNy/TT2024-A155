@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Producto));
             lblPieza = new Label();
             lblCantidad = new Label();
             lblPrecio = new Label();
@@ -218,6 +219,7 @@
             Controls.Add(lblPrecio);
             Controls.Add(lblCantidad);
             Controls.Add(lblPieza);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Producto";
             Text = "Producto";
             Load += Producto_Load;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(registrarCliente));
             txtNoInt = new TextBox();
             txtCorreo = new TextBox();
             txtCiudad = new TextBox();
@@ -278,6 +279,7 @@
             Controls.Add(lblUsuario);
             Controls.Add(txtContrasenia);
             Controls.Add(txtUsuario);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "registrarCliente";
             Text = "REGRISTRO";
             ResumeLayout(false);

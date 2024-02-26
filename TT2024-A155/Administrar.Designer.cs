@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Administrar));
             txtUsuario = new TextBox();
             txtContrasenia = new TextBox();
             cmbRol = new ComboBox();
@@ -370,6 +371,7 @@
             Controls.Add(cmbRol);
             Controls.Add(txtContrasenia);
             Controls.Add(txtUsuario);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Administrar";
             Text = "Administrar";
             Load += Administrar_Load;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(restablecerContraseña));
             lblTitulo = new Label();
             lblSubtitulo = new Label();
             txtRecuperacion = new TextBox();
@@ -91,6 +92,7 @@
             Controls.Add(txtRecuperacion);
             Controls.Add(lblSubtitulo);
             Controls.Add(lblTitulo);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "restablecerContraseña";
             Text = "RECUPERAR CONTRASEÑA";
             ResumeLayout(false);

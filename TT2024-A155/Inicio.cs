@@ -139,7 +139,7 @@ namespace TT2024_A155
             lblNoPedido.Text = "# Pedido: " + detallesPedido[0];
             lblFechaCreacion.Text = "Fecha Creación: " + detallesPedido[1];
             lblCliente.Text = "Cliente: " + detallesPedido[2] + "-" + detallesPedido[3];
-            lblVendedor.Text = "Vendedor: " + detallesPedido[16];
+            lblVendedor.Text = "Vendedor: " + Consulta.nombreVendedor(detallesPedido[16]);
             lblProducto.Text = "Producto: " + detallesPedido[4];
             lblCantidad.Text = "Cantidad: " + detallesPedido[5];
             lblPrecio.Text = "Precio Venta: $" + detallesPedido[6];
@@ -154,6 +154,10 @@ namespace TT2024_A155
             lblImpuesto.Text = "Impuesto: " + detallesPedido[15];
             lblFactIVA.Text = "Factura con IVA: " + detallesPedido[14];
             txtComenatriosFact.Text = detallesPedido[18];
+            lblEntregadoPor.Text = "Entregado Por: " + Consulta.nombreVendedor(detallesPedido[19]);
+            lblfechaEntrega.Text = "Fecha Entrega: " + detallesPedido[20];
+            lblDevueltoPor.Text = "Devuelto Por: " + Consulta.nombreVendedor(detallesPedido[21]);
+            lblfechaDevolucion.Text = "Fecha Devolución: " + detallesPedido[22];
 
         }
 
@@ -178,7 +182,7 @@ namespace TT2024_A155
                     }
                     else
                     {
-                        MessageBOX mes = new MessageBOX(4, "¿Esta seguro de querer autorizar este pedido?");
+                        MessageBOX mes = new MessageBOX(4, "¿Está seguro de querer autorizar este pedido?");
 
                         if (mes.ShowDialog() == DialogResult.OK)
                         {

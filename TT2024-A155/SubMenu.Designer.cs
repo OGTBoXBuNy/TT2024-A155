@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubMenu));
             btnModificarDatosPedido = new Button();
             btnGenerarFactura = new Button();
             btnGenerarRefactura = new Button();
-            btnRegistrarEntregasDevoluciones = new Button();
+            btnRegistrarEntrega = new Button();
             lblUsuario = new Label();
             lblRol = new Label();
             lblIdPedido = new Label();
+            btnRegistrarDevolucion = new Button();
             SuspendLayout();
             // 
             // btnModificarDatosPedido
@@ -66,14 +68,15 @@
             btnGenerarRefactura.Text = "Generar Refactura";
             btnGenerarRefactura.UseVisualStyleBackColor = true;
             // 
-            // btnRegistrarEntregasDevoluciones
+            // btnRegistrarEntrega
             // 
-            btnRegistrarEntregasDevoluciones.Location = new Point(12, 205);
-            btnRegistrarEntregasDevoluciones.Name = "btnRegistrarEntregasDevoluciones";
-            btnRegistrarEntregasDevoluciones.Size = new Size(233, 52);
-            btnRegistrarEntregasDevoluciones.TabIndex = 3;
-            btnRegistrarEntregasDevoluciones.Text = "Registrar Entregas y Devoluciones";
-            btnRegistrarEntregasDevoluciones.UseVisualStyleBackColor = true;
+            btnRegistrarEntrega.Location = new Point(12, 205);
+            btnRegistrarEntrega.Name = "btnRegistrarEntrega";
+            btnRegistrarEntrega.Size = new Size(233, 52);
+            btnRegistrarEntrega.TabIndex = 3;
+            btnRegistrarEntrega.Text = "Registrar Entrega";
+            btnRegistrarEntrega.UseVisualStyleBackColor = true;
+            btnRegistrarEntrega.Click += btnRegistrarEntrega_Click;
             // 
             // lblUsuario
             // 
@@ -99,18 +102,30 @@
             lblIdPedido.Size = new Size(0, 20);
             lblIdPedido.TabIndex = 6;
             // 
+            // btnRegistrarDevolucion
+            // 
+            btnRegistrarDevolucion.Location = new Point(12, 263);
+            btnRegistrarDevolucion.Name = "btnRegistrarDevolucion";
+            btnRegistrarDevolucion.Size = new Size(233, 52);
+            btnRegistrarDevolucion.TabIndex = 7;
+            btnRegistrarDevolucion.Text = "Registrar Devolución";
+            btnRegistrarDevolucion.UseVisualStyleBackColor = true;
+            btnRegistrarDevolucion.Click += btnRegistrarDevolucion_Click;
+            // 
             // SubMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(257, 379);
+            Controls.Add(btnRegistrarDevolucion);
             Controls.Add(lblIdPedido);
             Controls.Add(lblRol);
             Controls.Add(lblUsuario);
-            Controls.Add(btnRegistrarEntregasDevoluciones);
+            Controls.Add(btnRegistrarEntrega);
             Controls.Add(btnGenerarRefactura);
             Controls.Add(btnGenerarFactura);
             Controls.Add(btnModificarDatosPedido);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "SubMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SubMenu";
@@ -124,9 +139,10 @@
         private Button btnModificarDatosPedido;
         private Button btnGenerarFactura;
         private Button btnGenerarRefactura;
-        private Button btnRegistrarEntregasDevoluciones;
+        private Button btnRegistrarEntrega;
         public Label lblUsuario;
         public Label lblRol;
         public Label lblIdPedido;
+        private Button btnRegistrarDevolucion;
     }
 }

@@ -239,7 +239,7 @@ namespace TT2024_A155
                 signature = System.Convert.FromBase64String(temp);
 
 
-                MessageBox.Show("La signature en bytes longitud: " + signature.Length + "Cadena original:" + PrettyPrint(signature));
+                //MessageBox.Show("La signature en bytes longitud: " + signature.Length + "Cadena original:" + PrettyPrint(signature));
             }
             catch (Exception ex)
             {
@@ -269,7 +269,7 @@ namespace TT2024_A155
         private void btnpubKey_Click(object sender, EventArgs e)
         {
             //configuraciones del openfiledialog 1
-            openFile.InitialDirectory = "C:\\";
+            openFile.InitialDirectory = "C:\\Users\\boxbu\\Downloads\\Dilithium";
             //openFile.Filter = " (*.*)|*.pdf*";
             openFile.FilterIndex = 1;
             openFile.RestoreDirectory = true;
@@ -297,7 +297,7 @@ namespace TT2024_A155
                     temp += line;
                     //write the line to console window
                     Console.WriteLine(line);
-                    MessageBox.Show("Llave publica base 64 desde txt: " + line);
+                    //MessageBox.Show("Llave publica base 64 desde txt: " + line);
                     //Read the next line
                     line = sr.ReadLine();
                 }
@@ -381,7 +381,7 @@ namespace TT2024_A155
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             //configuraciones del openfiledialog 1
-            openFile.InitialDirectory = "C:\\";
+            openFile.InitialDirectory = "C:\\Users\\boxbu\\Downloads\\Dilithium";
             //openFile.Filter = " (*.*)|*.pdf*";
             openFile.FilterIndex = 1;
             openFile.RestoreDirectory = true;

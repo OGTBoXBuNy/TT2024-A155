@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             btnSign = new Button();
             btnGenLlaves = new Button();
             btnPDF = new Button();
@@ -74,6 +75,7 @@
             btnPDF.TabIndex = 2;
             btnPDF.Text = "PDF";
             btnPDF.UseVisualStyleBackColor = true;
+            btnPDF.Visible = false;
             btnPDF.Click += btnPDF_Click;
             // 
             // btnVerificar
@@ -95,6 +97,7 @@
             // 
             // txtprivKey
             // 
+            txtprivKey.Enabled = false;
             txtprivKey.Location = new Point(157, 67);
             txtprivKey.Name = "txtprivKey";
             txtprivKey.Size = new Size(438, 27);
@@ -112,6 +115,7 @@
             // 
             // btnprivKey
             // 
+            btnprivKey.Enabled = false;
             btnprivKey.Location = new Point(619, 67);
             btnprivKey.Name = "btnprivKey";
             btnprivKey.Size = new Size(94, 29);
@@ -186,6 +190,7 @@
             Controls.Add(btnPDF);
             Controls.Add(btnGenLlaves);
             Controls.Add(btnSign);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);

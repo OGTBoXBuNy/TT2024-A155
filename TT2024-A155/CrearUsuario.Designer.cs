@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CrearUsuario));
             lblTitulo = new Label();
             txtNoInt = new TextBox();
             txtCorreo = new TextBox();
@@ -311,6 +312,7 @@
             Controls.Add(lblUsuario);
             Controls.Add(txtContrasenia);
             Controls.Add(txtUsuario);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CrearUsuario";
             Text = "CrearUsuario";
             Load += CrearUsuario_Load;

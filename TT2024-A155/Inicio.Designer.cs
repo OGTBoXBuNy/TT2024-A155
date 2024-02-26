@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inicio));
             lblUsuario = new Label();
             btnCrearPedido = new Button();
             lblRol = new Label();
@@ -39,6 +40,12 @@
             generarReporteDeVentasToolStripMenuItem = new ToolStripMenuItem();
             logCambiosSistemaToolStripMenuItem = new ToolStripMenuItem();
             panelInfoPedido = new Panel();
+            lblfechaDevolucion = new Label();
+            lblfechaEntrega = new Label();
+            lblDevueltoPor = new Label();
+            lblEntregadoPor = new Label();
+            label6 = new Label();
+            label5 = new Label();
             lblComentariosFact = new Label();
             txtComenatriosFact = new TextBox();
             lblAnio = new Label();
@@ -181,6 +188,12 @@
             // panelInfoPedido
             // 
             panelInfoPedido.BorderStyle = BorderStyle.Fixed3D;
+            panelInfoPedido.Controls.Add(lblfechaDevolucion);
+            panelInfoPedido.Controls.Add(lblfechaEntrega);
+            panelInfoPedido.Controls.Add(lblDevueltoPor);
+            panelInfoPedido.Controls.Add(lblEntregadoPor);
+            panelInfoPedido.Controls.Add(label6);
+            panelInfoPedido.Controls.Add(label5);
             panelInfoPedido.Controls.Add(lblComentariosFact);
             panelInfoPedido.Controls.Add(txtComenatriosFact);
             panelInfoPedido.Controls.Add(lblAnio);
@@ -217,10 +230,64 @@
             panelInfoPedido.Size = new Size(425, 589);
             panelInfoPedido.TabIndex = 4;
             // 
+            // lblfechaDevolucion
+            // 
+            lblfechaDevolucion.AutoSize = true;
+            lblfechaDevolucion.Location = new Point(221, 561);
+            lblfechaDevolucion.Name = "lblfechaDevolucion";
+            lblfechaDevolucion.Size = new Size(129, 20);
+            lblfechaDevolucion.TabIndex = 108;
+            lblfechaDevolucion.Text = "Fecha Devolución:";
+            // 
+            // lblfechaEntrega
+            // 
+            lblfechaEntrega.AutoSize = true;
+            lblfechaEntrega.Location = new Point(10, 561);
+            lblfechaEntrega.Name = "lblfechaEntrega";
+            lblfechaEntrega.Size = new Size(105, 20);
+            lblfechaEntrega.TabIndex = 107;
+            lblfechaEntrega.Text = "Fecha Entrega:";
+            // 
+            // lblDevueltoPor
+            // 
+            lblDevueltoPor.AutoSize = true;
+            lblDevueltoPor.Location = new Point(221, 519);
+            lblDevueltoPor.Name = "lblDevueltoPor";
+            lblDevueltoPor.Size = new Size(97, 20);
+            lblDevueltoPor.TabIndex = 106;
+            lblDevueltoPor.Text = "Devuelto Por:";
+            // 
+            // lblEntregadoPor
+            // 
+            lblEntregadoPor.AutoSize = true;
+            lblEntregadoPor.Location = new Point(10, 519);
+            lblEntregadoPor.Name = "lblEntregadoPor";
+            lblEntregadoPor.Size = new Size(106, 20);
+            lblEntregadoPor.TabIndex = 105;
+            lblEntregadoPor.Text = "Entregado Por:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(221, 478);
+            label6.Name = "label6";
+            label6.Size = new Size(100, 20);
+            label6.TabIndex = 104;
+            label6.Text = "DEVOLUCIÓN";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(10, 478);
+            label5.Name = "label5";
+            label5.Size = new Size(73, 20);
+            label5.TabIndex = 103;
+            label5.Text = "ENTREGA";
+            // 
             // lblComentariosFact
             // 
             lblComentariosFact.AutoSize = true;
-            lblComentariosFact.Location = new Point(201, 379);
+            lblComentariosFact.Location = new Point(201, 333);
             lblComentariosFact.Name = "lblComentariosFact";
             lblComentariosFact.Size = new Size(100, 20);
             lblComentariosFact.TabIndex = 102;
@@ -229,17 +296,17 @@
             // txtComenatriosFact
             // 
             txtComenatriosFact.Enabled = false;
-            txtComenatriosFact.Location = new Point(201, 402);
+            txtComenatriosFact.Location = new Point(201, 356);
             txtComenatriosFact.Multiline = true;
             txtComenatriosFact.Name = "txtComenatriosFact";
             txtComenatriosFact.ReadOnly = true;
-            txtComenatriosFact.Size = new Size(213, 95);
+            txtComenatriosFact.Size = new Size(213, 54);
             txtComenatriosFact.TabIndex = 101;
             // 
             // lblAnio
             // 
             lblAnio.AutoSize = true;
-            lblAnio.Location = new Point(336, 233);
+            lblAnio.Location = new Point(336, 206);
             lblAnio.Name = "lblAnio";
             lblAnio.Size = new Size(39, 20);
             lblAnio.TabIndex = 100;
@@ -249,10 +316,10 @@
             // 
             pbFactura.Cursor = Cursors.Hand;
             pbFactura.Image = Properties.Resources.file;
-            pbFactura.Location = new Point(247, 534);
+            pbFactura.Location = new Point(317, 421);
             pbFactura.Margin = new Padding(4);
             pbFactura.Name = "pbFactura";
-            pbFactura.Size = new Size(55, 43);
+            pbFactura.Size = new Size(40, 33);
             pbFactura.SizeMode = PictureBoxSizeMode.Zoom;
             pbFactura.TabIndex = 42;
             pbFactura.TabStop = false;
@@ -261,7 +328,7 @@
             // lblComprobantePDF
             // 
             lblComprobantePDF.AutoSize = true;
-            lblComprobantePDF.Location = new Point(3, 510);
+            lblComprobantePDF.Location = new Point(306, 51);
             lblComprobantePDF.Name = "lblComprobantePDF";
             lblComprobantePDF.Size = new Size(108, 20);
             lblComprobantePDF.TabIndex = 41;
@@ -270,17 +337,17 @@
             // txtComentarios
             // 
             txtComentarios.Enabled = false;
-            txtComentarios.Location = new Point(101, 264);
+            txtComentarios.Location = new Point(101, 243);
             txtComentarios.Multiline = true;
             txtComentarios.Name = "txtComentarios";
             txtComentarios.ReadOnly = true;
-            txtComentarios.Size = new Size(313, 74);
+            txtComentarios.Size = new Size(313, 52);
             txtComentarios.TabIndex = 99;
             // 
             // dgvDatosPDF
             // 
             dgvDatosPDF.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDatosPDF.Location = new Point(370, 436);
+            dgvDatosPDF.Location = new Point(370, 411);
             dgvDatosPDF.Name = "dgvDatosPDF";
             dgvDatosPDF.RowHeadersWidth = 51;
             dgvDatosPDF.RowTemplate.Height = 29;
@@ -291,7 +358,7 @@
             // lblFactIVA
             // 
             lblFactIVA.AutoSize = true;
-            lblFactIVA.Location = new Point(10, 468);
+            lblFactIVA.Location = new Point(10, 422);
             lblFactIVA.Name = "lblFactIVA";
             lblFactIVA.Size = new Size(113, 20);
             lblFactIVA.TabIndex = 27;
@@ -300,7 +367,7 @@
             // lblFactSinIva
             // 
             lblFactSinIva.AutoSize = true;
-            lblFactSinIva.Location = new Point(10, 402);
+            lblFactSinIva.Location = new Point(10, 356);
             lblFactSinIva.Name = "lblFactSinIva";
             lblFactSinIva.Size = new Size(107, 20);
             lblFactSinIva.TabIndex = 26;
@@ -309,7 +376,7 @@
             // label4
             // 
             label4.BackColor = Color.FromArgb(106, 109, 119);
-            label4.Location = new Point(0, 500);
+            label4.Location = new Point(0, 458);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(427, 2);
@@ -318,7 +385,7 @@
             // label3
             // 
             label3.BackColor = Color.FromArgb(106, 109, 119);
-            label3.Location = new Point(0, 358);
+            label3.Location = new Point(0, 319);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(427, 2);
@@ -328,10 +395,10 @@
             // 
             pbComprobante.Cursor = Cursors.Hand;
             pbComprobante.Image = Properties.Resources.file;
-            pbComprobante.Location = new Point(101, 534);
+            pbComprobante.Location = new Point(354, 75);
             pbComprobante.Margin = new Padding(4);
             pbComprobante.Name = "pbComprobante";
-            pbComprobante.Size = new Size(55, 43);
+            pbComprobante.Size = new Size(39, 32);
             pbComprobante.SizeMode = PictureBoxSizeMode.Zoom;
             pbComprobante.TabIndex = 23;
             pbComprobante.TabStop = false;
@@ -340,7 +407,7 @@
             // label2
             // 
             label2.BackColor = Color.FromArgb(106, 109, 119);
-            label2.Location = new Point(0, 253);
+            label2.Location = new Point(0, 234);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(427, 2);
@@ -349,7 +416,7 @@
             // label1
             // 
             label1.BackColor = Color.FromArgb(106, 109, 119);
-            label1.Location = new Point(-2, 130);
+            label1.Location = new Point(-2, 116);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(427, 2);
@@ -358,7 +425,7 @@
             // lblPrecio
             // 
             lblPrecio.AutoSize = true;
-            lblPrecio.Location = new Point(9, 192);
+            lblPrecio.Location = new Point(9, 165);
             lblPrecio.Name = "lblPrecio";
             lblPrecio.Size = new Size(94, 20);
             lblPrecio.TabIndex = 20;
@@ -367,7 +434,7 @@
             // lblModelo
             // 
             lblModelo.AutoSize = true;
-            lblModelo.Location = new Point(186, 233);
+            lblModelo.Location = new Point(186, 206);
             lblModelo.Name = "lblModelo";
             lblModelo.Size = new Size(64, 20);
             lblModelo.TabIndex = 19;
@@ -376,7 +443,7 @@
             // lblMarca
             // 
             lblMarca.AutoSize = true;
-            lblMarca.Location = new Point(9, 233);
+            lblMarca.Location = new Point(9, 206);
             lblMarca.Name = "lblMarca";
             lblMarca.Size = new Size(53, 20);
             lblMarca.TabIndex = 18;
@@ -385,7 +452,7 @@
             // lblDescuento
             // 
             lblDescuento.AutoSize = true;
-            lblDescuento.Location = new Point(186, 192);
+            lblDescuento.Location = new Point(186, 165);
             lblDescuento.Name = "lblDescuento";
             lblDescuento.Size = new Size(82, 20);
             lblDescuento.TabIndex = 17;
@@ -394,7 +461,7 @@
             // lblAprobacion
             // 
             lblAprobacion.AutoSize = true;
-            lblAprobacion.Location = new Point(10, 338);
+            lblAprobacion.Location = new Point(9, 292);
             lblAprobacion.Name = "lblAprobacion";
             lblAprobacion.Size = new Size(57, 20);
             lblAprobacion.TabIndex = 16;
@@ -403,7 +470,7 @@
             // lblComentarios
             // 
             lblComentarios.AutoSize = true;
-            lblComentarios.Location = new Point(3, 264);
+            lblComentarios.Location = new Point(3, 243);
             lblComentarios.Name = "lblComentarios";
             lblComentarios.Size = new Size(96, 20);
             lblComentarios.TabIndex = 15;
@@ -412,7 +479,7 @@
             // lblTotal
             // 
             lblTotal.AutoSize = true;
-            lblTotal.Location = new Point(191, 510);
+            lblTotal.Location = new Point(243, 422);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(59, 20);
             lblTotal.TabIndex = 14;
@@ -421,7 +488,7 @@
             // lblImpuesto
             // 
             lblImpuesto.AutoSize = true;
-            lblImpuesto.Location = new Point(10, 436);
+            lblImpuesto.Location = new Point(10, 390);
             lblImpuesto.Name = "lblImpuesto";
             lblImpuesto.Size = new Size(74, 20);
             lblImpuesto.TabIndex = 13;
@@ -439,7 +506,7 @@
             // lblFactura
             // 
             lblFactura.AutoSize = true;
-            lblFactura.Location = new Point(10, 369);
+            lblFactura.Location = new Point(10, 323);
             lblFactura.Name = "lblFactura";
             lblFactura.Size = new Size(72, 20);
             lblFactura.TabIndex = 11;
@@ -448,7 +515,7 @@
             // lblCliente
             // 
             lblCliente.AutoSize = true;
-            lblCliente.Location = new Point(10, 65);
+            lblCliente.Location = new Point(10, 57);
             lblCliente.Name = "lblCliente";
             lblCliente.Size = new Size(58, 20);
             lblCliente.TabIndex = 10;
@@ -457,7 +524,7 @@
             // lblVendedor
             // 
             lblVendedor.AutoSize = true;
-            lblVendedor.Location = new Point(9, 110);
+            lblVendedor.Location = new Point(10, 87);
             lblVendedor.Name = "lblVendedor";
             lblVendedor.Size = new Size(76, 20);
             lblVendedor.TabIndex = 9;
@@ -466,7 +533,7 @@
             // lblCantidad
             // 
             lblCantidad.AutoSize = true;
-            lblCantidad.Location = new Point(317, 151);
+            lblCantidad.Location = new Point(317, 124);
             lblCantidad.Name = "lblCantidad";
             lblCantidad.Size = new Size(76, 20);
             lblCantidad.TabIndex = 8;
@@ -475,7 +542,7 @@
             // lblProducto
             // 
             lblProducto.AutoSize = true;
-            lblProducto.Location = new Point(9, 151);
+            lblProducto.Location = new Point(9, 124);
             lblProducto.Name = "lblProducto";
             lblProducto.Size = new Size(72, 20);
             lblProducto.TabIndex = 7;
@@ -634,6 +701,7 @@
             Controls.Add(btnCrearPedido);
             Controls.Add(lblUsuario);
             Controls.Add(menuStrip1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Inicio";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Inicio";
@@ -705,5 +773,11 @@
         private Label lblComentariosFact;
         private TextBox txtComenatriosFact;
         private ToolStripMenuItem logCambiosSistemaToolStripMenuItem;
+        private Label label5;
+        private Label lblfechaDevolucion;
+        private Label lblfechaEntrega;
+        private Label lblDevueltoPor;
+        private Label lblEntregadoPor;
+        private Label label6;
     }
 }

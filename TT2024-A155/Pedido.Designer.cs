@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pedido));
             lblUsuario = new Label();
             lblCliente = new Label();
             lblComentarios = new Label();
@@ -425,6 +426,7 @@
             Controls.Add(lblComentarios);
             Controls.Add(lblCliente);
             Controls.Add(lblUsuario);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Pedido";
             Text = "Crear Pedido";
             Load += Pedido_Load;

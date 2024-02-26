@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageBOX));
             GifHecho = new PictureBox();
             lblTexto = new Label();
             btnOK = new Button();
@@ -95,6 +96,7 @@
             Controls.Add(btnOK);
             Controls.Add(lblTexto);
             Controls.Add(GifHecho);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MessageBOX";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dialog";

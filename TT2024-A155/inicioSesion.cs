@@ -40,7 +40,7 @@ namespace TT2024_A155
                     cambioContra.lblUsuario.Text = txtUsuario.Text.Trim();
                     cambioContra.lblRol.Text = inicioSesion[1].ToString();
                     cambioContra.Show();
-                    
+
                     this.Hide();
                 }
                 else
@@ -78,6 +78,12 @@ namespace TT2024_A155
         private void inicioSesion_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnFirma_Click(object sender, EventArgs e)
+        {
+            Form1 form1 = new();
+            form1.ShowDialog();
         }
     }
 }

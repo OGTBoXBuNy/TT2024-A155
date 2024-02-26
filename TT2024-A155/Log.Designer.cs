@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Log));
             dgvLog = new DataGridView();
             Fecha_Fin = new DateTimePicker();
             lblFecha2 = new Label();
@@ -188,6 +189,7 @@
             Controls.Add(lblNomUsuario);
             Controls.Add(lblPedido);
             Controls.Add(dgvLog);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Log";
             Text = "Log";
             Load += Log_Load;

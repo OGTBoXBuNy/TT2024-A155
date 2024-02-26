@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(cambioContraseña));
             lblTitulo = new Label();
             lblContra = new Label();
             lblrRepContra = new Label();
@@ -120,6 +121,7 @@
             Controls.Add(lblrRepContra);
             Controls.Add(lblContra);
             Controls.Add(lblTitulo);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "cambioContraseña";
             Text = "CREAR NUEVA CONTRASEÑA";
             ResumeLayout(false);

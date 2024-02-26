@@ -44,5 +44,41 @@ namespace TT2024_A155
             factura.ShowDialog();
 
         }
+
+        private void btnRegistrarEntrega_Click(object sender, EventArgs e)
+        {
+            MessageBOX mes = new MessageBOX(4, "¿Está seguro de marcar este pedido como entregado?");
+
+            if (mes.ShowDialog() == DialogResult.OK)
+            {
+                string usuario = lblUsuario.Text;
+                string pedido = lblIdPedido.Text;
+                DateTime hoy = DateTime.Now;
+                string fecha = hoy.Year.ToString() + "-" + hoy.Month.ToString() + "-" + hoy.Day.ToString();
+                Consulta.entregarPedido(pedido, usuario, fecha);
+
+                string descripcionLog = "El usuario : " + usuario + " entregó el pedido : " + pedido + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, pedido, descripcionLog, "13");
+
+            }
+        }
+
+        private void btnRegistrarDevolucion_Click(object sender, EventArgs e)
+        {
+            MessageBOX mes = new MessageBOX(4, "¿Está seguro de marcar este pedido como devuelto?");
+
+            if (mes.ShowDialog() == DialogResult.OK)
+            {
+                string usuario = lblUsuario.Text;
+                string pedido = lblIdPedido.Text;
+                DateTime hoy = DateTime.Now;
+                string fecha = hoy.Year.ToString() + "-" + hoy.Month.ToString() + "-" + hoy.Day.ToString();
+                Consulta.devolverPedido(pedido, usuario, fecha);
+
+                string descripcionLog = "El usuario : " + usuario + " devolvió el pedido : " + pedido + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, pedido, descripcionLog, "14");
+
+            }
+        }
     }
 }
