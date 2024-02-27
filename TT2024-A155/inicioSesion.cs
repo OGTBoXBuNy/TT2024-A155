@@ -8,10 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BC = BCrypt.Net.BCrypt;
+//Diseño
+using MaterialSkin.Controls;
 
 namespace TT2024_A155
 {
-    public partial class inicioSesion : Form
+    public partial class inicioSesion : MaterialForm
     {
         //CONSTRUCTOR DEL FORM
         BD Consulta = new BD();
@@ -19,6 +21,7 @@ namespace TT2024_A155
         public inicioSesion()
         {
             InitializeComponent();
+            MaterialUI.loadMaterial(this);
         }
 
         private void inicioSesion_Load(object sender, EventArgs e)
@@ -84,6 +87,47 @@ namespace TT2024_A155
         {
             Form1 form1 = new();
             form1.ShowDialog();
+        }
+
+        
+        private void btnIngresar_Click(object sender, EventArgs e)
+        {
+            int[] inicioSesion = Consulta.inicioSesion(txtUsuario.Text.Trim(), txtContrasenia.Text.Trim());
+            if (inicioSesion[0] == 1)
+            {
+
+                if (Consulta.validarContraTemp(txtUsuario.Text.Trim()) == 1)
+                {
+                    cambioContraseña cambioContra = new();
+                    AddOwnedForm(cambioContra);
+                    cambioContra.lblUsuario.Text = txtUsuario.Text.Trim();
+                    cambioContra.lblRol.Text = inicioSesion[1].ToString();
+                    cambioContra.Show();
+
+                    this.Hide();
+                }
+                else
+                {
+                    Inicio inicio = new Inicio();
+                    AddOwnedForm(inicio);
+                    inicio.lblUsuario.Text += txtUsuario.Text.Trim();
+                    inicio.lblRol.Text = inicioSesion[1].ToString();
+                    inicio.Show();
+                    MessageBox.Show("Inicio sesión exitoso");
+                    string descripcionLog = "El usuario " + txtUsuario.Text + " Inicio sesión al sistema el día: " + DateTime.Now.ToString();
+                    Consulta.Log(txtUsuario.Text, "", descripcionLog, "1");
+                    this.Hide();
+
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Usuario y/o contraseña incorrectos");
+                txtUsuario.Text = "";
+                txtContrasenia.Text = "";
+
+            }
         }
     }
 }

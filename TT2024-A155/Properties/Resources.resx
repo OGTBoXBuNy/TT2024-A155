@@ -121,6 +121,9 @@
   <data name="Comprobante" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Comprobante.pdf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="contraseniaIcono" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\contraseniaIcono.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Correcto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Correcto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,10 +145,16 @@
   <data name="Loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="logoAppTransMovimiento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logoAppTransMovimiento.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Pregunta" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pregunta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Reporte" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Reporte.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="usuarioIcono" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\usuarioIcono.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -73,6 +73,16 @@ namespace TT2024_A155.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap contraseniaIcono {
+            get {
+                object obj = ResourceManager.GetObject("contraseniaIcono", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Correcto {
             get {
                 object obj = ResourceManager.GetObject("Correcto", resourceCulture);
@@ -143,6 +153,16 @@ namespace TT2024_A155.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logoAppTransMovimiento {
+            get {
+                object obj = ResourceManager.GetObject("logoAppTransMovimiento", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Pregunta {
             get {
                 object obj = ResourceManager.GetObject("Pregunta", resourceCulture);
@@ -157,6 +177,16 @@ namespace TT2024_A155.Properties {
             get {
                 object obj = ResourceManager.GetObject("Reporte", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap usuarioIcono {
+            get {
+                object obj = ResourceManager.GetObject("usuarioIcono", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
