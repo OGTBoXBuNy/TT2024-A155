@@ -259,7 +259,7 @@
             Controls.Add(txtPrecioVenta);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Producto";
-            Text = "Producto";
+            Text = "Seleccionar Producto";
             Load += Producto_Load;
             ResumeLayout(false);
             PerformLayout();

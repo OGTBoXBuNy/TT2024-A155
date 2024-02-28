@@ -7,67 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//Diseño
+using MaterialSkin.Controls;
 
 namespace TT2024_A155
 {
-    public partial class Administrar : Form
+    public partial class Administrar : MaterialForm
     {
         //CONSTRUCTOR DEL FORM
         BD Consulta = new BD();
         DataSet ds = new DataSet();
         DataView dv = new DataView();
         string[] datosCuenta;
-        
+
         public Administrar()
         {
             InitializeComponent();
+            MaterialUI.loadMaterial(this);
         }
 
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-            string rol = cmbRol.Text.Trim();
-            string usuario = txtUsuario.Text.Trim();
-            string nombre = txtNombre.Text.Trim();
-            string contra = txtContrasenia.Text.Trim();
-            string calle = txtCalle.Text.Trim();
-            string colonia = txtCol.Text.Trim();
-            string noExt = txtNoExt.Text.Trim();
-            string noInt = txtNoInt.Text.Trim();
-            string cp = txtCP.Text.Trim();
-            string ciudad = txtCiudad.Text.Trim();
-            string telefono = txtTel.Text.Trim();
-            string correo = txtCorreo.Text.Trim();
-            string cif = txtCif.Text.Trim();
 
-            if (rbtnDatosPersonales.Checked)
-            {
-                if(txtContrasenia.Text.Trim() != "")
-                {
-                    Consulta.actualizarDatosPersonales(1, contra, usuario, nombre, colonia, calle, noExt, noInt, cp, ciudad, telefono, correo);
-                }
-                else
-                {
-                    Consulta.actualizarDatosPersonales(0, contra, usuario, nombre, colonia, calle, noExt, noInt, cp, ciudad, telefono, correo);
-                }
-                
-                string descripcionLog = "El usuario : " + usuario + " actualizó datos personales de la cuenta: " +  " el día: " + DateTime.Now.ToString();
-                Consulta.Log(usuario, "", descripcionLog, "18");
-            }
-            else if(rbtnDatosFiscales.Checked)
-            {
-                Consulta.actualizarDatosFiscalesCliente(usuario, nombre, cif, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo);
-                string descripcionLog = "El usuario : " + usuario + " actualizó datos fiscales de la cuenta: " + " el día: " + DateTime.Now.ToString();
-                Consulta.Log(usuario, "", descripcionLog, "18");
-            }
-            else { }
-
-
-        }
 
         private void Administrar_Load(object sender, EventArgs e)
         {
-            
-           
+
+
             ds = Consulta.Roles();
             dv = ds.Tables[0].DefaultView;
             cmbRol.DataSource = dv;
@@ -108,6 +72,47 @@ namespace TT2024_A155
 
         }
 
+
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            string rol = cmbRol.Text.Trim();
+            string usuario = txtUsuario.Text.Trim();
+            string nombre = txtNombre.Text.Trim();
+            string contra = txtContrasenia.Text.Trim();
+            string calle = txtCalle.Text.Trim();
+            string colonia = txtCol.Text.Trim();
+            string noExt = txtNoExt.Text.Trim();
+            string noInt = txtNoInt.Text.Trim();
+            string cp = txtCP.Text.Trim();
+            string ciudad = txtCiudad.Text.Trim();
+            string telefono = txtTel.Text.Trim();
+            string correo = txtCorreo.Text.Trim();
+            string cif = txtCif.Text.Trim();
+
+            if (rbtnDatosPersonales.Checked)
+            {
+                if (txtContrasenia.Text.Trim() != "")
+                {
+                    Consulta.actualizarDatosPersonales(1, contra, usuario, nombre, colonia, calle, noExt, noInt, cp, ciudad, telefono, correo);
+                }
+                else
+                {
+                    Consulta.actualizarDatosPersonales(0, contra, usuario, nombre, colonia, calle, noExt, noInt, cp, ciudad, telefono, correo);
+                }
+
+                string descripcionLog = "El usuario : " + usuario + " actualizó datos personales de la cuenta: " + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, "", descripcionLog, "18");
+            }
+            else if (rbtnDatosFiscales.Checked)
+            {
+                Consulta.actualizarDatosFiscalesCliente(usuario, nombre, cif, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo);
+                string descripcionLog = "El usuario : " + usuario + " actualizó datos fiscales de la cuenta: " + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, "", descripcionLog, "18");
+            }
+            else { }
+        }
+
         private void rbtnDatosPersonales_CheckedChanged(object sender, EventArgs e)
         {
             txtNombre.Text = string.Empty;
@@ -138,6 +143,8 @@ namespace TT2024_A155
                 txtCorreo.Text = datosCuenta[8];
             }
         }
+
+
 
         private void rbtnDatosFiscales_CheckedChanged(object sender, EventArgs e)
         {
