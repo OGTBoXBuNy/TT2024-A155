@@ -30,58 +30,41 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pedido));
             lblUsuario = new Label();
-            lblCliente = new Label();
-            lblComentarios = new Label();
             txtComentarios = new TextBox();
-            lblClienteFact = new Label();
-            lblTituloFact = new Label();
-            lblCif = new Label();
-            lblCalle = new Label();
-            lblColonia = new Label();
-            lblNoExt = new Label();
-            lblNoInt = new Label();
-            lblCp = new Label();
-            lblCiudad = new Label();
-            lblTel = new Label();
-            lblCorreo = new Label();
-            txtNombreCliFact = new TextBox();
-            txtCif = new TextBox();
-            txtCalle = new TextBox();
-            txtCP = new TextBox();
-            txtTel = new TextBox();
-            txtCol = new TextBox();
-            txtNoExt = new TextBox();
-            txtCorreo = new TextBox();
-            txtCiudad = new TextBox();
-            txtNoInt = new TextBox();
             dgvPedido = new DataGridView();
-            btnAceptar = new Button();
-            btnAgregarProducto = new Button();
             cmbCliente = new ComboBox();
-            lblNombreCliente = new Label();
-            lblSubtotal = new Label();
-            lblTotal = new Label();
             dgvDatosPDF = new DataGridView();
             lblRol = new Label();
             lblIdPedido = new Label();
-            lblFechaCreacion = new Label();
-            materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel7 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel8 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel9 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel10 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel11 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel12 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel13 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel14 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel15 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel16 = new MaterialSkin.Controls.MaterialLabel();
-            materialLabel17 = new MaterialSkin.Controls.MaterialLabel();
+            lblCliente = new MaterialSkin.Controls.MaterialLabel();
+            lblNombreCliente = new MaterialSkin.Controls.MaterialLabel();
+            lblFechaCreacion = new MaterialSkin.Controls.MaterialLabel();
+            lblComentarios = new MaterialSkin.Controls.MaterialLabel();
+            lblTituloFact = new MaterialSkin.Controls.MaterialLabel();
+            lblClienteFact = new MaterialSkin.Controls.MaterialLabel();
+            lblCif = new MaterialSkin.Controls.MaterialLabel();
+            lblCalle = new MaterialSkin.Controls.MaterialLabel();
+            lblCp = new MaterialSkin.Controls.MaterialLabel();
+            lblTel = new MaterialSkin.Controls.MaterialLabel();
+            lblColonia = new MaterialSkin.Controls.MaterialLabel();
+            lblNoExt = new MaterialSkin.Controls.MaterialLabel();
+            lblCiudad = new MaterialSkin.Controls.MaterialLabel();
+            lblCorreo = new MaterialSkin.Controls.MaterialLabel();
+            lblNoInt = new MaterialSkin.Controls.MaterialLabel();
+            lblSubtotal = new MaterialSkin.Controls.MaterialLabel();
+            lblTotal = new MaterialSkin.Controls.MaterialLabel();
+            txtNombreCliFact = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtCif = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtCalle = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtTel = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtCP = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtCorreo = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtCiudad = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtNoExt = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtCol = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtNoInt = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            btnAgregarProducto = new MaterialSkin.Controls.MaterialRaisedButton();
+            btnAceptar = new MaterialSkin.Controls.MaterialRaisedButton();
             ((System.ComponentModel.ISupportInitialize)dgvPedido).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).BeginInit();
             SuspendLayout();
@@ -95,200 +78,13 @@
             lblUsuario.TabIndex = 0;
             lblUsuario.Text = "Usuario";
             // 
-            // lblCliente
-            // 
-            lblCliente.AutoSize = true;
-            lblCliente.Location = new Point(12, 123);
-            lblCliente.Name = "lblCliente";
-            lblCliente.Size = new Size(58, 20);
-            lblCliente.TabIndex = 2;
-            lblCliente.Text = "Cliente:";
-            // 
-            // lblComentarios
-            // 
-            lblComentarios.AutoSize = true;
-            lblComentarios.Location = new Point(268, 271);
-            lblComentarios.Name = "lblComentarios";
-            lblComentarios.Size = new Size(96, 20);
-            lblComentarios.TabIndex = 3;
-            lblComentarios.Text = "Comentarios:";
-            // 
             // txtComentarios
             // 
-            txtComentarios.Location = new Point(178, 294);
+            txtComentarios.Location = new Point(159, 215);
             txtComentarios.Multiline = true;
             txtComentarios.Name = "txtComentarios";
-            txtComentarios.Size = new Size(272, 90);
+            txtComentarios.Size = new Size(291, 106);
             txtComentarios.TabIndex = 4;
-            // 
-            // lblClienteFact
-            // 
-            lblClienteFact.AutoSize = true;
-            lblClienteFact.Location = new Point(471, 166);
-            lblClienteFact.Name = "lblClienteFact";
-            lblClienteFact.Size = new Size(67, 20);
-            lblClienteFact.TabIndex = 6;
-            lblClienteFact.Text = "Nombre:";
-            // 
-            // lblTituloFact
-            // 
-            lblTituloFact.AutoSize = true;
-            lblTituloFact.Location = new Point(471, 123);
-            lblTituloFact.Name = "lblTituloFact";
-            lblTituloFact.Size = new Size(159, 20);
-            lblTituloFact.TabIndex = 7;
-            lblTituloFact.Text = "DATOS FACTURACION:";
-            // 
-            // lblCif
-            // 
-            lblCif.AutoSize = true;
-            lblCif.Location = new Point(471, 203);
-            lblCif.Name = "lblCif";
-            lblCif.Size = new Size(32, 20);
-            lblCif.TabIndex = 8;
-            lblCif.Text = "CIF:";
-            // 
-            // lblCalle
-            // 
-            lblCalle.AutoSize = true;
-            lblCalle.Location = new Point(471, 241);
-            lblCalle.Name = "lblCalle";
-            lblCalle.Size = new Size(45, 20);
-            lblCalle.TabIndex = 9;
-            lblCalle.Text = "Calle:";
-            // 
-            // lblColonia
-            // 
-            lblColonia.AutoSize = true;
-            lblColonia.Location = new Point(738, 203);
-            lblColonia.Name = "lblColonia";
-            lblColonia.Size = new Size(63, 20);
-            lblColonia.TabIndex = 10;
-            lblColonia.Text = "Colonia:";
-            // 
-            // lblNoExt
-            // 
-            lblNoExt.AutoSize = true;
-            lblNoExt.Location = new Point(738, 241);
-            lblNoExt.Name = "lblNoExt";
-            lblNoExt.Size = new Size(62, 20);
-            lblNoExt.TabIndex = 11;
-            lblNoExt.Text = "No. Ext.:";
-            // 
-            // lblNoInt
-            // 
-            lblNoInt.AutoSize = true;
-            lblNoInt.Location = new Point(981, 241);
-            lblNoInt.Name = "lblNoInt";
-            lblNoInt.Size = new Size(59, 20);
-            lblNoInt.TabIndex = 12;
-            lblNoInt.Text = "No. Int.:";
-            // 
-            // lblCp
-            // 
-            lblCp.AutoSize = true;
-            lblCp.Location = new Point(471, 284);
-            lblCp.Name = "lblCp";
-            lblCp.Size = new Size(35, 20);
-            lblCp.TabIndex = 13;
-            lblCp.Text = "C.P.:";
-            // 
-            // lblCiudad
-            // 
-            lblCiudad.AutoSize = true;
-            lblCiudad.Location = new Point(738, 284);
-            lblCiudad.Name = "lblCiudad";
-            lblCiudad.Size = new Size(59, 20);
-            lblCiudad.TabIndex = 14;
-            lblCiudad.Text = "Ciudad:";
-            // 
-            // lblTel
-            // 
-            lblTel.AutoSize = true;
-            lblTel.Location = new Point(471, 328);
-            lblTel.Name = "lblTel";
-            lblTel.Size = new Size(70, 20);
-            lblTel.TabIndex = 15;
-            lblTel.Text = "Telefono:";
-            // 
-            // lblCorreo
-            // 
-            lblCorreo.AutoSize = true;
-            lblCorreo.Location = new Point(738, 328);
-            lblCorreo.Name = "lblCorreo";
-            lblCorreo.Size = new Size(57, 20);
-            lblCorreo.TabIndex = 16;
-            lblCorreo.Text = "Correo:";
-            // 
-            // txtNombreCliFact
-            // 
-            txtNombreCliFact.Location = new Point(547, 159);
-            txtNombreCliFact.Name = "txtNombreCliFact";
-            txtNombreCliFact.Size = new Size(310, 27);
-            txtNombreCliFact.TabIndex = 17;
-            // 
-            // txtCif
-            // 
-            txtCif.Location = new Point(547, 196);
-            txtCif.Name = "txtCif";
-            txtCif.Size = new Size(159, 27);
-            txtCif.TabIndex = 18;
-            // 
-            // txtCalle
-            // 
-            txtCalle.Location = new Point(547, 234);
-            txtCalle.Name = "txtCalle";
-            txtCalle.Size = new Size(159, 27);
-            txtCalle.TabIndex = 19;
-            // 
-            // txtCP
-            // 
-            txtCP.Location = new Point(547, 277);
-            txtCP.Name = "txtCP";
-            txtCP.Size = new Size(159, 27);
-            txtCP.TabIndex = 20;
-            // 
-            // txtTel
-            // 
-            txtTel.Location = new Point(547, 321);
-            txtTel.Name = "txtTel";
-            txtTel.Size = new Size(159, 27);
-            txtTel.TabIndex = 21;
-            // 
-            // txtCol
-            // 
-            txtCol.Location = new Point(807, 196);
-            txtCol.Name = "txtCol";
-            txtCol.Size = new Size(159, 27);
-            txtCol.TabIndex = 22;
-            // 
-            // txtNoExt
-            // 
-            txtNoExt.Location = new Point(807, 238);
-            txtNoExt.Name = "txtNoExt";
-            txtNoExt.Size = new Size(159, 27);
-            txtNoExt.TabIndex = 23;
-            // 
-            // txtCorreo
-            // 
-            txtCorreo.Location = new Point(807, 323);
-            txtCorreo.Name = "txtCorreo";
-            txtCorreo.Size = new Size(159, 27);
-            txtCorreo.TabIndex = 25;
-            // 
-            // txtCiudad
-            // 
-            txtCiudad.Location = new Point(807, 281);
-            txtCiudad.Name = "txtCiudad";
-            txtCiudad.Size = new Size(159, 27);
-            txtCiudad.TabIndex = 24;
-            // 
-            // txtNoInt
-            // 
-            txtNoInt.Location = new Point(1046, 234);
-            txtNoInt.Name = "txtNoInt";
-            txtNoInt.Size = new Size(53, 27);
-            txtNoInt.TabIndex = 26;
             // 
             // dgvPedido
             // 
@@ -302,67 +98,20 @@
             dgvPedido.Name = "dgvPedido";
             dgvPedido.RowHeadersWidth = 51;
             dgvPedido.RowTemplate.Height = 29;
-            dgvPedido.Size = new Size(954, 188);
+            dgvPedido.Size = new Size(1106, 188);
             dgvPedido.TabIndex = 27;
             dgvPedido.CellClick += dgvPedido_CellClick;
-            // 
-            // btnAceptar
-            // 
-            btnAceptar.Location = new Point(1069, 609);
-            btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(94, 29);
-            btnAceptar.TabIndex = 28;
-            btnAceptar.Text = "Aceptar";
-            btnAceptar.UseVisualStyleBackColor = true;
-            btnAceptar.Click += btnAceptar_Click;
-            // 
-            // btnAgregarProducto
-            // 
-            btnAgregarProducto.Location = new Point(12, 355);
-            btnAgregarProducto.Name = "btnAgregarProducto";
-            btnAgregarProducto.Size = new Size(140, 29);
-            btnAgregarProducto.TabIndex = 29;
-            btnAgregarProducto.Text = "Agregar Producto";
-            btnAgregarProducto.UseVisualStyleBackColor = true;
-            btnAgregarProducto.Click += btnAgregarProducto_Click;
             // 
             // cmbCliente
             // 
             cmbCliente.AutoCompleteMode = AutoCompleteMode.Suggest;
             cmbCliente.AutoCompleteSource = AutoCompleteSource.ListItems;
             cmbCliente.FormattingEnabled = true;
-            cmbCliente.Location = new Point(86, 115);
+            cmbCliente.Location = new Point(101, 90);
             cmbCliente.Name = "cmbCliente";
-            cmbCliente.Size = new Size(299, 28);
+            cmbCliente.Size = new Size(349, 28);
             cmbCliente.TabIndex = 30;
             cmbCliente.SelectedIndexChanged += cmbCliente_SelectedIndexChanged;
-            // 
-            // lblNombreCliente
-            // 
-            lblNombreCliente.AutoSize = true;
-            lblNombreCliente.Location = new Point(12, 159);
-            lblNombreCliente.Name = "lblNombreCliente";
-            lblNombreCliente.Size = new Size(67, 20);
-            lblNombreCliente.TabIndex = 35;
-            lblNombreCliente.Text = "Nombre:";
-            // 
-            // lblSubtotal
-            // 
-            lblSubtotal.AutoSize = true;
-            lblSubtotal.Location = new Point(807, 581);
-            lblSubtotal.Name = "lblSubtotal";
-            lblSubtotal.Size = new Size(72, 20);
-            lblSubtotal.TabIndex = 36;
-            lblSubtotal.Text = "Subtotal: ";
-            // 
-            // lblTotal
-            // 
-            lblTotal.AutoSize = true;
-            lblTotal.Location = new Point(807, 609);
-            lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(123, 20);
-            lblTotal.TabIndex = 37;
-            lblTotal.Text = "Total + IVA(16%):";
             // 
             // dgvDatosPDF
             // 
@@ -392,270 +141,436 @@
             lblIdPedido.TabIndex = 40;
             lblIdPedido.Text = "IDPedido";
             // 
+            // lblCliente
+            // 
+            lblCliente.AutoSize = true;
+            lblCliente.Depth = 0;
+            lblCliente.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCliente.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCliente.Location = new Point(12, 90);
+            lblCliente.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCliente.Name = "lblCliente";
+            lblCliente.Size = new Size(73, 24);
+            lblCliente.TabIndex = 42;
+            lblCliente.Text = "Cliente:";
+            // 
+            // lblNombreCliente
+            // 
+            lblNombreCliente.AutoSize = true;
+            lblNombreCliente.Depth = 0;
+            lblNombreCliente.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNombreCliente.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblNombreCliente.Location = new Point(12, 130);
+            lblNombreCliente.MouseState = MaterialSkin.MouseState.HOVER;
+            lblNombreCliente.Name = "lblNombreCliente";
+            lblNombreCliente.Size = new Size(84, 24);
+            lblNombreCliente.TabIndex = 43;
+            lblNombreCliente.Text = "Nombre:";
+            // 
             // lblFechaCreacion
             // 
             lblFechaCreacion.AutoSize = true;
-            lblFechaCreacion.Location = new Point(12, 203);
+            lblFechaCreacion.Depth = 0;
+            lblFechaCreacion.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblFechaCreacion.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblFechaCreacion.Location = new Point(12, 170);
+            lblFechaCreacion.MouseState = MaterialSkin.MouseState.HOVER;
             lblFechaCreacion.Name = "lblFechaCreacion";
-            lblFechaCreacion.Size = new Size(116, 20);
-            lblFechaCreacion.TabIndex = 41;
+            lblFechaCreacion.Size = new Size(150, 24);
+            lblFechaCreacion.TabIndex = 44;
             lblFechaCreacion.Text = "Fecha Creación: ";
-            lblFechaCreacion.Visible = false;
             // 
-            // materialLabel1
+            // lblComentarios
             // 
-            materialLabel1.AutoSize = true;
-            materialLabel1.Depth = 0;
-            materialLabel1.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel1.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel1.Location = new Point(12, 88);
-            materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel1.Name = "materialLabel1";
-            materialLabel1.Size = new Size(73, 24);
-            materialLabel1.TabIndex = 42;
-            materialLabel1.Text = "Cliente:";
+            lblComentarios.AutoSize = true;
+            lblComentarios.Depth = 0;
+            lblComentarios.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblComentarios.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblComentarios.Location = new Point(12, 210);
+            lblComentarios.MouseState = MaterialSkin.MouseState.HOVER;
+            lblComentarios.Name = "lblComentarios";
+            lblComentarios.Size = new Size(123, 24);
+            lblComentarios.TabIndex = 45;
+            lblComentarios.Text = "Comentarios:";
             // 
-            // materialLabel2
+            // lblTituloFact
             // 
-            materialLabel2.AutoSize = true;
-            materialLabel2.Depth = 0;
-            materialLabel2.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel2.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel2.Location = new Point(96, 155);
-            materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel2.Name = "materialLabel2";
-            materialLabel2.Size = new Size(84, 24);
-            materialLabel2.TabIndex = 43;
-            materialLabel2.Text = "Nombre:";
+            lblTituloFact.AutoSize = true;
+            lblTituloFact.Depth = 0;
+            lblTituloFact.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTituloFact.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblTituloFact.Location = new Point(547, 90);
+            lblTituloFact.MouseState = MaterialSkin.MouseState.HOVER;
+            lblTituloFact.Name = "lblTituloFact";
+            lblTituloFact.Size = new Size(205, 24);
+            lblTituloFact.TabIndex = 46;
+            lblTituloFact.Text = "DATOS FACTURACION:";
             // 
-            // materialLabel3
+            // lblClienteFact
             // 
-            materialLabel3.AutoSize = true;
-            materialLabel3.Depth = 0;
-            materialLabel3.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel3.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel3.Location = new Point(150, 199);
-            materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel3.Name = "materialLabel3";
-            materialLabel3.Size = new Size(150, 24);
-            materialLabel3.TabIndex = 44;
-            materialLabel3.Text = "Fecha Creación: ";
+            lblClienteFact.AutoSize = true;
+            lblClienteFact.Depth = 0;
+            lblClienteFact.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblClienteFact.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblClienteFact.Location = new Point(547, 130);
+            lblClienteFact.MouseState = MaterialSkin.MouseState.HOVER;
+            lblClienteFact.Name = "lblClienteFact";
+            lblClienteFact.Size = new Size(84, 24);
+            lblClienteFact.TabIndex = 47;
+            lblClienteFact.Text = "Nombre:";
             // 
-            // materialLabel4
+            // lblCif
             // 
-            materialLabel4.AutoSize = true;
-            materialLabel4.Depth = 0;
-            materialLabel4.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel4.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel4.Location = new Point(126, 267);
-            materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel4.Name = "materialLabel4";
-            materialLabel4.Size = new Size(123, 24);
-            materialLabel4.TabIndex = 45;
-            materialLabel4.Text = "Comentarios:";
+            lblCif.AutoSize = true;
+            lblCif.Depth = 0;
+            lblCif.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCif.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCif.Location = new Point(547, 170);
+            lblCif.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCif.Name = "lblCif";
+            lblCif.Size = new Size(43, 24);
+            lblCif.TabIndex = 48;
+            lblCif.Text = "CIF:";
             // 
-            // materialLabel5
+            // lblCalle
             // 
-            materialLabel5.AutoSize = true;
-            materialLabel5.Depth = 0;
-            materialLabel5.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel5.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel5.Location = new Point(471, 99);
-            materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel5.Name = "materialLabel5";
-            materialLabel5.Size = new Size(205, 24);
-            materialLabel5.TabIndex = 46;
-            materialLabel5.Text = "DATOS FACTURACION:";
+            lblCalle.AutoSize = true;
+            lblCalle.Depth = 0;
+            lblCalle.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCalle.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCalle.Location = new Point(547, 210);
+            lblCalle.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCalle.Name = "lblCalle";
+            lblCalle.Size = new Size(57, 24);
+            lblCalle.TabIndex = 49;
+            lblCalle.Text = "Calle:";
             // 
-            // materialLabel6
+            // lblCp
             // 
-            materialLabel6.AutoSize = true;
-            materialLabel6.Depth = 0;
-            materialLabel6.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel6.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel6.Location = new Point(557, 157);
-            materialLabel6.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel6.Name = "materialLabel6";
-            materialLabel6.Size = new Size(84, 24);
-            materialLabel6.TabIndex = 47;
-            materialLabel6.Text = "Nombre:";
+            lblCp.AutoSize = true;
+            lblCp.Depth = 0;
+            lblCp.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCp.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCp.Location = new Point(547, 250);
+            lblCp.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCp.Name = "lblCp";
+            lblCp.Size = new Size(49, 24);
+            lblCp.TabIndex = 50;
+            lblCp.Text = "C.P.:";
             // 
-            // materialLabel7
+            // lblTel
             // 
-            materialLabel7.AutoSize = true;
-            materialLabel7.Depth = 0;
-            materialLabel7.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel7.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel7.Location = new Point(547, 197);
-            materialLabel7.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel7.Name = "materialLabel7";
-            materialLabel7.Size = new Size(43, 24);
-            materialLabel7.TabIndex = 48;
-            materialLabel7.Text = "CIF:";
+            lblTel.AutoSize = true;
+            lblTel.Depth = 0;
+            lblTel.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTel.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblTel.Location = new Point(547, 290);
+            lblTel.MouseState = MaterialSkin.MouseState.HOVER;
+            lblTel.Name = "lblTel";
+            lblTel.Size = new Size(90, 24);
+            lblTel.TabIndex = 51;
+            lblTel.Text = "Telefono:";
             // 
-            // materialLabel8
+            // lblColonia
             // 
-            materialLabel8.AutoSize = true;
-            materialLabel8.Depth = 0;
-            materialLabel8.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel8.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel8.Location = new Point(547, 237);
-            materialLabel8.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel8.Name = "materialLabel8";
-            materialLabel8.Size = new Size(57, 24);
-            materialLabel8.TabIndex = 49;
-            materialLabel8.Text = "Calle:";
+            lblColonia.AutoSize = true;
+            lblColonia.Depth = 0;
+            lblColonia.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblColonia.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblColonia.Location = new Point(894, 130);
+            lblColonia.MouseState = MaterialSkin.MouseState.HOVER;
+            lblColonia.Name = "lblColonia";
+            lblColonia.Size = new Size(79, 24);
+            lblColonia.TabIndex = 52;
+            lblColonia.Text = "Colonia:";
             // 
-            // materialLabel9
+            // lblNoExt
             // 
-            materialLabel9.AutoSize = true;
-            materialLabel9.Depth = 0;
-            materialLabel9.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel9.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel9.Location = new Point(547, 278);
-            materialLabel9.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel9.Name = "materialLabel9";
-            materialLabel9.Size = new Size(49, 24);
-            materialLabel9.TabIndex = 50;
-            materialLabel9.Text = "C.P.:";
+            lblNoExt.AutoSize = true;
+            lblNoExt.Depth = 0;
+            lblNoExt.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNoExt.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblNoExt.Location = new Point(894, 170);
+            lblNoExt.MouseState = MaterialSkin.MouseState.HOVER;
+            lblNoExt.Name = "lblNoExt";
+            lblNoExt.Size = new Size(81, 24);
+            lblNoExt.TabIndex = 53;
+            lblNoExt.Text = "No. Ext.:";
             // 
-            // materialLabel10
+            // lblCiudad
             // 
-            materialLabel10.AutoSize = true;
-            materialLabel10.Depth = 0;
-            materialLabel10.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel10.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel10.Location = new Point(557, 323);
-            materialLabel10.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel10.Name = "materialLabel10";
-            materialLabel10.Size = new Size(90, 24);
-            materialLabel10.TabIndex = 51;
-            materialLabel10.Text = "Telefono:";
+            lblCiudad.AutoSize = true;
+            lblCiudad.Depth = 0;
+            lblCiudad.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCiudad.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCiudad.Location = new Point(894, 210);
+            lblCiudad.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCiudad.Name = "lblCiudad";
+            lblCiudad.Size = new Size(74, 24);
+            lblCiudad.TabIndex = 54;
+            lblCiudad.Text = "Ciudad:";
             // 
-            // materialLabel11
+            // lblCorreo
             // 
-            materialLabel11.AutoSize = true;
-            materialLabel11.Depth = 0;
-            materialLabel11.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel11.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel11.Location = new Point(819, 196);
-            materialLabel11.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel11.Name = "materialLabel11";
-            materialLabel11.Size = new Size(79, 24);
-            materialLabel11.TabIndex = 52;
-            materialLabel11.Text = "Colonia:";
+            lblCorreo.AutoSize = true;
+            lblCorreo.Depth = 0;
+            lblCorreo.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCorreo.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCorreo.Location = new Point(894, 250);
+            lblCorreo.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCorreo.Name = "lblCorreo";
+            lblCorreo.Size = new Size(71, 24);
+            lblCorreo.TabIndex = 55;
+            lblCorreo.Text = "Correo:";
             // 
-            // materialLabel12
+            // lblNoInt
             // 
-            materialLabel12.AutoSize = true;
-            materialLabel12.Depth = 0;
-            materialLabel12.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel12.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel12.Location = new Point(806, 238);
-            materialLabel12.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel12.Name = "materialLabel12";
-            materialLabel12.Size = new Size(81, 24);
-            materialLabel12.TabIndex = 53;
-            materialLabel12.Text = "No. Ext.:";
+            lblNoInt.AutoSize = true;
+            lblNoInt.Depth = 0;
+            lblNoInt.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNoInt.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblNoInt.Location = new Point(1119, 170);
+            lblNoInt.MouseState = MaterialSkin.MouseState.HOVER;
+            lblNoInt.Name = "lblNoInt";
+            lblNoInt.Size = new Size(76, 24);
+            lblNoInt.TabIndex = 56;
+            lblNoInt.Text = "No. Int.:";
             // 
-            // materialLabel13
+            // lblSubtotal
             // 
-            materialLabel13.AutoSize = true;
-            materialLabel13.Depth = 0;
-            materialLabel13.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel13.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel13.Location = new Point(807, 282);
-            materialLabel13.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel13.Name = "materialLabel13";
-            materialLabel13.Size = new Size(74, 24);
-            materialLabel13.TabIndex = 54;
-            materialLabel13.Text = "Ciudad:";
+            lblSubtotal.AutoSize = true;
+            lblSubtotal.Depth = 0;
+            lblSubtotal.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblSubtotal.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblSubtotal.Location = new Point(853, 590);
+            lblSubtotal.MouseState = MaterialSkin.MouseState.HOVER;
+            lblSubtotal.Name = "lblSubtotal";
+            lblSubtotal.Size = new Size(90, 24);
+            lblSubtotal.TabIndex = 57;
+            lblSubtotal.Text = "Subtotal: ";
             // 
-            // materialLabel14
+            // lblTotal
             // 
-            materialLabel14.AutoSize = true;
-            materialLabel14.Depth = 0;
-            materialLabel14.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel14.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel14.Location = new Point(807, 322);
-            materialLabel14.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel14.Name = "materialLabel14";
-            materialLabel14.Size = new Size(71, 24);
-            materialLabel14.TabIndex = 55;
-            materialLabel14.Text = "Correo:";
+            lblTotal.AutoSize = true;
+            lblTotal.Depth = 0;
+            lblTotal.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTotal.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblTotal.Location = new Point(853, 630);
+            lblTotal.MouseState = MaterialSkin.MouseState.HOVER;
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(157, 24);
+            lblTotal.TabIndex = 58;
+            lblTotal.Text = "Total + IVA(16%):";
             // 
-            // materialLabel15
+            // txtNombreCliFact
             // 
-            materialLabel15.AutoSize = true;
-            materialLabel15.Depth = 0;
-            materialLabel15.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel15.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel15.Location = new Point(981, 271);
-            materialLabel15.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel15.Name = "materialLabel15";
-            materialLabel15.Size = new Size(76, 24);
-            materialLabel15.TabIndex = 56;
-            materialLabel15.Text = "No. Int.:";
+            txtNombreCliFact.Depth = 0;
+            txtNombreCliFact.Hint = "";
+            txtNombreCliFact.Location = new Point(652, 130);
+            txtNombreCliFact.MaxLength = 32767;
+            txtNombreCliFact.MouseState = MaterialSkin.MouseState.HOVER;
+            txtNombreCliFact.Name = "txtNombreCliFact";
+            txtNombreCliFact.PasswordChar = '\0';
+            txtNombreCliFact.SelectedText = "";
+            txtNombreCliFact.SelectionLength = 0;
+            txtNombreCliFact.SelectionStart = 0;
+            txtNombreCliFact.Size = new Size(221, 28);
+            txtNombreCliFact.TabIndex = 59;
+            txtNombreCliFact.TabStop = false;
+            txtNombreCliFact.UseSystemPasswordChar = false;
             // 
-            // materialLabel16
+            // txtCif
             // 
-            materialLabel16.AutoSize = true;
-            materialLabel16.Depth = 0;
-            materialLabel16.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel16.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel16.Location = new Point(629, 581);
-            materialLabel16.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel16.Name = "materialLabel16";
-            materialLabel16.Size = new Size(90, 24);
-            materialLabel16.TabIndex = 57;
-            materialLabel16.Text = "Subtotal: ";
+            txtCif.Depth = 0;
+            txtCif.Hint = "";
+            txtCif.Location = new Point(652, 170);
+            txtCif.MaxLength = 32767;
+            txtCif.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCif.Name = "txtCif";
+            txtCif.PasswordChar = '\0';
+            txtCif.SelectedText = "";
+            txtCif.SelectionLength = 0;
+            txtCif.SelectionStart = 0;
+            txtCif.Size = new Size(221, 28);
+            txtCif.TabIndex = 60;
+            txtCif.TabStop = false;
+            txtCif.UseSystemPasswordChar = false;
             // 
-            // materialLabel17
+            // txtCalle
             // 
-            materialLabel17.AutoSize = true;
-            materialLabel17.Depth = 0;
-            materialLabel17.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            materialLabel17.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialLabel17.Location = new Point(629, 611);
-            materialLabel17.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabel17.Name = "materialLabel17";
-            materialLabel17.Size = new Size(157, 24);
-            materialLabel17.TabIndex = 58;
-            materialLabel17.Text = "Total + IVA(16%):";
+            txtCalle.Depth = 0;
+            txtCalle.Hint = "";
+            txtCalle.Location = new Point(652, 210);
+            txtCalle.MaxLength = 32767;
+            txtCalle.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCalle.Name = "txtCalle";
+            txtCalle.PasswordChar = '\0';
+            txtCalle.SelectedText = "";
+            txtCalle.SelectionLength = 0;
+            txtCalle.SelectionStart = 0;
+            txtCalle.Size = new Size(221, 28);
+            txtCalle.TabIndex = 61;
+            txtCalle.TabStop = false;
+            txtCalle.UseSystemPasswordChar = false;
+            // 
+            // txtTel
+            // 
+            txtTel.Depth = 0;
+            txtTel.Hint = "";
+            txtTel.Location = new Point(652, 290);
+            txtTel.MaxLength = 32767;
+            txtTel.MouseState = MaterialSkin.MouseState.HOVER;
+            txtTel.Name = "txtTel";
+            txtTel.PasswordChar = '\0';
+            txtTel.SelectedText = "";
+            txtTel.SelectionLength = 0;
+            txtTel.SelectionStart = 0;
+            txtTel.Size = new Size(221, 28);
+            txtTel.TabIndex = 63;
+            txtTel.TabStop = false;
+            txtTel.UseSystemPasswordChar = false;
+            // 
+            // txtCP
+            // 
+            txtCP.Depth = 0;
+            txtCP.Hint = "";
+            txtCP.Location = new Point(652, 250);
+            txtCP.MaxLength = 32767;
+            txtCP.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCP.Name = "txtCP";
+            txtCP.PasswordChar = '\0';
+            txtCP.SelectedText = "";
+            txtCP.SelectionLength = 0;
+            txtCP.SelectionStart = 0;
+            txtCP.Size = new Size(100, 28);
+            txtCP.TabIndex = 62;
+            txtCP.TabStop = false;
+            txtCP.UseSystemPasswordChar = false;
+            // 
+            // txtCorreo
+            // 
+            txtCorreo.Depth = 0;
+            txtCorreo.Hint = "";
+            txtCorreo.Location = new Point(996, 250);
+            txtCorreo.MaxLength = 32767;
+            txtCorreo.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCorreo.Name = "txtCorreo";
+            txtCorreo.PasswordChar = '\0';
+            txtCorreo.SelectedText = "";
+            txtCorreo.SelectionLength = 0;
+            txtCorreo.SelectionStart = 0;
+            txtCorreo.Size = new Size(199, 28);
+            txtCorreo.TabIndex = 67;
+            txtCorreo.TabStop = false;
+            txtCorreo.UseSystemPasswordChar = false;
+            // 
+            // txtCiudad
+            // 
+            txtCiudad.Depth = 0;
+            txtCiudad.Hint = "";
+            txtCiudad.Location = new Point(996, 210);
+            txtCiudad.MaxLength = 32767;
+            txtCiudad.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCiudad.Name = "txtCiudad";
+            txtCiudad.PasswordChar = '\0';
+            txtCiudad.SelectedText = "";
+            txtCiudad.SelectionLength = 0;
+            txtCiudad.SelectionStart = 0;
+            txtCiudad.Size = new Size(199, 28);
+            txtCiudad.TabIndex = 66;
+            txtCiudad.TabStop = false;
+            txtCiudad.UseSystemPasswordChar = false;
+            // 
+            // txtNoExt
+            // 
+            txtNoExt.Depth = 0;
+            txtNoExt.Hint = "";
+            txtNoExt.Location = new Point(996, 170);
+            txtNoExt.MaxLength = 32767;
+            txtNoExt.MouseState = MaterialSkin.MouseState.HOVER;
+            txtNoExt.Name = "txtNoExt";
+            txtNoExt.PasswordChar = '\0';
+            txtNoExt.SelectedText = "";
+            txtNoExt.SelectionLength = 0;
+            txtNoExt.SelectionStart = 0;
+            txtNoExt.Size = new Size(100, 28);
+            txtNoExt.TabIndex = 65;
+            txtNoExt.TabStop = false;
+            txtNoExt.UseSystemPasswordChar = false;
+            // 
+            // txtCol
+            // 
+            txtCol.Depth = 0;
+            txtCol.Hint = "";
+            txtCol.Location = new Point(996, 130);
+            txtCol.MaxLength = 32767;
+            txtCol.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCol.Name = "txtCol";
+            txtCol.PasswordChar = '\0';
+            txtCol.SelectedText = "";
+            txtCol.SelectionLength = 0;
+            txtCol.SelectionStart = 0;
+            txtCol.Size = new Size(199, 28);
+            txtCol.TabIndex = 64;
+            txtCol.TabStop = false;
+            txtCol.UseSystemPasswordChar = false;
+            // 
+            // txtNoInt
+            // 
+            txtNoInt.Depth = 0;
+            txtNoInt.Hint = "";
+            txtNoInt.Location = new Point(1214, 170);
+            txtNoInt.MaxLength = 32767;
+            txtNoInt.MouseState = MaterialSkin.MouseState.HOVER;
+            txtNoInt.Name = "txtNoInt";
+            txtNoInt.PasswordChar = '\0';
+            txtNoInt.SelectedText = "";
+            txtNoInt.SelectionLength = 0;
+            txtNoInt.SelectionStart = 0;
+            txtNoInt.Size = new Size(100, 28);
+            txtNoInt.TabIndex = 68;
+            txtNoInt.TabStop = false;
+            txtNoInt.UseSystemPasswordChar = false;
+            // 
+            // btnAgregarProducto
+            // 
+            btnAgregarProducto.AutoSize = true;
+            btnAgregarProducto.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnAgregarProducto.Depth = 0;
+            btnAgregarProducto.Icon = null;
+            btnAgregarProducto.Location = new Point(12, 345);
+            btnAgregarProducto.MouseState = MaterialSkin.MouseState.HOVER;
+            btnAgregarProducto.Name = "btnAgregarProducto";
+            btnAgregarProducto.Primary = true;
+            btnAgregarProducto.Size = new Size(193, 36);
+            btnAgregarProducto.TabIndex = 69;
+            btnAgregarProducto.Text = "Agregar Producto";
+            btnAgregarProducto.UseVisualStyleBackColor = true;
+            btnAgregarProducto.Click += btnAgregarProducto_Click;
+            // 
+            // btnAceptar
+            // 
+            btnAceptar.AutoSize = true;
+            btnAceptar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnAceptar.Depth = 0;
+            btnAceptar.Icon = null;
+            btnAceptar.Location = new Point(1234, 642);
+            btnAceptar.MouseState = MaterialSkin.MouseState.HOVER;
+            btnAceptar.Name = "btnAceptar";
+            btnAceptar.Primary = true;
+            btnAceptar.Size = new Size(98, 36);
+            btnAceptar.TabIndex = 70;
+            btnAceptar.Text = "Aceptar";
+            btnAceptar.UseVisualStyleBackColor = true;
+            btnAceptar.Click += btnAceptar_Click;
             // 
             // Pedido
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1206, 666);
-            Controls.Add(materialLabel17);
-            Controls.Add(materialLabel16);
-            Controls.Add(materialLabel15);
-            Controls.Add(materialLabel14);
-            Controls.Add(materialLabel13);
-            Controls.Add(materialLabel12);
-            Controls.Add(materialLabel11);
-            Controls.Add(materialLabel10);
-            Controls.Add(materialLabel9);
-            Controls.Add(materialLabel8);
-            Controls.Add(materialLabel7);
-            Controls.Add(materialLabel6);
-            Controls.Add(materialLabel5);
-            Controls.Add(materialLabel4);
-            Controls.Add(materialLabel3);
-            Controls.Add(materialLabel2);
-            Controls.Add(materialLabel1);
-            Controls.Add(lblFechaCreacion);
-            Controls.Add(lblIdPedido);
-            Controls.Add(lblRol);
-            Controls.Add(dgvDatosPDF);
-            Controls.Add(lblTotal);
-            Controls.Add(lblSubtotal);
-            Controls.Add(lblNombreCliente);
-            Controls.Add(cmbCliente);
-            Controls.Add(btnAgregarProducto);
+            ClientSize = new Size(1344, 690);
             Controls.Add(btnAceptar);
-            Controls.Add(dgvPedido);
+            Controls.Add(btnAgregarProducto);
             Controls.Add(txtNoInt);
             Controls.Add(txtCorreo);
             Controls.Add(txtCiudad);
@@ -666,24 +581,33 @@
             Controls.Add(txtCalle);
             Controls.Add(txtCif);
             Controls.Add(txtNombreCliFact);
-            Controls.Add(lblCorreo);
-            Controls.Add(lblTel);
-            Controls.Add(lblCiudad);
-            Controls.Add(lblCp);
+            Controls.Add(lblTotal);
+            Controls.Add(lblSubtotal);
             Controls.Add(lblNoInt);
+            Controls.Add(lblCorreo);
+            Controls.Add(lblCiudad);
             Controls.Add(lblNoExt);
             Controls.Add(lblColonia);
+            Controls.Add(lblTel);
+            Controls.Add(lblCp);
             Controls.Add(lblCalle);
             Controls.Add(lblCif);
-            Controls.Add(lblTituloFact);
             Controls.Add(lblClienteFact);
-            Controls.Add(txtComentarios);
+            Controls.Add(lblTituloFact);
             Controls.Add(lblComentarios);
+            Controls.Add(lblFechaCreacion);
+            Controls.Add(lblNombreCliente);
             Controls.Add(lblCliente);
+            Controls.Add(lblIdPedido);
+            Controls.Add(lblRol);
+            Controls.Add(dgvDatosPDF);
+            Controls.Add(cmbCliente);
+            Controls.Add(dgvPedido);
+            Controls.Add(txtComentarios);
             Controls.Add(lblUsuario);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Pedido";
-            Text = "Crear Pedido";
+            Text = "Solicitar Cotización (Pedido)";
             Load += Pedido_Load;
             ((System.ComponentModel.ISupportInitialize)dgvPedido).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).EndInit();
@@ -694,57 +618,40 @@
         #endregion
 
         public Label lblUsuario;
-        private Label lblCliente;
-        private Label lblComentarios;
         private TextBox txtComentarios;
-        private Label lblClienteFact;
-        private Label lblTituloFact;
-        private Label lblCif;
-        private Label lblCalle;
-        private Label lblColonia;
-        private Label lblNoExt;
-        private Label lblNoInt;
-        private Label lblCp;
-        private Label lblCiudad;
-        private Label lblTel;
-        private Label lblCorreo;
-        private TextBox txtNombreCliFact;
-        private TextBox txtCif;
-        private TextBox txtCalle;
-        private TextBox txtCP;
-        private TextBox txtTel;
-        private TextBox txtCol;
-        private TextBox txtNoExt;
-        private TextBox txtCorreo;
-        private TextBox txtCiudad;
-        private TextBox txtNoInt;
         private DataGridView dgvPedido;
-        private Button btnAceptar;
-        private Button btnAgregarProducto;
         private ComboBox cmbCliente;
-        private Label lblNombreCliente;
-        private Label lblSubtotal;
-        private Label lblTotal;
         private DataGridView dgvDatosPDF;
         public Label lblRol;
         public Label lblIdPedido;
-        private Label lblFechaCreacion;
-        private MaterialSkin.Controls.MaterialLabel materialLabel1;
-        private MaterialSkin.Controls.MaterialLabel materialLabel2;
-        private MaterialSkin.Controls.MaterialLabel materialLabel3;
-        private MaterialSkin.Controls.MaterialLabel materialLabel4;
-        private MaterialSkin.Controls.MaterialLabel materialLabel5;
-        private MaterialSkin.Controls.MaterialLabel materialLabel6;
-        private MaterialSkin.Controls.MaterialLabel materialLabel7;
-        private MaterialSkin.Controls.MaterialLabel materialLabel8;
-        private MaterialSkin.Controls.MaterialLabel materialLabel9;
-        private MaterialSkin.Controls.MaterialLabel materialLabel10;
-        private MaterialSkin.Controls.MaterialLabel materialLabel11;
-        private MaterialSkin.Controls.MaterialLabel materialLabel12;
-        private MaterialSkin.Controls.MaterialLabel materialLabel13;
-        private MaterialSkin.Controls.MaterialLabel materialLabel14;
-        private MaterialSkin.Controls.MaterialLabel materialLabel15;
-        private MaterialSkin.Controls.MaterialLabel materialLabel16;
-        private MaterialSkin.Controls.MaterialLabel materialLabel17;
+        private MaterialSkin.Controls.MaterialLabel lblCliente;
+        private MaterialSkin.Controls.MaterialLabel lblNombreCliente;
+        private MaterialSkin.Controls.MaterialLabel lblFechaCreacion;
+        private MaterialSkin.Controls.MaterialLabel lblComentarios;
+        private MaterialSkin.Controls.MaterialLabel lblTituloFact;
+        private MaterialSkin.Controls.MaterialLabel lblClienteFact;
+        private MaterialSkin.Controls.MaterialLabel lblCif;
+        private MaterialSkin.Controls.MaterialLabel lblCalle;
+        private MaterialSkin.Controls.MaterialLabel lblCp;
+        private MaterialSkin.Controls.MaterialLabel lblTel;
+        private MaterialSkin.Controls.MaterialLabel lblColonia;
+        private MaterialSkin.Controls.MaterialLabel lblNoExt;
+        private MaterialSkin.Controls.MaterialLabel lblCiudad;
+        private MaterialSkin.Controls.MaterialLabel lblCorreo;
+        private MaterialSkin.Controls.MaterialLabel lblNoInt;
+        private MaterialSkin.Controls.MaterialLabel lblSubtotal;
+        private MaterialSkin.Controls.MaterialLabel lblTotal;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtNombreCliFact;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCif;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCalle;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtTel;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCP;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCorreo;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCiudad;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtNoExt;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCol;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtNoInt;
+        private MaterialSkin.Controls.MaterialRaisedButton btnAgregarProducto;
+        private MaterialSkin.Controls.MaterialRaisedButton btnAceptar;
     }
 }

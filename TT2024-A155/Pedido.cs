@@ -16,7 +16,7 @@ namespace TT2024_A155
     public partial class Pedido : MaterialForm
     {
 
-        
+
         BD Consulta = new BD();
         private DataTable dt;
         double descuento = 0;
@@ -39,18 +39,18 @@ namespace TT2024_A155
 
 
 
-        private void registrarDatosFiscales(string usuario ,string nombre, string cif, string calle, string colonia, string noExt, string noInt, string CP, string ciudad, string telefono, string correo)
+        private void registrarDatosFiscales(string usuario, string nombre, string cif, string calle, string colonia, string noExt, string noInt, string CP, string ciudad, string telefono, string correo)
         {
             int tieneDatosFiscales = Consulta.validarDatosFiscalesCliente(cmbCliente.Text.Trim());// 0 = no tiene,,,,, 1 = YA TIENE DATOS FISCALES REGISTRADOS
-            
+
             if (tieneDatosFiscales == 0)
             {
-                Consulta.registrarDatosFiscalesCliente(usuario,nombre,cif,calle,colonia,noExt,noInt,CP,ciudad,telefono,correo);
+                Consulta.registrarDatosFiscalesCliente(usuario, nombre, cif, calle, colonia, noExt, noInt, CP, ciudad, telefono, correo);
             }
-           else if(tieneDatosFiscales == 1)
+            else if (tieneDatosFiscales == 1)
             {
                 Consulta.actualizarDatosFiscalesCliente(usuario, nombre, cif, calle, colonia, noExt, noInt, CP, ciudad, telefono, correo);
-            } 
+            }
         }
 
         private void registrarPedido()
@@ -69,7 +69,7 @@ namespace TT2024_A155
 
 
             if (lblRol.Text.Trim() != "4")// 4 = CLIENTE,,, 1,2,3 = VENDEDOR U OTRO
-                idVendedor =  Consulta.idUsuario(lblUsuario.Text.ToString().Trim()).ToString();
+                idVendedor = Consulta.idUsuario(lblUsuario.Text.ToString().Trim()).ToString();
 
             Consulta.registrarPedido(idVendedor, idCliente, fechaCreacion, subTotal.ToString("0.##"), total.ToString("0.##"), comentarios);//REGISTRAR PEDIDO
 
@@ -81,7 +81,7 @@ namespace TT2024_A155
                 descuento = row.Cells["Descuento\n(%)"].Value.ToString();
                 idVehiculo = row.Cells["idvehiculo"].Value.ToString();
 
-                 idPedido =  Consulta.registrarDetallePedido(idProducto,cantidad,precioVenta,descuento,idVehiculo);
+                idPedido = Consulta.registrarDetallePedido(idProducto, cantidad, precioVenta, descuento, idVehiculo);
 
             }
 
@@ -102,11 +102,11 @@ namespace TT2024_A155
             if (idPedido != -1)
                 Consulta.generarComprobante(idPedido.ToString(), dgvDatosPDF, true);
 
-            if(lblRol.Text.Trim() != "4")
+            if (lblRol.Text.Trim() != "4")
             {
                 string vendedor = lblUsuario.Text.ToString().Trim();
                 string pedido = Consulta.recuperarUltimoPedido();
-                string descripcionLog = "El vendedor :  " + vendedor + " generó el pedido:" + pedido + " para el cliente: " + cmbCliente.Text.Trim()+ " el día: " + DateTime.Now.ToString();
+                string descripcionLog = "El vendedor :  " + vendedor + " generó el pedido:" + pedido + " para el cliente: " + cmbCliente.Text.Trim() + " el día: " + DateTime.Now.ToString();
                 Consulta.Log(vendedor, pedido, descripcionLog, "5");
             }
             else
@@ -116,13 +116,13 @@ namespace TT2024_A155
                 string descripcionLog = "El cliente :  " + cliente + " generó el pedido: " + pedido + " el día: " + DateTime.Now.ToString();
                 Consulta.Log(cliente, pedido, descripcionLog, "5");
             }
-            
+
 
         }
 
         private void actualizarPedido()
         {
-            
+
             string comentarios = txtComentarios.Text.Trim();//COMENTARIOS
             string cantidad;
             string idProducto;
@@ -136,13 +136,13 @@ namespace TT2024_A155
 
 
 
-            
+
 
             //Consulta.actualizarPedido();//ACTUALIZAR PEDIDO
 
             foreach (DataGridViewRow row in dgvPedido.Rows)
             {
-                if (row.Cells["iddetalle_pedido"].Value.ToString() == "") 
+                if (row.Cells["iddetalle_pedido"].Value.ToString() == "")
                 {
                     cantidad = row.Cells["Cantidad"].Value.ToString();
                     idProducto = row.Cells["idProducto"].Value.ToString();
@@ -151,7 +151,7 @@ namespace TT2024_A155
                     idVehiculo = row.Cells["idvehiculo"].Value.ToString();
                     iddetalle_pedido = row.Cells["iddetalle_pedido"].Value.ToString();
 
-                    Consulta.registrarDetallePedidoActualizar(idProducto,cantidad,precioVenta,descuento,idVehiculo,idPedido, comentarios, subTotal.ToString("0.##"), total.ToString("0.##"));
+                    Consulta.registrarDetallePedidoActualizar(idProducto, cantidad, precioVenta, descuento, idVehiculo, idPedido, comentarios, subTotal.ToString("0.##"), total.ToString("0.##"));
                 }
                 else
                 {
@@ -166,7 +166,7 @@ namespace TT2024_A155
                 }
 
 
-                
+
 
                 //idPedido = Consulta.registrarDetallePedido(idProducto, cantidad, precioVenta, descuento, idVehiculo);
 
@@ -196,33 +196,14 @@ namespace TT2024_A155
         }
 
 
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-            if (actualizar == 0)
-            {
 
-                registrarPedido();
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-                //Consulta.generarVale();
-            }
-            else if (actualizar == 1)
-            {
-                actualizarPedido();
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            else { }
-
-
-        }
 
         private void Pedido_Load(object sender, EventArgs e)
         {
-            
 
-            lblSubtotal.Text = "SubTotal: " + subTotal.ToString();
-            lblTotal.Text = "Total + IVA(16%): " + total.ToString();
+
+            lblSubtotal.Text = "SubTotal: $ " + subTotal.ToString();
+            lblTotal.Text = "Total + IVA(16%): $ " + total.ToString();
 
             var editButton = new DataGridViewButtonColumn();
             editButton.Name = "dataGridViewEditButton";
@@ -270,9 +251,9 @@ namespace TT2024_A155
 
 
             //SI ES CLIENTE EL CMB DE CLIENTE SE BLOQUEA Y SELECCIONA EL DEL CLIENTE
-            
-            indexCMBCliente =  cmbCliente.FindString(lblUsuario.Text);
-            if(indexCMBCliente != -1)
+
+            indexCMBCliente = cmbCliente.FindString(lblUsuario.Text);
+            if (indexCMBCliente != -1)
             {
                 cmbCliente.SelectedIndex = indexCMBCliente;
                 cmbCliente.Enabled = false;
@@ -280,10 +261,10 @@ namespace TT2024_A155
 
 
             //----------ACTUALIZAR--------///
-            if(actualizar == 1)
+            if (actualizar == 1)
             {
-                
-                Consulta.datosPedidoActualizar(dgvPedido,dt, lblIdPedido.Text);
+
+                Consulta.datosPedidoActualizar(dgvPedido, dt, lblIdPedido.Text);
                 dgvPedido.Columns["Comentarios"].Visible = false;
                 dgvPedido.Columns["fecha_hora"].Visible = false;
                 dgvPedido.Columns["idusuarioVendedor"].Visible = false;
@@ -292,7 +273,7 @@ namespace TT2024_A155
 
                 txtComentarios.Text = dgvPedido.Rows[0].Cells[11].Value.ToString();
                 lblFechaCreacion.Visible = true;
-                lblFechaCreacion.Text = "Fecha Creación: " + dgvPedido.Rows[0].Cells[12].Value.ToString().Substring(0,10);
+                lblFechaCreacion.Text = "Fecha Creación: " + dgvPedido.Rows[0].Cells[12].Value.ToString().Substring(0, 10);
 
 
                 indexCMBCliente = cmbCliente.FindString(Consulta.nombreCliente(lblIdPedido.Text));
@@ -306,52 +287,13 @@ namespace TT2024_A155
 
         }
 
-        private void btnAgregarProducto_Click(object sender, EventArgs e)
-        {
 
-            Producto producto = new Producto(0, string.Empty);
-            DialogResult respuesta = producto.ShowDialog();
-            if (respuesta == DialogResult.OK)
-            {
-
-                double descuento = Convert.ToDouble(producto.datosMandar[4]) / 100;
-                double precioVenta = Convert.ToDouble(producto.datosMandar[3]);
-                
-                int cantidad = Convert.ToInt32(producto.datosMandar[1]);
-
-                DataRow row = dt.NewRow();
-                row[0] = producto.datosMandar[0];//PRODUCTO
-                row[1] = producto.datosMandar[8] + "-" + producto.datosMandar[9] + "-" + producto.datosMandar[10]; //CARRO
-                row[2] = cantidad;//CANTIDAD
-                row[3] = producto.datosMandar[2];//CLAVE PRODUCTO
-                row[4] = producto.datosMandar[5];//DESCRIPCION
-                row[5] = precioVenta;//PRECIO VENTA
-                row[6] = producto.datosMandar[4];//DESCUENTO
-
-                row[7] = producto.datosMandar[11];//IDPRODUCTO
-                row[8] = producto.datosMandar[12];//IDVEHICULO
-                dt.Rows.Add(row);
-
-                actualizarTotales();//Actualizar SubTotal y Totales
-
-                if(lblIdPedido.Text != "IDPedido")
-                {
-                    string usuario = lblUsuario.Text.ToString().Trim();
-                    string pedido = lblIdPedido.Text;
-                    string descripcionLog = "El usuario :  " + usuario + " añadió un producto al pedido:" + pedido + " para el cliente: " + cmbCliente.Text.Trim() + " el día: " + DateTime.Now.ToString();
-                    Consulta.Log(usuario, pedido, descripcionLog, "6");
-                }
-
-
-
-            }
-        }
 
         public void actualizarTotales()
         {
             subTotal = 0;
             total = 0;
-            
+
 
             foreach (DataGridViewRow row in dgvPedido.Rows)
             {
@@ -362,11 +304,11 @@ namespace TT2024_A155
 
                 subTotal += (precioVentaDescuento * 0.84) * cantidad;
                 total += precioVentaDescuento * cantidad;
-                
+
 
             }
-            lblSubtotal.Text = "SubTotal: " + subTotal.ToString("0.##");
-            lblTotal.Text = "Total + IVA(16%): " + total.ToString("0.##");
+            lblSubtotal.Text = "SubTotal: $ " + subTotal.ToString("0.##");
+            lblTotal.Text = "Total + IVA(16%): $ " + total.ToString("0.##");
         }
 
 
@@ -405,7 +347,7 @@ namespace TT2024_A155
                 txtTel.Text = datosFiscalesCliente[8];
                 txtCorreo.Text = datosFiscalesCliente[9];
             }
-           
+
 
 
         }
@@ -423,7 +365,7 @@ namespace TT2024_A155
                 //Check if click is on specific column
                 if (e.ColumnIndex == dgvPedido.Columns["dataGridViewDeleteButton"].Index)
                 {
-                    
+
                     MessageBOX mes = new MessageBOX(4, "¿Esta seguro de eliminar esta pieza?");
 
                     if (actualizar == 0)
@@ -452,10 +394,10 @@ namespace TT2024_A155
                 }
                 else if (e.ColumnIndex == dgvPedido.Columns["dataGridViewEditButton"].Index)
                 {
-                    
+
                     string iddetallepedido = dgvPedido.Rows[e.RowIndex].Cells[14].Value.ToString();
                     int index = dgvPedido.CurrentCell.RowIndex;
-                    
+
                     Producto producto = new Producto(1, iddetallepedido);
                     DialogResult respuesta = producto.ShowDialog();
                     if (respuesta == DialogResult.OK)
@@ -467,7 +409,7 @@ namespace TT2024_A155
                         int cantidad = Convert.ToInt32(producto.datosMandar[1]);
 
 
-                        dgvPedido["Producto",index].Value = producto.datosMandar[0];//PRODUCTO
+                        dgvPedido["Producto", index].Value = producto.datosMandar[0];//PRODUCTO
                         dgvPedido["Vehiculo", index].Value = producto.datosMandar[8] + "-" + producto.datosMandar[9] + "-" + producto.datosMandar[10]; //CARRO
                         dgvPedido["Cantidad", index].Value = cantidad;//CANTIDAD
                         dgvPedido["Clave de producto", index].Value = producto.datosMandar[2];//CLAVE PRODUCTO
@@ -491,6 +433,63 @@ namespace TT2024_A155
 
                 throw;
             }
+        }
+
+        private void btnAgregarProducto_Click(object sender, EventArgs e)
+        {
+            Producto producto = new Producto(0, string.Empty);
+            DialogResult respuesta = producto.ShowDialog();
+            if (respuesta == DialogResult.OK)
+            {
+
+                double descuento = Convert.ToDouble(producto.datosMandar[4]) / 100;
+                double precioVenta = Convert.ToDouble(producto.datosMandar[3]);
+
+                int cantidad = Convert.ToInt32(producto.datosMandar[1]);
+
+                DataRow row = dt.NewRow();
+                row[0] = producto.datosMandar[0];//PRODUCTO
+                row[1] = producto.datosMandar[8] + "-" + producto.datosMandar[9] + "-" + producto.datosMandar[10]; //CARRO
+                row[2] = cantidad;//CANTIDAD
+                row[3] = producto.datosMandar[2];//CLAVE PRODUCTO
+                row[4] = producto.datosMandar[5];//DESCRIPCION
+                row[5] = precioVenta;//PRECIO VENTA
+                row[6] = producto.datosMandar[4];//DESCUENTO
+
+                row[7] = producto.datosMandar[11];//IDPRODUCTO
+                row[8] = producto.datosMandar[12];//IDVEHICULO
+                dt.Rows.Add(row);
+
+                actualizarTotales();//Actualizar SubTotal y Totales
+
+                if (lblIdPedido.Text != "IDPedido")
+                {
+                    string usuario = lblUsuario.Text.ToString().Trim();
+                    string pedido = lblIdPedido.Text;
+                    string descripcionLog = "El usuario :  " + usuario + " añadió un producto al pedido:" + pedido + " para el cliente: " + cmbCliente.Text.Trim() + " el día: " + DateTime.Now.ToString();
+                    Consulta.Log(usuario, pedido, descripcionLog, "6");
+                }
+
+            }
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            if (actualizar == 0)
+            {
+
+                registrarPedido();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+                //Consulta.generarVale();
+            }
+            else if (actualizar == 1)
+            {
+                actualizarPedido();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else { }
         }
     }
 }
