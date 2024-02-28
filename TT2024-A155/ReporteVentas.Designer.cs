@@ -29,62 +29,24 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteVentas));
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            btnAceptar = new Button();
             dtpFechaInicio = new DateTimePicker();
             dtpFechaFinal = new DateTimePicker();
             lblUsuario = new Label();
+            lblDesde = new MaterialSkin.Controls.MaterialLabel();
+            lblHasta = new MaterialSkin.Controls.MaterialLabel();
+            btnAceptar = new MaterialSkin.Controls.MaterialRaisedButton();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(140, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(149, 20);
-            label1.TabIndex = 0;
-            label1.Text = "REPORTE DE VENTAS";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 68);
-            label2.Name = "label2";
-            label2.Size = new Size(62, 20);
-            label2.TabIndex = 1;
-            label2.Text = "DESDE: ";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(12, 102);
-            label3.Name = "label3";
-            label3.Size = new Size(58, 20);
-            label3.TabIndex = 2;
-            label3.Text = "HASTA:";
-            // 
-            // btnAceptar
-            // 
-            btnAceptar.Location = new Point(160, 128);
-            btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(94, 29);
-            btnAceptar.TabIndex = 3;
-            btnAceptar.Text = "Generar";
-            btnAceptar.UseVisualStyleBackColor = true;
-            btnAceptar.Click += btnAceptar_Click;
             // 
             // dtpFechaInicio
             // 
-            dtpFechaInicio.Location = new Point(80, 61);
+            dtpFechaInicio.Location = new Point(104, 90);
             dtpFechaInicio.Name = "dtpFechaInicio";
             dtpFechaInicio.Size = new Size(250, 27);
             dtpFechaInicio.TabIndex = 4;
             // 
             // dtpFechaFinal
             // 
-            dtpFechaFinal.Location = new Point(80, 95);
+            dtpFechaFinal.Location = new Point(104, 130);
             dtpFechaFinal.Name = "dtpFechaFinal";
             dtpFechaFinal.Size = new Size(250, 27);
             dtpFechaFinal.TabIndex = 5;
@@ -92,38 +54,77 @@
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(375, 9);
+            lblUsuario.Location = new Point(340, 38);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(0, 20);
             lblUsuario.TabIndex = 6;
+            // 
+            // lblDesde
+            // 
+            lblDesde.AutoSize = true;
+            lblDesde.Depth = 0;
+            lblDesde.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblDesde.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblDesde.Location = new Point(12, 90);
+            lblDesde.MouseState = MaterialSkin.MouseState.HOVER;
+            lblDesde.Name = "lblDesde";
+            lblDesde.Size = new Size(72, 24);
+            lblDesde.TabIndex = 7;
+            lblDesde.Text = "DESDE:";
+            // 
+            // lblHasta
+            // 
+            lblHasta.AutoSize = true;
+            lblHasta.Depth = 0;
+            lblHasta.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblHasta.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblHasta.Location = new Point(12, 130);
+            lblHasta.MouseState = MaterialSkin.MouseState.HOVER;
+            lblHasta.Name = "lblHasta";
+            lblHasta.Size = new Size(75, 24);
+            lblHasta.TabIndex = 8;
+            lblHasta.Text = "HASTA:";
+            // 
+            // btnAceptar
+            // 
+            btnAceptar.AutoSize = true;
+            btnAceptar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnAceptar.Depth = 0;
+            btnAceptar.Icon = null;
+            btnAceptar.Location = new Point(164, 170);
+            btnAceptar.MouseState = MaterialSkin.MouseState.HOVER;
+            btnAceptar.Name = "btnAceptar";
+            btnAceptar.Primary = true;
+            btnAceptar.Size = new Size(98, 36);
+            btnAceptar.TabIndex = 9;
+            btnAceptar.Text = "Generar";
+            btnAceptar.UseVisualStyleBackColor = true;
+            btnAceptar.Click += btnAceptar_Click;
             // 
             // ReporteVentas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(437, 198);
+            ClientSize = new Size(429, 219);
+            Controls.Add(btnAceptar);
+            Controls.Add(lblHasta);
+            Controls.Add(lblDesde);
             Controls.Add(lblUsuario);
             Controls.Add(dtpFechaFinal);
             Controls.Add(dtpFechaInicio);
-            Controls.Add(btnAceptar);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ReporteVentas";
-            Text = "ReporteVentas";
+            Text = "REPORTE DE VENTAS";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Button btnAceptar;
         private DateTimePicker dtpFechaInicio;
         private DateTimePicker dtpFechaFinal;
         public Label lblUsuario;
+        private MaterialSkin.Controls.MaterialLabel lblDesde;
+        private MaterialSkin.Controls.MaterialLabel lblHasta;
+        private MaterialSkin.Controls.MaterialRaisedButton btnAceptar;
     }
 }
