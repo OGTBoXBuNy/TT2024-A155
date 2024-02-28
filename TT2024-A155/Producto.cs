@@ -7,15 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//Diseño
+using MaterialSkin.Controls;
 
 namespace TT2024_A155
 {
-    public partial class Producto : Form
+    public partial class Producto : MaterialForm
     {
         public Producto(int x, string iddetallePedido)
         {
             InitializeComponent();
-
+            MaterialUI.loadMaterial(this);
             actualizar = x;// X = 0 NUEVO,,,,, X= 1 ACTUALIZAR
             this.iddetallePedido = iddetallePedido;
         }
@@ -23,13 +25,13 @@ namespace TT2024_A155
         DataSet ds = new DataSet();
         DataView dv = new DataView();
         internal string[] datosProducto = new string[13];
-        
+
         int actualizar;
         string iddetallePedido;
         private void Producto_Load(object sender, EventArgs e)
         {
 
-            if(actualizar == 0)
+            if (actualizar == 0)
             {
                 //Carga los datos de las marcas de vehículos en el combobox
                 cmbMarca.DataSource = Consulta.MarcasRegistradas(1).Tables[0].DefaultView;
@@ -42,10 +44,10 @@ namespace TT2024_A155
                 dv = ds.Tables[0].DefaultView;
                 cmbProducto.DataSource = dv;
                 cmbProducto.ValueMember = "nombre";
-                
+
 
             }
-            else if(actualizar == 1)
+            else if (actualizar == 1)
             {
 
                 //Carga los datos de las marcas de vehículos en el combobox
@@ -55,7 +57,7 @@ namespace TT2024_A155
                 //cmbMarca.DisplayMember = "marca";
 
 
-                
+
 
                 string[] datosActualizar = Consulta.datosProductoActualizar(iddetallePedido);
 
@@ -75,8 +77,8 @@ namespace TT2024_A155
 
             }
             else { }
-            
-            
+
+
         }
 
 
@@ -108,20 +110,9 @@ namespace TT2024_A155
              */
         }
 
-       
 
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-            datosProducto[1] = cmbCantidad.Text.Trim();//CANTIDAD
-            datosProducto[4] = txtDescuento.Text.Trim();//DESCUENTO
-            datosProducto[8] = cmbMarca.Text.Trim(); //MARCA
-            datosProducto[9] = cmbModelo.Text.Trim(); //MODELO
-            datosProducto[10] = cmbAnio.Text.Trim(); //ANIO
-            datosProducto[12] = Consulta.idVehiculoProducto(cmbMarca.Text.Trim(), cmbModelo.Text.Trim(), cmbAnio.Text.Trim());//IDVEHICULO
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
-        }
+
 
         private void cmbProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -132,14 +123,14 @@ namespace TT2024_A155
                 txtPrecioVenta.Text = datosProducto[3].ToString();
             if (datosProducto[6] != null)
                 lblDisponible.Text = "Disponible: " + datosProducto[6].ToString();
-                
+
 
             cmbCantidad.Items.Clear();
             for (int i = 0; i < Convert.ToInt32(datosProducto[6]); i++)
             {
                 cmbCantidad.Items.Add(i + 1);
             }
-           if(cmbCantidad.Items.Count > 0)
+            if (cmbCantidad.Items.Count > 0)
                 cmbCantidad.SelectedIndex = 0;
         }
 
@@ -154,11 +145,11 @@ namespace TT2024_A155
             //cmbModelo.DataSource = Consulta.VehiculosRegistrados(cmbMarca.Text.Trim()).Tables[0].DefaultView;
             //cmbModelo.ValueMember = "idvehiculo";
             //cmbModelo.DisplayMember = "modelo";
-            
+
             cmbModelo.DataSource = Consulta.modelosRegistrados(cmbMarca.Text.Trim()).Tables[0].DefaultView;
             cmbModelo.ValueMember = "modelo";
             cmbModelo.DisplayMember = "modelo";
-            
+
             if (cmbModelo.Items.Count == 0)
             {
                 cmbModelo.Text = "";
@@ -168,14 +159,27 @@ namespace TT2024_A155
 
         private void cmbModelo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmbAnio.DataSource = Consulta.modelosRegistrados(cmbMarca.Text.Trim(),cmbModelo.Text.Trim()).Tables[0].DefaultView;
+            cmbAnio.DataSource = Consulta.modelosRegistrados(cmbMarca.Text.Trim(), cmbModelo.Text.Trim()).Tables[0].DefaultView;
             cmbAnio.ValueMember = "anio";
             cmbAnio.DisplayMember = "anio";
 
-            if(cmbAnio.Items.Count == 0)
+            if (cmbAnio.Items.Count == 0)
             {
                 cmbAnio.Text = "";
             }
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            datosProducto[1] = cmbCantidad.Text.Trim();//CANTIDAD
+            datosProducto[4] = txtDescuento.Text.Trim();//DESCUENTO
+            datosProducto[8] = cmbMarca.Text.Trim(); //MARCA
+            datosProducto[9] = cmbModelo.Text.Trim(); //MODELO
+            datosProducto[10] = cmbAnio.Text.Trim(); //ANIO
+            datosProducto[12] = Consulta.idVehiculoProducto(cmbMarca.Text.Trim(), cmbModelo.Text.Trim(), cmbAnio.Text.Trim());//IDVEHICULO
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }
