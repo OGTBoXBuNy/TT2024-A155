@@ -29,40 +29,36 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModificarUsuario));
-            txtCif = new TextBox();
-            lblCif = new Label();
-            rbtnDatosFiscales = new RadioButton();
-            rbtnDatosPersonales = new RadioButton();
-            txtNoInt = new TextBox();
-            txtCorreo = new TextBox();
-            txtCiudad = new TextBox();
-            txtNoExt = new TextBox();
-            txtCol = new TextBox();
-            txtTel = new TextBox();
-            txtCP = new TextBox();
-            txtCalle = new TextBox();
-            lblCorreo = new Label();
-            lblTel = new Label();
-            lblCiudad = new Label();
-            lblCp = new Label();
-            lblNoInt = new Label();
-            lblNoExt = new Label();
-            lblColonia = new Label();
-            lblCalle = new Label();
-            btnAceptar = new Button();
-            txtNombre = new TextBox();
-            lblRol = new Label();
-            lblNombre = new Label();
-            lblContrasenia = new Label();
-            lblUsuario = new Label();
             cmbRol = new ComboBox();
-            txtContrasenia = new TextBox();
-            txtUsuario = new TextBox();
-            lblTitle = new Label();
             rbtnPermisos = new RadioButton();
             cmbNombreUsuario = new ComboBox();
-            lblCliente = new Label();
             panelDatos = new Panel();
+            btnAceptar = new MaterialSkin.Controls.MaterialRaisedButton();
+            txtCif = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtCiudad = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtNoInt = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtCorreo = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtCP = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtNoExt = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtTel = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtCol = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtCalle = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtContrasenia = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtUsuario = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtNombre = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            lblRol = new MaterialSkin.Controls.MaterialLabel();
+            lblCif = new MaterialSkin.Controls.MaterialLabel();
+            lblCiudad = new MaterialSkin.Controls.MaterialLabel();
+            lblNoInt = new MaterialSkin.Controls.MaterialLabel();
+            lblCorreo = new MaterialSkin.Controls.MaterialLabel();
+            lblCp = new MaterialSkin.Controls.MaterialLabel();
+            lblNoExt = new MaterialSkin.Controls.MaterialLabel();
+            lblTel = new MaterialSkin.Controls.MaterialLabel();
+            lblColonia = new MaterialSkin.Controls.MaterialLabel();
+            lblCalle = new MaterialSkin.Controls.MaterialLabel();
+            lblContrasenia = new MaterialSkin.Controls.MaterialLabel();
+            lblUsuario = new MaterialSkin.Controls.MaterialLabel();
+            lblNombre = new MaterialSkin.Controls.MaterialLabel();
             panelPermisos = new Panel();
             label9 = new Label();
             rbtnGenerarReporteF = new RadioButton();
@@ -95,330 +91,468 @@
             rbtnCrearUsuarioF = new RadioButton();
             rbtnCrearUsuarioT = new RadioButton();
             lblUsuarioLog = new Label();
+            lblCliente = new MaterialSkin.Controls.MaterialLabel();
+            rbtnDatosPersonales = new MaterialSkin.Controls.MaterialRadioButton();
+            rbtnDatosFiscales = new MaterialSkin.Controls.MaterialRadioButton();
             panelDatos.SuspendLayout();
             panelPermisos.SuspendLayout();
             SuspendLayout();
-            // 
-            // txtCif
-            // 
-            txtCif.Location = new Point(343, 261);
-            txtCif.Name = "txtCif";
-            txtCif.Size = new Size(210, 27);
-            txtCif.TabIndex = 66;
-            // 
-            // lblCif
-            // 
-            lblCif.AutoSize = true;
-            lblCif.Location = new Point(293, 269);
-            lblCif.Name = "lblCif";
-            lblCif.Size = new Size(36, 20);
-            lblCif.TabIndex = 79;
-            lblCif.Text = "CIF: ";
-            // 
-            // rbtnDatosFiscales
-            // 
-            rbtnDatosFiscales.AutoSize = true;
-            rbtnDatosFiscales.Location = new Point(498, 62);
-            rbtnDatosFiscales.Name = "rbtnDatosFiscales";
-            rbtnDatosFiscales.Size = new Size(123, 24);
-            rbtnDatosFiscales.TabIndex = 52;
-            rbtnDatosFiscales.Text = "Datos Fiscales";
-            rbtnDatosFiscales.UseVisualStyleBackColor = true;
-            rbtnDatosFiscales.CheckedChanged += rbtnDatosFiscales_CheckedChanged;
-            // 
-            // rbtnDatosPersonales
-            // 
-            rbtnDatosPersonales.AutoSize = true;
-            rbtnDatosPersonales.Checked = true;
-            rbtnDatosPersonales.Location = new Point(324, 62);
-            rbtnDatosPersonales.Name = "rbtnDatosPersonales";
-            rbtnDatosPersonales.Size = new Size(142, 24);
-            rbtnDatosPersonales.TabIndex = 51;
-            rbtnDatosPersonales.TabStop = true;
-            rbtnDatosPersonales.Text = "Datos Personales";
-            rbtnDatosPersonales.UseVisualStyleBackColor = true;
-            rbtnDatosPersonales.CheckedChanged += rbtnDatosPersonales_CheckedChanged;
-            // 
-            // txtNoInt
-            // 
-            txtNoInt.Location = new Point(606, 132);
-            txtNoInt.Name = "txtNoInt";
-            txtNoInt.Size = new Size(73, 27);
-            txtNoInt.TabIndex = 60;
-            // 
-            // txtCorreo
-            // 
-            txtCorreo.Location = new Point(449, 218);
-            txtCorreo.Name = "txtCorreo";
-            txtCorreo.Size = new Size(347, 27);
-            txtCorreo.TabIndex = 68;
-            // 
-            // txtCiudad
-            // 
-            txtCiudad.Location = new Point(637, 178);
-            txtCiudad.Name = "txtCiudad";
-            txtCiudad.Size = new Size(159, 27);
-            txtCiudad.TabIndex = 65;
-            // 
-            // txtNoExt
-            // 
-            txtNoExt.Location = new Point(449, 132);
-            txtNoExt.Name = "txtNoExt";
-            txtNoExt.Size = new Size(74, 27);
-            txtNoExt.TabIndex = 59;
-            // 
-            // txtCol
-            // 
-            txtCol.Location = new Point(100, 174);
-            txtCol.Name = "txtCol";
-            txtCol.Size = new Size(268, 27);
-            txtCol.TabIndex = 62;
-            // 
-            // txtTel
-            // 
-            txtTel.Location = new Point(100, 218);
-            txtTel.Name = "txtTel";
-            txtTel.Size = new Size(268, 27);
-            txtTel.TabIndex = 67;
-            // 
-            // txtCP
-            // 
-            txtCP.Location = new Point(449, 178);
-            txtCP.Name = "txtCP";
-            txtCP.Size = new Size(104, 27);
-            txtCP.TabIndex = 63;
-            // 
-            // txtCalle
-            // 
-            txtCalle.Location = new Point(100, 132);
-            txtCalle.Name = "txtCalle";
-            txtCalle.Size = new Size(268, 27);
-            txtCalle.TabIndex = 58;
-            // 
-            // lblCorreo
-            // 
-            lblCorreo.AutoSize = true;
-            lblCorreo.Location = new Point(381, 225);
-            lblCorreo.Name = "lblCorreo";
-            lblCorreo.Size = new Size(57, 20);
-            lblCorreo.TabIndex = 78;
-            lblCorreo.Text = "Correo:";
-            // 
-            // lblTel
-            // 
-            lblTel.AutoSize = true;
-            lblTel.Location = new Point(8, 225);
-            lblTel.Name = "lblTel";
-            lblTel.Size = new Size(70, 20);
-            lblTel.TabIndex = 77;
-            lblTel.Text = "Telefono:";
-            // 
-            // lblCiudad
-            // 
-            lblCiudad.AutoSize = true;
-            lblCiudad.Location = new Point(572, 185);
-            lblCiudad.Name = "lblCiudad";
-            lblCiudad.Size = new Size(59, 20);
-            lblCiudad.TabIndex = 76;
-            lblCiudad.Text = "Ciudad:";
-            // 
-            // lblCp
-            // 
-            lblCp.AutoSize = true;
-            lblCp.Location = new Point(381, 181);
-            lblCp.Name = "lblCp";
-            lblCp.Size = new Size(35, 20);
-            lblCp.TabIndex = 75;
-            lblCp.Text = "C.P.:";
-            // 
-            // lblNoInt
-            // 
-            lblNoInt.AutoSize = true;
-            lblNoInt.Location = new Point(541, 139);
-            lblNoInt.Name = "lblNoInt";
-            lblNoInt.Size = new Size(59, 20);
-            lblNoInt.TabIndex = 74;
-            lblNoInt.Text = "No. Int.:";
-            // 
-            // lblNoExt
-            // 
-            lblNoExt.AutoSize = true;
-            lblNoExt.Location = new Point(381, 139);
-            lblNoExt.Name = "lblNoExt";
-            lblNoExt.Size = new Size(62, 20);
-            lblNoExt.TabIndex = 73;
-            lblNoExt.Text = "No. Ext.:";
-            // 
-            // lblColonia
-            // 
-            lblColonia.AutoSize = true;
-            lblColonia.Location = new Point(8, 181);
-            lblColonia.Name = "lblColonia";
-            lblColonia.Size = new Size(63, 20);
-            lblColonia.TabIndex = 72;
-            lblColonia.Text = "Colonia:";
-            // 
-            // lblCalle
-            // 
-            lblCalle.AutoSize = true;
-            lblCalle.Location = new Point(8, 139);
-            lblCalle.Name = "lblCalle";
-            lblCalle.Size = new Size(45, 20);
-            lblCalle.TabIndex = 71;
-            lblCalle.Text = "Calle:";
-            // 
-            // btnAceptar
-            // 
-            btnAceptar.Location = new Point(689, 409);
-            btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(94, 29);
-            btnAceptar.TabIndex = 70;
-            btnAceptar.Text = "Aceptar";
-            btnAceptar.UseVisualStyleBackColor = true;
-            btnAceptar.Click += btnAceptar_Click;
-            // 
-            // txtNombre
-            // 
-            txtNombre.Location = new Point(100, 4);
-            txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(273, 27);
-            txtNombre.TabIndex = 53;
-            // 
-            // lblRol
-            // 
-            lblRol.AutoSize = true;
-            lblRol.Location = new Point(8, 268);
-            lblRol.Name = "lblRol";
-            lblRol.Size = new Size(34, 20);
-            lblRol.TabIndex = 64;
-            lblRol.Text = "Rol:";
-            // 
-            // lblNombre
-            // 
-            lblNombre.AutoSize = true;
-            lblNombre.Location = new Point(8, 11);
-            lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(67, 20);
-            lblNombre.TabIndex = 61;
-            lblNombre.Text = "Nombre:";
-            // 
-            // lblContrasenia
-            // 
-            lblContrasenia.AutoSize = true;
-            lblContrasenia.Location = new Point(8, 80);
-            lblContrasenia.Name = "lblContrasenia";
-            lblContrasenia.Size = new Size(86, 20);
-            lblContrasenia.TabIndex = 56;
-            lblContrasenia.Text = "Contraseña:";
-            // 
-            // lblUsuario
-            // 
-            lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(8, 47);
-            lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(62, 20);
-            lblUsuario.TabIndex = 55;
-            lblUsuario.Text = "Usuario:";
             // 
             // cmbRol
             // 
             cmbRol.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbRol.FormattingEnabled = true;
             cmbRol.Items.AddRange(new object[] { "Administrador", "Ventas", "Finanzas", "Cliente" });
-            cmbRol.Location = new Point(100, 261);
+            cmbRol.Location = new Point(132, 300);
             cmbRol.Name = "cmbRol";
-            cmbRol.Size = new Size(151, 28);
+            cmbRol.Size = new Size(213, 28);
             cmbRol.TabIndex = 69;
-            // 
-            // txtContrasenia
-            // 
-            txtContrasenia.Location = new Point(100, 73);
-            txtContrasenia.Name = "txtContrasenia";
-            txtContrasenia.Size = new Size(273, 27);
-            txtContrasenia.TabIndex = 57;
-            // 
-            // txtUsuario
-            // 
-            txtUsuario.Enabled = false;
-            txtUsuario.Location = new Point(100, 40);
-            txtUsuario.Name = "txtUsuario";
-            txtUsuario.Size = new Size(273, 27);
-            txtUsuario.TabIndex = 54;
-            // 
-            // lblTitle
-            // 
-            lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(342, 9);
-            lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(161, 20);
-            lblTitle.TabIndex = 80;
-            lblTitle.Text = "MODIFICAR USUARIOS";
             // 
             // rbtnPermisos
             // 
             rbtnPermisos.AutoSize = true;
             rbtnPermisos.Enabled = false;
-            rbtnPermisos.Location = new Point(661, 62);
+            rbtnPermisos.Location = new Point(1159, 184);
             rbtnPermisos.Name = "rbtnPermisos";
             rbtnPermisos.Size = new Size(88, 24);
             rbtnPermisos.TabIndex = 81;
             rbtnPermisos.Text = "Permisos";
             rbtnPermisos.UseVisualStyleBackColor = true;
             rbtnPermisos.Visible = false;
-            rbtnPermisos.CheckedChanged += rbtnPermisos_CheckedChanged;
             // 
             // cmbNombreUsuario
             // 
             cmbNombreUsuario.AutoCompleteMode = AutoCompleteMode.Suggest;
             cmbNombreUsuario.AutoCompleteSource = AutoCompleteSource.ListItems;
             cmbNombreUsuario.FormattingEnabled = true;
-            cmbNombreUsuario.Location = new Point(99, 56);
+            cmbNombreUsuario.Location = new Point(113, 110);
             cmbNombreUsuario.Name = "cmbNombreUsuario";
             cmbNombreUsuario.Size = new Size(189, 28);
             cmbNombreUsuario.TabIndex = 83;
             cmbNombreUsuario.SelectedIndexChanged += cmbNombreUsuario_SelectedIndexChanged;
             // 
-            // lblCliente
-            // 
-            lblCliente.AutoSize = true;
-            lblCliente.Location = new Point(7, 64);
-            lblCliente.Name = "lblCliente";
-            lblCliente.Size = new Size(62, 20);
-            lblCliente.TabIndex = 82;
-            lblCliente.Text = "Usuario:";
-            // 
             // panelDatos
             // 
-            panelDatos.Controls.Add(txtCiudad);
-            panelDatos.Controls.Add(txtUsuario);
-            panelDatos.Controls.Add(txtContrasenia);
-            panelDatos.Controls.Add(cmbRol);
+            panelDatos.Controls.Add(btnAceptar);
             panelDatos.Controls.Add(txtCif);
-            panelDatos.Controls.Add(lblUsuario);
-            panelDatos.Controls.Add(lblCif);
-            panelDatos.Controls.Add(lblContrasenia);
-            panelDatos.Controls.Add(lblNombre);
-            panelDatos.Controls.Add(lblRol);
+            panelDatos.Controls.Add(txtCiudad);
             panelDatos.Controls.Add(txtNoInt);
-            panelDatos.Controls.Add(txtNombre);
             panelDatos.Controls.Add(txtCorreo);
-            panelDatos.Controls.Add(lblCalle);
-            panelDatos.Controls.Add(lblColonia);
-            panelDatos.Controls.Add(txtNoExt);
-            panelDatos.Controls.Add(lblNoExt);
-            panelDatos.Controls.Add(txtCol);
-            panelDatos.Controls.Add(lblNoInt);
-            panelDatos.Controls.Add(txtTel);
-            panelDatos.Controls.Add(lblCp);
             panelDatos.Controls.Add(txtCP);
-            panelDatos.Controls.Add(lblCiudad);
+            panelDatos.Controls.Add(txtNoExt);
+            panelDatos.Controls.Add(txtTel);
+            panelDatos.Controls.Add(txtCol);
             panelDatos.Controls.Add(txtCalle);
-            panelDatos.Controls.Add(lblTel);
+            panelDatos.Controls.Add(txtContrasenia);
+            panelDatos.Controls.Add(txtUsuario);
+            panelDatos.Controls.Add(txtNombre);
+            panelDatos.Controls.Add(lblRol);
+            panelDatos.Controls.Add(lblCif);
+            panelDatos.Controls.Add(lblCiudad);
+            panelDatos.Controls.Add(lblNoInt);
             panelDatos.Controls.Add(lblCorreo);
-            panelDatos.Location = new Point(7, 104);
+            panelDatos.Controls.Add(lblCp);
+            panelDatos.Controls.Add(lblNoExt);
+            panelDatos.Controls.Add(lblTel);
+            panelDatos.Controls.Add(lblColonia);
+            panelDatos.Controls.Add(lblCalle);
+            panelDatos.Controls.Add(lblContrasenia);
+            panelDatos.Controls.Add(lblUsuario);
+            panelDatos.Controls.Add(lblNombre);
+            panelDatos.Controls.Add(cmbRol);
+            panelDatos.Location = new Point(12, 184);
             panelDatos.Name = "panelDatos";
-            panelDatos.Size = new Size(804, 299);
+            panelDatos.Size = new Size(976, 365);
             panelDatos.TabIndex = 84;
+            // 
+            // btnAceptar
+            // 
+            btnAceptar.AutoSize = true;
+            btnAceptar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnAceptar.Depth = 0;
+            btnAceptar.Icon = null;
+            btnAceptar.Location = new Point(853, 300);
+            btnAceptar.MouseState = MaterialSkin.MouseState.HOVER;
+            btnAceptar.Name = "btnAceptar";
+            btnAceptar.Primary = true;
+            btnAceptar.Size = new Size(98, 36);
+            btnAceptar.TabIndex = 106;
+            btnAceptar.Text = "Aceptar";
+            btnAceptar.UseVisualStyleBackColor = true;
+            btnAceptar.Click += btnAceptar_Click;
+            // 
+            // txtCif
+            // 
+            txtCif.Depth = 0;
+            txtCif.Hint = "";
+            txtCif.Location = new Point(500, 300);
+            txtCif.MaxLength = 32767;
+            txtCif.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCif.Name = "txtCif";
+            txtCif.PasswordChar = '\0';
+            txtCif.SelectedText = "";
+            txtCif.SelectionLength = 0;
+            txtCif.SelectionStart = 0;
+            txtCif.Size = new Size(251, 28);
+            txtCif.TabIndex = 105;
+            txtCif.TabStop = false;
+            txtCif.UseSystemPasswordChar = false;
+            // 
+            // txtCiudad
+            // 
+            txtCiudad.Depth = 0;
+            txtCiudad.Hint = "";
+            txtCiudad.Location = new Point(766, 220);
+            txtCiudad.MaxLength = 32767;
+            txtCiudad.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCiudad.Name = "txtCiudad";
+            txtCiudad.PasswordChar = '\0';
+            txtCiudad.SelectedText = "";
+            txtCiudad.SelectionLength = 0;
+            txtCiudad.SelectionStart = 0;
+            txtCiudad.Size = new Size(185, 28);
+            txtCiudad.TabIndex = 104;
+            txtCiudad.TabStop = false;
+            txtCiudad.UseSystemPasswordChar = false;
+            // 
+            // txtNoInt
+            // 
+            txtNoInt.Depth = 0;
+            txtNoInt.Hint = "";
+            txtNoInt.Location = new Point(766, 180);
+            txtNoInt.MaxLength = 32767;
+            txtNoInt.MouseState = MaterialSkin.MouseState.HOVER;
+            txtNoInt.Name = "txtNoInt";
+            txtNoInt.PasswordChar = '\0';
+            txtNoInt.SelectedText = "";
+            txtNoInt.SelectionLength = 0;
+            txtNoInt.SelectionStart = 0;
+            txtNoInt.Size = new Size(124, 28);
+            txtNoInt.TabIndex = 103;
+            txtNoInt.TabStop = false;
+            txtNoInt.UseSystemPasswordChar = false;
+            // 
+            // txtCorreo
+            // 
+            txtCorreo.Depth = 0;
+            txtCorreo.Hint = "";
+            txtCorreo.Location = new Point(500, 260);
+            txtCorreo.MaxLength = 32767;
+            txtCorreo.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCorreo.Name = "txtCorreo";
+            txtCorreo.PasswordChar = '\0';
+            txtCorreo.SelectedText = "";
+            txtCorreo.SelectionLength = 0;
+            txtCorreo.SelectionStart = 0;
+            txtCorreo.Size = new Size(251, 28);
+            txtCorreo.TabIndex = 102;
+            txtCorreo.TabStop = false;
+            txtCorreo.UseSystemPasswordChar = false;
+            // 
+            // txtCP
+            // 
+            txtCP.Depth = 0;
+            txtCP.Hint = "";
+            txtCP.Location = new Point(500, 220);
+            txtCP.MaxLength = 32767;
+            txtCP.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCP.Name = "txtCP";
+            txtCP.PasswordChar = '\0';
+            txtCP.SelectedText = "";
+            txtCP.SelectionLength = 0;
+            txtCP.SelectionStart = 0;
+            txtCP.Size = new Size(124, 28);
+            txtCP.TabIndex = 101;
+            txtCP.TabStop = false;
+            txtCP.UseSystemPasswordChar = false;
+            // 
+            // txtNoExt
+            // 
+            txtNoExt.Depth = 0;
+            txtNoExt.Hint = "";
+            txtNoExt.Location = new Point(500, 180);
+            txtNoExt.MaxLength = 32767;
+            txtNoExt.MouseState = MaterialSkin.MouseState.HOVER;
+            txtNoExt.Name = "txtNoExt";
+            txtNoExt.PasswordChar = '\0';
+            txtNoExt.SelectedText = "";
+            txtNoExt.SelectionLength = 0;
+            txtNoExt.SelectionStart = 0;
+            txtNoExt.Size = new Size(124, 28);
+            txtNoExt.TabIndex = 100;
+            txtNoExt.TabStop = false;
+            txtNoExt.UseSystemPasswordChar = false;
+            // 
+            // txtTel
+            // 
+            txtTel.Depth = 0;
+            txtTel.Hint = "";
+            txtTel.Location = new Point(140, 260);
+            txtTel.MaxLength = 32767;
+            txtTel.MouseState = MaterialSkin.MouseState.HOVER;
+            txtTel.Name = "txtTel";
+            txtTel.PasswordChar = '\0';
+            txtTel.SelectedText = "";
+            txtTel.SelectionLength = 0;
+            txtTel.SelectionStart = 0;
+            txtTel.Size = new Size(205, 28);
+            txtTel.TabIndex = 99;
+            txtTel.TabStop = false;
+            txtTel.UseSystemPasswordChar = false;
+            // 
+            // txtCol
+            // 
+            txtCol.Depth = 0;
+            txtCol.Hint = "";
+            txtCol.Location = new Point(140, 220);
+            txtCol.MaxLength = 32767;
+            txtCol.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCol.Name = "txtCol";
+            txtCol.PasswordChar = '\0';
+            txtCol.SelectedText = "";
+            txtCol.SelectionLength = 0;
+            txtCol.SelectionStart = 0;
+            txtCol.Size = new Size(205, 28);
+            txtCol.TabIndex = 98;
+            txtCol.TabStop = false;
+            txtCol.UseSystemPasswordChar = false;
+            // 
+            // txtCalle
+            // 
+            txtCalle.Depth = 0;
+            txtCalle.Hint = "";
+            txtCalle.Location = new Point(140, 180);
+            txtCalle.MaxLength = 32767;
+            txtCalle.MouseState = MaterialSkin.MouseState.HOVER;
+            txtCalle.Name = "txtCalle";
+            txtCalle.PasswordChar = '\0';
+            txtCalle.SelectedText = "";
+            txtCalle.SelectionLength = 0;
+            txtCalle.SelectionStart = 0;
+            txtCalle.Size = new Size(205, 28);
+            txtCalle.TabIndex = 97;
+            txtCalle.TabStop = false;
+            txtCalle.UseSystemPasswordChar = false;
+            // 
+            // txtContrasenia
+            // 
+            txtContrasenia.Depth = 0;
+            txtContrasenia.Hint = "";
+            txtContrasenia.Location = new Point(140, 105);
+            txtContrasenia.MaxLength = 32767;
+            txtContrasenia.MouseState = MaterialSkin.MouseState.HOVER;
+            txtContrasenia.Name = "txtContrasenia";
+            txtContrasenia.PasswordChar = '\0';
+            txtContrasenia.SelectedText = "";
+            txtContrasenia.SelectionLength = 0;
+            txtContrasenia.SelectionStart = 0;
+            txtContrasenia.Size = new Size(205, 28);
+            txtContrasenia.TabIndex = 96;
+            txtContrasenia.TabStop = false;
+            txtContrasenia.UseSystemPasswordChar = false;
+            // 
+            // txtUsuario
+            // 
+            txtUsuario.Depth = 0;
+            txtUsuario.Hint = "";
+            txtUsuario.Location = new Point(140, 65);
+            txtUsuario.MaxLength = 32767;
+            txtUsuario.MouseState = MaterialSkin.MouseState.HOVER;
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.PasswordChar = '\0';
+            txtUsuario.SelectedText = "";
+            txtUsuario.SelectionLength = 0;
+            txtUsuario.SelectionStart = 0;
+            txtUsuario.Size = new Size(205, 28);
+            txtUsuario.TabIndex = 95;
+            txtUsuario.TabStop = false;
+            txtUsuario.UseSystemPasswordChar = false;
+            // 
+            // txtNombre
+            // 
+            txtNombre.Depth = 0;
+            txtNombre.Hint = "";
+            txtNombre.Location = new Point(140, 25);
+            txtNombre.MaxLength = 32767;
+            txtNombre.MouseState = MaterialSkin.MouseState.HOVER;
+            txtNombre.Name = "txtNombre";
+            txtNombre.PasswordChar = '\0';
+            txtNombre.SelectedText = "";
+            txtNombre.SelectionLength = 0;
+            txtNombre.SelectionStart = 0;
+            txtNombre.Size = new Size(283, 28);
+            txtNombre.TabIndex = 93;
+            txtNombre.TabStop = false;
+            txtNombre.UseSystemPasswordChar = false;
+            // 
+            // lblRol
+            // 
+            lblRol.AutoSize = true;
+            lblRol.Depth = 0;
+            lblRol.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblRol.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblRol.Location = new Point(83, 300);
+            lblRol.MouseState = MaterialSkin.MouseState.HOVER;
+            lblRol.Name = "lblRol";
+            lblRol.Size = new Size(43, 24);
+            lblRol.TabIndex = 92;
+            lblRol.Text = "Rol:";
+            // 
+            // lblCif
+            // 
+            lblCif.AutoSize = true;
+            lblCif.Depth = 0;
+            lblCif.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCif.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCif.Location = new Point(432, 300);
+            lblCif.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCif.Name = "lblCif";
+            lblCif.Size = new Size(48, 24);
+            lblCif.TabIndex = 91;
+            lblCif.Text = "CIF: ";
+            // 
+            // lblCiudad
+            // 
+            lblCiudad.AutoSize = true;
+            lblCiudad.Depth = 0;
+            lblCiudad.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCiudad.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCiudad.Location = new Point(665, 220);
+            lblCiudad.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCiudad.Name = "lblCiudad";
+            lblCiudad.Size = new Size(74, 24);
+            lblCiudad.TabIndex = 90;
+            lblCiudad.Text = "Ciudad:";
+            // 
+            // lblNoInt
+            // 
+            lblNoInt.AutoSize = true;
+            lblNoInt.Depth = 0;
+            lblNoInt.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNoInt.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblNoInt.Location = new Point(665, 180);
+            lblNoInt.MouseState = MaterialSkin.MouseState.HOVER;
+            lblNoInt.Name = "lblNoInt";
+            lblNoInt.Size = new Size(76, 24);
+            lblNoInt.TabIndex = 89;
+            lblNoInt.Text = "No. Int.:";
+            // 
+            // lblCorreo
+            // 
+            lblCorreo.AutoSize = true;
+            lblCorreo.Depth = 0;
+            lblCorreo.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCorreo.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCorreo.Location = new Point(410, 260);
+            lblCorreo.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCorreo.Name = "lblCorreo";
+            lblCorreo.Size = new Size(71, 24);
+            lblCorreo.TabIndex = 88;
+            lblCorreo.Text = "Correo:";
+            // 
+            // lblCp
+            // 
+            lblCp.AutoSize = true;
+            lblCp.Depth = 0;
+            lblCp.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCp.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCp.Location = new Point(432, 220);
+            lblCp.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCp.Name = "lblCp";
+            lblCp.Size = new Size(49, 24);
+            lblCp.TabIndex = 87;
+            lblCp.Text = "C.P.:";
+            // 
+            // lblNoExt
+            // 
+            lblNoExt.AutoSize = true;
+            lblNoExt.Depth = 0;
+            lblNoExt.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNoExt.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblNoExt.Location = new Point(400, 180);
+            lblNoExt.MouseState = MaterialSkin.MouseState.HOVER;
+            lblNoExt.Name = "lblNoExt";
+            lblNoExt.Size = new Size(81, 24);
+            lblNoExt.TabIndex = 86;
+            lblNoExt.Text = "No. Ext.:";
+            // 
+            // lblTel
+            // 
+            lblTel.AutoSize = true;
+            lblTel.Depth = 0;
+            lblTel.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTel.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblTel.Location = new Point(36, 260);
+            lblTel.MouseState = MaterialSkin.MouseState.HOVER;
+            lblTel.Name = "lblTel";
+            lblTel.Size = new Size(90, 24);
+            lblTel.TabIndex = 85;
+            lblTel.Text = "Telefono:";
+            // 
+            // lblColonia
+            // 
+            lblColonia.AutoSize = true;
+            lblColonia.Depth = 0;
+            lblColonia.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblColonia.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblColonia.Location = new Point(47, 220);
+            lblColonia.MouseState = MaterialSkin.MouseState.HOVER;
+            lblColonia.Name = "lblColonia";
+            lblColonia.Size = new Size(79, 24);
+            lblColonia.TabIndex = 84;
+            lblColonia.Text = "Colonia:";
+            // 
+            // lblCalle
+            // 
+            lblCalle.AutoSize = true;
+            lblCalle.Depth = 0;
+            lblCalle.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCalle.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCalle.Location = new Point(69, 180);
+            lblCalle.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCalle.Name = "lblCalle";
+            lblCalle.Size = new Size(57, 24);
+            lblCalle.TabIndex = 83;
+            lblCalle.Text = "Calle:";
+            // 
+            // lblContrasenia
+            // 
+            lblContrasenia.AutoSize = true;
+            lblContrasenia.Depth = 0;
+            lblContrasenia.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblContrasenia.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblContrasenia.Location = new Point(16, 105);
+            lblContrasenia.MouseState = MaterialSkin.MouseState.HOVER;
+            lblContrasenia.Name = "lblContrasenia";
+            lblContrasenia.Size = new Size(110, 24);
+            lblContrasenia.TabIndex = 82;
+            lblContrasenia.Text = "Contraseña:";
+            // 
+            // lblUsuario
+            // 
+            lblUsuario.AutoSize = true;
+            lblUsuario.Depth = 0;
+            lblUsuario.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblUsuario.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblUsuario.Location = new Point(16, 65);
+            lblUsuario.MouseState = MaterialSkin.MouseState.HOVER;
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(79, 24);
+            lblUsuario.TabIndex = 81;
+            lblUsuario.Text = "Usuario:";
+            // 
+            // lblNombre
+            // 
+            lblNombre.AutoSize = true;
+            lblNombre.Depth = 0;
+            lblNombre.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNombre.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblNombre.Location = new Point(16, 25);
+            lblNombre.MouseState = MaterialSkin.MouseState.HOVER;
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(84, 24);
+            lblNombre.TabIndex = 80;
+            lblNombre.Text = "Nombre:";
             // 
             // panelPermisos
             // 
@@ -453,7 +587,7 @@
             panelPermisos.Controls.Add(rbtnCrearUsuarioF);
             panelPermisos.Controls.Add(rbtnCrearUsuarioT);
             panelPermisos.Enabled = false;
-            panelPermisos.Location = new Point(836, 104);
+            panelPermisos.Location = new Point(1159, 236);
             panelPermisos.Name = "panelPermisos";
             panelPermisos.Size = new Size(417, 334);
             panelPermisos.TabIndex = 80;
@@ -777,24 +911,71 @@
             lblUsuarioLog.Size = new Size(0, 20);
             lblUsuarioLog.TabIndex = 85;
             // 
+            // lblCliente
+            // 
+            lblCliente.AutoSize = true;
+            lblCliente.Depth = 0;
+            lblCliente.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCliente.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCliente.Location = new Point(21, 110);
+            lblCliente.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCliente.Name = "lblCliente";
+            lblCliente.Size = new Size(79, 24);
+            lblCliente.TabIndex = 86;
+            lblCliente.Text = "Usuario:";
+            // 
+            // rbtnDatosPersonales
+            // 
+            rbtnDatosPersonales.AutoSize = true;
+            rbtnDatosPersonales.Checked = true;
+            rbtnDatosPersonales.Depth = 0;
+            rbtnDatosPersonales.Font = new Font("Roboto", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            rbtnDatosPersonales.Location = new Point(367, 110);
+            rbtnDatosPersonales.Margin = new Padding(0);
+            rbtnDatosPersonales.MouseLocation = new Point(-1, -1);
+            rbtnDatosPersonales.MouseState = MaterialSkin.MouseState.HOVER;
+            rbtnDatosPersonales.Name = "rbtnDatosPersonales";
+            rbtnDatosPersonales.Ripple = true;
+            rbtnDatosPersonales.Size = new Size(165, 30);
+            rbtnDatosPersonales.TabIndex = 87;
+            rbtnDatosPersonales.TabStop = true;
+            rbtnDatosPersonales.Text = "Datos Personales";
+            rbtnDatosPersonales.UseVisualStyleBackColor = true;
+            rbtnDatosPersonales.CheckedChanged += rbtnDatosPersonales_CheckedChanged_1;
+            // 
+            // rbtnDatosFiscales
+            // 
+            rbtnDatosFiscales.AutoSize = true;
+            rbtnDatosFiscales.Depth = 0;
+            rbtnDatosFiscales.Font = new Font("Roboto", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            rbtnDatosFiscales.Location = new Point(570, 110);
+            rbtnDatosFiscales.Margin = new Padding(0);
+            rbtnDatosFiscales.MouseLocation = new Point(-1, -1);
+            rbtnDatosFiscales.MouseState = MaterialSkin.MouseState.HOVER;
+            rbtnDatosFiscales.Name = "rbtnDatosFiscales";
+            rbtnDatosFiscales.Ripple = true;
+            rbtnDatosFiscales.Size = new Size(143, 30);
+            rbtnDatosFiscales.TabIndex = 88;
+            rbtnDatosFiscales.Text = "Datos Fiscales";
+            rbtnDatosFiscales.UseVisualStyleBackColor = true;
+            rbtnDatosFiscales.CheckedChanged += rbtnDatosFiscales_CheckedChanged;
+            // 
             // ModificarUsuario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(814, 450);
+            ClientSize = new Size(1001, 560);
+            Controls.Add(rbtnDatosFiscales);
+            Controls.Add(rbtnDatosPersonales);
+            Controls.Add(lblCliente);
             Controls.Add(lblUsuarioLog);
             Controls.Add(panelPermisos);
             Controls.Add(cmbNombreUsuario);
-            Controls.Add(lblCliente);
             Controls.Add(rbtnPermisos);
-            Controls.Add(lblTitle);
-            Controls.Add(rbtnDatosFiscales);
-            Controls.Add(rbtnDatosPersonales);
-            Controls.Add(btnAceptar);
             Controls.Add(panelDatos);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ModificarUsuario";
-            Text = "ModificarUsuario";
+            Text = "MODIFICAR USUARIOS";
             Load += ModificarUsuario_Load;
             panelDatos.ResumeLayout(false);
             panelDatos.PerformLayout();
@@ -805,40 +986,9 @@
         }
 
         #endregion
-
-        private TextBox txtCif;
-        private Label lblCif;
-        private RadioButton rbtnDatosFiscales;
-        private RadioButton rbtnDatosPersonales;
-        private TextBox txtNoInt;
-        private TextBox txtCorreo;
-        private TextBox txtCiudad;
-        private TextBox txtNoExt;
-        private TextBox txtCol;
-        private TextBox txtTel;
-        private TextBox txtCP;
-        private TextBox txtCalle;
-        private Label lblCorreo;
-        private Label lblTel;
-        private Label lblCiudad;
-        private Label lblCp;
-        private Label lblNoInt;
-        private Label lblNoExt;
-        private Label lblColonia;
-        private Label lblCalle;
-        private Button btnAceptar;
-        private TextBox txtNombre;
-        private Label lblRol;
-        private Label lblNombre;
-        private Label lblContrasenia;
-        private Label lblUsuario;
         private ComboBox cmbRol;
-        private TextBox txtContrasenia;
-        private TextBox txtUsuario;
-        private Label lblTitle;
         private RadioButton rbtnPermisos;
         private ComboBox cmbNombreUsuario;
-        private Label lblCliente;
         private Panel panelDatos;
         private Panel panelPermisos;
         private RadioButton rbtnCrearUsuarioF;
@@ -872,5 +1022,34 @@
         private RadioButton rbtnModificarUsuarioF;
         private RadioButton rbtnModificarUsuarioT;
         public Label lblUsuarioLog;
+        private MaterialSkin.Controls.MaterialLabel lblRol;
+        private MaterialSkin.Controls.MaterialLabel lblCif;
+        private MaterialSkin.Controls.MaterialLabel lblCiudad;
+        private MaterialSkin.Controls.MaterialLabel lblNoInt;
+        private MaterialSkin.Controls.MaterialLabel lblCorreo;
+        private MaterialSkin.Controls.MaterialLabel lblCp;
+        private MaterialSkin.Controls.MaterialLabel lblNoExt;
+        private MaterialSkin.Controls.MaterialLabel lblTel;
+        private MaterialSkin.Controls.MaterialLabel lblColonia;
+        private MaterialSkin.Controls.MaterialLabel lblCalle;
+        private MaterialSkin.Controls.MaterialLabel lblContrasenia;
+        private MaterialSkin.Controls.MaterialLabel lblUsuario;
+        private MaterialSkin.Controls.MaterialLabel lblNombre;
+        private MaterialSkin.Controls.MaterialLabel lblCliente;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtNombre;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCif;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCiudad;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtNoInt;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCorreo;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCP;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtNoExt;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtTel;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCol;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtCalle;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtContrasenia;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtUsuario;
+        private MaterialSkin.Controls.MaterialRadioButton rbtnDatosPersonales;
+        private MaterialSkin.Controls.MaterialRadioButton rbtnDatosFiscales;
+        private MaterialSkin.Controls.MaterialRaisedButton btnAceptar;
     }
 }

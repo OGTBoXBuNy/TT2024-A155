@@ -7,14 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//Diseño
+using MaterialSkin.Controls;
+
 
 namespace TT2024_A155
 {
-    public partial class CrearUsuario : Form
+    public partial class CrearUsuario : MaterialForm
     {
         public CrearUsuario()
         {
             InitializeComponent();
+            MaterialUI.loadMaterial(this);
         }
         BD Consulta = new();
         DataSet ds = new DataSet();

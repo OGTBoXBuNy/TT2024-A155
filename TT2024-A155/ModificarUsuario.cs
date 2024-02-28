@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//Diseño
+using MaterialSkin.Controls;
 
 namespace TT2024_A155
 {
-    public partial class ModificarUsuario : Form
+    public partial class ModificarUsuario : MaterialForm
     {
         public ModificarUsuario()
         {
             InitializeComponent();
+            MaterialUI.loadMaterial(this);
         }
         //CONSTRUCTOR DEL FORM
         BD Consulta = new BD();
@@ -25,7 +28,7 @@ namespace TT2024_A155
 
         private void ModificarUsuario_Load(object sender, EventArgs e)
         {
-            
+
 
             ds = Consulta.Usuarios();
             dv = ds.Tables[0].DefaultView;
@@ -129,18 +132,7 @@ namespace TT2024_A155
             }
         }
 
-        private void rbtnDatosFiscales_CheckedChanged(object sender, EventArgs e)
-        {
-            datosFiscales();
-            panelDatos.Enabled = true;
-            panelDatos.Visible = true;
-        }
 
-        private void rbtnPermisos_CheckedChanged(object sender, EventArgs e)
-        {
-            panelDatos.Enabled = false;
-            panelDatos.Visible = false;
-        }
 
         private void cmbNombreUsuario_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -153,9 +145,9 @@ namespace TT2024_A155
                 permisos = Consulta.obtenerPermisos(cmbNombreUsuario.SelectedValue.ToString()); //1 ENABLE AND VISIBLE.... 0 DISABLE AND NO VISIBLE
                 txtUsuario.Text = cmbNombreUsuario.Text;
             }
-                
 
-            if(cmbRol.Text == "Cliente")
+
+            if (cmbRol.Text == "Cliente")
             {
                 rbtnDatosFiscales.Enabled = true;
             }
@@ -171,8 +163,22 @@ namespace TT2024_A155
                 datosFiscales();
             else { }
 
-            
 
+
+        }
+
+        private void rbtnDatosPersonales_CheckedChanged_1(object sender, EventArgs e)
+        {
+            datosPersonales();
+            panelDatos.Enabled = true;
+            panelDatos.Visible = true;
+        }
+
+        private void rbtnDatosFiscales_CheckedChanged(object sender, EventArgs e)
+        {
+            datosFiscales();
+            panelDatos.Enabled = true;
+            panelDatos.Visible = true;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -213,9 +219,9 @@ namespace TT2024_A155
                 string descripcionLog = "El usuario : " + usuarioLog + " modificó los datos fiscales del usuario: " + usuario + " el día: " + DateTime.Now.ToString();
                 Consulta.Log(usuario, "", descripcionLog, "19");
             }
-            else if (rbtnPermisos.Checked) 
+            else if (rbtnPermisos.Checked)
             {
-                
+
             }
             else { }
         }
