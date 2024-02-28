@@ -9,10 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+//Diseño
+using MaterialSkin.Controls;
 namespace TT2024_A155
 {
-    public partial class Pedido : Form
+    public partial class Pedido : MaterialForm
     {
 
         
@@ -30,7 +31,7 @@ namespace TT2024_A155
         public Pedido(int x)
         {
             InitializeComponent();
-
+            MaterialUI.loadMaterial(this);
             // X-->  0 = CREAR PEIDO,,,, 1 = ACTUALIZAR
             actualizar = x;
 

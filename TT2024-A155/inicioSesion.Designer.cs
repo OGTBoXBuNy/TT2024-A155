@@ -38,6 +38,8 @@
             pbUsuario = new PictureBox();
             pbContrasenia = new PictureBox();
             lblVersion = new Label();
+            lblUsuario = new Label();
+            lblContrasenia = new Label();
             ((System.ComponentModel.ISupportInitialize)picInicioSesion).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbUsuario).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbContrasenia).BeginInit();
@@ -47,11 +49,11 @@
             // 
             picInicioSesion.BackColor = Color.Transparent;
             picInicioSesion.ErrorImage = Properties.Resources.Error;
-            picInicioSesion.Image = Properties.Resources.logoAppTransMovimiento;
+            picInicioSesion.Image = Properties.Resources.logoAppTransMovimiento_Blanco;
             picInicioSesion.InitialImage = Properties.Resources.ESCOM;
-            picInicioSesion.Location = new Point(123, 68);
+            picInicioSesion.Location = new Point(160, 67);
             picInicioSesion.Name = "picInicioSesion";
-            picInicioSesion.Size = new Size(131, 112);
+            picInicioSesion.Size = new Size(176, 139);
             picInicioSesion.SizeMode = PictureBoxSizeMode.StretchImage;
             picInicioSesion.TabIndex = 5;
             picInicioSesion.TabStop = false;
@@ -61,7 +63,7 @@
             lblRestablecerContrasenia.AutoSize = true;
             lblRestablecerContrasenia.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
             lblRestablecerContrasenia.LinkColor = Color.White;
-            lblRestablecerContrasenia.Location = new Point(14, 336);
+            lblRestablecerContrasenia.Location = new Point(12, 380);
             lblRestablecerContrasenia.Name = "lblRestablecerContrasenia";
             lblRestablecerContrasenia.Size = new Size(136, 17);
             lblRestablecerContrasenia.TabIndex = 4;
@@ -71,7 +73,7 @@
             // 
             // btnFirma
             // 
-            btnFirma.Location = new Point(302, 30);
+            btnFirma.Location = new Point(468, 27);
             btnFirma.Name = "btnFirma";
             btnFirma.Size = new Size(42, 27);
             btnFirma.TabIndex = 8;
@@ -83,7 +85,7 @@
             // 
             txtUsuario.Depth = 0;
             txtUsuario.Hint = "";
-            txtUsuario.Location = new Point(90, 196);
+            txtUsuario.Location = new Point(147, 242);
             txtUsuario.MaxLength = 32767;
             txtUsuario.MouseState = MaterialSkin.MouseState.HOVER;
             txtUsuario.Name = "txtUsuario";
@@ -100,11 +102,11 @@
             // 
             txtContrasenia.Depth = 0;
             txtContrasenia.Hint = "";
-            txtContrasenia.Location = new Point(90, 254);
+            txtContrasenia.Location = new Point(147, 316);
             txtContrasenia.MaxLength = 32767;
             txtContrasenia.MouseState = MaterialSkin.MouseState.HOVER;
             txtContrasenia.Name = "txtContrasenia";
-            txtContrasenia.PasswordChar = '\0';
+            txtContrasenia.PasswordChar = '*';
             txtContrasenia.SelectedText = "";
             txtContrasenia.SelectionLength = 0;
             txtContrasenia.SelectionStart = 0;
@@ -119,7 +121,7 @@
             btnIngresar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnIngresar.Depth = 0;
             btnIngresar.Icon = null;
-            btnIngresar.Location = new Point(139, 297);
+            btnIngresar.Location = new Point(187, 361);
             btnIngresar.MouseState = MaterialSkin.MouseState.HOVER;
             btnIngresar.Name = "btnIngresar";
             btnIngresar.Primary = true;
@@ -132,7 +134,7 @@
             // pbUsuario
             // 
             pbUsuario.Image = Properties.Resources.usuarioIcono;
-            pbUsuario.Location = new Point(48, 199);
+            pbUsuario.Location = new Point(105, 245);
             pbUsuario.Name = "pbUsuario";
             pbUsuario.Size = new Size(25, 25);
             pbUsuario.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -142,7 +144,7 @@
             // pbContrasenia
             // 
             pbContrasenia.Image = Properties.Resources.contraseniaIcono;
-            pbContrasenia.Location = new Point(48, 257);
+            pbContrasenia.Location = new Point(105, 319);
             pbContrasenia.Name = "pbContrasenia";
             pbContrasenia.Size = new Size(25, 25);
             pbContrasenia.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -152,17 +154,39 @@
             // lblVersion
             // 
             lblVersion.AutoSize = true;
-            lblVersion.Location = new Point(250, 336);
+            lblVersion.Location = new Point(12, 474);
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(94, 20);
             lblVersion.TabIndex = 17;
             lblVersion.Text = "Versión: 1.0.0";
             // 
+            // lblUsuario
+            // 
+            lblUsuario.AutoSize = true;
+            lblUsuario.BackColor = Color.Transparent;
+            lblUsuario.Location = new Point(147, 219);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(62, 20);
+            lblUsuario.TabIndex = 18;
+            lblUsuario.Text = "Usuario:";
+            // 
+            // lblContrasenia
+            // 
+            lblContrasenia.AutoSize = true;
+            lblContrasenia.BackColor = Color.Transparent;
+            lblContrasenia.Location = new Point(147, 293);
+            lblContrasenia.Name = "lblContrasenia";
+            lblContrasenia.Size = new Size(86, 20);
+            lblContrasenia.TabIndex = 19;
+            lblContrasenia.Text = "Contraseña:";
+            // 
             // inicioSesion
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(356, 362);
+            ClientSize = new Size(464, 500);
+            Controls.Add(lblContrasenia);
+            Controls.Add(lblUsuario);
             Controls.Add(lblVersion);
             Controls.Add(pbContrasenia);
             Controls.Add(pbUsuario);
@@ -195,6 +219,7 @@
         private MaterialSkin.Controls.MaterialRaisedButton btnIngresar;
         private PictureBox pbUsuario;
         private PictureBox pbContrasenia;
-        
+        private Label lblUsuario;
+        private Label lblContrasenia;
     }
 }

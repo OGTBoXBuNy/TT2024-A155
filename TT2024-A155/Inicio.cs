@@ -8,21 +8,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//Diseño
+using MaterialSkin.Controls;
 
 namespace TT2024_A155
 {
-    public partial class Inicio : Form
+    public partial class Inicio : MaterialForm
     {
         public Inicio()
         {
             InitializeComponent();
+            MaterialUI.loadMaterial(this);
         }
         BD Consulta = new();
         private string[] permisos;
         private string[] detallesPedido;
+        System.Drawing.Color _colorPendiente = System.Drawing.ColorTranslator.FromHtml("#FFD034");
+        System.Drawing.Color _colorAceptados = System.Drawing.ColorTranslator.FromHtml("#209D5C");
+        System.Drawing.Color _colorbtnRevision = System.Drawing.ColorTranslator.FromHtml("#AF8016");
 
         private void Inicio_Load(object sender, EventArgs e)
         {
+
 
             //OBTENER PERMISOS SEGUN USUARIO
             permisos = Consulta.obtenerPermisos(lblRol.Text.Trim()); //1 ENABLE AND VISIBLE.... 0 DISABLE AND NO VISIBLE 
@@ -84,7 +91,7 @@ namespace TT2024_A155
                 btnAceptarPedido.HeaderText = "Estado pedido";
                 btnAceptarPedido.Text = "";
                 btnAceptarPedido.FlatStyle = FlatStyle.Popup;
-                btnAceptarPedido.CellTemplate.Style.BackColor = System.Drawing.Color.DarkGoldenrod;
+                btnAceptarPedido.CellTemplate.Style.BackColor = _colorbtnRevision;
                 //btnAceptarPedido.UseColumnTextForButtonValue = true;
                 dgvPedido.Columns.Add(btnAceptarPedido);
 
@@ -104,28 +111,6 @@ namespace TT2024_A155
         }
 
 
-        private void btnCrearPedido_Click(object sender, EventArgs e)
-        {
-
-            Pedido pedido = new Pedido(0);//0 = CREAR PEDIDO,,,, 1 = ACTUALIZAR
-            pedido.lblUsuario.Text = lblUsuario.Text;
-            pedido.lblRol.Text = lblRol.Text;
-            if (pedido.ShowDialog() == DialogResult.OK)
-            {
-                if (lblRol.Text == "4")
-                {
-                    inicializarDgvCliente(lblUsuario.Text);
-                }
-                else
-                {
-                    inicializarDgvEmpleado(lblUsuario.Text);
-                }
-
-            }
-            //this.Hide();
-
-        }
-
         private void Inicio_FormClosed(object sender, FormClosedEventArgs e)
         {
             inicioSesion inicioSesion = new();
@@ -143,16 +128,16 @@ namespace TT2024_A155
             lblProducto.Text = "Producto: " + detallesPedido[4];
             lblCantidad.Text = "Cantidad: " + detallesPedido[5];
             lblPrecio.Text = "Precio Venta: $" + detallesPedido[6];
-            lblDescuento.Text = "Descuento: " + detallesPedido[7];
+            lblDescuento.Text = "Descuento: %" + detallesPedido[7];
             lblMarca.Text = "Marca: " + detallesPedido[8];
             lblModelo.Text = "Modelo: " + detallesPedido[9];
             lblAnio.Text = "Año: " + detallesPedido[17];
             txtComentarios.Text = detallesPedido[10];
             lblAprobacion.Text = "Estado: " + detallesPedido[11];
             lblFactura.Text = "# Factura: " + detallesPedido[12];
-            lblFactSinIva.Text = "Factura sin IVA: " + detallesPedido[13];
-            lblImpuesto.Text = "Impuesto: " + detallesPedido[15];
-            lblFactIVA.Text = "Factura con IVA: " + detallesPedido[14];
+            lblFactSinIva.Text = "Factura sin IVA: $" + detallesPedido[13];
+            lblImpuesto.Text = "Impuesto: $" + detallesPedido[15];
+            lblFactIVA.Text = "Factura con IVA: $" + detallesPedido[14];
             txtComenatriosFact.Text = detallesPedido[18];
             lblEntregadoPor.Text = "Entregado Por: " + Consulta.nombreVendedor(detallesPedido[19]);
             lblfechaEntrega.Text = "Fecha Entrega: " + detallesPedido[20];
@@ -295,7 +280,7 @@ namespace TT2024_A155
             {
                 if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
                 {
-                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Green;
+                    row.DefaultCellStyle.BackColor = _colorAceptados;
 
                     row.Cells["dataGridViewAceptarPedido"].Value = "Revisado";
 
@@ -303,7 +288,7 @@ namespace TT2024_A155
                 else
                 {
 
-                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+                    row.DefaultCellStyle.BackColor = _colorPendiente;
                     row.Cells["dataGridViewAceptarPedido"].Value = "En Revisión";
                 }
             }
@@ -315,11 +300,11 @@ namespace TT2024_A155
             {
                 if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
                 {
-                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Green;
+                    row.DefaultCellStyle.BackColor = _colorAceptados;
                 }
                 else
                 {
-                    row.DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+                    row.DefaultCellStyle.BackColor = _colorPendiente;
                 }
             }
         }
@@ -356,82 +341,6 @@ namespace TT2024_A155
 
         }
 
-        private void txtFiltroPedido_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (lblRol.Text == "4")
-            {
-                if (txtFiltroPedido.Text.Trim() == string.Empty)
-                {
-                    inicializarDgvCliente(lblUsuario.Text);
-                }
-                else
-                {
-                    Consulta.filtroPedidoCliente(dgvPedido, txtFiltroPedido.Text.Trim(), lblUsuario.Text.Trim());
-                    estadoPedidoColorCliente();
-                }
-
-
-
-            }
-            else if (lblRol.Text == "2")
-            {
-                if (txtFiltroPedido.Text.Trim() == string.Empty)
-                {
-                    inicializarDgvEmpleado(lblUsuario.Text);
-                }
-                else
-                {
-                    Consulta.filtroPedidoEmpleado(dgvPedido, txtFiltroPedido.Text.Trim(), lblUsuario.Text);
-                    estadoPedidoColorEmpleado();
-                }
-            }
-            else { }
-
-
-
-        }
-
-        private void txtFiltroCliente_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (lblRol.Text == "4")
-            {
-
-            }
-            else if (lblRol.Text == "2")
-            {
-                if (txtFiltroCliente.Text.Trim() == string.Empty)
-                {
-                    inicializarDgvEmpleado(lblUsuario.Text);
-                }
-                else
-                {
-                    Consulta.filtroNombreClienteEmpleado(dgvPedido, txtFiltroCliente.Text.Trim(), lblUsuario.Text);
-                    estadoPedidoColorEmpleado();
-                }
-            }
-            else { }
-        }
-
-        private void txtFiltroUsuario_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (lblRol.Text == "4")
-            {
-
-            }
-            else if (lblRol.Text == "2")
-            {
-                if (txtFiltroUsuario.Text.Trim() == string.Empty)
-                {
-                    inicializarDgvEmpleado(lblUsuario.Text);
-                }
-                else
-                {
-                    Consulta.filtroNombreUsuarioEmpleado(dgvPedido, txtFiltroUsuario.Text.Trim(), lblUsuario.Text);
-                    estadoPedidoColorEmpleado();
-                }
-            }
-            else { }
-        }
 
         private void dtpFin_ValueChanged(object sender, EventArgs e)
         {
@@ -476,6 +385,112 @@ namespace TT2024_A155
             else { }
         }
 
+
+        private void txtFiltroPedido_KeyUp(object sender, KeyEventArgs e)
+        {
+
+            if (lblRol.Text == "4")
+            {
+                if (txtFiltroPedido.Text.Trim() == string.Empty)
+                {
+                    inicializarDgvCliente(lblUsuario.Text);
+                }
+                else
+                {
+                    Consulta.filtroPedidoCliente(dgvPedido, txtFiltroPedido.Text.Trim(), lblUsuario.Text.Trim());
+                    estadoPedidoColorCliente();
+                }
+
+
+
+            }
+            else if (lblRol.Text == "2")
+            {
+                if (txtFiltroPedido.Text.Trim() == string.Empty)
+                {
+                    inicializarDgvEmpleado(lblUsuario.Text);
+                }
+                else
+                {
+                    Consulta.filtroPedidoEmpleado(dgvPedido, txtFiltroPedido.Text.Trim(), lblUsuario.Text);
+                    estadoPedidoColorEmpleado();
+                }
+            }
+            else { }
+        }
+
+        private void txtFiltroCliente_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (lblRol.Text == "4")
+            {
+
+            }
+            else if (lblRol.Text == "2")
+            {
+                if (txtFiltroCliente.Text.Trim() == string.Empty)
+                {
+                    inicializarDgvEmpleado(lblUsuario.Text);
+                }
+                else
+                {
+                    Consulta.filtroNombreClienteEmpleado(dgvPedido, txtFiltroCliente.Text.Trim(), lblUsuario.Text);
+                    estadoPedidoColorEmpleado();
+                }
+            }
+            else { }
+        }
+
+        private void txtFiltroUsuario_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (lblRol.Text == "4")
+            {
+
+            }
+            else if (lblRol.Text == "2")
+            {
+                if (txtFiltroUsuario.Text.Trim() == string.Empty)
+                {
+                    inicializarDgvEmpleado(lblUsuario.Text);
+                }
+                else
+                {
+                    Consulta.filtroNombreUsuarioEmpleado(dgvPedido, txtFiltroUsuario.Text.Trim(), lblUsuario.Text);
+                    estadoPedidoColorEmpleado();
+                }
+            }
+            else { }
+        }
+
+        private void btnCrearPedido_Click(object sender, EventArgs e)
+        {
+            Pedido pedido = new Pedido(0);//0 = CREAR PEDIDO,,,, 1 = ACTUALIZAR
+            pedido.lblUsuario.Text = lblUsuario.Text;
+            pedido.lblRol.Text = lblRol.Text;
+            if (pedido.ShowDialog() == DialogResult.OK)
+            {
+                if (lblRol.Text == "4")
+                {
+                    inicializarDgvCliente(lblUsuario.Text);
+                }
+                else
+                {
+                    inicializarDgvEmpleado(lblUsuario.Text);
+                }
+
+            }
+            //this.Hide();
+        }
+
+        private void tab1_Click(object sender, EventArgs e)
+        {
+            tabControlDetallesPedido.SelectedTab = tabPage1;
+        }
+
+        private void tab2_Click(object sender, EventArgs e)
+        {
+            tabControlDetallesPedido.SelectedTab = tabPage2;
+        }
+
         private void cuentaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Administrar administrar = new();
@@ -509,6 +524,11 @@ namespace TT2024_A155
         {
             Log log = new();
             log.ShowDialog();
+        }
+
+        private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
