@@ -158,7 +158,7 @@
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(94, 20);
             lblVersion.TabIndex = 17;
-            lblVersion.Text = "Versión: 1.0.0";
+            lblVersion.Text = "Versión: 1.0.2";
             // 
             // lblUsuario
             // 
