@@ -62,6 +62,7 @@
             txtDescuento.Size = new Size(151, 27);
             txtDescuento.TabIndex = 6;
             txtDescuento.Text = "0";
+            txtDescuento.KeyPress += txtDescuento_KeyPress;
             // 
             // cmbProducto
             // 

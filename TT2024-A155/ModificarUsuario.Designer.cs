@@ -231,6 +231,7 @@
             txtNoInt.TabIndex = 103;
             txtNoInt.TabStop = false;
             txtNoInt.UseSystemPasswordChar = false;
+            txtNoInt.KeyPress += txtNoInt_KeyPress;
             // 
             // txtCorreo
             // 
@@ -265,6 +266,7 @@
             txtCP.TabIndex = 101;
             txtCP.TabStop = false;
             txtCP.UseSystemPasswordChar = false;
+            txtCP.KeyPress += txtCP_KeyPress;
             // 
             // txtNoExt
             // 
@@ -282,6 +284,7 @@
             txtNoExt.TabIndex = 100;
             txtNoExt.TabStop = false;
             txtNoExt.UseSystemPasswordChar = false;
+            txtNoExt.KeyPress += txtNoExt_KeyPress;
             // 
             // txtTel
             // 
@@ -299,6 +302,7 @@
             txtTel.TabIndex = 99;
             txtTel.TabStop = false;
             txtTel.UseSystemPasswordChar = false;
+            txtTel.KeyPress += txtTel_KeyPress;
             // 
             // txtCol
             // 
@@ -384,6 +388,7 @@
             txtNombre.TabIndex = 93;
             txtNombre.TabStop = false;
             txtNombre.UseSystemPasswordChar = false;
+            txtNombre.KeyPress += txtNombre_KeyPress;
             // 
             // lblRol
             // 

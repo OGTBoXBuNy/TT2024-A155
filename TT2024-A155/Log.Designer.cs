@@ -187,6 +187,7 @@
             txtFiltroPedido.TabIndex = 120;
             txtFiltroPedido.TabStop = false;
             txtFiltroPedido.UseSystemPasswordChar = false;
+            txtFiltroPedido.KeyPress += txtFiltroPedido_KeyPress;
             txtFiltroPedido.KeyUp += txtFiltroPedido_KeyUp;
             // 
             // txtFiltroNomUsuario
@@ -223,6 +224,7 @@
             txtFiltroNomReal.TabIndex = 122;
             txtFiltroNomReal.TabStop = false;
             txtFiltroNomReal.UseSystemPasswordChar = false;
+            txtFiltroNomReal.KeyPress += txtFiltroNomReal_KeyPress;
             txtFiltroNomReal.KeyUp += txtFiltroNomReal_KeyUp;
             // 
             // Log

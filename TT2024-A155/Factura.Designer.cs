@@ -140,6 +140,7 @@
             txtDescuento.Name = "txtDescuento";
             txtDescuento.Size = new Size(285, 27);
             txtDescuento.TabIndex = 9;
+            txtDescuento.KeyPress += txtDescuento_KeyPress;
             // 
             // txtFactIVA
             // 

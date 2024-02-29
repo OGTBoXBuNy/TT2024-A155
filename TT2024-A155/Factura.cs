@@ -17,6 +17,7 @@ namespace TT2024_A155
             InitializeComponent();
         }
         BD Consulta = new();
+        Validaciones Validaciones = new();
         private void Factura_Load(object sender, EventArgs e)
         {
             Consulta.datosFacturaPDF(dgvDatosFactura, lblIDPedido.Text);
@@ -54,6 +55,11 @@ namespace TT2024_A155
         private void btnprivKey_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtDescuento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
         }
     }
 }

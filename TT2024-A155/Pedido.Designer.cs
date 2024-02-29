@@ -378,6 +378,7 @@
             txtNombreCliFact.TabIndex = 59;
             txtNombreCliFact.TabStop = false;
             txtNombreCliFact.UseSystemPasswordChar = false;
+            txtNombreCliFact.KeyPress += txtNombreCliFact_KeyPress;
             // 
             // txtCif
             // 
@@ -429,6 +430,7 @@
             txtTel.TabIndex = 63;
             txtTel.TabStop = false;
             txtTel.UseSystemPasswordChar = false;
+            txtTel.KeyPress += txtTel_KeyPress;
             // 
             // txtCP
             // 
@@ -446,6 +448,7 @@
             txtCP.TabIndex = 62;
             txtCP.TabStop = false;
             txtCP.UseSystemPasswordChar = false;
+            txtCP.KeyPress += txtCP_KeyPress;
             // 
             // txtCorreo
             // 
@@ -497,6 +500,7 @@
             txtNoExt.TabIndex = 65;
             txtNoExt.TabStop = false;
             txtNoExt.UseSystemPasswordChar = false;
+            txtNoExt.KeyPress += txtNoExt_KeyPress;
             // 
             // txtCol
             // 
@@ -531,6 +535,7 @@
             txtNoInt.TabIndex = 68;
             txtNoInt.TabStop = false;
             txtNoInt.UseSystemPasswordChar = false;
+            txtNoInt.KeyPress += txtNoInt_KeyPress;
             // 
             // btnAgregarProducto
             // 

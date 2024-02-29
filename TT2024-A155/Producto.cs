@@ -22,6 +22,7 @@ namespace TT2024_A155
             this.iddetallePedido = iddetallePedido;
         }
         BD Consulta = new BD();
+        Validaciones Validaciones = new();
         DataSet ds = new DataSet();
         DataView dv = new DataView();
         internal string[] datosProducto = new string[13];
@@ -180,6 +181,11 @@ namespace TT2024_A155
 
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void txtDescuento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
         }
     }
 }

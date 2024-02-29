@@ -61,6 +61,7 @@
             txtNoInt.Name = "txtNoInt";
             txtNoInt.Size = new Size(68, 27);
             txtNoInt.TabIndex = 5;
+            txtNoInt.KeyPress += txtNoInt_KeyPress;
             // 
             // txtCorreo
             // 
@@ -82,6 +83,7 @@
             txtNoExt.Name = "txtNoExt";
             txtNoExt.Size = new Size(159, 27);
             txtNoExt.TabIndex = 4;
+            txtNoExt.KeyPress += txtNoExt_KeyPress;
             // 
             // txtCol
             // 
@@ -96,6 +98,7 @@
             txtTel.Name = "txtTel";
             txtTel.Size = new Size(159, 27);
             txtTel.TabIndex = 10;
+            txtTel.KeyPress += txtTel_KeyPress;
             // 
             // txtCP
             // 
@@ -199,6 +202,7 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(300, 27);
             txtNombre.TabIndex = 0;
+            txtNombre.KeyPress += txtNombre_KeyPress;
             // 
             // lblNombre
             // 

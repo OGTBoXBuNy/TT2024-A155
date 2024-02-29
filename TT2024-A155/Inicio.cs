@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 //Diseño
 using MaterialSkin.Controls;
+using System.Text.RegularExpressions;
 
 namespace TT2024_A155
 {
@@ -21,6 +22,7 @@ namespace TT2024_A155
             MaterialUI.loadMaterial(this);
         }
         BD Consulta = new();
+        Validaciones Validaciones = new();
         private string[] permisos;
         private string[] detallesPedido;
         System.Drawing.Color _colorPendiente = System.Drawing.ColorTranslator.FromHtml("#FFD034");
@@ -529,6 +531,16 @@ namespace TT2024_A155
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtFiltroPedido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtFiltroCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloLetras(sender, e);
         }
     }
 }

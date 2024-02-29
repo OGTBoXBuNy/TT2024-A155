@@ -18,6 +18,7 @@ namespace TT2024_A155
 
 
         BD Consulta = new BD();
+        Validaciones Validaciones = new();
         private DataTable dt;
         double descuento = 0;
         double precioVenta = 0;
@@ -490,6 +491,31 @@ namespace TT2024_A155
                 this.Close();
             }
             else { }
+        }
+
+        private void txtNombreCliFact_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloLetras(sender, e);
+        }
+
+        private void txtCP_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtTel_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtNoExt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtNoInt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace TT2024_A155
     {
         //CONSTRUCTOR DEL FORM
         BD Consulta = new BD();
+        Validaciones Validaciones = new();
         DataSet ds = new DataSet();
         DataView dv = new DataView();
         string[] datosCuenta;
@@ -175,6 +176,31 @@ namespace TT2024_A155
                 txtCorreo.Text = datosCuenta[8];
                 txtCif.Text = datosCuenta[9];
             }
+        }
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloLetras(sender, e);
+        }
+
+        private void txtTel_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtNoExt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtNoInt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtCP_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
         }
     }
 }

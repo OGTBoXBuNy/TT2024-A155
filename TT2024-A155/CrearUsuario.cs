@@ -21,6 +21,7 @@ namespace TT2024_A155
             MaterialUI.loadMaterial(this);
         }
         BD Consulta = new();
+        Validaciones Validaciones = new();
         DataSet ds = new DataSet();
         DataView dv = new DataView();
         private void CrearUsuario_Load(object sender, EventArgs e)
@@ -52,6 +53,31 @@ namespace TT2024_A155
             string usuarioLog = lblUsuarioLog.Text.Trim();
             string descripcionLog = "El usuario : " + usuarioLog + " creó al nuevo usuario: " + usuario + " el día: " + DateTime.Now.ToString();
             Consulta.Log(usuario, "", descripcionLog, "17");
+        }
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloLetras(sender, e);
+        }
+
+        private void txtCP_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtTel_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtNoExt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtNoInt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
         }
     }
 }

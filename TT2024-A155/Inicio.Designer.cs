@@ -769,6 +769,7 @@
             txtFiltroPedido.TabIndex = 2;
             txtFiltroPedido.TabStop = false;
             txtFiltroPedido.UseSystemPasswordChar = false;
+            txtFiltroPedido.KeyPress += txtFiltroPedido_KeyPress;
             txtFiltroPedido.KeyUp += txtFiltroPedido_KeyUp;
             // 
             // txtFiltroUsuario
@@ -805,6 +806,7 @@
             txtFiltroCliente.TabIndex = 6;
             txtFiltroCliente.TabStop = false;
             txtFiltroCliente.UseSystemPasswordChar = false;
+            txtFiltroCliente.KeyPress += txtFiltroCliente_KeyPress;
             txtFiltroCliente.KeyUp += txtFiltroCliente_KeyUp;
             // 
             // lblNomCliente

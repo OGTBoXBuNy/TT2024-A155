@@ -20,6 +20,7 @@ namespace TT2024_A155
             MaterialUI.loadMaterial(this);
         }
         BD Consulta = new();
+        Validaciones Validaciones = new Validaciones();
         private void Log_Load(object sender, EventArgs e)
         {
             //Carga los datos de los nombres de los tipos de cambios registrados
@@ -100,6 +101,16 @@ namespace TT2024_A155
             string fechaFinal = Fecha_Fin.Value.Year.ToString() + "-" + Fecha_Fin.Value.Month.ToString() + "-" + Fecha_Fin.Value.Day.ToString();
 
             Consulta.LogBuscar(dgvLog, idpedido, nomUsuario, nomReal, tipo, fechaInicial, fechaFinal);
+        }
+
+        private void txtFiltroPedido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtFiltroNomReal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloLetras(sender, e);
         }
     }
 }

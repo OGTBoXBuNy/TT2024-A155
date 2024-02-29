@@ -17,6 +17,7 @@ namespace TT2024_A155
             InitializeComponent();
         }
         BD Consulta = new BD();
+        Validaciones Validaciones = new();
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             string rol = "Cliente";
@@ -36,6 +37,26 @@ namespace TT2024_A155
 
             string descripcionLog = "Se registró un nuevo cliente con nombre de usuario:  " + usuario + " el día: " + DateTime.Now.ToString();
             Consulta.Log(usuario, "", descripcionLog, "4");
+        }
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloLetras(sender, e);
+        }
+
+        private void txtTel_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtNoExt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtNoInt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = Validaciones.soloNumerosDecimales(sender, e);
         }
     }
 }

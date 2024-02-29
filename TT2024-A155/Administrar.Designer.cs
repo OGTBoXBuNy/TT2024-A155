@@ -274,6 +274,7 @@
             txtNombre.TabIndex = 64;
             txtNombre.TabStop = false;
             txtNombre.UseSystemPasswordChar = false;
+            txtNombre.KeyPress += txtNombre_KeyPress;
             // 
             // txtUsuario
             // 
@@ -325,6 +326,7 @@
             txtTel.TabIndex = 70;
             txtTel.TabStop = false;
             txtTel.UseSystemPasswordChar = false;
+            txtTel.KeyPress += txtTel_KeyPress;
             // 
             // txtCol
             // 
@@ -410,6 +412,7 @@
             txtCP.TabIndex = 73;
             txtCP.TabStop = false;
             txtCP.UseSystemPasswordChar = false;
+            txtCP.KeyPress += txtCP_KeyPress;
             // 
             // txtNoExt
             // 
@@ -427,6 +430,7 @@
             txtNoExt.TabIndex = 72;
             txtNoExt.TabStop = false;
             txtNoExt.UseSystemPasswordChar = false;
+            txtNoExt.KeyPress += txtNoExt_KeyPress;
             // 
             // txtCiudad
             // 
@@ -461,6 +465,7 @@
             txtNoInt.TabIndex = 75;
             txtNoInt.TabStop = false;
             txtNoInt.UseSystemPasswordChar = false;
+            txtNoInt.KeyPress += txtNoInt_KeyPress;
             // 
             // btnAceptar
             // 
@@ -513,7 +518,6 @@
             rbtnDatosFiscales.Text = "Datos Fiscales";
             rbtnDatosFiscales.UseVisualStyleBackColor = true;
             rbtnDatosFiscales.CheckedChanged += rbtnDatosFiscales_CheckedChanged;
-
             // 
             // Administrar
             // 
