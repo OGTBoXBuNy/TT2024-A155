@@ -35,24 +35,59 @@ namespace TT2024_A155
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            string rol = cmbRol.Text.Trim();
-            string usuario = txtUsuario.Text.Trim();
-            string nombre = txtNombre.Text.Trim();
-            string contra = txtContrasenia.Text.Trim();
-            string calle = txtCalle.Text.Trim();
-            string colonia = txtCol.Text.Trim();
-            string noExt = txtNoExt.Text.Trim();
-            string noInt = txtNoInt.Text.Trim();
-            string cp = txtCP.Text.Trim();
-            string ciudad = txtCiudad.Text.Trim();
-            string telefono = txtTel.Text.Trim();
-            string correo = txtCorreo.Text.Trim();
+            //-----------VALIDACION-----------------//
+            bool validacion = true;
+            errorNombre.Clear();
+            errorUsuario.Clear();
+            errorContrasenia.Clear();
+            errorCalle.Clear();
+            errorColonia.Clear();
+            errorCP.Clear();
+            errorTelefono.Clear();
+            errorNoExt.Clear();
+            errorNoInt.Clear();
+            errorCiudad.Clear();
+            errorCorreo.Clear();
 
-            Consulta.registroUsuario(rol, usuario, nombre, contra, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo);
+            if (string.IsNullOrEmpty(txtNombre.Text.Trim())) { errorNombre.SetError(txtNombre, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtUsuario.Text.Trim())) { errorUsuario.SetError(txtUsuario, "Campo obligatorio"); validacion = false; }
+            if (!Validaciones.contrasenaSegura(txtContrasenia.Text.Trim())) { errorContrasenia.SetError(txtContrasenia, "Campo obligatorio y cumplir con: Números, Letras, Carácter especial y longitud mayor o igual a 8"); validacion = false; }
+            if(string.IsNullOrEmpty(txtCalle.Text.Trim())) { errorCalle.SetError(txtCalle, "Campo Obligatorio"); validacion = false; }
 
-            string usuarioLog = lblUsuarioLog.Text.Trim();
-            string descripcionLog = "El usuario : " + usuarioLog + " creó al nuevo usuario: " + usuario + " el día: " + DateTime.Now.ToString();
-            Consulta.Log(usuario, "", descripcionLog, "17");
+            if (string.IsNullOrEmpty(txtCol.Text.Trim())) { errorColonia.SetError(txtCol, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtCP.Text.Trim())) { errorCP.SetError(txtCP, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtTel.Text.Trim())) { errorTelefono.SetError(txtTel, "Campo Obligatorio"); validacion = false; }
+
+            if (string.IsNullOrEmpty(txtNoExt.Text.Trim())) { errorNoExt.SetError(txtNoExt, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtNoInt.Text.Trim())) { errorNoInt.SetError(txtNoInt, "Campo obligatorio / ó coloca 0"); validacion = false; }
+            if (string.IsNullOrEmpty(txtCiudad.Text.Trim())) { errorCiudad.SetError(txtCiudad, "Campo Obligatorio"); validacion = false; }
+            if (!Validaciones.validarCorreo(txtCorreo.Text.Trim())) { errorCorreo.SetError(txtCorreo, "Correo inválido"); validacion = false; }
+
+            //-----------------------------
+
+
+            if (validacion)
+            {
+                string rol = cmbRol.Text.Trim();
+                string usuario = txtUsuario.Text.Trim();
+                string nombre = txtNombre.Text.Trim();
+                string contra = txtContrasenia.Text.Trim();
+                string calle = txtCalle.Text.Trim();
+                string colonia = txtCol.Text.Trim();
+                string noExt = txtNoExt.Text.Trim();
+                string noInt = txtNoInt.Text.Trim();
+                string cp = txtCP.Text.Trim();
+                string ciudad = txtCiudad.Text.Trim();
+                string telefono = txtTel.Text.Trim();
+                string correo = txtCorreo.Text.Trim();
+
+                Consulta.registroUsuario(rol, usuario, nombre, contra, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo);
+
+                string usuarioLog = lblUsuarioLog.Text.Trim();
+                string descripcionLog = "El usuario : " + usuarioLog + " creó al nuevo usuario: " + usuario + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, "", descripcionLog, "17");
+            }
+
         }
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)

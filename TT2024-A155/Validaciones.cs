@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace TT2024_A155
@@ -41,6 +43,61 @@ namespace TT2024_A155
 
             return respuesta;
         }
+
+        public bool validarCorreo(string email)
+        {
+            if (email == null)
+            {
+                return false;
+            }
+            if (new EmailAddressAttribute().IsValid(email))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public Boolean contrasenaSegura(String contraseñaSinVerificar)
+        {
+            //letras de la A a la Z, mayusculas y minusculas
+            Regex letras = new Regex(@"[a-zA-z]");
+            //digitos del 0 al 9
+            Regex numeros = new Regex(@"[0-9]");
+            //cualquier caracter del conjunto
+            Regex caracEsp = new Regex("[!\"#\\$%&'()*+,-./:;=?@\\[\\]^_`{|}~]");
+
+            Boolean cumpleCriterios = false;
+
+            //si no contiene las letras, regresa false
+            if (!letras.IsMatch(contraseñaSinVerificar))
+            {
+                return false;
+            }
+            //si no contiene los numeros, regresa false
+            if (!numeros.IsMatch(contraseñaSinVerificar))
+            {
+                return false;
+            }
+
+            //si no contiene los caracteres especiales, regresa false
+            if (!caracEsp.IsMatch(contraseñaSinVerificar))
+            {
+                return false;
+            }
+
+            //Si no es de longitud minima de 8
+            if(contraseñaSinVerificar.Length < 8) 
+            {
+                return false;
+            }
+
+            //si cumple con todo, regresa true
+            return true;
+}
+
 
     }
 }

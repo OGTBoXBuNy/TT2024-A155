@@ -28,72 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(cambioContraseña));
-            lblTitulo = new Label();
-            lblContra = new Label();
-            lblrRepContra = new Label();
-            txtContra = new TextBox();
-            txtContraRep = new TextBox();
-            btnAceptar = new Button();
             lblUsuario = new Label();
             lblRol = new Label();
+            materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            txtContra = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtContraRep = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            btnAceptar = new MaterialSkin.Controls.MaterialRaisedButton();
+            errorContrasenia = new ErrorProvider(components);
+            errorContraseniaRepe = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorContrasenia).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorContraseniaRepe).BeginInit();
             SuspendLayout();
-            // 
-            // lblTitulo
-            // 
-            lblTitulo.AutoSize = true;
-            lblTitulo.Location = new Point(270, 9);
-            lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(187, 20);
-            lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "CAMBIO DE CONTRASEÑA";
-            // 
-            // lblContra
-            // 
-            lblContra.AutoSize = true;
-            lblContra.Location = new Point(51, 81);
-            lblContra.Name = "lblContra";
-            lblContra.Size = new Size(129, 20);
-            lblContra.TabIndex = 1;
-            lblContra.Text = "Contraseña nueva:";
-            // 
-            // lblrRepContra
-            // 
-            lblrRepContra.AutoSize = true;
-            lblrRepContra.Location = new Point(51, 115);
-            lblrRepContra.Name = "lblrRepContra";
-            lblrRepContra.Size = new Size(179, 20);
-            lblrRepContra.TabIndex = 2;
-            lblrRepContra.Text = "Repetir contraseña nueva:";
-            // 
-            // txtContra
-            // 
-            txtContra.Location = new Point(245, 74);
-            txtContra.Name = "txtContra";
-            txtContra.Size = new Size(300, 27);
-            txtContra.TabIndex = 3;
-            // 
-            // txtContraRep
-            // 
-            txtContraRep.Location = new Point(245, 108);
-            txtContraRep.Name = "txtContraRep";
-            txtContraRep.Size = new Size(300, 27);
-            txtContraRep.TabIndex = 4;
-            // 
-            // btnAceptar
-            // 
-            btnAceptar.Location = new Point(451, 151);
-            btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(94, 29);
-            btnAceptar.TabIndex = 5;
-            btnAceptar.Text = "Aceptar";
-            btnAceptar.UseVisualStyleBackColor = true;
-            btnAceptar.Click += btnAceptar_Click;
             // 
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(12, 9);
+            lblUsuario.Location = new Point(523, 9);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(59, 20);
             lblUsuario.TabIndex = 6;
@@ -102,41 +55,126 @@
             // lblRol
             // 
             lblRol.AutoSize = true;
-            lblRol.Location = new Point(12, 29);
+            lblRol.Location = new Point(523, 29);
             lblRol.Name = "lblRol";
             lblRol.Size = new Size(36, 20);
             lblRol.TabIndex = 7;
             lblRol.Text = "ROL";
             // 
+            // materialLabel1
+            // 
+            materialLabel1.AutoSize = true;
+            materialLabel1.Depth = 0;
+            materialLabel1.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            materialLabel1.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialLabel1.Location = new Point(35, 80);
+            materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel1.Name = "materialLabel1";
+            materialLabel1.Size = new Size(164, 24);
+            materialLabel1.TabIndex = 8;
+            materialLabel1.Text = "Contraseña nueva:";
+            // 
+            // materialLabel2
+            // 
+            materialLabel2.AutoSize = true;
+            materialLabel2.Depth = 0;
+            materialLabel2.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            materialLabel2.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialLabel2.Location = new Point(35, 120);
+            materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel2.Name = "materialLabel2";
+            materialLabel2.Size = new Size(227, 24);
+            materialLabel2.TabIndex = 9;
+            materialLabel2.Text = "Repetir contraseña nueva:";
+            // 
+            // txtContra
+            // 
+            txtContra.Depth = 0;
+            txtContra.Hint = "";
+            txtContra.Location = new Point(282, 80);
+            txtContra.MaxLength = 32767;
+            txtContra.MouseState = MaterialSkin.MouseState.HOVER;
+            txtContra.Name = "txtContra";
+            txtContra.PasswordChar = '\0';
+            txtContra.SelectedText = "";
+            txtContra.SelectionLength = 0;
+            txtContra.SelectionStart = 0;
+            txtContra.Size = new Size(300, 28);
+            txtContra.TabIndex = 10;
+            txtContra.TabStop = false;
+            txtContra.UseSystemPasswordChar = false;
+            // 
+            // txtContraRep
+            // 
+            txtContraRep.Depth = 0;
+            txtContraRep.Hint = "";
+            txtContraRep.Location = new Point(282, 120);
+            txtContraRep.MaxLength = 32767;
+            txtContraRep.MouseState = MaterialSkin.MouseState.HOVER;
+            txtContraRep.Name = "txtContraRep";
+            txtContraRep.PasswordChar = '\0';
+            txtContraRep.SelectedText = "";
+            txtContraRep.SelectionLength = 0;
+            txtContraRep.SelectionStart = 0;
+            txtContraRep.Size = new Size(300, 28);
+            txtContraRep.TabIndex = 11;
+            txtContraRep.TabStop = false;
+            txtContraRep.UseSystemPasswordChar = false;
+            // 
+            // btnAceptar
+            // 
+            btnAceptar.AutoSize = true;
+            btnAceptar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnAceptar.Depth = 0;
+            btnAceptar.Icon = null;
+            btnAceptar.Location = new Point(484, 154);
+            btnAceptar.MouseState = MaterialSkin.MouseState.HOVER;
+            btnAceptar.Name = "btnAceptar";
+            btnAceptar.Primary = true;
+            btnAceptar.Size = new Size(98, 36);
+            btnAceptar.TabIndex = 12;
+            btnAceptar.Text = "Aceptar";
+            btnAceptar.UseVisualStyleBackColor = true;
+            btnAceptar.Click += btnAceptar_Click;
+            // 
+            // errorContrasenia
+            // 
+            errorContrasenia.ContainerControl = this;
+            // 
+            // errorContraseniaRepe
+            // 
+            errorContraseniaRepe.ContainerControl = this;
+            // 
             // cambioContraseña
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(765, 206);
-            Controls.Add(lblRol);
-            Controls.Add(lblUsuario);
+            ClientSize = new Size(636, 192);
             Controls.Add(btnAceptar);
             Controls.Add(txtContraRep);
             Controls.Add(txtContra);
-            Controls.Add(lblrRepContra);
-            Controls.Add(lblContra);
-            Controls.Add(lblTitulo);
+            Controls.Add(materialLabel2);
+            Controls.Add(materialLabel1);
+            Controls.Add(lblRol);
+            Controls.Add(lblUsuario);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "cambioContraseña";
             Text = "CREAR NUEVA CONTRASEÑA";
+            ((System.ComponentModel.ISupportInitialize)errorContrasenia).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorContraseniaRepe).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label lblTitulo;
-        private Label lblContra;
-        private Label lblrRepContra;
-        private TextBox txtContra;
-        private TextBox txtContraRep;
-        private Button btnAceptar;
         public Label lblUsuario;
         public Label lblRol;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
+        private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtContra;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtContraRep;
+        private MaterialSkin.Controls.MaterialRaisedButton btnAceptar;
+        private ErrorProvider errorContrasenia;
+        private ErrorProvider errorContraseniaRepe;
     }
 }

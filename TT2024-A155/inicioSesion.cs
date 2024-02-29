@@ -92,41 +92,54 @@ namespace TT2024_A155
         
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            int[] inicioSesion = Consulta.inicioSesion(txtUsuario.Text.Trim(), txtContrasenia.Text.Trim());
-            if (inicioSesion[0] == 1)
+            //-----------VALIDACION-----------------//
+            bool validacion = true;
+            errorUsuario.Clear();
+            errorContrasenia.Clear();
+
+            if(string.IsNullOrEmpty(txtUsuario.Text.Trim())) { errorUsuario.SetError(txtUsuario, "Campo obligatorio"); validacion = false; }
+            if(string.IsNullOrEmpty (txtContrasenia.Text.Trim())) { errorContrasenia.SetError(txtContrasenia, "Campo obligatorio"); validacion = false; }
+
+            //-----------------------------
+
+            if (validacion)
             {
-
-                if (Consulta.validarContraTemp(txtUsuario.Text.Trim()) == 1)
+                int[] inicioSesion = Consulta.inicioSesion(txtUsuario.Text.Trim(), txtContrasenia.Text.Trim());
+                if (inicioSesion[0] == 1)
                 {
-                    cambioContraseña cambioContra = new();
-                    AddOwnedForm(cambioContra);
-                    cambioContra.lblUsuario.Text = txtUsuario.Text.Trim();
-                    cambioContra.lblRol.Text = inicioSesion[1].ToString();
-                    cambioContra.Show();
 
-                    this.Hide();
+                    if (Consulta.validarContraTemp(txtUsuario.Text.Trim()) == 1)
+                    {
+                        cambioContraseña cambioContra = new();
+                        AddOwnedForm(cambioContra);
+                        cambioContra.lblUsuario.Text = txtUsuario.Text.Trim();
+                        cambioContra.lblRol.Text = inicioSesion[1].ToString();
+                        cambioContra.Show();
+
+                        this.Hide();
+                    }
+                    else
+                    {
+                        Inicio inicio = new Inicio();
+                        AddOwnedForm(inicio);
+                        inicio.lblUsuario.Text += txtUsuario.Text.Trim();
+                        inicio.lblRol.Text = inicioSesion[1].ToString();
+                        inicio.Show();
+                        MessageBox.Show("Inicio sesión exitoso");
+                        string descripcionLog = "El usuario " + txtUsuario.Text + " Inicio sesión al sistema el día: " + DateTime.Now.ToString();
+                        Consulta.Log(txtUsuario.Text, "", descripcionLog, "1");
+                        this.Hide();
+
+                    }
+
                 }
                 else
                 {
-                    Inicio inicio = new Inicio();
-                    AddOwnedForm(inicio);
-                    inicio.lblUsuario.Text += txtUsuario.Text.Trim();
-                    inicio.lblRol.Text = inicioSesion[1].ToString();
-                    inicio.Show();
-                    MessageBox.Show("Inicio sesión exitoso");
-                    string descripcionLog = "El usuario " + txtUsuario.Text + " Inicio sesión al sistema el día: " + DateTime.Now.ToString();
-                    Consulta.Log(txtUsuario.Text, "", descripcionLog, "1");
-                    this.Hide();
+                    MessageBox.Show("Usuario y/o contraseña incorrectos");
+                    txtUsuario.Text = "";
+                    txtContrasenia.Text = "";
 
                 }
-
-            }
-            else
-            {
-                MessageBox.Show("Usuario y/o contraseña incorrectos");
-                txtUsuario.Text = "";
-                txtContrasenia.Text = "";
-
             }
         }
     }

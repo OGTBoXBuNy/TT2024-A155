@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(inicioSesion));
             picInicioSesion = new PictureBox();
             lblRestablecerContrasenia = new LinkLabel();
@@ -40,9 +41,13 @@
             lblVersion = new Label();
             lblUsuario = new Label();
             lblContrasenia = new Label();
+            errorUsuario = new ErrorProvider(components);
+            errorContrasenia = new ErrorProvider(components);
             ((System.ComponentModel.ISupportInitialize)picInicioSesion).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbUsuario).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbContrasenia).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorUsuario).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorContrasenia).BeginInit();
             SuspendLayout();
             // 
             // picInicioSesion
@@ -60,9 +65,10 @@
             // 
             // lblRestablecerContrasenia
             // 
+            lblRestablecerContrasenia.ActiveLinkColor = SystemColors.HotTrack;
             lblRestablecerContrasenia.AutoSize = true;
             lblRestablecerContrasenia.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
-            lblRestablecerContrasenia.LinkColor = Color.White;
+            lblRestablecerContrasenia.LinkColor = Color.Black;
             lblRestablecerContrasenia.Location = new Point(12, 380);
             lblRestablecerContrasenia.Name = "lblRestablecerContrasenia";
             lblRestablecerContrasenia.Size = new Size(136, 17);
@@ -180,6 +186,14 @@
             lblContrasenia.TabIndex = 19;
             lblContrasenia.Text = "Contraseña:";
             // 
+            // errorUsuario
+            // 
+            errorUsuario.ContainerControl = this;
+            // 
+            // errorContrasenia
+            // 
+            errorContrasenia.ContainerControl = this;
+            // 
             // inicioSesion
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -205,6 +219,8 @@
             ((System.ComponentModel.ISupportInitialize)picInicioSesion).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbUsuario).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbContrasenia).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorUsuario).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorContrasenia).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -221,5 +237,7 @@
         private PictureBox pbContrasenia;
         private Label lblUsuario;
         private Label lblContrasenia;
+        private ErrorProvider errorUsuario;
+        private ErrorProvider errorContrasenia;
     }
 }

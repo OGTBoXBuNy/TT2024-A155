@@ -476,21 +476,58 @@ namespace TT2024_A155
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (actualizar == 0)
-            {
+            //-----------VALIDACION-----------------//
+            bool validacion = true;
+            errorNombre.Clear();
+            errorCif.Clear();
+            errorContrasenia.Clear();
+            errorCalle.Clear();
+            errorColonia.Clear();
+            errorCP.Clear();
+            errorTelefono.Clear();
+            errorNoExt.Clear();
+            errorNoInt.Clear();
+            errorCiudad.Clear();
+            errorCorreo.Clear();
+            errorProductosDGV.Clear();
 
-                registrarPedido();
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-                //Consulta.generarVale();
-            }
-            else if (actualizar == 1)
+            if (string.IsNullOrEmpty(txtNombreCliFact.Text.Trim())) { errorNombre.SetError(txtNombreCliFact, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtCif.Text.Trim())) { errorCif.SetError(txtCif, "Campo obligatorio"); validacion = false; }
+            if (dgvPedido.Rows.Count < 1) { errorProductosDGV.SetError(dgvPedido, "Se necesita al menos un producto para continuar"); validacion = false; }
+            if (string.IsNullOrEmpty(txtCalle.Text.Trim())) { errorCalle.SetError(txtCalle, "Campo Obligatorio"); validacion = false; }
+
+            if (string.IsNullOrEmpty(txtCol.Text.Trim())) { errorColonia.SetError(txtCol, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtCP.Text.Trim())) { errorCP.SetError(txtCP, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtTel.Text.Trim())) { errorTelefono.SetError(txtTel, "Campo Obligatorio"); validacion = false; }
+
+            if (string.IsNullOrEmpty(txtNoExt.Text.Trim())) { errorNoExt.SetError(txtNoExt, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtNoInt.Text.Trim())) { errorNoInt.SetError(txtNoInt, "Campo obligatorio / ó coloca 0"); validacion = false; }
+            if (string.IsNullOrEmpty(txtCiudad.Text.Trim())) { errorCiudad.SetError(txtCiudad, "Campo Obligatorio"); validacion = false; }
+            if (!Validaciones.validarCorreo(txtCorreo.Text.Trim())) { errorCorreo.SetError(txtCorreo, "Correo inválido"); validacion = false; }
+
+            //-----------------------------
+
+
+
+            if(validacion)
             {
-                actualizarPedido();
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                if (actualizar == 0)
+                {
+
+                    registrarPedido();
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                    //Consulta.generarVale();
+                }
+                else if (actualizar == 1)
+                {
+                    actualizarPedido();
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else { }
             }
-            else { }
+            
         }
 
         private void txtNombreCliFact_KeyPress(object sender, KeyPressEventArgs e)

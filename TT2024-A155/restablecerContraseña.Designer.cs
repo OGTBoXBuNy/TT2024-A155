@@ -29,52 +29,18 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(restablecerContraseña));
-            lblTitulo = new Label();
-            lblSubtitulo = new Label();
-            txtRecuperacion = new TextBox();
-            btnAceptar = new Button();
             lblCrearCuenta = new LinkLabel();
+            materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            txtRecuperacion = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            btnAceptar = new MaterialSkin.Controls.MaterialRaisedButton();
             SuspendLayout();
-            // 
-            // lblTitulo
-            // 
-            lblTitulo.AutoSize = true;
-            lblTitulo.Location = new Point(306, 9);
-            lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(200, 20);
-            lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "RESTABLECER CONTRASEÑA";
-            // 
-            // lblSubtitulo
-            // 
-            lblSubtitulo.AutoSize = true;
-            lblSubtitulo.Location = new Point(208, 47);
-            lblSubtitulo.Name = "lblSubtitulo";
-            lblSubtitulo.Size = new Size(405, 20);
-            lblSubtitulo.TabIndex = 1;
-            lblSubtitulo.Text = "Ingresa tu nombre de usuario o correo electronico asociado";
-            // 
-            // txtRecuperacion
-            // 
-            txtRecuperacion.Location = new Point(250, 79);
-            txtRecuperacion.Name = "txtRecuperacion";
-            txtRecuperacion.Size = new Size(306, 27);
-            txtRecuperacion.TabIndex = 2;
-            // 
-            // btnAceptar
-            // 
-            btnAceptar.Location = new Point(355, 112);
-            btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(94, 29);
-            btnAceptar.TabIndex = 3;
-            btnAceptar.Text = "Continuar";
-            btnAceptar.UseVisualStyleBackColor = true;
-            btnAceptar.Click += btnAceptar_Click;
             // 
             // lblCrearCuenta
             // 
+            lblCrearCuenta.ActiveLinkColor = SystemColors.HotTrack;
             lblCrearCuenta.AutoSize = true;
-            lblCrearCuenta.Location = new Point(250, 109);
+            lblCrearCuenta.LinkColor = Color.Black;
+            lblCrearCuenta.Location = new Point(250, 134);
             lblCrearCuenta.Name = "lblCrearCuenta";
             lblCrearCuenta.Size = new Size(92, 20);
             lblCrearCuenta.TabIndex = 4;
@@ -82,16 +48,61 @@
             lblCrearCuenta.Text = "Crear cuenta";
             lblCrearCuenta.LinkClicked += lblCrearCuenta_LinkClicked;
             // 
+            // materialLabel1
+            // 
+            materialLabel1.AutoSize = true;
+            materialLabel1.Depth = 0;
+            materialLabel1.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            materialLabel1.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialLabel1.Location = new Point(138, 65);
+            materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabel1.Name = "materialLabel1";
+            materialLabel1.Size = new Size(513, 24);
+            materialLabel1.TabIndex = 5;
+            materialLabel1.Text = "Ingresa tu nombre de usuario o correo electronico asociado";
+            // 
+            // txtRecuperacion
+            // 
+            txtRecuperacion.Depth = 0;
+            txtRecuperacion.Hint = "";
+            txtRecuperacion.Location = new Point(250, 92);
+            txtRecuperacion.MaxLength = 32767;
+            txtRecuperacion.MouseState = MaterialSkin.MouseState.HOVER;
+            txtRecuperacion.Name = "txtRecuperacion";
+            txtRecuperacion.PasswordChar = '\0';
+            txtRecuperacion.SelectedText = "";
+            txtRecuperacion.SelectionLength = 0;
+            txtRecuperacion.SelectionStart = 0;
+            txtRecuperacion.Size = new Size(306, 28);
+            txtRecuperacion.TabIndex = 6;
+            txtRecuperacion.TabStop = false;
+            txtRecuperacion.UseSystemPasswordChar = false;
+            // 
+            // btnAceptar
+            // 
+            btnAceptar.AutoSize = true;
+            btnAceptar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnAceptar.Depth = 0;
+            btnAceptar.Icon = null;
+            btnAceptar.Location = new Point(361, 126);
+            btnAceptar.MouseState = MaterialSkin.MouseState.HOVER;
+            btnAceptar.Name = "btnAceptar";
+            btnAceptar.Primary = true;
+            btnAceptar.Size = new Size(118, 36);
+            btnAceptar.TabIndex = 7;
+            btnAceptar.Text = "Continuar";
+            btnAceptar.UseVisualStyleBackColor = true;
+            btnAceptar.Click += btnAceptar_Click_1;
+            // 
             // restablecerContraseña
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 202);
-            Controls.Add(lblCrearCuenta);
             Controls.Add(btnAceptar);
             Controls.Add(txtRecuperacion);
-            Controls.Add(lblSubtitulo);
-            Controls.Add(lblTitulo);
+            Controls.Add(materialLabel1);
+            Controls.Add(lblCrearCuenta);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "restablecerContraseña";
             Text = "RECUPERAR CONTRASEÑA";
@@ -100,11 +111,9 @@
         }
 
         #endregion
-
-        private Label lblTitulo;
-        private Label lblSubtitulo;
-        private TextBox txtRecuperacion;
-        private Button btnAceptar;
         private LinkLabel lblCrearCuenta;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtRecuperacion;
+        private MaterialSkin.Controls.MaterialRaisedButton btnAceptar;
     }
 }
