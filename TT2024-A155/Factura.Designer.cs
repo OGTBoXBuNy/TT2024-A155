@@ -28,149 +28,57 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Factura));
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            txtNumeroFactura = new TextBox();
-            txtFacturaSinIVA = new TextBox();
-            txtDescuento = new TextBox();
-            txtFactIVA = new TextBox();
             txtComentarios = new TextBox();
-            btnAceptar = new Button();
             dtpFechEmision = new DateTimePicker();
             lblIDPedido = new Label();
             dgvDatosFactura = new DataGridView();
-            label8 = new Label();
-            label9 = new Label();
-            btnprivKey = new Button();
-            btnpubKey = new Button();
-            txtprivKey = new TextBox();
-            txtpubKey = new TextBox();
             fileRoute = new SaveFileDialog();
             lblUsuario = new Label();
+            errorNumeroFact = new ErrorProvider(components);
+            errorFactSinIva = new ErrorProvider(components);
+            errorDescuento = new ErrorProvider(components);
+            errorFactConIva = new ErrorProvider(components);
+            errorLlavePublica = new ErrorProvider(components);
+            errorLlavePrivada = new ErrorProvider(components);
+            lblNumFact = new MaterialSkin.Controls.MaterialLabel();
+            lblFactSinIva = new MaterialSkin.Controls.MaterialLabel();
+            lblFactConIva = new MaterialSkin.Controls.MaterialLabel();
+            lblDescuento = new MaterialSkin.Controls.MaterialLabel();
+            lblComentarios = new MaterialSkin.Controls.MaterialLabel();
+            lblLlavePrivada = new MaterialSkin.Controls.MaterialLabel();
+            lblLlavePublica = new MaterialSkin.Controls.MaterialLabel();
+            lblFecha = new MaterialSkin.Controls.MaterialLabel();
+            txtNumeroFactura = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtFacturaSinIVA = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtFactIVA = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtDescuento = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtpubKey = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            txtprivKey = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            btnpubKey = new MaterialSkin.Controls.MaterialFlatButton();
+            btnprivKey = new MaterialSkin.Controls.MaterialFlatButton();
+            btnAceptar = new MaterialSkin.Controls.MaterialRaisedButton();
             ((System.ComponentModel.ISupportInitialize)dgvDatosFactura).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorNumeroFact).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorFactSinIva).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorDescuento).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorFactConIva).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorLlavePublica).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorLlavePrivada).BeginInit();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(137, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(140, 20);
-            label1.TabIndex = 0;
-            label1.Text = "GENERAR FACTURA";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 66);
-            label2.Name = "label2";
-            label2.Size = new Size(142, 20);
-            label2.TabIndex = 1;
-            label2.Text = "Numero de Factura: ";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(12, 101);
-            label3.Name = "label3";
-            label3.Size = new Size(113, 20);
-            label3.TabIndex = 2;
-            label3.Text = "Factura Sin IVA: ";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(12, 164);
-            label4.Name = "label4";
-            label4.Size = new Size(119, 20);
-            label4.TabIndex = 3;
-            label4.Text = "Factura Con IVA: ";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(12, 134);
-            label5.Name = "label5";
-            label5.Size = new Size(86, 20);
-            label5.TabIndex = 4;
-            label5.Text = "Descuento: ";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(12, 198);
-            label6.Name = "label6";
-            label6.Size = new Size(110, 20);
-            label6.TabIndex = 5;
-            label6.Text = "Fecha Emision: ";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(12, 317);
-            label7.Name = "label7";
-            label7.Size = new Size(100, 20);
-            label7.TabIndex = 6;
-            label7.Text = "Comentarios: ";
-            // 
-            // txtNumeroFactura
-            // 
-            txtNumeroFactura.Location = new Point(151, 59);
-            txtNumeroFactura.Name = "txtNumeroFactura";
-            txtNumeroFactura.Size = new Size(285, 27);
-            txtNumeroFactura.TabIndex = 7;
-            // 
-            // txtFacturaSinIVA
-            // 
-            txtFacturaSinIVA.Enabled = false;
-            txtFacturaSinIVA.Location = new Point(151, 94);
-            txtFacturaSinIVA.Name = "txtFacturaSinIVA";
-            txtFacturaSinIVA.Size = new Size(285, 27);
-            txtFacturaSinIVA.TabIndex = 8;
-            // 
-            // txtDescuento
-            // 
-            txtDescuento.Location = new Point(151, 127);
-            txtDescuento.Name = "txtDescuento";
-            txtDescuento.Size = new Size(285, 27);
-            txtDescuento.TabIndex = 9;
-            txtDescuento.KeyPress += txtDescuento_KeyPress;
-            // 
-            // txtFactIVA
-            // 
-            txtFactIVA.Enabled = false;
-            txtFactIVA.Location = new Point(151, 164);
-            txtFactIVA.Name = "txtFactIVA";
-            txtFactIVA.Size = new Size(285, 27);
-            txtFactIVA.TabIndex = 10;
             // 
             // txtComentarios
             // 
-            txtComentarios.Location = new Point(151, 314);
+            txtComentarios.Location = new Point(318, 365);
             txtComentarios.Multiline = true;
             txtComentarios.Name = "txtComentarios";
             txtComentarios.Size = new Size(285, 70);
             txtComentarios.TabIndex = 11;
             // 
-            // btnAceptar
-            // 
-            btnAceptar.Location = new Point(342, 399);
-            btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(94, 29);
-            btnAceptar.TabIndex = 12;
-            btnAceptar.Text = "Aceptar";
-            btnAceptar.UseVisualStyleBackColor = true;
-            btnAceptar.Click += btnAceptar_Click;
-            // 
             // dtpFechEmision
             // 
-            dtpFechEmision.Location = new Point(151, 197);
+            dtpFechEmision.Location = new Point(318, 245);
             dtpFechEmision.Name = "dtpFechEmision";
             dtpFechEmision.Size = new Size(250, 27);
             dtpFechEmision.TabIndex = 13;
@@ -178,7 +86,7 @@
             // lblIDPedido
             // 
             lblIDPedido.AutoSize = true;
-            lblIDPedido.Location = new Point(359, 9);
+            lblIDPedido.Location = new Point(238, 9);
             lblIDPedido.Name = "lblIDPedido";
             lblIDPedido.Size = new Size(77, 20);
             lblIDPedido.TabIndex = 14;
@@ -188,7 +96,7 @@
             // 
             dgvDatosFactura.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvDatosFactura.Enabled = false;
-            dgvDatosFactura.Location = new Point(452, 188);
+            dgvDatosFactura.Location = new Point(785, 177);
             dgvDatosFactura.Name = "dgvDatosFactura";
             dgvDatosFactura.RowHeadersWidth = 51;
             dgvDatosFactura.RowTemplate.Height = 29;
@@ -196,130 +104,368 @@
             dgvDatosFactura.TabIndex = 15;
             dgvDatosFactura.Visible = false;
             // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(12, 266);
-            label8.Name = "label8";
-            label8.Size = new Size(128, 20);
-            label8.TabIndex = 21;
-            label8.Text = "Ruta llave privada";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(13, 233);
-            label9.Name = "label9";
-            label9.Size = new Size(127, 20);
-            label9.TabIndex = 20;
-            label9.Text = "Ruta llave publica";
-            // 
-            // btnprivKey
-            // 
-            btnprivKey.Location = new Point(342, 261);
-            btnprivKey.Name = "btnprivKey";
-            btnprivKey.Size = new Size(94, 29);
-            btnprivKey.TabIndex = 19;
-            btnprivKey.Text = "...";
-            btnprivKey.UseVisualStyleBackColor = true;
-            btnprivKey.Click += btnprivKey_Click;
-            // 
-            // btnpubKey
-            // 
-            btnpubKey.Location = new Point(342, 229);
-            btnpubKey.Name = "btnpubKey";
-            btnpubKey.Size = new Size(94, 29);
-            btnpubKey.TabIndex = 18;
-            btnpubKey.Text = "...";
-            btnpubKey.UseVisualStyleBackColor = true;
-            btnpubKey.Click += btnpubKey_Click;
-            // 
-            // txtprivKey
-            // 
-            txtprivKey.Enabled = false;
-            txtprivKey.Location = new Point(151, 263);
-            txtprivKey.Name = "txtprivKey";
-            txtprivKey.Size = new Size(185, 27);
-            txtprivKey.TabIndex = 17;
-            // 
-            // txtpubKey
-            // 
-            txtpubKey.Enabled = false;
-            txtpubKey.Location = new Point(151, 230);
-            txtpubKey.Name = "txtpubKey";
-            txtpubKey.Size = new Size(185, 27);
-            txtpubKey.TabIndex = 16;
-            // 
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(359, 36);
+            lblUsuario.Location = new Point(238, 39);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(0, 20);
             lblUsuario.TabIndex = 22;
+            // 
+            // errorNumeroFact
+            // 
+            errorNumeroFact.ContainerControl = this;
+            // 
+            // errorFactSinIva
+            // 
+            errorFactSinIva.ContainerControl = this;
+            // 
+            // errorDescuento
+            // 
+            errorDescuento.ContainerControl = this;
+            // 
+            // errorFactConIva
+            // 
+            errorFactConIva.ContainerControl = this;
+            // 
+            // errorLlavePublica
+            // 
+            errorLlavePublica.ContainerControl = this;
+            // 
+            // errorLlavePrivada
+            // 
+            errorLlavePrivada.ContainerControl = this;
+            // 
+            // lblNumFact
+            // 
+            lblNumFact.AutoSize = true;
+            lblNumFact.Depth = 0;
+            lblNumFact.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNumFact.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblNumFact.Location = new Point(13, 85);
+            lblNumFact.MouseState = MaterialSkin.MouseState.HOVER;
+            lblNumFact.Name = "lblNumFact";
+            lblNumFact.Size = new Size(182, 24);
+            lblNumFact.TabIndex = 23;
+            lblNumFact.Text = "Numero de Factura: ";
+            // 
+            // lblFactSinIva
+            // 
+            lblFactSinIva.AutoSize = true;
+            lblFactSinIva.Depth = 0;
+            lblFactSinIva.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblFactSinIva.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblFactSinIva.Location = new Point(13, 125);
+            lblFactSinIva.MouseState = MaterialSkin.MouseState.HOVER;
+            lblFactSinIva.Name = "lblFactSinIva";
+            lblFactSinIva.Size = new Size(148, 24);
+            lblFactSinIva.TabIndex = 24;
+            lblFactSinIva.Text = "Factura Sin IVA: ";
+            // 
+            // lblFactConIva
+            // 
+            lblFactConIva.AutoSize = true;
+            lblFactConIva.Depth = 0;
+            lblFactConIva.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblFactConIva.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblFactConIva.Location = new Point(13, 205);
+            lblFactConIva.MouseState = MaterialSkin.MouseState.HOVER;
+            lblFactConIva.Name = "lblFactConIva";
+            lblFactConIva.Size = new Size(155, 24);
+            lblFactConIva.TabIndex = 26;
+            lblFactConIva.Text = "Factura Con IVA: ";
+            // 
+            // lblDescuento
+            // 
+            lblDescuento.AutoSize = true;
+            lblDescuento.Depth = 0;
+            lblDescuento.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblDescuento.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblDescuento.Location = new Point(13, 165);
+            lblDescuento.MouseState = MaterialSkin.MouseState.HOVER;
+            lblDescuento.Name = "lblDescuento";
+            lblDescuento.Size = new Size(109, 24);
+            lblDescuento.TabIndex = 25;
+            lblDescuento.Text = "Descuento: ";
+            // 
+            // lblComentarios
+            // 
+            lblComentarios.AutoSize = true;
+            lblComentarios.Depth = 0;
+            lblComentarios.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblComentarios.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblComentarios.Location = new Point(16, 365);
+            lblComentarios.MouseState = MaterialSkin.MouseState.HOVER;
+            lblComentarios.Name = "lblComentarios";
+            lblComentarios.Size = new Size(128, 24);
+            lblComentarios.TabIndex = 30;
+            lblComentarios.Text = "Comentarios: ";
+            // 
+            // lblLlavePrivada
+            // 
+            lblLlavePrivada.AutoSize = true;
+            lblLlavePrivada.Depth = 0;
+            lblLlavePrivada.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblLlavePrivada.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblLlavePrivada.Location = new Point(13, 325);
+            lblLlavePrivada.MouseState = MaterialSkin.MouseState.HOVER;
+            lblLlavePrivada.Name = "lblLlavePrivada";
+            lblLlavePrivada.Size = new Size(164, 24);
+            lblLlavePrivada.TabIndex = 29;
+            lblLlavePrivada.Text = "Ruta llave privada:";
+            // 
+            // lblLlavePublica
+            // 
+            lblLlavePublica.AutoSize = true;
+            lblLlavePublica.Depth = 0;
+            lblLlavePublica.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblLlavePublica.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblLlavePublica.Location = new Point(13, 285);
+            lblLlavePublica.MouseState = MaterialSkin.MouseState.HOVER;
+            lblLlavePublica.Name = "lblLlavePublica";
+            lblLlavePublica.Size = new Size(164, 24);
+            lblLlavePublica.TabIndex = 28;
+            lblLlavePublica.Text = "Ruta llave publica:";
+            // 
+            // lblFecha
+            // 
+            lblFecha.AutoSize = true;
+            lblFecha.Depth = 0;
+            lblFecha.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblFecha.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblFecha.Location = new Point(13, 245);
+            lblFecha.MouseState = MaterialSkin.MouseState.HOVER;
+            lblFecha.Name = "lblFecha";
+            lblFecha.Size = new Size(145, 24);
+            lblFecha.TabIndex = 27;
+            lblFecha.Text = "Fecha Emision: ";
+            // 
+            // txtNumeroFactura
+            // 
+            txtNumeroFactura.Depth = 0;
+            txtNumeroFactura.Hint = "";
+            txtNumeroFactura.Location = new Point(318, 85);
+            txtNumeroFactura.MaxLength = 32767;
+            txtNumeroFactura.MouseState = MaterialSkin.MouseState.HOVER;
+            txtNumeroFactura.Name = "txtNumeroFactura";
+            txtNumeroFactura.PasswordChar = '\0';
+            txtNumeroFactura.SelectedText = "";
+            txtNumeroFactura.SelectionLength = 0;
+            txtNumeroFactura.SelectionStart = 0;
+            txtNumeroFactura.Size = new Size(285, 28);
+            txtNumeroFactura.TabIndex = 31;
+            txtNumeroFactura.TabStop = false;
+            txtNumeroFactura.UseSystemPasswordChar = false;
+            // 
+            // txtFacturaSinIVA
+            // 
+            txtFacturaSinIVA.Depth = 0;
+            txtFacturaSinIVA.Enabled = false;
+            txtFacturaSinIVA.Hint = "";
+            txtFacturaSinIVA.Location = new Point(318, 125);
+            txtFacturaSinIVA.MaxLength = 32767;
+            txtFacturaSinIVA.MouseState = MaterialSkin.MouseState.HOVER;
+            txtFacturaSinIVA.Name = "txtFacturaSinIVA";
+            txtFacturaSinIVA.PasswordChar = '\0';
+            txtFacturaSinIVA.SelectedText = "";
+            txtFacturaSinIVA.SelectionLength = 0;
+            txtFacturaSinIVA.SelectionStart = 0;
+            txtFacturaSinIVA.Size = new Size(285, 28);
+            txtFacturaSinIVA.TabIndex = 32;
+            txtFacturaSinIVA.TabStop = false;
+            txtFacturaSinIVA.UseSystemPasswordChar = false;
+            // 
+            // txtFactIVA
+            // 
+            txtFactIVA.Depth = 0;
+            txtFactIVA.Enabled = false;
+            txtFactIVA.Hint = "";
+            txtFactIVA.Location = new Point(318, 205);
+            txtFactIVA.MaxLength = 32767;
+            txtFactIVA.MouseState = MaterialSkin.MouseState.HOVER;
+            txtFactIVA.Name = "txtFactIVA";
+            txtFactIVA.PasswordChar = '\0';
+            txtFactIVA.SelectedText = "";
+            txtFactIVA.SelectionLength = 0;
+            txtFactIVA.SelectionStart = 0;
+            txtFactIVA.Size = new Size(285, 28);
+            txtFactIVA.TabIndex = 34;
+            txtFactIVA.TabStop = false;
+            txtFactIVA.UseSystemPasswordChar = false;
+            // 
+            // txtDescuento
+            // 
+            txtDescuento.Depth = 0;
+            txtDescuento.Hint = "";
+            txtDescuento.Location = new Point(318, 165);
+            txtDescuento.MaxLength = 32767;
+            txtDescuento.MouseState = MaterialSkin.MouseState.HOVER;
+            txtDescuento.Name = "txtDescuento";
+            txtDescuento.PasswordChar = '\0';
+            txtDescuento.SelectedText = "";
+            txtDescuento.SelectionLength = 0;
+            txtDescuento.SelectionStart = 0;
+            txtDescuento.Size = new Size(285, 28);
+            txtDescuento.TabIndex = 33;
+            txtDescuento.TabStop = false;
+            txtDescuento.UseSystemPasswordChar = false;
+            txtDescuento.KeyPress += txtDescuento_KeyPress;
+            // 
+            // txtpubKey
+            // 
+            txtpubKey.Depth = 0;
+            txtpubKey.Enabled = false;
+            txtpubKey.Hint = "";
+            txtpubKey.Location = new Point(318, 285);
+            txtpubKey.MaxLength = 32767;
+            txtpubKey.MouseState = MaterialSkin.MouseState.HOVER;
+            txtpubKey.Name = "txtpubKey";
+            txtpubKey.PasswordChar = '\0';
+            txtpubKey.SelectedText = "";
+            txtpubKey.SelectionLength = 0;
+            txtpubKey.SelectionStart = 0;
+            txtpubKey.Size = new Size(285, 28);
+            txtpubKey.TabIndex = 35;
+            txtpubKey.TabStop = false;
+            txtpubKey.UseSystemPasswordChar = false;
+            // 
+            // txtprivKey
+            // 
+            txtprivKey.Depth = 0;
+            txtprivKey.Enabled = false;
+            txtprivKey.Hint = "";
+            txtprivKey.Location = new Point(318, 325);
+            txtprivKey.MaxLength = 32767;
+            txtprivKey.MouseState = MaterialSkin.MouseState.HOVER;
+            txtprivKey.Name = "txtprivKey";
+            txtprivKey.PasswordChar = '\0';
+            txtprivKey.SelectedText = "";
+            txtprivKey.SelectionLength = 0;
+            txtprivKey.SelectionStart = 0;
+            txtprivKey.Size = new Size(285, 28);
+            txtprivKey.TabIndex = 36;
+            txtprivKey.TabStop = false;
+            txtprivKey.UseSystemPasswordChar = false;
+            // 
+            // btnpubKey
+            // 
+            btnpubKey.AutoSize = true;
+            btnpubKey.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnpubKey.Depth = 0;
+            btnpubKey.Icon = null;
+            btnpubKey.Location = new Point(610, 277);
+            btnpubKey.Margin = new Padding(4, 6, 4, 6);
+            btnpubKey.MouseState = MaterialSkin.MouseState.HOVER;
+            btnpubKey.Name = "btnpubKey";
+            btnpubKey.Primary = false;
+            btnpubKey.Size = new Size(36, 36);
+            btnpubKey.TabIndex = 37;
+            btnpubKey.Text = "...";
+            btnpubKey.UseVisualStyleBackColor = true;
+            // 
+            // btnprivKey
+            // 
+            btnprivKey.AutoSize = true;
+            btnprivKey.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnprivKey.Depth = 0;
+            btnprivKey.Icon = null;
+            btnprivKey.Location = new Point(610, 317);
+            btnprivKey.Margin = new Padding(4, 6, 4, 6);
+            btnprivKey.MouseState = MaterialSkin.MouseState.HOVER;
+            btnprivKey.Name = "btnprivKey";
+            btnprivKey.Primary = false;
+            btnprivKey.Size = new Size(36, 36);
+            btnprivKey.TabIndex = 38;
+            btnprivKey.Text = "...";
+            btnprivKey.UseVisualStyleBackColor = true;
+            // 
+            // btnAceptar
+            // 
+            btnAceptar.AutoSize = true;
+            btnAceptar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnAceptar.Depth = 0;
+            btnAceptar.Icon = null;
+            btnAceptar.Location = new Point(414, 451);
+            btnAceptar.MouseState = MaterialSkin.MouseState.HOVER;
+            btnAceptar.Name = "btnAceptar";
+            btnAceptar.Primary = true;
+            btnAceptar.Size = new Size(98, 36);
+            btnAceptar.TabIndex = 39;
+            btnAceptar.Text = "Aceptar";
+            btnAceptar.UseVisualStyleBackColor = true;
+            btnAceptar.Click += btnAceptar_Click;
             // 
             // Factura
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(446, 439);
-            Controls.Add(lblUsuario);
-            Controls.Add(label8);
-            Controls.Add(label9);
+            ClientSize = new Size(683, 507);
+            Controls.Add(btnAceptar);
             Controls.Add(btnprivKey);
             Controls.Add(btnpubKey);
             Controls.Add(txtprivKey);
             Controls.Add(txtpubKey);
-            Controls.Add(dgvDatosFactura);
-            Controls.Add(lblIDPedido);
-            Controls.Add(dtpFechEmision);
-            Controls.Add(btnAceptar);
-            Controls.Add(txtComentarios);
             Controls.Add(txtFactIVA);
             Controls.Add(txtDescuento);
             Controls.Add(txtFacturaSinIVA);
             Controls.Add(txtNumeroFactura);
-            Controls.Add(label7);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(lblComentarios);
+            Controls.Add(lblLlavePrivada);
+            Controls.Add(lblLlavePublica);
+            Controls.Add(lblFecha);
+            Controls.Add(lblFactConIva);
+            Controls.Add(lblDescuento);
+            Controls.Add(lblFactSinIva);
+            Controls.Add(lblNumFact);
+            Controls.Add(lblUsuario);
+            Controls.Add(dgvDatosFactura);
+            Controls.Add(lblIDPedido);
+            Controls.Add(dtpFechEmision);
+            Controls.Add(txtComentarios);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Factura";
-            Text = "Factura";
+            Text = "Generación de Factura";
             Load += Factura_Load;
             ((System.ComponentModel.ISupportInitialize)dgvDatosFactura).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorNumeroFact).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorFactSinIva).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorDescuento).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorFactConIva).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorLlavePublica).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorLlavePrivada).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private Label label5;
-        private Label label6;
-        private Label label7;
-        private TextBox txtNumeroFactura;
-        private TextBox txtFacturaSinIVA;
-        private TextBox txtDescuento;
-        private TextBox txtFactIVA;
         private TextBox txtComentarios;
-        private Button btnAceptar;
         private DateTimePicker dtpFechEmision;
         public Label lblIDPedido;
         private DataGridView dgvDatosFactura;
-        private Label label8;
-        private Label label9;
-        private Button btnprivKey;
-        private Button btnpubKey;
-        private TextBox txtprivKey;
-        private TextBox txtpubKey;
         private SaveFileDialog fileRoute;
         public Label lblUsuario;
+        private ErrorProvider errorNumeroFact;
+        private ErrorProvider errorFactSinIva;
+        private ErrorProvider errorDescuento;
+        private ErrorProvider errorFactConIva;
+        private ErrorProvider errorLlavePublica;
+        private ErrorProvider errorLlavePrivada;
+        private MaterialSkin.Controls.MaterialLabel lblComentarios;
+        private MaterialSkin.Controls.MaterialLabel lblLlavePrivada;
+        private MaterialSkin.Controls.MaterialLabel lblLlavePublica;
+        private MaterialSkin.Controls.MaterialLabel lblFecha;
+        private MaterialSkin.Controls.MaterialLabel lblFactConIva;
+        private MaterialSkin.Controls.MaterialLabel lblDescuento;
+        private MaterialSkin.Controls.MaterialLabel lblFactSinIva;
+        private MaterialSkin.Controls.MaterialLabel lblNumFact;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtFacturaSinIVA;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtNumeroFactura;
+        private MaterialSkin.Controls.MaterialFlatButton btnprivKey;
+        private MaterialSkin.Controls.MaterialFlatButton btnpubKey;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtprivKey;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtpubKey;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtFactIVA;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtDescuento;
+        private MaterialSkin.Controls.MaterialRaisedButton btnAceptar;
     }
 }
