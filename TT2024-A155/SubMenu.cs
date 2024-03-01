@@ -61,7 +61,7 @@ namespace TT2024_A155
 
                 string descripcionLog = "El usuario : " + usuario + " entregó el pedido : " + pedido + " el día: " + DateTime.Now.ToString();
                 Consulta.Log(usuario, pedido, descripcionLog, "13");
-
+                this.Close();
             }
         }
 
@@ -79,7 +79,7 @@ namespace TT2024_A155
 
                 string descripcionLog = "El usuario : " + usuario + " devolvió el pedido : " + pedido + " el día: " + DateTime.Now.ToString();
                 Consulta.Log(usuario, pedido, descripcionLog, "14");
-
+                this.Close( );
             }
         }
     }

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using BC = BCrypt.Net.BCrypt;
 //Diseño
 using MaterialSkin.Controls;
+using TT2024_A155.Properties;
 
 namespace TT2024_A155
 {
@@ -74,7 +75,7 @@ namespace TT2024_A155
         {
             restablecerContraseña res = new();
 
-            res.Show();
+            res.ShowDialog();
 
         }
 
@@ -89,7 +90,7 @@ namespace TT2024_A155
             form1.ShowDialog();
         }
 
-        
+
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             //-----------VALIDACION-----------------//
@@ -97,8 +98,8 @@ namespace TT2024_A155
             errorUsuario.Clear();
             errorContrasenia.Clear();
 
-            if(string.IsNullOrEmpty(txtUsuario.Text.Trim())) { errorUsuario.SetError(txtUsuario, "Campo obligatorio"); validacion = false; }
-            if(string.IsNullOrEmpty (txtContrasenia.Text.Trim())) { errorContrasenia.SetError(txtContrasenia, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtUsuario.Text.Trim())) { errorUsuario.SetError(txtUsuario, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtContrasenia.Text.Trim())) { errorContrasenia.SetError(txtContrasenia, "Campo obligatorio"); validacion = false; }
 
             //-----------------------------
 
@@ -125,7 +126,7 @@ namespace TT2024_A155
                         inicio.lblUsuario.Text += txtUsuario.Text.Trim();
                         inicio.lblRol.Text = inicioSesion[1].ToString();
                         inicio.Show();
-                        MessageBOX.SHowDialog(3, "Bienvenido de vuelta: " + txtUsuario.Text.Trim() );
+                        MessageBOX.SHowDialog(3, "Bienvenido de vuelta: " + txtUsuario.Text.Trim());
                         string descripcionLog = "El usuario " + txtUsuario.Text + " Inicio sesión al sistema el día: " + DateTime.Now.ToString();
                         Consulta.Log(txtUsuario.Text, "", descripcionLog, "1");
                         this.Hide();
@@ -135,12 +136,44 @@ namespace TT2024_A155
                 }
                 else
                 {
-                    MessageBOX.SHowDialog(2,"Datos incorrectos");
+                    MessageBOX.SHowDialog(2, "Datos incorrectos");
                     txtUsuario.Text = "";
                     txtContrasenia.Text = "";
 
                 }
             }
+        }
+
+        private void txtContrasenia_Leave(object sender, EventArgs e)
+        {
+            PicOJO.Visible = false;
+        }
+
+        private void txtContrasenia_Enter(object sender, EventArgs e)
+        {
+            PicOJO.Visible = true;
+        }
+
+        private void PicOJO_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (PicOJO.Image.Height.ToString() == "128")
+            {
+                txtContrasenia.UseSystemPasswordChar = false;
+                PicOJO.Image = Resources.OjoCerrado;
+            }
+            else
+            {
+                txtContrasenia.UseSystemPasswordChar = true;
+                PicOJO.Image = Resources.ojo;
+            }
+        }
+
+        private void PicOJO_MouseHover(object sender, EventArgs e)
+        {
+            //if (PicOJO.Image.Height.ToString() == "128")
+            //    this.ToolTrip.SetToolTip(PicOJO, "Mostrar contraseña");
+            //else
+            //    this.ToolTrip.SetToolTip(PicOJO, "Ocultar contraseña");
         }
     }
 }

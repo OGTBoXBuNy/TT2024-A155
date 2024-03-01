@@ -73,6 +73,7 @@
             errorCiudad = new ErrorProvider(components);
             errorCorreo = new ErrorProvider(components);
             errorCif = new ErrorProvider(components);
+            PicOJO = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)errorNombre).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorUsuario).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorContrasenia).BeginInit();
@@ -85,6 +86,7 @@
             ((System.ComponentModel.ISupportInitialize)errorCiudad).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorCorreo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorCif).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PicOJO).BeginInit();
             SuspendLayout();
             // 
             // cmbRol
@@ -333,7 +335,9 @@
             txtContrasenia.Size = new Size(198, 28);
             txtContrasenia.TabIndex = 66;
             txtContrasenia.TabStop = false;
-            txtContrasenia.UseSystemPasswordChar = false;
+            txtContrasenia.UseSystemPasswordChar = true;
+            txtContrasenia.Enter += txtContrasenia_Enter;
+            txtContrasenia.Leave += txtContrasenia_Leave;
             // 
             // txtTel
             // 
@@ -592,11 +596,25 @@
             // 
             errorCif.ContainerControl = this;
             // 
+            // PicOJO
+            // 
+            PicOJO.Image = Properties.Resources.ojo;
+            PicOJO.Location = new Point(352, 230);
+            PicOJO.Margin = new Padding(4);
+            PicOJO.Name = "PicOJO";
+            PicOJO.Size = new Size(44, 28);
+            PicOJO.SizeMode = PictureBoxSizeMode.Zoom;
+            PicOJO.TabIndex = 80;
+            PicOJO.TabStop = false;
+            PicOJO.Visible = false;
+            PicOJO.MouseClick += PicOJO_MouseClick;
+            // 
             // Administrar
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(955, 463);
+            Controls.Add(PicOJO);
             Controls.Add(rbtnDatosFiscales);
             Controls.Add(rbtnDatosPersonales);
             Controls.Add(btnAceptar);
@@ -644,6 +662,7 @@
             ((System.ComponentModel.ISupportInitialize)errorCiudad).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorCorreo).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorCif).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PicOJO).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -692,5 +711,6 @@
         private ErrorProvider errorCiudad;
         private ErrorProvider errorCorreo;
         private ErrorProvider errorCif;
+        private PictureBox PicOJO;
     }
 }

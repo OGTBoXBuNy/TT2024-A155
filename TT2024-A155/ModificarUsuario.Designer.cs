@@ -34,6 +34,7 @@
             rbtnPermisos = new RadioButton();
             cmbNombreUsuario = new ComboBox();
             panelDatos = new Panel();
+            PicOJO = new PictureBox();
             btnAceptar = new MaterialSkin.Controls.MaterialRaisedButton();
             txtCif = new MaterialSkin.Controls.MaterialSingleLineTextField();
             txtCiudad = new MaterialSkin.Controls.MaterialSingleLineTextField();
@@ -108,6 +109,7 @@
             errorCorreo = new ErrorProvider(components);
             errorCif = new ErrorProvider(components);
             panelDatos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PicOJO).BeginInit();
             panelPermisos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorNombre).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorUsuario).BeginInit();
@@ -158,6 +160,7 @@
             // 
             // panelDatos
             // 
+            panelDatos.Controls.Add(PicOJO);
             panelDatos.Controls.Add(btnAceptar);
             panelDatos.Controls.Add(txtCif);
             panelDatos.Controls.Add(txtCiudad);
@@ -189,6 +192,19 @@
             panelDatos.Name = "panelDatos";
             panelDatos.Size = new Size(976, 365);
             panelDatos.TabIndex = 84;
+            // 
+            // PicOJO
+            // 
+            PicOJO.Image = Properties.Resources.ojo;
+            PicOJO.Location = new Point(355, 105);
+            PicOJO.Margin = new Padding(4);
+            PicOJO.Name = "PicOJO";
+            PicOJO.Size = new Size(44, 28);
+            PicOJO.SizeMode = PictureBoxSizeMode.Zoom;
+            PicOJO.TabIndex = 107;
+            PicOJO.TabStop = false;
+            PicOJO.Visible = false;
+            PicOJO.MouseClick += PicOJO_MouseClick;
             // 
             // btnAceptar
             // 
@@ -378,7 +394,9 @@
             txtContrasenia.Size = new Size(205, 28);
             txtContrasenia.TabIndex = 96;
             txtContrasenia.TabStop = false;
-            txtContrasenia.UseSystemPasswordChar = false;
+            txtContrasenia.UseSystemPasswordChar = true;
+            txtContrasenia.Enter += txtContrasenia_Enter;
+            txtContrasenia.Leave += txtContrasenia_Leave;
             // 
             // txtUsuario
             // 
@@ -1057,6 +1075,7 @@
             Load += ModificarUsuario_Load;
             panelDatos.ResumeLayout(false);
             panelDatos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PicOJO).EndInit();
             panelPermisos.ResumeLayout(false);
             panelPermisos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)errorNombre).EndInit();
@@ -1153,5 +1172,6 @@
         private ErrorProvider errorCiudad;
         private ErrorProvider errorCorreo;
         private ErrorProvider errorCif;
+        private PictureBox PicOJO;
     }
 }

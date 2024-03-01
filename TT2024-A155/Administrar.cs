@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 //Diseño
 using MaterialSkin.Controls;
+using TT2024_A155.Properties;
 
 namespace TT2024_A155
 {
@@ -94,7 +95,7 @@ namespace TT2024_A155
 
             if (string.IsNullOrEmpty(txtNombre.Text.Trim())) { errorNombre.SetError(txtNombre, "Campo obligatorio"); validacion = false; }
             if (string.IsNullOrEmpty(txtUsuario.Text.Trim())) { errorUsuario.SetError(txtUsuario, "Campo obligatorio"); validacion = false; }
-            if(!string.IsNullOrEmpty(txtContrasenia.Text.Trim()))
+            if (!string.IsNullOrEmpty(txtContrasenia.Text.Trim()))
                 if (!Validaciones.contrasenaSegura(txtContrasenia.Text.Trim())) { errorContrasenia.SetError(txtContrasenia, "Campo obligatorio y cumplir con: Números, Letras, Carácter especial y longitud mayor o igual a 8"); validacion = false; }
             if (string.IsNullOrEmpty(txtCalle.Text.Trim())) { errorCalle.SetError(txtCalle, "Campo Obligatorio"); validacion = false; }
 
@@ -107,7 +108,7 @@ namespace TT2024_A155
             if (string.IsNullOrEmpty(txtCiudad.Text.Trim())) { errorCiudad.SetError(txtCiudad, "Campo Obligatorio"); validacion = false; }
             if (!Validaciones.validarCorreo(txtCorreo.Text.Trim())) { errorCorreo.SetError(txtCorreo, "Correo inválido"); validacion = false; }
 
-            
+
 
             //-----------------------------
 
@@ -128,7 +129,7 @@ namespace TT2024_A155
 
             if (rbtnDatosPersonales.Checked)
             {
-                if(validacion)
+                if (validacion)
                 {
                     if (txtContrasenia.Text.Trim() != "")
                     {
@@ -154,9 +155,10 @@ namespace TT2024_A155
                     Consulta.Log(usuario, "", descripcionLog, "18");
                 }
 
-               
+
             }
             else { }
+            this.Close();
         }
 
         private void rbtnDatosPersonales_CheckedChanged(object sender, EventArgs e)
@@ -246,6 +248,30 @@ namespace TT2024_A155
         private void txtCP_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtContrasenia_Enter(object sender, EventArgs e)
+        {
+            PicOJO.Visible = true;
+        }
+
+        private void txtContrasenia_Leave(object sender, EventArgs e)
+        {
+            PicOJO.Visible = false;
+        }
+
+        private void PicOJO_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (PicOJO.Image.Height.ToString() == "128")
+            {
+                txtContrasenia.UseSystemPasswordChar = false;
+                PicOJO.Image = Resources.OjoCerrado;
+            }
+            else
+            {
+                txtContrasenia.UseSystemPasswordChar = true;
+                PicOJO.Image = Resources.ojo;
+            }
         }
     }
 }

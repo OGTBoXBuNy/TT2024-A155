@@ -38,6 +38,7 @@ namespace TT2024_A155
             Consulta.recuperarContra(txtRecuperacion.Text.Trim());
             string descripcionLog = "Se solicitó restablecer la contraseña del usuario/correo:  " + txtRecuperacion.Text.Trim() + " el día: " + DateTime.Now.ToString();
             Consulta.Log(txtRecuperacion.Text.Trim(), "", descripcionLog, "3");
+            this.Close();
         }
     }
 }

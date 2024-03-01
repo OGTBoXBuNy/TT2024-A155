@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 //Diseño
 using MaterialSkin.Controls;
+using TT2024_A155.Properties;
 
 
 namespace TT2024_A155
@@ -52,7 +53,7 @@ namespace TT2024_A155
             if (string.IsNullOrEmpty(txtNombre.Text.Trim())) { errorNombre.SetError(txtNombre, "Campo obligatorio"); validacion = false; }
             if (string.IsNullOrEmpty(txtUsuario.Text.Trim())) { errorUsuario.SetError(txtUsuario, "Campo obligatorio"); validacion = false; }
             if (!Validaciones.contrasenaSegura(txtContrasenia.Text.Trim())) { errorContrasenia.SetError(txtContrasenia, "Campo obligatorio y cumplir con: Números, Letras, Carácter especial y longitud mayor o igual a 8"); validacion = false; }
-            if(string.IsNullOrEmpty(txtCalle.Text.Trim())) { errorCalle.SetError(txtCalle, "Campo Obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtCalle.Text.Trim())) { errorCalle.SetError(txtCalle, "Campo Obligatorio"); validacion = false; }
 
             if (string.IsNullOrEmpty(txtCol.Text.Trim())) { errorColonia.SetError(txtCol, "Campo obligatorio"); validacion = false; }
             if (string.IsNullOrEmpty(txtCP.Text.Trim())) { errorCP.SetError(txtCP, "Campo obligatorio"); validacion = false; }
@@ -87,7 +88,7 @@ namespace TT2024_A155
                 string descripcionLog = "El usuario : " + usuarioLog + " creó al nuevo usuario: " + usuario + " el día: " + DateTime.Now.ToString();
                 Consulta.Log(usuario, "", descripcionLog, "17");
             }
-
+            this.Close();
         }
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
@@ -113,6 +114,32 @@ namespace TT2024_A155
         private void txtNoInt_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+
+
+        private void txtContrasenia_Enter(object sender, EventArgs e)
+        {
+            PicOJO.Visible = true;
+        }
+
+        private void txtContrasenia_Leave(object sender, EventArgs e)
+        {
+            PicOJO.Visible = false;
+        }
+
+        private void PicOJO_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (PicOJO.Image.Height.ToString() == "128")
+            {
+                txtContrasenia.UseSystemPasswordChar = false;
+                PicOJO.Image = Resources.OjoCerrado;
+            }
+            else
+            {
+                txtContrasenia.UseSystemPasswordChar = true;
+                PicOJO.Image = Resources.ojo;
+            }
         }
     }
 }

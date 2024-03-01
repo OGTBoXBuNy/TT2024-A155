@@ -70,6 +70,7 @@ namespace TT2024_A155
                 string descripcionLog = "El usuario : " + usuario + " generó la factura de venta (PDF) del pedido: " + idPedido + " el día: " + DateTime.Now.ToString();
                 Consulta.Log(usuario, idPedido, descripcionLog, "11");
             }
+            this.Close();
         }
 
         private void txtDescuento_KeyPress(object sender, KeyPressEventArgs e)

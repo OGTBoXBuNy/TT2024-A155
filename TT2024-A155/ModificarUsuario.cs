@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 //Diseño
 using MaterialSkin.Controls;
+using TT2024_A155.Properties;
 
 namespace TT2024_A155
 {
@@ -270,6 +271,7 @@ namespace TT2024_A155
 
             }
             else { }
+            this.Close();
         }
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
@@ -295,6 +297,30 @@ namespace TT2024_A155
         private void txtCP_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = Validaciones.soloNumerosDecimales(sender, e);
+        }
+
+        private void txtContrasenia_Enter(object sender, EventArgs e)
+        {
+            PicOJO.Visible = true;
+        }
+
+        private void txtContrasenia_Leave(object sender, EventArgs e)
+        {
+            PicOJO.Visible = false;
+        }
+
+        private void PicOJO_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (PicOJO.Image.Height.ToString() == "128")
+            {
+                txtContrasenia.UseSystemPasswordChar = false;
+                PicOJO.Image = Resources.OjoCerrado;
+            }
+            else
+            {
+                txtContrasenia.UseSystemPasswordChar = true;
+                PicOJO.Image = Resources.ojo;
+            }
         }
     }
 }

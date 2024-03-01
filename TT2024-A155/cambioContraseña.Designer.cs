@@ -39,8 +39,12 @@
             btnAceptar = new MaterialSkin.Controls.MaterialRaisedButton();
             errorContrasenia = new ErrorProvider(components);
             errorContraseniaRepe = new ErrorProvider(components);
+            PicOJO = new PictureBox();
+            PicOjoRes = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)errorContrasenia).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorContraseniaRepe).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PicOJO).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PicOjoRes).BeginInit();
             SuspendLayout();
             // 
             // lblUsuario
@@ -102,7 +106,9 @@
             txtContra.Size = new Size(300, 28);
             txtContra.TabIndex = 10;
             txtContra.TabStop = false;
-            txtContra.UseSystemPasswordChar = false;
+            txtContra.UseSystemPasswordChar = true;
+            txtContra.Enter += txtContra_Enter;
+            txtContra.Leave += txtContra_Leave;
             // 
             // txtContraRep
             // 
@@ -119,7 +125,9 @@
             txtContraRep.Size = new Size(300, 28);
             txtContraRep.TabIndex = 11;
             txtContraRep.TabStop = false;
-            txtContraRep.UseSystemPasswordChar = false;
+            txtContraRep.UseSystemPasswordChar = true;
+            txtContraRep.Enter += txtContraRep_Enter;
+            txtContraRep.Leave += txtContraRep_Leave;
             // 
             // btnAceptar
             // 
@@ -145,11 +153,39 @@
             // 
             errorContraseniaRepe.ContainerControl = this;
             // 
+            // PicOJO
+            // 
+            PicOJO.Image = Properties.Resources.ojo;
+            PicOJO.Location = new Point(589, 80);
+            PicOJO.Margin = new Padding(4);
+            PicOJO.Name = "PicOJO";
+            PicOJO.Size = new Size(44, 28);
+            PicOJO.SizeMode = PictureBoxSizeMode.Zoom;
+            PicOJO.TabIndex = 21;
+            PicOJO.TabStop = false;
+            PicOJO.Visible = false;
+            PicOJO.MouseClick += PicOJO_MouseClick;
+            // 
+            // PicOjoRes
+            // 
+            PicOjoRes.Image = Properties.Resources.ojo;
+            PicOjoRes.Location = new Point(589, 120);
+            PicOjoRes.Margin = new Padding(4);
+            PicOjoRes.Name = "PicOjoRes";
+            PicOjoRes.Size = new Size(44, 28);
+            PicOjoRes.SizeMode = PictureBoxSizeMode.Zoom;
+            PicOjoRes.TabIndex = 22;
+            PicOjoRes.TabStop = false;
+            PicOjoRes.Visible = false;
+            PicOjoRes.MouseClick += PicOjoRes_MouseClick;
+            // 
             // cambioContraseña
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(636, 192);
+            Controls.Add(PicOjoRes);
+            Controls.Add(PicOJO);
             Controls.Add(btnAceptar);
             Controls.Add(txtContraRep);
             Controls.Add(txtContra);
@@ -162,6 +198,8 @@
             Text = "CREAR NUEVA CONTRASEÑA";
             ((System.ComponentModel.ISupportInitialize)errorContrasenia).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorContraseniaRepe).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PicOJO).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PicOjoRes).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -176,5 +214,7 @@
         private MaterialSkin.Controls.MaterialRaisedButton btnAceptar;
         private ErrorProvider errorContrasenia;
         private ErrorProvider errorContraseniaRepe;
+        private PictureBox PicOjoRes;
+        private PictureBox PicOJO;
     }
 }
