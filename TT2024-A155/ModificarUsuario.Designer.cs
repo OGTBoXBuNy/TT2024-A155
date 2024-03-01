@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModificarUsuario));
             cmbRol = new ComboBox();
             rbtnPermisos = new RadioButton();
@@ -94,8 +95,32 @@
             lblCliente = new MaterialSkin.Controls.MaterialLabel();
             rbtnDatosPersonales = new MaterialSkin.Controls.MaterialRadioButton();
             rbtnDatosFiscales = new MaterialSkin.Controls.MaterialRadioButton();
+            errorNombre = new ErrorProvider(components);
+            errorUsuario = new ErrorProvider(components);
+            errorContrasenia = new ErrorProvider(components);
+            errorCalle = new ErrorProvider(components);
+            errorColonia = new ErrorProvider(components);
+            errorCP = new ErrorProvider(components);
+            errorTelefono = new ErrorProvider(components);
+            errorNoExt = new ErrorProvider(components);
+            errorNoInt = new ErrorProvider(components);
+            errorCiudad = new ErrorProvider(components);
+            errorCorreo = new ErrorProvider(components);
+            errorCif = new ErrorProvider(components);
             panelDatos.SuspendLayout();
             panelPermisos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorNombre).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorUsuario).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorContrasenia).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorCalle).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorColonia).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorCP).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorTelefono).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorNoExt).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorNoInt).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorCiudad).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorCorreo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorCif).BeginInit();
             SuspendLayout();
             // 
             // cmbRol
@@ -965,6 +990,54 @@
             rbtnDatosFiscales.UseVisualStyleBackColor = true;
             rbtnDatosFiscales.CheckedChanged += rbtnDatosFiscales_CheckedChanged;
             // 
+            // errorNombre
+            // 
+            errorNombre.ContainerControl = this;
+            // 
+            // errorUsuario
+            // 
+            errorUsuario.ContainerControl = this;
+            // 
+            // errorContrasenia
+            // 
+            errorContrasenia.ContainerControl = this;
+            // 
+            // errorCalle
+            // 
+            errorCalle.ContainerControl = this;
+            // 
+            // errorColonia
+            // 
+            errorColonia.ContainerControl = this;
+            // 
+            // errorCP
+            // 
+            errorCP.ContainerControl = this;
+            // 
+            // errorTelefono
+            // 
+            errorTelefono.ContainerControl = this;
+            // 
+            // errorNoExt
+            // 
+            errorNoExt.ContainerControl = this;
+            // 
+            // errorNoInt
+            // 
+            errorNoInt.ContainerControl = this;
+            // 
+            // errorCiudad
+            // 
+            errorCiudad.ContainerControl = this;
+            // 
+            // errorCorreo
+            // 
+            errorCorreo.ContainerControl = this;
+            // 
+            // errorCif
+            // 
+            errorCif.ContainerControl = this;
+            // 
             // ModificarUsuario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -986,6 +1059,18 @@
             panelDatos.PerformLayout();
             panelPermisos.ResumeLayout(false);
             panelPermisos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)errorNombre).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorUsuario).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorContrasenia).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorCalle).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorColonia).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorCP).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorTelefono).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorNoExt).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorNoInt).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorCiudad).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorCorreo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorCif).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1056,5 +1141,17 @@
         private MaterialSkin.Controls.MaterialRadioButton rbtnDatosPersonales;
         private MaterialSkin.Controls.MaterialRadioButton rbtnDatosFiscales;
         private MaterialSkin.Controls.MaterialRaisedButton btnAceptar;
+        private ErrorProvider errorNombre;
+        private ErrorProvider errorUsuario;
+        private ErrorProvider errorContrasenia;
+        private ErrorProvider errorCalle;
+        private ErrorProvider errorColonia;
+        private ErrorProvider errorCP;
+        private ErrorProvider errorTelefono;
+        private ErrorProvider errorNoExt;
+        private ErrorProvider errorNoInt;
+        private ErrorProvider errorCiudad;
+        private ErrorProvider errorCorreo;
+        private ErrorProvider errorCif;
     }
 }

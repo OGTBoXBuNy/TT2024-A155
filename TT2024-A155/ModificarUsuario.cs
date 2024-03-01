@@ -184,6 +184,41 @@ namespace TT2024_A155
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            //-----------VALIDACION-----------------//
+            bool validacion = true;
+            errorNombre.Clear();
+            errorUsuario.Clear();
+            errorContrasenia.Clear();
+            errorCalle.Clear();
+            errorColonia.Clear();
+            errorCP.Clear();
+            errorTelefono.Clear();
+            errorNoExt.Clear();
+            errorNoInt.Clear();
+            errorCiudad.Clear();
+            errorCorreo.Clear();
+            errorCif.Clear();
+
+            if (string.IsNullOrEmpty(txtNombre.Text.Trim())) { errorNombre.SetError(txtNombre, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtUsuario.Text.Trim())) { errorUsuario.SetError(txtUsuario, "Campo obligatorio"); validacion = false; }
+            if (!string.IsNullOrEmpty(txtContrasenia.Text.Trim()))
+                if (!Validaciones.contrasenaSegura(txtContrasenia.Text.Trim())) { errorContrasenia.SetError(txtContrasenia, "Campo obligatorio y cumplir con: Números, Letras, Carácter especial y longitud mayor o igual a 8"); validacion = false; }
+            if (string.IsNullOrEmpty(txtCalle.Text.Trim())) { errorCalle.SetError(txtCalle, "Campo Obligatorio"); validacion = false; }
+
+            if (string.IsNullOrEmpty(txtCol.Text.Trim())) { errorColonia.SetError(txtCol, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtCP.Text.Trim())) { errorCP.SetError(txtCP, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtTel.Text.Trim())) { errorTelefono.SetError(txtTel, "Campo Obligatorio"); validacion = false; }
+
+            if (string.IsNullOrEmpty(txtNoExt.Text.Trim())) { errorNoExt.SetError(txtNoExt, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtNoInt.Text.Trim())) { errorNoInt.SetError(txtNoInt, "Campo obligatorio / ó coloca 0"); validacion = false; }
+            if (string.IsNullOrEmpty(txtCiudad.Text.Trim())) { errorCiudad.SetError(txtCiudad, "Campo Obligatorio"); validacion = false; }
+            if (!Validaciones.validarCorreo(txtCorreo.Text.Trim())) { errorCorreo.SetError(txtCorreo, "Correo inválido"); validacion = false; }
+
+
+
+            //-----------------------------
+
+
             string rol = cmbRol.Text.Trim();
             string usuario = txtUsuario.Text.Trim();
             string nombre = txtNombre.Text.Trim();
@@ -201,24 +236,34 @@ namespace TT2024_A155
 
             if (rbtnDatosPersonales.Checked)
             {
-                if (txtContrasenia.Text.Trim() != "")
+                if (validacion)
                 {
-                    Consulta.actualizarDatosPersonalesAdmin(1, contra, usuario, nombre, colonia, calle, noExt, noInt, cp, ciudad, telefono, correo, idrol);
+
+                    if (txtContrasenia.Text.Trim() != "")
+                    {
+                        Consulta.actualizarDatosPersonalesAdmin(1, contra, usuario, nombre, colonia, calle, noExt, noInt, cp, ciudad, telefono, correo, idrol);
+                    }
+                    else
+                    {
+                        Consulta.actualizarDatosPersonalesAdmin(0, contra, usuario, nombre, colonia, calle, noExt, noInt, cp, ciudad, telefono, correo, idrol);
+                    }
+                    string usuarioLog = lblUsuarioLog.Text.Trim();
+                    string descripcionLog = "El usuario : " + usuarioLog + " modificó los datos personales del usuario: " + usuario + " el día: " + DateTime.Now.ToString();
+                    Consulta.Log(usuario, "", descripcionLog, "19");
                 }
-                else
-                {
-                    Consulta.actualizarDatosPersonalesAdmin(0, contra, usuario, nombre, colonia, calle, noExt, noInt, cp, ciudad, telefono, correo, idrol);
-                }
-                string usuarioLog = lblUsuarioLog.Text.Trim();
-                string descripcionLog = "El usuario : " + usuarioLog + " modificó los datos personales del usuario: " + usuario + " el día: " + DateTime.Now.ToString();
-                Consulta.Log(usuario, "", descripcionLog, "19");
             }
             else if (rbtnDatosFiscales.Checked)
             {
-                Consulta.actualizarDatosFiscalesCliente(usuario, nombre, cif, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo);
-                string usuarioLog = lblUsuarioLog.Text.Trim();
-                string descripcionLog = "El usuario : " + usuarioLog + " modificó los datos fiscales del usuario: " + usuario + " el día: " + DateTime.Now.ToString();
-                Consulta.Log(usuario, "", descripcionLog, "19");
+                if (string.IsNullOrEmpty(txtCif.Text.Trim())) { errorCif.SetError(txtCif, "Campo Obligatorio"); validacion = false; }
+
+                if (validacion)
+                {
+
+                    Consulta.actualizarDatosFiscalesCliente(usuario, nombre, cif, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo);
+                    string usuarioLog = lblUsuarioLog.Text.Trim();
+                    string descripcionLog = "El usuario : " + usuarioLog + " modificó los datos fiscales del usuario: " + usuario + " el día: " + DateTime.Now.ToString();
+                    Consulta.Log(usuario, "", descripcionLog, "19");
+                }
             }
             else if (rbtnPermisos.Checked)
             {
