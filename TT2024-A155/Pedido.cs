@@ -172,7 +172,7 @@ namespace TT2024_A155
                 //idPedido = Consulta.registrarDetallePedido(idProducto, cantidad, precioVenta, descuento, idVehiculo);
 
             }
-
+            MessageBOX.SHowDialog(3, "Datos del pedido actualizado correctamente");
 
             string usuario = cmbCliente.Text.Trim();
             string nombre = txtNombreCliFact.Text.Trim();

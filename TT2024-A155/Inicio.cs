@@ -165,7 +165,7 @@ namespace TT2024_A155
 
                     if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))//Si le da clic al boton para aceptar el pedido
                     {
-                        MessageBox.Show("Ya se autorizo previamente, ya no es posible modificarlo");
+                        MessageBOX.SHowDialog(2, "Ya se autorizo previamente, ya no es posible modificarlo");
                     }
                     else
                     {

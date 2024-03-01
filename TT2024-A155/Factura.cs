@@ -25,8 +25,8 @@ namespace TT2024_A155
         {
             Consulta.datosFacturaPDF(dgvDatosFactura, lblIDPedido.Text);
 
-            txtFacturaSinIVA.Text = dgvDatosFactura.Rows[1].Cells[5].Value.ToString();
-            txtFactIVA.Text = dgvDatosFactura.Rows[1].Cells[6].Value.ToString();
+            txtFacturaSinIVA.Text = dgvDatosFactura.Rows[0].Cells[5].Value.ToString();
+            txtFactIVA.Text = dgvDatosFactura.Rows[0].Cells[6].Value.ToString();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -60,8 +60,8 @@ namespace TT2024_A155
                 string fact_neto = txtFactIVA.Text.Trim();
                 string fecha_emision = dtpFechEmision.Value.Year.ToString() + "-" + dtpFechEmision.Value.Month.ToString() + "-" + dtpFechEmision.Value.Day.ToString();
                 string comentarios = txtComentarios.Text.Trim();
-                string iddatos_fiscales_emp = dgvDatosFactura.Rows[1].Cells[0].Value.ToString();
-                string iddatos_fiscales_cliente = dgvDatosFactura.Rows[1].Cells[4].Value.ToString();
+                string iddatos_fiscales_emp = dgvDatosFactura.Rows[0].Cells[0].Value.ToString();
+                string iddatos_fiscales_cliente = dgvDatosFactura.Rows[0].Cells[4].Value.ToString();
 
                 //Consulta.generarFactura("1", dgvDatosFactura);
                 Consulta.registrarFactura(idPedido, iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentarios, dgvDatosFactura);

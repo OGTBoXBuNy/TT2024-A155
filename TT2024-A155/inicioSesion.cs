@@ -125,7 +125,7 @@ namespace TT2024_A155
                         inicio.lblUsuario.Text += txtUsuario.Text.Trim();
                         inicio.lblRol.Text = inicioSesion[1].ToString();
                         inicio.Show();
-                        MessageBox.Show("Inicio sesión exitoso");
+                        MessageBOX.SHowDialog(3, "Bienvenido de vuelta: " + txtUsuario.Text.Trim() );
                         string descripcionLog = "El usuario " + txtUsuario.Text + " Inicio sesión al sistema el día: " + DateTime.Now.ToString();
                         Consulta.Log(txtUsuario.Text, "", descripcionLog, "1");
                         this.Hide();
@@ -135,7 +135,7 @@ namespace TT2024_A155
                 }
                 else
                 {
-                    MessageBox.Show("Usuario y/o contraseña incorrectos");
+                    MessageBOX.SHowDialog(2,"Datos incorrectos");
                     txtUsuario.Text = "";
                     txtContrasenia.Text = "";
 

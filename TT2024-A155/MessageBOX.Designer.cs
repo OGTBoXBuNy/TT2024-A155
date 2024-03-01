@@ -41,39 +41,50 @@
             // 
             // GifHecho
             // 
-            GifHecho.Location = new Point(105, 12);
+            GifHecho.Location = new Point(60, 15);
             GifHecho.Name = "GifHecho";
-            GifHecho.Size = new Size(206, 97);
+            GifHecho.Size = new Size(187, 117);
+            GifHecho.SizeMode = PictureBoxSizeMode.Zoom;
             GifHecho.TabIndex = 0;
             GifHecho.TabStop = false;
             // 
             // lblTexto
             // 
-            lblTexto.AutoSize = true;
-            lblTexto.Location = new Point(162, 134);
+            lblTexto.Font = new Font("Lucida Sans", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTexto.ForeColor = Color.Gray;
+            lblTexto.Location = new Point(0, 135);
+            lblTexto.Margin = new Padding(4, 0, 4, 0);
             lblTexto.Name = "lblTexto";
-            lblTexto.Size = new Size(83, 20);
+            lblTexto.Size = new Size(308, 46);
             lblTexto.TabIndex = 1;
             lblTexto.Text = "Bienvenido";
+            lblTexto.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnOK
             // 
-            btnOK.Location = new Point(93, 179);
+            btnOK.BackColor = Color.Transparent;
+            btnOK.Font = new Font("Century Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnOK.ForeColor = Color.FromArgb(119, 180, 63);
+            btnOK.Location = new Point(76, 185);
             btnOK.Name = "btnOK";
-            btnOK.Size = new Size(94, 29);
+            btnOK.Size = new Size(155, 41);
             btnOK.TabIndex = 2;
             btnOK.Text = "Aceptar";
-            btnOK.UseVisualStyleBackColor = true;
+            btnOK.UseVisualStyleBackColor = false;
+            btnOK.Visible = false;
             btnOK.Click += btnOK_Click;
             // 
             // btnNO
             // 
-            btnNO.Location = new Point(217, 179);
+            btnNO.Font = new Font("Century Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnNO.ForeColor = Color.FromArgb(226, 76, 75);
+            btnNO.Location = new Point(253, 76);
             btnNO.Name = "btnNO";
-            btnNO.Size = new Size(94, 29);
+            btnNO.Size = new Size(116, 35);
             btnNO.TabIndex = 3;
             btnNO.Text = "NO";
             btnNO.UseVisualStyleBackColor = true;
+            btnNO.Visible = false;
             btnNO.Click += btnNO_Click;
             // 
             // Retraso_icono
@@ -91,18 +102,19 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(446, 293);
+            BackColor = Color.White;
+            ClientSize = new Size(308, 238);
             Controls.Add(btnNO);
             Controls.Add(btnOK);
             Controls.Add(lblTexto);
             Controls.Add(GifHecho);
+            FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MessageBOX";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dialog";
             ((System.ComponentModel.ISupportInitialize)GifHecho).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

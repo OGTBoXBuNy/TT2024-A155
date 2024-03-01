@@ -254,12 +254,12 @@ namespace TT2024_A155
                         string contraHash = BC.HashPassword(contra);
                         Comando = new SqlCommand(string.Format("INSERT INTO usuario (idrol,nombre_usuario,nombre_real,contrasenia,calle,colonia,noExt,noInt,cp,ciudad,telefono,correo) VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}');", x, us, nombre, contraHash, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo), nuevacon);
                         Comando.ExecuteNonQuery();
-                        MessageBox.Show("Se registro correctamente!");
+                        MessageBOX.SHowDialog(3, "Se registro correctamente!");
                         enviaCorreoPedido(correo, nombre);
                     }
                     else
                     {
-                        MessageBox.Show("Ya existe ese nombre de usuario");
+                        MessageBOX.SHowDialog(2,"Ya existe ese nombre de usuario");
                     }
                     nuevacon.Close();
                 }
@@ -387,7 +387,7 @@ namespace TT2024_A155
 
                         this.enviaCorreoContrasenia(destinatario, contra);
 
-                        MessageBox.Show("Favor de revisar su bandeja de entrada para recuperar su acceso");
+                        MessageBOX.SHowDialog(3,"Favor de revisar su bandeja de entrada para recuperar su acceso");
 
                     }
                     else if (validarCorreoUsuario(dato) == 1)
@@ -405,7 +405,7 @@ namespace TT2024_A155
 
                         this.enviaCorreoContrasenia(destinatario, contra);
 
-                        MessageBox.Show("Favor de revisar su bandeja de entrada para recuperar su acceso");
+                        MessageBOX.SHowDialog(3, "Favor de revisar su bandeja de entrada para recuperar su acceso");
                     }
 
 
@@ -438,7 +438,7 @@ namespace TT2024_A155
 
 
 
-                    MessageBox.Show("Contraseña actualizada correctamente");
+                    MessageBOX.SHowDialog(3, "Contraseña actualizada correctamente");
 
 
 
@@ -882,7 +882,7 @@ namespace TT2024_A155
                         if(enviaCorreo)
                             enviaCorreoPedido(correoCliente, pdf);
 
-                        //MessageBOX.SHowDialog(3, "PDF creado exitosamente 1");
+                        MessageBOX.SHowDialog(3, "Comprobante generado correctamente (PDF)");
 
                     }
 
@@ -1231,7 +1231,7 @@ namespace TT2024_A155
                             //MessageBox.Show("Stock Actualizado");
                         }
                         else
-                            MessageBox.Show("Stock No Actualizado");
+                            MessageBOX.SHowDialog(2, "Stock No Actualizado");
 
                    
 
@@ -1399,10 +1399,10 @@ namespace TT2024_A155
 
                         if (i > 0)
                         {
-                            MessageBox.Show("Datos Fiscales Registrados Exitosamente");
+                            MessageBOX.SHowDialog(3,"Datos Fiscales Registrados Exitosamente");
                         }
                         else
-                            MessageBox.Show("Datos Fiscales No Registrados");
+                            MessageBOX.SHowDialog(2,"Datos Fiscales No Registrados");
 
                     }
 
@@ -1450,10 +1450,10 @@ namespace TT2024_A155
 
                     if (i > 0)
                         {
-                            MessageBox.Show("Datos Fiscales Actualziados Exitosamente");
+                            MessageBOX.SHowDialog(3,"Datos Fiscales Actualziados Exitosamente");
                         }
                     else
-                            MessageBox.Show("Datos Fiscales No Actualizados");
+                            MessageBOX.SHowDialog(2, "Datos Fiscales No Actualizados");
 
                     
 
@@ -1666,10 +1666,10 @@ namespace TT2024_A155
 
                     if (i > 0)
                     {
-                        MessageBox.Show("Pedido autorizado");
+                        MessageBOX.SHowDialog(3, "Pedido autorizado");
                     }
                     else
-                        MessageBox.Show("Error al autorizar el pedido");
+                        MessageBOX.SHowDialog(2,"Error al autorizar el pedido");
 
 
 
@@ -1911,10 +1911,10 @@ namespace TT2024_A155
 
                     if (i > 0)
                     {
-                        MessageBox.Show("Datos del pedido actualizado correctamente");
+                        //MessageBOX.SHowDialog(3,"Datos del pedido actualizado correctamente");
                     }
                     else
-                        MessageBox.Show("Datos del pedido no actualizados");
+                        MessageBOX.SHowDialog(2,"Datos del pedido no actualizados");
 
 
 
@@ -2010,7 +2010,7 @@ namespace TT2024_A155
                     nuevacon.Close();
                     if (i == 1)
                     {
-                        MessageBox.Show("Producto eliminado correctamente");
+                        MessageBOX.SHowDialog(3,"Producto eliminado correctamente");
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al eliminar el producto");
@@ -2240,7 +2240,7 @@ namespace TT2024_A155
                             this.actualizarContrasenia(nombre_usuario, contrasenia);
                         }
                         else { }
-                        MessageBox.Show("Datos personales actualizados");
+                        MessageBOX.SHowDialog(3,"Datos personales actualizados");
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al actualizar datos personales");
@@ -2290,7 +2290,7 @@ namespace TT2024_A155
                     if (i == 1)
                     {
 
-                        MessageBox.Show("Datos fiscales actualizados");
+                        MessageBOX.SHowDialog(3,"Datos fiscales actualizados");
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al actualizar datos fiscales");
@@ -2368,7 +2368,7 @@ namespace TT2024_A155
                             this.actualizarContrasenia(nombre_usuario, contrasenia);
                         }
                         else { }
-                        MessageBox.Show("Datos personales actualizados");
+                        MessageBOX.SHowDialog(3, "Datos personales actualizados");
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al actualizar datos personales");
@@ -2578,7 +2578,7 @@ namespace TT2024_A155
 
                         
 
-                        //MessageBOX.SHowDialog(3, "PDF creado exitosamente 1");
+                        MessageBOX.SHowDialog(3, "Factura generada correctamente (PDF)");
 
                     }
 
@@ -2663,7 +2663,7 @@ namespace TT2024_A155
                     nuevacon.Close();
                     if (i == 1)
                     {
-                        MessageBox.Show("Factura registrada correctamente");
+                        MessageBOX.SHowDialog(3, "Factura registrada correctamente");
                         generarFactura(idPedido, dgvDatosFactura);
                     }
                     else
@@ -2805,10 +2805,10 @@ namespace TT2024_A155
 
                     if (i > 0)
                     {
-                        MessageBox.Show("Pedido entregado");
+                        MessageBOX.SHowDialog(3, "Pedido entregado");
                     }
                     else
-                        MessageBox.Show("Error al entregar el pedido");
+                        MessageBOX.SHowDialog(2, "Error al entregar el pedido");
 
                     nuevacon.Close();
                 }
@@ -2840,10 +2840,10 @@ namespace TT2024_A155
 
                     if (i > 0)
                     {
-                        MessageBox.Show("Pedido devuelto");
+                        MessageBOX.SHowDialog(3, "Pedido devuelto");
                     }
                     else
-                        MessageBox.Show("Error al devolver el pedido");
+                        MessageBOX.SHowDialog(2, "Error al devolver el pedido");
 
                     nuevacon.Close();
                 }

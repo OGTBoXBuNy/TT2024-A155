@@ -20,14 +20,14 @@ namespace TT2024_A155
             lblTexto.Text = mensaje;
 
 
-            if (mensaje.Contains("Bienvenido"))
+            if (mensaje.Contains("Bienvenido!"))
             {
                 lblTexto.Visible = false;
                 GifHecho.Image = Resources.Loading;
                 lblTexto.Location = new Point(0, 110);
                 Retraso_icono.Interval = 3000;
                 btnOK.Visible = false;
-                //this.Size = new Size(231, 153);
+                this.Size = new Size(231, 153);
                 Timer_Close.Start();
             }
             else
@@ -41,12 +41,12 @@ namespace TT2024_A155
                         break;
                     case 2:
                         GifHecho.Image = Resources.Error;
-                        //this.Size = new Size(311, 118);
+                        this.Size = new Size(400, 118);
                         GifHecho.Size = new Size(77, 57);
                         GifHecho.Location = new Point(12, 12);
-                        lblTexto.Size = new Size(213, 37);
-                        lblTexto.Location = new Point(95, 22);
-                        btnOK.Size = new Size(87, 27);
+                        lblTexto.Size = new Size(300, 80);
+                        lblTexto.Location = new Point(95, 10);
+                        btnOK.Size = new Size(87, 35);
                         btnOK.Location = new Point(135, 79);
                         btnOK.Text = "OK";
                         //btnOK.Textcolor = Color.FromArgb(226, 76, 75);
@@ -55,26 +55,25 @@ namespace TT2024_A155
                         break;
                     case 3:
                         GifHecho.Image = Resources.Correcto;
-                        //this.Size = new Size(311, 118);
+                        this.Size = new Size(400, 118);
                         GifHecho.Size = new Size(77, 57);
                         GifHecho.Location = new Point(12, 12);
-                        lblTexto.Size = new Size(213, 37);
-                        lblTexto.Location = new Point(95, 22);
-                        btnOK.Size = new Size(87, 27);
+                        lblTexto.Size = new Size(300, 80);
+                        lblTexto.Location = new Point(95, 10);
+                        btnOK.Size = new Size(87, 35);
                         btnOK.Location = new Point(135, 79);
                         btnOK.Text = "OK";
-                        //btnOK.Textcolor = Color.FromArgb(65, 165, 238);
-                        //btnOK.OnHovercolor = Color.FromArgb(128, 195, 243);
+                       
                         Retraso_icono.Interval = 1;
                         break;
                     case 4:
                         GifHecho.Image = Resources.Pregunta;
-                        //this.Size = new Size(311, 118);
+                        this.Size = new Size(400, 118);
                         GifHecho.Size = new Size(77, 57);
                         GifHecho.Location = new Point(12, 12);
-                        lblTexto.Size = new Size(213, 37);
-                        lblTexto.Location = new Point(95, 22);
-                        btnOK.Size = new Size(87, 27);
+                        lblTexto.Size = new Size(300, 80);
+                        lblTexto.Location = new Point(95, 10);
+                        btnOK.Size = new Size(87, 35);
                         btnOK.Location = new Point(110, 79);
                         btnOK.Text = "SI";
                         btnNO.Visible = true;
