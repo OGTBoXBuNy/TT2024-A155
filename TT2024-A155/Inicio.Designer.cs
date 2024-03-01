@@ -935,7 +935,7 @@
             // lblDatosGenerales
             // 
             lblDatosGenerales.AutoSize = true;
-            lblDatosGenerales.BackColor = Color.Transparent;
+            lblDatosGenerales.BackColor = Color.FromArgb(66, 165, 245);
             lblDatosGenerales.Location = new Point(23, 185);
             lblDatosGenerales.Name = "lblDatosGenerales";
             lblDatosGenerales.Size = new Size(117, 20);
@@ -945,7 +945,7 @@
             // lblDatosEntFact
             // 
             lblDatosEntFact.AutoSize = true;
-            lblDatosEntFact.BackColor = Color.Transparent;
+            lblDatosEntFact.BackColor = Color.FromArgb(66, 165, 245);
             lblDatosEntFact.Location = new Point(236, 186);
             lblDatosEntFact.Name = "lblDatosEntFact";
             lblDatosEntFact.Size = new Size(150, 20);

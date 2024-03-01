@@ -46,8 +46,8 @@ namespace TT2024_A155
             if (string.IsNullOrEmpty(txtDescuento.Text.Trim())) { errorDescuento.SetError(txtDescuento, "Campo obligatorio"); validacion = false; }
             if (string.IsNullOrEmpty(txtFactIVA.Text.Trim())) { errorFactConIva.SetError(txtFactIVA, "Campo obligatorio"); validacion = false; }
 
-            if (string.IsNullOrEmpty(txtpubKey.Text.Trim())) { errorLlavePublica.SetError(txtpubKey, "Campo obligatorio"); validacion = false; }
-            if (string.IsNullOrEmpty(txtprivKey.Text.Trim())) { errorLlavePrivada.SetError(txtprivKey, "Campo obligatorio"); validacion = false; }
+            //if (string.IsNullOrEmpty(txtpubKey.Text.Trim())) { errorLlavePublica.SetError(txtpubKey, "Campo obligatorio"); validacion = false; }
+            //if (string.IsNullOrEmpty(txtprivKey.Text.Trim())) { errorLlavePrivada.SetError(txtprivKey, "Campo obligatorio"); validacion = false; }
 
             //-----------------------------
 

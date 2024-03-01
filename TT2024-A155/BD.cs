@@ -786,7 +786,7 @@ namespace TT2024_A155
                         //FECHA_CREACIÓN
                         canvas.BeginText().SetFontAndSize(font, 14)
                                 .MoveText(x + 40, y + 590)
-                                .ShowText(dgvDatosPDF.Rows[0].Cells[1].Value.ToString().Substring(0,10))
+                                .ShowText(dgvDatosPDF.Rows[0].Cells[1].Value.ToString().Substring(0,10) + " " + DateTime.Now.ToString("h:mm:ss"))
                                 .EndText();
 
                         //CLIENTE
@@ -841,9 +841,9 @@ namespace TT2024_A155
 
                             //PRECIO UNITARIO
                             canvas.BeginText().SetFontAndSize(font, 10)
-                              .MoveText(x + 420, y + 548)
+                              .MoveText(x + 410, y + 548)
                               .SetFillColor(ColorConstants.BLACK)
-                              .ShowText(dgvDatosPDF.Rows[count].Cells[6].Value.ToString())
+                              .ShowText("$ " + dgvDatosPDF.Rows[count].Cells[6].Value.ToString())
                               .EndText();
 
 
@@ -852,9 +852,9 @@ namespace TT2024_A155
 
                             //PRECIO TOTAL POR PRODUCTO
                             canvas.BeginText().SetFontAndSize(font, 10)
-                              .MoveText(x + 520, y + 548)
+                              .MoveText(x + 510, y + 548)
                               .SetFillColor(ColorConstants.BLACK)
-                              .ShowText(totalXProd.ToString("0.##"))
+                              .ShowText("$ " + totalXProd.ToString("0.##"))
                               .EndText();
 
 
@@ -866,7 +866,7 @@ namespace TT2024_A155
                         canvas.BeginText().SetFontAndSize(font, 10)
                           .MoveText(x + 510, 105)
                           .SetFillColor(ColorConstants.BLACK)
-                          .ShowText("Total: " + Total.ToString("0.##"))
+                          .ShowText("Total: $ " + Total.ToString("0.##"))
                           .EndText();
 
                         //NUMERO DE ITEMS
@@ -2443,7 +2443,7 @@ namespace TT2024_A155
                         string direccion2 = dgvDatosFactura.Rows[0].Cells[11].Value.ToString() +" "+ 
                             dgvDatosFactura.Rows[0].Cells[12].Value.ToString() +" "+ dgvDatosFactura.Rows[0].Cells[13].Value.ToString();
 
-                        string direccion3 = dgvDatosFactura.Rows[0].Cells[14].Value.ToString() +" "+ dgvDatosFactura.Rows[0].Cells[15].Value.ToString();
+                        string direccion3 = "Cel: " + dgvDatosFactura.Rows[0].Cells[14].Value.ToString() +" "+ dgvDatosFactura.Rows[0].Cells[15].Value.ToString();
 
                         string cif = "CIF: " + dgvDatosFactura.Rows[0].Cells[16].Value.ToString();
 
@@ -2497,13 +2497,13 @@ namespace TT2024_A155
                         //SUBTOTAL
                         canvas.BeginText().SetFontAndSize(font, 12)
                                 .MoveText(x + 463, y + 214)
-                                .ShowText(decimal.Round(subtotal,2).ToString())
+                                .ShowText("$ " + decimal.Round(subtotal, 2).ToString())
                                 .EndText();
 
                         //IMPUESTOS
                         canvas.BeginText().SetFontAndSize(font, 12)
                                 .MoveText(x + 463, y + 194)
-                                .ShowText(decimal.Round(impuestosX,2).ToString())
+                                .ShowText("$ " + decimal.Round(impuestosX, 2).ToString())
                                 .EndText();
 
                         //TOTAL
@@ -2547,9 +2547,9 @@ namespace TT2024_A155
 
                             //PRECIO POR PRODUCTO
                             canvas.BeginText().SetFontAndSize(font, 10)
-                                    .MoveText(x + 375, y + 465)
+                                    .MoveText(x + 365, y + 465)
                                     .SetFillColor(ColorConstants.BLACK)
-                                    .ShowText(dgvDatosFactura.Rows[count].Cells[22].Value.ToString())
+                                    .ShowText("$ " + dgvDatosFactura.Rows[count].Cells[22].Value.ToString())
                                     .EndText(); 
 
                             //DESCUENTO POR PRODUCTO
@@ -2562,9 +2562,9 @@ namespace TT2024_A155
                             decimal totalXProd = Convert.ToDecimal(dgvDatosFactura.Rows[count].Cells[24].Value.ToString());
                             //TOTAL POR PRODUCTO CON DESCUENTO
                             canvas.BeginText().SetFontAndSize(font, 10)
-                                    .MoveText(x + 540, y + 465)
+                                    .MoveText(x + 530, y + 465)
                                     .SetFillColor(ColorConstants.BLACK)
-                                    .ShowText(decimal.Round(totalXProd,2).ToString())
+                                    .ShowText("$ " + decimal.Round(totalXProd, 2).ToString())
                                     .EndText();
 
                             
