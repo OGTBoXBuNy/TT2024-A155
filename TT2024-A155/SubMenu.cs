@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//Diseño
+using MaterialSkin.Controls;
 
 namespace TT2024_A155
 {
-    public partial class SubMenu : Form
+    public partial class SubMenu : MaterialForm
     {
         public SubMenu()
         {
             InitializeComponent();
+            MaterialUI.loadMaterial(this);
         }
         BD Consulta = new();
         private string[] permisos;
@@ -42,7 +45,6 @@ namespace TT2024_A155
             factura.lblIDPedido.Text = lblIdPedido.Text;
             factura.lblUsuario.Text = lblUsuario.Text;
             factura.ShowDialog();
-
         }
 
         private void btnRegistrarEntrega_Click(object sender, EventArgs e)

@@ -97,7 +97,7 @@
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(1037, 9);
+            lblUsuario.Location = new Point(302, 9);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(59, 20);
             lblUsuario.TabIndex = 0;
@@ -141,7 +141,7 @@
             // dgvDatosPDF
             // 
             dgvDatosPDF.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDatosPDF.Location = new Point(1119, 49);
+            dgvDatosPDF.Location = new Point(384, 49);
             dgvDatosPDF.Name = "dgvDatosPDF";
             dgvDatosPDF.RowHeadersWidth = 51;
             dgvDatosPDF.RowTemplate.Height = 29;
@@ -151,7 +151,7 @@
             // lblRol
             // 
             lblRol.AutoSize = true;
-            lblRol.Location = new Point(1037, 29);
+            lblRol.Location = new Point(302, 29);
             lblRol.Name = "lblRol";
             lblRol.Size = new Size(36, 20);
             lblRol.TabIndex = 39;
@@ -160,7 +160,7 @@
             // lblIdPedido
             // 
             lblIdPedido.AutoSize = true;
-            lblIdPedido.Location = new Point(1037, 49);
+            lblIdPedido.Location = new Point(302, 49);
             lblIdPedido.Name = "lblIdPedido";
             lblIdPedido.Size = new Size(70, 20);
             lblIdPedido.TabIndex = 40;
