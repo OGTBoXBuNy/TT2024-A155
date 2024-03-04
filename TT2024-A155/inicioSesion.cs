@@ -109,7 +109,7 @@ namespace TT2024_A155
                 if (inicioSesion[0] == 1)
                 {
 
-                    if (Consulta.validarContraTemp(txtUsuario.Text.Trim()) == 1)
+                    if (Consulta.validarContraTemp(txtUsuario.Text.Trim()) == 1)//VALIDAR SI REQUIERE ACTUALIZAR FIRMA
                     {
                         cambioContraseña cambioContra = new();
                         AddOwnedForm(cambioContra);
@@ -117,6 +117,15 @@ namespace TT2024_A155
                         cambioContra.lblRol.Text = inicioSesion[1].ToString();
                         cambioContra.Show();
 
+                        this.Hide();
+                    }
+                    else if (Consulta.solicitudFirmas(txtUsuario.Text.Trim()) == 1)//VALIDAR SI REQUIERE PAR DE LLAVES
+                    {
+                        solicitudFirmas solicitudFirmas = new();
+                        AddOwnedForm(solicitudFirmas);
+                        solicitudFirmas.lblUsuario.Text=txtUsuario.Text.Trim();
+                        solicitudFirmas.lblRol.Text = inicioSesion[1].ToString();
+                        solicitudFirmas.Show(); 
                         this.Hide();
                     }
                     else

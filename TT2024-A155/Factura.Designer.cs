@@ -70,7 +70,7 @@
             // 
             // txtComentarios
             // 
-            txtComentarios.Location = new Point(318, 365);
+            txtComentarios.Location = new Point(318, 325);
             txtComentarios.Multiline = true;
             txtComentarios.Name = "txtComentarios";
             txtComentarios.Size = new Size(285, 70);
@@ -194,7 +194,7 @@
             lblComentarios.Depth = 0;
             lblComentarios.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblComentarios.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblComentarios.Location = new Point(16, 365);
+            lblComentarios.Location = new Point(16, 325);
             lblComentarios.MouseState = MaterialSkin.MouseState.HOVER;
             lblComentarios.Name = "lblComentarios";
             lblComentarios.Size = new Size(128, 24);
@@ -207,7 +207,7 @@
             lblLlavePrivada.Depth = 0;
             lblLlavePrivada.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblLlavePrivada.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblLlavePrivada.Location = new Point(13, 325);
+            lblLlavePrivada.Location = new Point(13, 285);
             lblLlavePrivada.MouseState = MaterialSkin.MouseState.HOVER;
             lblLlavePrivada.Name = "lblLlavePrivada";
             lblLlavePrivada.Size = new Size(164, 24);
@@ -220,12 +220,13 @@
             lblLlavePublica.Depth = 0;
             lblLlavePublica.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblLlavePublica.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblLlavePublica.Location = new Point(13, 285);
+            lblLlavePublica.Location = new Point(25, 467);
             lblLlavePublica.MouseState = MaterialSkin.MouseState.HOVER;
             lblLlavePublica.Name = "lblLlavePublica";
             lblLlavePublica.Size = new Size(164, 24);
             lblLlavePublica.TabIndex = 28;
             lblLlavePublica.Text = "Ruta llave publica:";
+            lblLlavePublica.Visible = false;
             // 
             // lblFecha
             // 
@@ -316,7 +317,7 @@
             txtpubKey.Depth = 0;
             txtpubKey.Enabled = false;
             txtpubKey.Hint = "";
-            txtpubKey.Location = new Point(318, 285);
+            txtpubKey.Location = new Point(330, 467);
             txtpubKey.MaxLength = 32767;
             txtpubKey.MouseState = MaterialSkin.MouseState.HOVER;
             txtpubKey.Name = "txtpubKey";
@@ -328,13 +329,14 @@
             txtpubKey.TabIndex = 35;
             txtpubKey.TabStop = false;
             txtpubKey.UseSystemPasswordChar = false;
+            txtpubKey.Visible = false;
             // 
             // txtprivKey
             // 
             txtprivKey.Depth = 0;
             txtprivKey.Enabled = false;
             txtprivKey.Hint = "";
-            txtprivKey.Location = new Point(318, 325);
+            txtprivKey.Location = new Point(318, 285);
             txtprivKey.MaxLength = 32767;
             txtprivKey.MouseState = MaterialSkin.MouseState.HOVER;
             txtprivKey.Name = "txtprivKey";
@@ -353,7 +355,7 @@
             btnpubKey.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnpubKey.Depth = 0;
             btnpubKey.Icon = null;
-            btnpubKey.Location = new Point(610, 277);
+            btnpubKey.Location = new Point(622, 459);
             btnpubKey.Margin = new Padding(4, 6, 4, 6);
             btnpubKey.MouseState = MaterialSkin.MouseState.HOVER;
             btnpubKey.Name = "btnpubKey";
@@ -362,6 +364,7 @@
             btnpubKey.TabIndex = 37;
             btnpubKey.Text = "...";
             btnpubKey.UseVisualStyleBackColor = true;
+            btnpubKey.Visible = false;
             // 
             // btnprivKey
             // 
@@ -369,7 +372,7 @@
             btnprivKey.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnprivKey.Depth = 0;
             btnprivKey.Icon = null;
-            btnprivKey.Location = new Point(610, 317);
+            btnprivKey.Location = new Point(610, 285);
             btnprivKey.Margin = new Padding(4, 6, 4, 6);
             btnprivKey.MouseState = MaterialSkin.MouseState.HOVER;
             btnprivKey.Name = "btnprivKey";
@@ -378,6 +381,7 @@
             btnprivKey.TabIndex = 38;
             btnprivKey.Text = "...";
             btnprivKey.UseVisualStyleBackColor = true;
+            btnprivKey.Click += btnprivKey_Click;
             // 
             // btnAceptar
             // 
@@ -385,7 +389,7 @@
             btnAceptar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnAceptar.Depth = 0;
             btnAceptar.Icon = null;
-            btnAceptar.Location = new Point(414, 451);
+            btnAceptar.Location = new Point(414, 420);
             btnAceptar.MouseState = MaterialSkin.MouseState.HOVER;
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Primary = true;

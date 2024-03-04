@@ -87,8 +87,9 @@ namespace TT2024_A155
                 string usuarioLog = lblUsuarioLog.Text.Trim();
                 string descripcionLog = "El usuario : " + usuarioLog + " creó al nuevo usuario: " + usuario + " el día: " + DateTime.Now.ToString();
                 Consulta.Log(usuario, "", descripcionLog, "17");
+                this.Close();
             }
-            this.Close();
+            
         }
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)

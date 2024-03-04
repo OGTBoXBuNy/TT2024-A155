@@ -202,7 +202,7 @@ namespace TT2024_A155
                     llenarDetallesPedido(detallesPedido);
                     return;
                 }
-                else if (lblRol.Text == "2")
+                else if (lblRol.Text == "2" || lblRol.Text == "3" || lblRol.Text == "1")
                 {
                     detallesPedido = Consulta.detallesPedido(dgvPedido.Rows[fila].Cells[0].Value.ToString());
                     llenarDetallesPedido(detallesPedido);
@@ -227,7 +227,7 @@ namespace TT2024_A155
                     subMenu.ShowDialog();
 
                 }
-                else if (lblRol.Text == "2")
+                else if (lblRol.Text == "2" || lblRol.Text == "3")
                 {
 
                     idPedido = dgvPedido.Rows[fila].Cells[1].Value.ToString();
@@ -354,7 +354,7 @@ namespace TT2024_A155
                 Consulta.filtroFechaCliente(dgvPedido, Fecha_inicio, Fecha_Final, lblUsuario.Text);
                 estadoPedidoColorCliente();
             }
-            else if (lblRol.Text == "2")
+            else if (lblRol.Text == "2" || lblRol.Text == "3")
             {
 
 
@@ -376,7 +376,7 @@ namespace TT2024_A155
                 Consulta.filtroFechaCliente(dgvPedido, Fecha_inicio, Fecha_Final, lblUsuario.Text);
                 estadoPedidoColorCliente();
             }
-            else if (lblRol.Text == "2")
+            else if (lblRol.Text == "2" || lblRol.Text == "3")
             {
 
 
@@ -406,7 +406,7 @@ namespace TT2024_A155
 
 
             }
-            else if (lblRol.Text == "2")
+            else if (lblRol.Text == "2" || lblRol.Text == "3")
             {
                 if (txtFiltroPedido.Text.Trim() == string.Empty)
                 {
@@ -427,7 +427,7 @@ namespace TT2024_A155
             {
 
             }
-            else if (lblRol.Text == "2")
+            else if (lblRol.Text == "2" || lblRol.Text == "3")
             {
                 if (txtFiltroCliente.Text.Trim() == string.Empty)
                 {
@@ -448,7 +448,7 @@ namespace TT2024_A155
             {
 
             }
-            else if (lblRol.Text == "2")
+            else if (lblRol.Text == "2" || lblRol.Text == "3")
             {
                 if (txtFiltroUsuario.Text.Trim() == string.Empty)
                 {

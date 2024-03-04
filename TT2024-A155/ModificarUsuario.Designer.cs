@@ -108,6 +108,7 @@
             errorCiudad = new ErrorProvider(components);
             errorCorreo = new ErrorProvider(components);
             errorCif = new ErrorProvider(components);
+            btnSolicitarFirma = new MaterialSkin.Controls.MaterialRaisedButton();
             panelDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PicOJO).BeginInit();
             panelPermisos.SuspendLayout();
@@ -1056,11 +1057,30 @@
             // 
             errorCif.ContainerControl = this;
             // 
+            // btnSolicitarFirma
+            // 
+            btnSolicitarFirma.AutoSize = true;
+            btnSolicitarFirma.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnSolicitarFirma.Depth = 0;
+            btnSolicitarFirma.Enabled = false;
+            btnSolicitarFirma.Icon = null;
+            btnSolicitarFirma.Location = new Point(825, 142);
+            btnSolicitarFirma.MouseState = MaterialSkin.MouseState.HOVER;
+            btnSolicitarFirma.Name = "btnSolicitarFirma";
+            btnSolicitarFirma.Primary = true;
+            btnSolicitarFirma.Size = new Size(163, 36);
+            btnSolicitarFirma.TabIndex = 89;
+            btnSolicitarFirma.Text = "Solicitar Firma";
+            btnSolicitarFirma.UseVisualStyleBackColor = true;
+            btnSolicitarFirma.Visible = false;
+            btnSolicitarFirma.Click += btnSolicitarFirma_Click;
+            // 
             // ModificarUsuario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1001, 560);
+            Controls.Add(btnSolicitarFirma);
             Controls.Add(rbtnDatosFiscales);
             Controls.Add(rbtnDatosPersonales);
             Controls.Add(lblCliente);
@@ -1173,5 +1193,6 @@
         private ErrorProvider errorCorreo;
         private ErrorProvider errorCif;
         private PictureBox PicOJO;
+        private MaterialSkin.Controls.MaterialRaisedButton btnSolicitarFirma;
     }
 }

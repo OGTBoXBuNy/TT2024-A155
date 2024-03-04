@@ -81,7 +81,7 @@
             // 
             // btnFirma
             // 
-            btnFirma.Location = new Point(468, 27);
+            btnFirma.Location = new Point(410, 29);
             btnFirma.Name = "btnFirma";
             btnFirma.Size = new Size(42, 27);
             btnFirma.TabIndex = 8;
@@ -168,7 +168,7 @@
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(94, 20);
             lblVersion.TabIndex = 17;
-            lblVersion.Text = "Versión: 1.0.3";
+            lblVersion.Text = "Versión: 1.0.4";
             // 
             // lblUsuario
             // 

@@ -115,7 +115,6 @@
             // 
             // btnprivKey
             // 
-            btnprivKey.Enabled = false;
             btnprivKey.Location = new Point(619, 67);
             btnprivKey.Name = "btnprivKey";
             btnprivKey.Size = new Size(94, 29);

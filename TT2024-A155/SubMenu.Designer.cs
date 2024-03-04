@@ -68,6 +68,7 @@
             btnModificarDatosPedido.AutoSize = true;
             btnModificarDatosPedido.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnModificarDatosPedido.Depth = 0;
+            btnModificarDatosPedido.Enabled = false;
             btnModificarDatosPedido.Icon = null;
             btnModificarDatosPedido.Location = new Point(65, 90);
             btnModificarDatosPedido.MouseState = MaterialSkin.MouseState.HOVER;
@@ -84,6 +85,7 @@
             btnGenerarFactura.AutoSize = true;
             btnGenerarFactura.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnGenerarFactura.Depth = 0;
+            btnGenerarFactura.Enabled = false;
             btnGenerarFactura.Icon = null;
             btnGenerarFactura.Location = new Point(65, 150);
             btnGenerarFactura.MouseState = MaterialSkin.MouseState.HOVER;
@@ -100,8 +102,9 @@
             btnGenerarRefactura.AutoSize = true;
             btnGenerarRefactura.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnGenerarRefactura.Depth = 0;
+            btnGenerarRefactura.Enabled = false;
             btnGenerarRefactura.Icon = null;
-            btnGenerarRefactura.Location = new Point(65, 210);
+            btnGenerarRefactura.Location = new Point(65, 330);
             btnGenerarRefactura.MouseState = MaterialSkin.MouseState.HOVER;
             btnGenerarRefactura.Name = "btnGenerarRefactura";
             btnGenerarRefactura.Primary = true;
@@ -109,14 +112,16 @@
             btnGenerarRefactura.TabIndex = 10;
             btnGenerarRefactura.Text = "Generar Refactura";
             btnGenerarRefactura.UseVisualStyleBackColor = true;
+            btnGenerarRefactura.Visible = false;
             // 
             // btnRegistrarEntrega
             // 
             btnRegistrarEntrega.AutoSize = true;
             btnRegistrarEntrega.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnRegistrarEntrega.Depth = 0;
+            btnRegistrarEntrega.Enabled = false;
             btnRegistrarEntrega.Icon = null;
-            btnRegistrarEntrega.Location = new Point(65, 270);
+            btnRegistrarEntrega.Location = new Point(65, 210);
             btnRegistrarEntrega.MouseState = MaterialSkin.MouseState.HOVER;
             btnRegistrarEntrega.Name = "btnRegistrarEntrega";
             btnRegistrarEntrega.Primary = true;
@@ -131,8 +136,9 @@
             btnRegistrarDevolucion.AutoSize = true;
             btnRegistrarDevolucion.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnRegistrarDevolucion.Depth = 0;
+            btnRegistrarDevolucion.Enabled = false;
             btnRegistrarDevolucion.Icon = null;
-            btnRegistrarDevolucion.Location = new Point(65, 330);
+            btnRegistrarDevolucion.Location = new Point(65, 270);
             btnRegistrarDevolucion.MouseState = MaterialSkin.MouseState.HOVER;
             btnRegistrarDevolucion.Name = "btnRegistrarDevolucion";
             btnRegistrarDevolucion.Primary = true;

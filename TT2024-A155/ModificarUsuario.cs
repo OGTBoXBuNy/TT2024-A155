@@ -50,6 +50,7 @@ namespace TT2024_A155
             cmbRol.SelectedIndex = Convert.ToInt32(cmbNombreUsuario.SelectedValue.ToString()) - 1;
 
             txtCif.Enabled = false;
+            btnSolicitarFirma.Enabled = false;
             datosCuenta = Consulta.datosPersonalesUsuario(cmbNombreUsuario.Text);
 
             txtNombre.Text = datosCuenta[0];
@@ -165,7 +166,17 @@ namespace TT2024_A155
                 datosFiscales();
             else { }
 
-
+            if(cmbRol.Text == "Finanzas")
+            {
+                btnSolicitarFirma.Enabled = true;
+                btnSolicitarFirma.Visible = true;
+            }
+            else
+            {
+                btnSolicitarFirma.Enabled = false;
+                btnSolicitarFirma.Visible = false;
+            }
+                
 
         }
 
@@ -251,6 +262,7 @@ namespace TT2024_A155
                     string usuarioLog = lblUsuarioLog.Text.Trim();
                     string descripcionLog = "El usuario : " + usuarioLog + " modificó los datos personales del usuario: " + usuario + " el día: " + DateTime.Now.ToString();
                     Consulta.Log(usuario, "", descripcionLog, "19");
+                    this.Close();
                 }
             }
             else if (rbtnDatosFiscales.Checked)
@@ -264,6 +276,7 @@ namespace TT2024_A155
                     string usuarioLog = lblUsuarioLog.Text.Trim();
                     string descripcionLog = "El usuario : " + usuarioLog + " modificó los datos fiscales del usuario: " + usuario + " el día: " + DateTime.Now.ToString();
                     Consulta.Log(usuario, "", descripcionLog, "19");
+                    this.Close();
                 }
             }
             else if (rbtnPermisos.Checked)
@@ -271,7 +284,7 @@ namespace TT2024_A155
 
             }
             else { }
-            this.Close();
+
         }
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
@@ -320,6 +333,21 @@ namespace TT2024_A155
             {
                 txtContrasenia.UseSystemPasswordChar = true;
                 PicOJO.Image = Resources.ojo;
+            }
+        }
+
+        private void btnSolicitarFirma_Click(object sender, EventArgs e)
+        {
+            MessageBOX mes = new MessageBOX(4, "¿Está seguro de querer solicitar la firma nuevamente para este usuario?");
+
+            if (mes.ShowDialog() == DialogResult.OK)
+            {
+                string usuario = lblUsuario.Text;
+                string usuarioSistema = cmbNombreUsuario.Text;
+                Consulta.solicitarFirma(usuarioSistema);
+                string descripcionLog = "El administrador : " + usuario + " solicito la firma nuevamente para el usuario : " + usuarioSistema + " el día: " + DateTime.Now.ToString();
+                Consulta.Log(usuario, "", descripcionLog, "21");
+
             }
         }
     }

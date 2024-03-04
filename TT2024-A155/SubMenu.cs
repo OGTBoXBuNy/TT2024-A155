@@ -25,6 +25,37 @@ namespace TT2024_A155
         {
             //OBTENER PERMISOS SEGUN USUARIO
             permisos = Consulta.obtenerPermisos(lblRol.Text.Trim()); //1 ENABLE AND VISIBLE.... 0 DISABLE AND NO VISIBLE 
+            string idPedido = lblIdPedido.Text.Trim();
+            string rol = lblRol.Text.Trim();
+
+            if (permisos[3] == "1")//MODIFICAR PEDIDOS
+            {
+                btnModificarDatosPedido.Enabled = true;
+            }
+            
+            if (permisos[5] == "1")//REGISTRAR ENTREGA
+            {
+                btnRegistrarEntrega.Enabled = true;
+            }
+            if (permisos[6] == "1")//REGISTRAR DEVOLUCION
+            {
+                btnRegistrarDevolucion.Enabled = true;
+            }
+            
+            if (permisos[8] == "1")//GENERAR FACTURA 
+            {
+                btnGenerarFactura.Enabled = true;
+            }
+            
+
+            if (Consulta.existeFactura(idPedido) == 1)
+                btnGenerarFactura.Enabled = false;
+            if(Consulta.existeEntrega(idPedido) == 1)
+                btnRegistrarEntrega.Enabled = false;
+            if(Consulta.existeDevolucion(idPedido) == 1) 
+                btnRegistrarDevolucion.Enabled = false;
+
+
         }
 
         private void btnModificarDatosPedido_Click(object sender, EventArgs e)

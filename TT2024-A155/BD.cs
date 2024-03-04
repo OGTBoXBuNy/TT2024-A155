@@ -1,4 +1,6 @@
-﻿using System;
+﻿extern alias NewBouncy;
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -30,6 +32,8 @@ using System.Globalization;
 
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using QRCoder;
+using iText.Commons.Bouncycastle.Crypto;
+using NewBouncy::Org.BouncyCastle.Pqc.Crypto.Crystals.Dilithium;
 
 
 
@@ -72,7 +76,7 @@ namespace TT2024_A155
 
                     var bodyBuilder = new BodyBuilder();
 
-                    
+
 
                     string contenido = "Hola!!!! " + usuario + " Bienvenido al sistema de TT-2024-A155";
 
@@ -167,8 +171,8 @@ namespace TT2024_A155
                             contraHash = Lector["contrasenia"].ToString();
                             contador[1] = Convert.ToInt32(Lector["idrol"].ToString());
                         }
-                            
-                        if (BC.Verify(contra, contraHash)) 
+
+                        if (BC.Verify(contra, contraHash))
                             contador[0]++;
                     }
 
@@ -239,6 +243,10 @@ namespace TT2024_A155
         {
             int contador = 0;
             int x = 0;
+            int requiereFirma = 0;
+
+            if (rol == "Finanzas")
+                requiereFirma = 1;
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
@@ -252,14 +260,14 @@ namespace TT2024_A155
                         while (Lector.Read()) { x = Int32.Parse(Lector["idrol"].ToString()); }
                         Lector.Close();
                         string contraHash = BC.HashPassword(contra);
-                        Comando = new SqlCommand(string.Format("INSERT INTO usuario (idrol,nombre_usuario,nombre_real,contrasenia,calle,colonia,noExt,noInt,cp,ciudad,telefono,correo) VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}');", x, us, nombre, contraHash, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo), nuevacon);
+                        Comando = new SqlCommand(string.Format("INSERT INTO usuario (idrol,nombre_usuario,nombre_real,contrasenia,calle,colonia,noExt,noInt,cp,ciudad,telefono,correo,requiereFirma) VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}');", x, us, nombre, contraHash, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo, requiereFirma), nuevacon);
                         Comando.ExecuteNonQuery();
                         MessageBOX.SHowDialog(3, "Se registro correctamente!");
                         enviaCorreoPedido(correo, nombre);
                     }
                     else
                     {
-                        MessageBOX.SHowDialog(2,"Ya existe ese nombre de usuario");
+                        MessageBOX.SHowDialog(2, "Ya existe ese nombre de usuario");
                     }
                     nuevacon.Close();
                 }
@@ -308,7 +316,7 @@ namespace TT2024_A155
                 string senderNombre = "TT2024-A155";
                 string senderCorreo = "correos-jeic@jeic.com.mx";
                 string senderAppPass = "dgyvipbypyupufpm";//xldsjobozxjsrmpk
-                
+
 
 
                 try
@@ -387,7 +395,7 @@ namespace TT2024_A155
 
                         this.enviaCorreoContrasenia(destinatario, contra);
 
-                        MessageBOX.SHowDialog(3,"Favor de revisar su bandeja de entrada para recuperar su acceso");
+                        MessageBOX.SHowDialog(3, "Favor de revisar su bandeja de entrada para recuperar su acceso");
 
                     }
                     else if (validarCorreoUsuario(dato) == 1)
@@ -436,13 +444,7 @@ namespace TT2024_A155
                     Comando = new SqlCommand(string.Format("UPDATE USUARIO SET contrasenia = '{0}', contrasenia_temp = 0 WHERE nombre_usuario = '{1}';", contraHash, us), nuevacon);
                     Comando.ExecuteNonQuery();
 
-
-
                     MessageBOX.SHowDialog(3, "Contraseña actualizada correctamente");
-
-
-
-
                     nuevacon.Close();
                 }
 
@@ -520,7 +522,7 @@ namespace TT2024_A155
                 {
                     nuevaConexion.Open();
 
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(string.Format("SELECT nombre, codigo, idproducto FROM producto WHERE estado = 1 AND idproducto = '{0}' ORDER BY NEWID();",idProducto), nuevaConexion);
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(string.Format("SELECT nombre, codigo, idproducto FROM producto WHERE estado = 1 AND idproducto = '{0}' ORDER BY NEWID();", idProducto), nuevaConexion);
                     dataAdapter.Fill(dataSet, "PRODUCTO");
 
                     nuevaConexion.Close();
@@ -557,7 +559,7 @@ namespace TT2024_A155
                         producto[7] = Lector["costo_proveedor"].ToString();
 
                         producto[11] = Lector["idproducto"].ToString();//IDPRODUCTO
-                        
+
 
                     }
                     Lector.Close();
@@ -642,7 +644,7 @@ namespace TT2024_A155
 
         }
 
-        
+
 
         //------------------------OBETNER EL NUMERO DE FILAS DENTRO DE UN PEDIDO-------------------------------------------------------
         public int NumeroFilas(string idPedido)
@@ -677,7 +679,7 @@ namespace TT2024_A155
         //---------------------------OBTENER DATOS PARA GENERAR EL COMPROBANTE PDF--------------------
         public void datosPedidoPDF(DataGridView dgv, string idPedido)
         {
-           
+
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
@@ -687,14 +689,14 @@ namespace TT2024_A155
                     da.Fill(dt);
                     dgv.DataSource = dt;
                     nuevacon.Close();
-                   
+
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-        
+
         }
 
         //---------------------------OBTENER DATOS PARA GENERAR LA FACTURA--------------------
@@ -734,7 +736,7 @@ namespace TT2024_A155
                 fileRoute.FilterIndex = 2;
                 fileRoute.RestoreDirectory = true;
                 fileRoute.FileName = "Comprobante_" + idPedido;
-                
+
 
                 if (fileRoute.ShowDialog() == DialogResult.OK)
                 {
@@ -754,7 +756,7 @@ namespace TT2024_A155
                         iText.Kernel.Pdf.PdfDocument pdfdoc = new iText.Kernel.Pdf.PdfDocument(pdfReader, pdfWriter);
 
 
-                        datosPedidoPDF(dgvDatosPDF ,idPedido);
+                        datosPedidoPDF(dgvDatosPDF, idPedido);
 
                         int NumeroFila = NumeroFilas(idPedido);
 
@@ -786,7 +788,7 @@ namespace TT2024_A155
                         //FECHA_CREACIÓN
                         canvas.BeginText().SetFontAndSize(font, 14)
                                 .MoveText(x + 40, y + 590)
-                                .ShowText(dgvDatosPDF.Rows[0].Cells[1].Value.ToString().Substring(0,10) + " " + DateTime.Now.ToString("h:mm:ss"))
+                                .ShowText(dgvDatosPDF.Rows[0].Cells[1].Value.ToString().Substring(0, 10) + " " + DateTime.Now.ToString("h:mm:ss"))
                                 .EndText();
 
                         //CLIENTE
@@ -803,7 +805,7 @@ namespace TT2024_A155
 
 
 
-                        
+
                         for (int count = 0; count < NumeroFila; count++)
                         {
 
@@ -818,7 +820,7 @@ namespace TT2024_A155
 
                             //PRODUCTOS
                             canvas.BeginText().SetFontAndSize(font, 7)
-                                    .MoveText(x + 197, y +548)
+                                    .MoveText(x + 197, y + 548)
                                     .SetFillColor(ColorConstants.BLACK)
                                     .ShowText(dgvDatosPDF.Rows[count].Cells[4].Value.ToString())
                                     .EndText();
@@ -847,8 +849,8 @@ namespace TT2024_A155
                               .EndText();
 
 
-                            double totalXProd = Convert.ToDouble(Convert.ToInt32(dgvDatosPDF.Rows[count].Cells[5].Value.ToString()) * Convert.ToDouble(dgvDatosPDF.Rows[count].Cells[6].Value.ToString())) ;
-                            Total += totalXProd; 
+                            double totalXProd = Convert.ToDouble(Convert.ToInt32(dgvDatosPDF.Rows[count].Cells[5].Value.ToString()) * Convert.ToDouble(dgvDatosPDF.Rows[count].Cells[6].Value.ToString()));
+                            Total += totalXProd;
 
                             //PRECIO TOTAL POR PRODUCTO
                             canvas.BeginText().SetFontAndSize(font, 10)
@@ -871,7 +873,7 @@ namespace TT2024_A155
 
                         //NUMERO DE ITEMS
                         canvas.BeginText().SetFontAndSize(font, 9)
-                                        .MoveText(x +130, 105)
+                                        .MoveText(x + 130, 105)
                                         .ShowText((Items).ToString())
                                         .EndText();
 
@@ -879,7 +881,7 @@ namespace TT2024_A155
 
                         pdf = File.ReadAllBytes(fileRoute.FileName);
 
-                        if(enviaCorreo)
+                        if (enviaCorreo)
                             enviaCorreoPedido(correoCliente, pdf);
 
                         MessageBOX.SHowDialog(3, "Comprobante generado correctamente (PDF)");
@@ -939,9 +941,9 @@ namespace TT2024_A155
                     Lector.Close();
                     nuevacon.Close();
                 }
-                
+
                 return nombreVendedor;
-        }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -960,7 +962,7 @@ namespace TT2024_A155
                 string senderNombre = "TT2024-A155";
                 string senderCorreo = "correos-jeic@jeic.com.mx";
                 string senderAppPass = "dgyvipbypyupufpm";//xldsjobozxjsrmpk
-                
+
 
 
                 try
@@ -976,15 +978,15 @@ namespace TT2024_A155
 
                     var bodyBuilder = new BodyBuilder();
 
-                    bodyBuilder.Attachments.Add(fileName: "Comprobante",pdf, contentType: MimeKit.ContentType.Parse(MediaTypeNames.Application.Pdf));
+                    bodyBuilder.Attachments.Add(fileName: "Comprobante", pdf, contentType: MimeKit.ContentType.Parse(MediaTypeNames.Application.Pdf));
 
                     string contenido = "En los adjuntos de este correo encontraras el docuemnto PDF con toda la información de tu compra.";
-                    
+
                     bodyBuilder.HtmlBody = contenido;
 
                     message.Body = bodyBuilder.ToMessageBody();
 
-                    
+
 
                     using (var client = new SmtpClient())
                     {
@@ -1022,10 +1024,10 @@ namespace TT2024_A155
                 using (SqlConnection nuevaConexion = Conexion.conexion())
                 {
                     nuevaConexion.Open();
-                    
-                        SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT idusuario ,nombre_usuario, nombre_real FROM usuario WHERE idrol = 4 AND estado = 1;", nuevaConexion);
-                        dataAdapter.Fill(dataSet, "CLIENTE");
-                    
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT idusuario ,nombre_usuario, nombre_real FROM usuario WHERE idrol = 4 AND estado = 1;", nuevaConexion);
+                    dataAdapter.Fill(dataSet, "CLIENTE");
+
 
                     nuevaConexion.Close();
                 }
@@ -1086,7 +1088,7 @@ namespace TT2024_A155
         }
 
 
-        
+
         //---------------- OBTENER ID VEHICULOS- CON MARCA-MODELO-ANIO
         public string idVehiculoProducto(string marca, string modelo, string anio)
         {
@@ -1097,7 +1099,7 @@ namespace TT2024_A155
                 {
                     nuevaConexion.Open();
                     Comando = new SqlCommand(string.Format("SELECT veh.idvehiculo FROM vehiculo veh INNER JOIN MARCA mar ON veh.idmarca = mar.idmarca WHERE mar.marca = '{0}' AND veh.modelo = '{1}' AND veh.anio = '{2}' AND mar.estado = 1 AND veh.estado = 1;", marca, modelo, anio), nuevaConexion);
-                    
+
                     Lector = Comando.ExecuteReader();
                     while (Lector.Read()) { idVehiculoProducto = Lector["idvehiculo"].ToString(); }
                     Lector.Close();
@@ -1121,10 +1123,10 @@ namespace TT2024_A155
                 using (SqlConnection nuevaConexion = Conexion.conexion())
                 {
                     nuevaConexion.Open();
-                   
-                        SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT marca FROM MARCA WHERE estado = 1;", nuevaConexion);//  WHERE marca NOT LIKE 'PARTICULAR%'
-                        dataAdapter.Fill(dataSet, "MARCA");
-                    
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT marca FROM MARCA WHERE estado = 1;", nuevaConexion);//  WHERE marca NOT LIKE 'PARTICULAR%'
+                    dataAdapter.Fill(dataSet, "MARCA");
+
 
                     nuevaConexion.Close();
                 }
@@ -1146,10 +1148,10 @@ namespace TT2024_A155
                 {
                     nuevacon.Open();
 
-                        Comando = new SqlCommand(string.Format("SELECT nombre_real FROM usuario WHERE nombre_usuario = '{0}'", nombreUsuario), nuevacon);
-                        Lector = Comando.ExecuteReader();
-                        while (Lector.Read()) { nombre = Lector["nombre_real"].ToString(); }
-                        Lector.Close();
+                    Comando = new SqlCommand(string.Format("SELECT nombre_real FROM usuario WHERE nombre_usuario = '{0}'", nombreUsuario), nuevacon);
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read()) { nombre = Lector["nombre_real"].ToString(); }
+                    Lector.Close();
 
                     nuevacon.Close();
                 }
@@ -1168,7 +1170,7 @@ namespace TT2024_A155
         public int registrarPedido(string idUsuarioVendedor, string idUsuarioCliente, string fecha_hora, string impuesto, string total, string comentarios)
         {
 
-                int i = 0;
+            int i = 0;
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
@@ -1176,10 +1178,10 @@ namespace TT2024_A155
 
 
                     nuevacon.Open();
-                   
+
                     Comando = new SqlCommand("INSERT INTO pedido (idusuarioVendedor, idusuarioCliente, fecha_hora, impuesto, total, comentarios)\r\nVALUES (@idUsuarioVendedor, @idUsuarioCliente, @fecha_hora, @impuesto, @total, @comentarios);", nuevacon);
-                    
-                    if(idUsuarioVendedor != string.Empty)
+
+                    if (idUsuarioVendedor != string.Empty)
                         Comando.Parameters.AddWithValue("@idusuarioVendedor", Convert.ToInt32(idUsuarioVendedor));
                     else
                         Comando.Parameters.AddWithValue("@idusuarioVendedor", Convert.ToInt32(idUsuarioCliente));
@@ -1208,7 +1210,7 @@ namespace TT2024_A155
                 MessageBox.Show("Error registrar pedido: " + EX.Message);
             }
             return i;
-            
+
         }
 
 
@@ -1223,17 +1225,17 @@ namespace TT2024_A155
                     nuevacon.Open();
 
 
-                        Comando = new SqlCommand(string.Format("UPDATE producto SET stock = (stock + {0}) WHERE idproducto = {1};", cantidad, idProducto), nuevacon);
-                        i = Comando.ExecuteNonQuery();
+                    Comando = new SqlCommand(string.Format("UPDATE producto SET stock = (stock + {0}) WHERE idproducto = {1};", cantidad, idProducto), nuevacon);
+                    i = Comando.ExecuteNonQuery();
 
-                        if (i > 0)
-                        {
-                            //MessageBox.Show("Stock Actualizado");
-                        }
-                        else
-                            MessageBOX.SHowDialog(2, "Stock No Actualizado");
+                    if (i > 0)
+                    {
+                        //MessageBox.Show("Stock Actualizado");
+                    }
+                    else
+                        MessageBOX.SHowDialog(2, "Stock No Actualizado");
 
-                   
+
 
                     nuevacon.Close();
                 }
@@ -1260,7 +1262,7 @@ namespace TT2024_A155
 
                     nuevacon.Open();
 
-                    
+
 
                     Comando = new SqlCommand("SELECT TOP 1 idpedido FROM pedido WHERE estado = 1 ORDER BY idpedido desc;", nuevacon);
                     Lector = Comando.ExecuteReader();
@@ -1278,7 +1280,7 @@ namespace TT2024_A155
                     Comando.Parameters.AddWithValue("@precio", Convert.ToDouble(precio));
                     Comando.Parameters.AddWithValue("@descuento", Convert.ToDouble(descuento));
                     Comando.Parameters.AddWithValue("@idVehiculo", Convert.ToInt32(idVehiculo));
-                    
+
 
 
                     //Para saber si la inserción se hizo correctamente
@@ -1286,7 +1288,7 @@ namespace TT2024_A155
                     nuevacon.Close();
                     if (i == 1)
                     {
-                        actualizarStock(idProducto,cantidad);
+                        actualizarStock(idProducto, cantidad);
                         return idPedido;
                         //generarComprobante(idPedido.ToString());
                     }
@@ -1316,9 +1318,9 @@ namespace TT2024_A155
                     Comando = new SqlCommand("SELECT TOP 1 idpedido FROM pedido WHERE estado = 1 ORDER BY idpedido desc;", nuevacon);
                     Lector = Comando.ExecuteReader();
                     while (Lector.Read()) { idPedido = Lector["idpedido"].ToString(); }
-                    Lector.Close();                
+                    Lector.Close();
                     nuevacon.Close();
-                    
+
                 }
                 return idPedido;
             }
@@ -1341,7 +1343,7 @@ namespace TT2024_A155
                     Comando = new SqlCommand(string.Format("SELECT iddatos_fiscales_cli FROM usuario WHERE nombre_usuario = '{0}';", us), nuevacon);
                     nuevacon.Open();
                     Lector = Comando.ExecuteReader();
-                    while (Lector.Read()) { 
+                    while (Lector.Read()) {
                         if (Lector["iddatos_fiscales_cli"].ToString() != string.Empty)
                             contador++;
                     }
@@ -1394,15 +1396,15 @@ namespace TT2024_A155
                         while (Lector.Read()) { idDatosFiscales = Convert.ToInt32(Lector["iddatos_fiscales_cli"].ToString()); }
                         Lector.Close();
 
-                        Comando = new SqlCommand(string.Format("UPDATE USUARIO SET iddatos_fiscales_cli = {0} WHERE nombre_usuario = '{1}';", idDatosFiscales,usuario), nuevacon) ;
-                        i =  Comando.ExecuteNonQuery();
+                        Comando = new SqlCommand(string.Format("UPDATE USUARIO SET iddatos_fiscales_cli = {0} WHERE nombre_usuario = '{1}';", idDatosFiscales, usuario), nuevacon);
+                        i = Comando.ExecuteNonQuery();
 
                         if (i > 0)
                         {
-                            MessageBOX.SHowDialog(3,"Datos Fiscales Registrados Exitosamente");
+                            MessageBOX.SHowDialog(3, "Datos Fiscales Registrados Exitosamente");
                         }
                         else
-                            MessageBOX.SHowDialog(2,"Datos Fiscales No Registrados");
+                            MessageBOX.SHowDialog(2, "Datos Fiscales No Registrados");
 
                     }
 
@@ -1449,13 +1451,13 @@ namespace TT2024_A155
                     i = Comando.ExecuteNonQuery();
 
                     if (i > 0)
-                        {
-                            MessageBOX.SHowDialog(3,"Datos Fiscales Actualziados Exitosamente");
-                        }
+                    {
+                        MessageBOX.SHowDialog(3, "Datos Fiscales Actualziados Exitosamente");
+                    }
                     else
-                            MessageBOX.SHowDialog(2, "Datos Fiscales No Actualizados");
+                        MessageBOX.SHowDialog(2, "Datos Fiscales No Actualizados");
 
-                    
+
 
                     nuevacon.Close();
                 }
@@ -1495,7 +1497,7 @@ namespace TT2024_A155
                         datosFiscales[7] = Lector["ciudad"].ToString();//CIUDAD
                         datosFiscales[8] = Lector["telefono"].ToString();//TELEFONO
                         datosFiscales[9] = Lector["correo"].ToString();//CORREO
-                        
+
                     }
                     Lector.Close();
 
@@ -1514,7 +1516,7 @@ namespace TT2024_A155
         //---------------------------Inicializar DGV de Cliente al iniciar sesion--------------------
         public void inicioClientePedidos(DataGridView dgv, string usuario)
         {
-            
+
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
@@ -1537,13 +1539,14 @@ namespace TT2024_A155
         //---------------------------Inicializar DGV de Empleado al iniciar sesion--------------------
         public void inicioPedidosEmpleados(DataGridView dgv, string usuario)
         {
-            
+
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
+                    //da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario)), nuevacon);
+                    da = new SqlDataAdapter("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE detp.estado = 1 ORDER BY ped.fecha_hora desc;", nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1566,14 +1569,14 @@ namespace TT2024_A155
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
-                    
+
                     nuevacon.Open();
                     Comando = new SqlCommand(string.Format("SELECT ped.idpedido, ped.fecha_hora, us.nombre_real, us.nombre_usuario, prod.nombre, detp.cantidad, prod.precio_venta, detp.descuento, mar.marca, veh.modelo, ped.comentarios, ped.aprobacionCliente, fact.idfactura, fact.fact_sinIVA, fact.fact_neto, ped.idusuarioVendedor, veh.anio, fact.num_factura AS 'numFact', fact.comentario AS 'factComen', ent.idusuario AS 'Entrega realizada por', ent.fecha AS 'Fecha entrega', dev.idusuario AS 'Devolución realizada por', dev.fecha AS 'Fecha devolución' FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura LEFT OUTER JOIN entrega ent ON ent.idpedido = ped.idpedido LEFT OUTER JOIN devolucion dev ON dev.idpedido = ped.idpedido WHERE detp.iddetalle_pedido = '{0}';", idDetallePedido), nuevacon);
                     Lector = Comando.ExecuteReader();
                     while (Lector.Read())
                     {
                         detallesPedido[0] = Lector["idpedido"].ToString();//IDPEDIDO
-                        detallesPedido[1] = Lector["fecha_hora"].ToString().Substring(0,10);//FECHA_HORA
+                        detallesPedido[1] = Lector["fecha_hora"].ToString().Substring(0, 10);//FECHA_HORA
                         detallesPedido[2] = Lector["nombre_real"].ToString();//NOMBRE CLIENTE
                         detallesPedido[3] = Lector["nombre_usuario"].ToString();//USUARIO 
                         detallesPedido[4] = Lector["nombre"].ToString();//NOMBRE PRODUCTO
@@ -1585,10 +1588,10 @@ namespace TT2024_A155
                         detallesPedido[10] = Lector["comentarios"].ToString();//COMENTARIOS
                         detallesPedido[17] = Lector["anio"].ToString();//ANIO VEHICULO
 
-                        if(Lector["Entrega realizada por"].ToString() != "")
+                        if (Lector["Entrega realizada por"].ToString() != "")
                         {
                             detallesPedido[19] = Lector["Entrega realizada por"].ToString();//Entrega realizada por
-                            detallesPedido[20] = Lector["Fecha entrega"].ToString().Substring(0,10);//Fecha entrega
+                            detallesPedido[20] = Lector["Fecha entrega"].ToString().Substring(0, 10);//Fecha entrega
                         }
                         else
                         {
@@ -1599,7 +1602,7 @@ namespace TT2024_A155
                         if (Lector["Devolución realizada por"].ToString() != "")
                         {
                             detallesPedido[21] = Lector["Devolución realizada por"].ToString();//Devolución realizada por
-                            detallesPedido[22] = Lector["Fecha devolución"].ToString().Substring(0,10);//Fecha devolución
+                            detallesPedido[22] = Lector["Fecha devolución"].ToString().Substring(0, 10);//Fecha devolución
                         }
                         else
                         {
@@ -1611,7 +1614,7 @@ namespace TT2024_A155
                         if (Lector["aprobacionCliente"].ToString() == "true")//ESTADO PEDIDO
                             detallesPedido[11] = "Autorizado";
                         else detallesPedido[11] = "En revisión";
-                        
+
 
                         if (Lector["idfactura"].ToString() != string.Empty) {
                             detallesPedido[12] = Lector["numFact"].ToString();//IDFACTURA
@@ -1632,9 +1635,9 @@ namespace TT2024_A155
                             detallesPedido[18] = "";//COMENTARIO
                         }
 
-                       
+
                         detallesPedido[16] = Lector["idusuarioVendedor"].ToString();//NOMBRE VENDEDOR
-                        
+
 
                     }
                     Lector.Close();
@@ -1669,7 +1672,7 @@ namespace TT2024_A155
                         MessageBOX.SHowDialog(3, "Pedido autorizado");
                     }
                     else
-                        MessageBOX.SHowDialog(2,"Error al autorizar el pedido");
+                        MessageBOX.SHowDialog(2, "Error al autorizar el pedido");
 
 
 
@@ -1719,7 +1722,7 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND ped.fecha_hora between '{1}' and '{2}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), fechaInicio, fechaFinal ), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND ped.fecha_hora between '{1}' and '{2}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), fechaInicio, fechaFinal), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1767,7 +1770,8 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND ped.idpedido = '{1}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario) ,idPedido), nuevacon);
+                    //da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.idusuario = '{0}' AND ped.idpedido = '{1}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), idPedido), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioVendedor LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idpedido = '{0}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idPedido), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1790,7 +1794,8 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND us.nombre_real LIKE '%{1}%' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), nombreCliente), nuevacon);
+                    //da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND us.nombre_real LIKE '%{1}%' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), nombreCliente), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.nombre_real LIKE '%{0}%' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;",nombreCliente), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1813,7 +1818,8 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND us.nombre_usuario LIKE '%{1}%' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), nombreUsuario), nuevacon);
+                    //da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND us.nombre_usuario LIKE '%{1}%' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), nombreUsuario), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE us.nombre_usuario LIKE '%{0}%' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;",nombreUsuario), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1836,7 +1842,8 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     //MessageBox.Show(cvePedido);
-                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND ped.fecha_hora between '{1}' and '{2}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), fechaInicio, fechaFin), nuevacon);
+                    //da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.idusuarioVendedor = '{0}' AND ped.fecha_hora between '{1}' and '{2}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", idUsuario(usuario), fechaInicio, fechaFin), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT detp.iddetalle_pedido, ped.idpedido AS '# Pedido', ped.aprobacionCliente AS 'Autorizado', us.nombre_usuario AS 'Usuario', us.nombre_real AS 'Nombre', ped.fecha_hora AS 'Fecha Creación', prod.nombre AS 'Producto', prod.precio_venta AS 'Precio venta', detp.cantidad AS 'Cantidad', detp.descuento AS 'Descuento', ped.comentarios, ped.impuesto, ped.total, mar.marca AS 'Marca', veh.modelo AS 'Modelo'  FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca WHERE ped.fecha_hora between '{0}' and '{1}' AND detp.estado = 1 ORDER BY ped.fecha_hora desc;", fechaInicio, fechaFin), nuevacon);
                     nuevacon.Open();
                     dt = new DataTable();
                     da.Fill(dt);
@@ -1880,7 +1887,7 @@ namespace TT2024_A155
         public void actualizarDatosPedido(string idvehiculo, string cantidad, string descuento, string iddetalle_pedido, string comentarios, string idPedido, string impuesto, string total)
         {
             int i = 0;
-            
+
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
@@ -1902,7 +1909,7 @@ namespace TT2024_A155
                     Comando.Parameters.AddWithValue("@cantidad", Convert.ToInt32(cantidad));
                     Comando.Parameters.AddWithValue("@descuento", Convert.ToDouble(descuento));
                     Comando.Parameters.AddWithValue("@iddetalle_pedido", Convert.ToInt32(iddetalle_pedido));
-                    
+
 
 
 
@@ -1914,7 +1921,7 @@ namespace TT2024_A155
                         //MessageBOX.SHowDialog(3,"Datos del pedido actualizado correctamente");
                     }
                     else
-                        MessageBOX.SHowDialog(2,"Datos del pedido no actualizados");
+                        MessageBOX.SHowDialog(2, "Datos del pedido no actualizados");
 
 
 
@@ -1936,7 +1943,7 @@ namespace TT2024_A155
         {
 
             int i;
-            
+
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
@@ -1970,8 +1977,8 @@ namespace TT2024_A155
                     if (i == 1)
                     {
                         actualizarStock(idProducto, cantidad);
-                       
-                        
+
+
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al registar pedido");
@@ -2010,7 +2017,7 @@ namespace TT2024_A155
                     nuevacon.Close();
                     if (i == 1)
                     {
-                        MessageBOX.SHowDialog(3,"Producto eliminado correctamente");
+                        MessageBOX.SHowDialog(3, "Producto eliminado correctamente");
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al eliminar el producto");
@@ -2099,10 +2106,10 @@ namespace TT2024_A155
                 {
                     nuevaConexion.Open();
 
-                    
-                    
+
+
                     Comando = new SqlCommand(string.Format("SELECT us.nombre_real, us.colonia, us.calle, us.noExt, us.noInt, us.cp, us.ciudad, us.telefono, us.correo FROM usuario us WHERE us.nombre_usuario = '{0}' AND us.estado =1;", usuario), nuevaConexion);
-                    
+
 
                     Lector = Comando.ExecuteReader();
                     while (Lector.Read())
@@ -2182,14 +2189,14 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     nuevacon.Open();
-                        string contraHash = BC.HashPassword(contrasenia);
-                        
-                        Comando = new SqlCommand(string.Format("UPDATE USUARIO SET contrasenia = '{0}' WHERE nombre_usuario = '{1}';", contraHash, usuario), nuevacon);
-                        Comando.ExecuteNonQuery();
+                    string contraHash = BC.HashPassword(contrasenia);
 
-                        
+                    Comando = new SqlCommand(string.Format("UPDATE USUARIO SET contrasenia = '{0}' WHERE nombre_usuario = '{1}';", contraHash, usuario), nuevacon);
+                    Comando.ExecuteNonQuery();
 
-                        
+
+
+
                     nuevacon.Close();
                 }
 
@@ -2204,7 +2211,7 @@ namespace TT2024_A155
 
         //ACTUALIZAR DATOS PERSONALES DE UN USUARIO
 
-        public int actualizarDatosPersonales(int actualizarContrasenia,string contrasenia, string nombre_usuario, string nombre_real, string colonia, string calle, string noExt, string noInt, string cp, string ciudad, string telefono, string correo)
+        public int actualizarDatosPersonales(int actualizarContrasenia, string contrasenia, string nombre_usuario, string nombre_real, string colonia, string calle, string noExt, string noInt, string cp, string ciudad, string telefono, string correo)
         {
 
             int i;
@@ -2240,7 +2247,7 @@ namespace TT2024_A155
                             this.actualizarContrasenia(nombre_usuario, contrasenia);
                         }
                         else { }
-                        MessageBOX.SHowDialog(3,"Datos personales actualizados");
+                        MessageBOX.SHowDialog(3, "Datos personales actualizados");
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al actualizar datos personales");
@@ -2290,7 +2297,7 @@ namespace TT2024_A155
                     if (i == 1)
                     {
 
-                        MessageBOX.SHowDialog(3,"Datos fiscales actualizados");
+                        MessageBOX.SHowDialog(3, "Datos fiscales actualizados");
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al actualizar datos fiscales");
@@ -2388,14 +2395,15 @@ namespace TT2024_A155
         {
             File.WriteAllBytes(ruta, Properties.Resources.Reporte);
 
-            BDExcel bDExcel = new ();
+            BDExcel bDExcel = new();
 
             bDExcel.generarExcelTest(ruta, fecha1, fecha2);
         }
 
         //----------------------GENERAR PDF FACTURA
-        public void generarFactura(string idPedido, DataGridView dgvDatosFactura)
+        public byte[] generarFactura(string idPedido, DataGridView dgvDatosFactura)
         {
+            byte[] pdf = new byte[] {0x20};
             try
             {
                 SaveFileDialog fileRoute = new SaveFileDialog();
@@ -2434,20 +2442,20 @@ namespace TT2024_A155
 
                         int y = 0;//633
                         int x = 0;//109
-                        byte[] pdf;
+                        //byte[] pdf;
                         string correoCliente = dgvDatosFactura.Rows[0].Cells[14].Value.ToString();
 
-                        string direccion = dgvDatosFactura.Rows[0].Cells[8].Value.ToString() +" "+ dgvDatosFactura.Rows[0].Cells[9].Value.ToString() +" "+
+                        string direccion = dgvDatosFactura.Rows[0].Cells[8].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[9].Value.ToString() + " " +
                            dgvDatosFactura.Rows[0].Cells[10].Value.ToString();
 
-                        string direccion2 = dgvDatosFactura.Rows[0].Cells[11].Value.ToString() +" "+ 
-                            dgvDatosFactura.Rows[0].Cells[12].Value.ToString() +" "+ dgvDatosFactura.Rows[0].Cells[13].Value.ToString();
+                        string direccion2 = dgvDatosFactura.Rows[0].Cells[11].Value.ToString() + " " +
+                            dgvDatosFactura.Rows[0].Cells[12].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[13].Value.ToString();
 
-                        string direccion3 = "Cel: " + dgvDatosFactura.Rows[0].Cells[14].Value.ToString() +" "+ dgvDatosFactura.Rows[0].Cells[15].Value.ToString();
+                        string direccion3 = "Cel: " + dgvDatosFactura.Rows[0].Cells[14].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[15].Value.ToString();
 
                         string cif = "CIF: " + dgvDatosFactura.Rows[0].Cells[16].Value.ToString();
 
-                        string impuestos = Convert.ToString( (Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[6].Value.ToString()) - Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[5].Value.ToString())));
+                        string impuestos = Convert.ToString((Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[6].Value.ToString()) - Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[5].Value.ToString())));
                         decimal impuestosX = Convert.ToDecimal(impuestos);
                         decimal subtotal = Convert.ToDecimal(dgvDatosFactura.Rows[0].Cells[5].Value.ToString());
 
@@ -2511,7 +2519,7 @@ namespace TT2024_A155
                                 .MoveText(x + 463, y + 160)
                                 .ShowText("$" + dgvDatosFactura.Rows[0].Cells[6].Value.ToString())
                                 .EndText();
-                        
+
                         //CADENA DE SELLO
                         canvas.BeginText().SetFontAndSize(font, 9)
                                 .MoveText(x + 300, y + 100)
@@ -2529,7 +2537,7 @@ namespace TT2024_A155
                             producto = dgvDatosFactura.Rows[count].Cells[17].Value.ToString() + " " + dgvDatosFactura.Rows[count].Cells[18].Value.ToString() + " " +
                             dgvDatosFactura.Rows[count].Cells[19].Value.ToString() + " " + dgvDatosFactura.Rows[count].Cells[20].Value.ToString();
 
-                            
+
 
                             //PRODUCTOS
                             canvas.BeginText().SetFontAndSize(font, 9)
@@ -2543,14 +2551,14 @@ namespace TT2024_A155
                                     .MoveText(x + 300, y + 465)
                                     .SetFillColor(ColorConstants.BLACK)
                                     .ShowText(dgvDatosFactura.Rows[count].Cells[21].Value.ToString())
-                                    .EndText(); 
+                                    .EndText();
 
                             //PRECIO POR PRODUCTO
                             canvas.BeginText().SetFontAndSize(font, 10)
                                     .MoveText(x + 365, y + 465)
                                     .SetFillColor(ColorConstants.BLACK)
                                     .ShowText("$ " + dgvDatosFactura.Rows[count].Cells[22].Value.ToString())
-                                    .EndText(); 
+                                    .EndText();
 
                             //DESCUENTO POR PRODUCTO
                             canvas.BeginText().SetFontAndSize(font, 10)
@@ -2567,27 +2575,29 @@ namespace TT2024_A155
                                     .ShowText("$ " + decimal.Round(totalXProd, 2).ToString())
                                     .EndText();
 
-                            
+
                             y -= 22;
                         }
 
-                   
+
                         pdfdoc.Close();
 
                         pdf = File.ReadAllBytes(fileRoute.FileName);
 
-                        
+
 
                         MessageBOX.SHowDialog(3, "Factura generada correctamente (PDF)");
-
+                        
                     }
-
+                    
                 }
+                return pdf;
             }
             catch (Exception err)
             {
                 MessageBox.Show("Ocurrió un problema FACTURA \nMayor Detalle:\n" + err.Message + "\n\n*Si muestra en ingles, proceda a traducirlo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+            return pdf;
 
         }
 
@@ -2599,32 +2609,35 @@ namespace TT2024_A155
             try
             {
 
-            QRCodeGenerator qrGenerador = new QRCodeGenerator();
-            QRCodeData qrDatos = qrGenerador.CreateQrCode(cadena, QRCodeGenerator.ECCLevel.H);
-            QRCode qrCodigo = new QRCode(qrDatos);
+                QRCodeGenerator qrGenerador = new QRCodeGenerator();
+                QRCodeData qrDatos = qrGenerador.CreateQrCode(cadena, QRCodeGenerator.ECCLevel.H);
+                QRCode qrCodigo = new QRCode(qrDatos);
 
-            Bitmap qrImagen = qrCodigo.GetGraphic(3, System.Drawing.Color.Black, System.Drawing.Color.White, true);
+                Bitmap qrImagen = qrCodigo.GetGraphic(3, System.Drawing.Color.Black, System.Drawing.Color.White, true);
 
-            qrImagen.Save(Application.StartupPath + "\\tempQr.png", System.Drawing.Imaging.ImageFormat.Png);
-            qrImagen.Dispose();
+                qrImagen.Save(Application.StartupPath + "\\tempQr.png", System.Drawing.Imaging.ImageFormat.Png);
+                qrImagen.Dispose();
 
-            qrImagen.Dispose();
+                qrImagen.Dispose();
 
-            //MessageBox.Show("Etiqueta Generada!", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Etiqueta Generada!", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-        }
+            }
             catch (Exception err)
             {
                 MessageBox.Show("Ocurrió un problema\nMayor Detalle:\n" + err.Message + "\n\n*Si muestra en ingles, proceda a traducirlo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
-}
+        }
 
-        public int registrarFactura(string idPedido,string iddatos_fiscales_emp, string iddatos_fiscales_cliente, string num_factura, string fecha_emision, string fact_sinIVA, string descuento, string fact_neto, string comentario, DataGridView dgvDatosFactura)
+        public int registrarFactura(string idPedido, string iddatos_fiscales_emp, string iddatos_fiscales_cliente, string num_factura, string fecha_emision, string fact_sinIVA, string descuento, string fact_neto, string comentario, DataGridView dgvDatosFactura, DilithiumPrivateKeyParameters privateKey)
         {
 
             int i;
             int idfactura = 0;
+            byte[] factura;
+            byte[] firma;
+
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
@@ -2632,16 +2645,20 @@ namespace TT2024_A155
 
                     nuevacon.Open();
 
-                    Comando = new SqlCommand("INSERT INTO factura (iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentario) VALUES (@iddatos_fiscales_emp, @iddatos_fiscales_cliente, @num_factura, @fecha_emision, @fact_sinIVA, @descuento, @fact_neto, @comentario);", nuevacon);
+                    factura = generarFactura(idPedido, dgvDatosFactura);
+                    firma = firmar(privateKey, factura);
+
+                    Comando = new SqlCommand("INSERT INTO factura (iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentario, firma) VALUES (@iddatos_fiscales_emp, @iddatos_fiscales_cliente, @num_factura, @fecha_emision, @fact_sinIVA, @descuento, @fact_neto, @comentario, @firma);", nuevacon);
 
                     Comando.Parameters.AddWithValue("@iddatos_fiscales_emp", Convert.ToInt32(iddatos_fiscales_emp));
                     Comando.Parameters.AddWithValue("@iddatos_fiscales_cliente", Convert.ToInt32(iddatos_fiscales_cliente));
                     Comando.Parameters.AddWithValue("@num_factura", num_factura);
                     Comando.Parameters.AddWithValue("@fecha_emision", fecha_emision);
-                    Comando.Parameters.AddWithValue("@fact_sinIVA",Convert.ToDouble(fact_sinIVA));
+                    Comando.Parameters.AddWithValue("@fact_sinIVA", Convert.ToDouble(fact_sinIVA));
                     Comando.Parameters.AddWithValue("@descuento", Convert.ToDouble(descuento));
                     Comando.Parameters.AddWithValue("@fact_neto", Convert.ToDouble(fact_neto));
                     Comando.Parameters.AddWithValue("@comentario", comentario);
+                    Comando.Parameters.AddWithValue("@firma", PrettyPrint(firma));
 
                     //Para saber si la inserción se hizo correctamente
                     i = Comando.ExecuteNonQuery();
@@ -2664,7 +2681,8 @@ namespace TT2024_A155
                     if (i == 1)
                     {
                         MessageBOX.SHowDialog(3, "Factura registrada correctamente");
-                        generarFactura(idPedido, dgvDatosFactura);
+                        //factura = generarFactura(idPedido, dgvDatosFactura);
+                        //firmar(privateKey, factura);
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al registrar la factura");
@@ -2857,5 +2875,191 @@ namespace TT2024_A155
 
         }
 
+        //----------------------------------SOLICITAR FIRMA DEL USUARIO DE FINANZAS ----------------------------------------------
+        public void solicitarFirma(string usuario)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    nuevacon.Open();
+                    Comando = new SqlCommand(string.Format("UPDATE usuario SET requiereFirma = 1 WHERE nombre_usuario = '{0}';", usuario), nuevacon);
+                    Comando.ExecuteNonQuery();
+                    MessageBOX.SHowDialog(3, "Se solicitó correctamente");
+                    nuevacon.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
+        }
+
+        //----------------------------------VALIDAR SI TIENE SOLICITUD DE FIRMA (PAR DE LLAVES)----------------------------------------------
+        public int solicitudFirmas(string us)
+        {
+            int contador = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    bool x = false;
+                    Comando = new SqlCommand(string.Format("SELECT requiereFirma FROM usuario WHERE nombre_usuario = '{0}';", us), nuevacon);
+                    nuevacon.Open();
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read()) { x = Convert.ToBoolean(Lector["requiereFirma"].ToString()); }
+                    Lector.Close();
+
+                    if (x)
+                    {
+                        contador++;
+                    }
+
+                    nuevacon.Close();
+                }
+                return contador;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return contador;
+            }
+        }
+
+        //----------------------------------ACTUALIZAR QUE YA SE GENERO LA FIRMA PAR EL USUARIO DE FINANZAS ----------------------------------------------
+        public void firmaSolicitada(string usuario)
+        {
+
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    nuevacon.Open();
+                    Comando = new SqlCommand(string.Format("UPDATE usuario SET requiereFirma = 0 WHERE nombre_usuario = '{0}';", usuario), nuevacon);
+                    Comando.ExecuteNonQuery();
+                    MessageBOX.SHowDialog(3, "Todo se realizó exitosamente");
+                    nuevacon.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
+        }
+
+        public string PrettyPrint(byte[] bytes)
+        {
+            var base64 = Convert.ToBase64String(bytes);
+            //if (base64.Length > 50)
+            //return $"{base64[..25]}...{base64[^25..]}";
+
+            return base64;
+        }
+
+        //CRYPTO///
+
+        //FIRMAR
+        public byte[] firmar(DilithiumPrivateKeyParameters privateKey, byte[] factura)
+        {
+            byte[] firma;
+
+            //part 5
+            // sign
+            var alice = new DilithiumSigner();
+            alice.Init(true, privateKey);
+            firma = alice.GenerateSignature(factura);
+            return firma;
+        }
+        ////
+        ///
+        //----------------------------------VALIDAR QUE EL PEDIDO TENGA FACTURA----------------------------------------------
+        public int existeFactura(string idpedido)
+        {
+            int contador = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    Comando = new SqlCommand(string.Format("SELECT idfactura FROM pedido WHERE idpedido = '{0}';", idpedido), nuevacon);
+                    nuevacon.Open();
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        if (Lector["idfactura"].ToString() != string.Empty)
+                            contador++;
+                    }
+                    Lector.Close();
+                    nuevacon.Close();
+                }
+                return contador;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return contador;
+            }
+        }
+
+        //----------------------------------VALIDAR QUE EL PEDIDO TENGA ENTREGA----------------------------------------------
+        public int existeEntrega(string idpedido)
+        {
+            int contador = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    Comando = new SqlCommand(string.Format("SELECT identrega FROM entrega WHERE idpedido = '{0}';", idpedido), nuevacon);
+                    nuevacon.Open();
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        if (Lector["identrega"].ToString() != string.Empty)
+                            contador++;
+                    }
+                    Lector.Close();
+                    nuevacon.Close();
+                }
+                return contador;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return contador;
+            }
+        }
+         //----------------------------------VALIDAR QUE EL PEDIDO TENGA ENTREGA----------------------------------------------
+        public int existeDevolucion(string idpedido)
+        {
+            int contador = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    Comando = new SqlCommand(string.Format("SELECT iddevolucion FROM devolucion WHERE idpedido = '{0}';", idpedido), nuevacon);
+                    nuevacon.Open();
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        if (Lector["iddevolucion"].ToString() != string.Empty)
+                            contador++;
+                    }
+                    Lector.Close();
+                    nuevacon.Close();
+                }
+                return contador;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return contador;
+            }
+        }
     }
 }
