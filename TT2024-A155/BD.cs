@@ -2521,10 +2521,10 @@ namespace TT2024_A155
                                 .EndText();
 
                         //CADENA DE SELLO
-                        canvas.BeginText().SetFontAndSize(font, 9)
-                                .MoveText(x + 300, y + 100)
-                                .ShowText("Cadena de sello: ")
-                                .EndText();
+                        //canvas.BeginText().SetFontAndSize(font, 9)
+                        //        .MoveText(x + 300, y + 100)
+                        //        .ShowText("Cadena de sello: ")
+                        //        .EndText();
 
                         generarQr(dgvDatosFactura.Rows[0].Cells[1].Value.ToString());
                         iText.IO.Image.ImageData img = iText.IO.Image.ImageDataFactory.Create(Application.StartupPath + "\\tempQr.png");
@@ -3061,5 +3061,62 @@ namespace TT2024_A155
                 return contador;
             }
         }
+
+        public DataSet facturas()
+        {
+            DataSet dataSet = new DataSet();
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT idfactura, num_factura, firma FROM factura;", nuevaConexion);
+                    dataAdapter.Fill(dataSet, "FACTURA");
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return dataSet;
+        }
+
+
+        //OBETER IDPEDIDO Y FIRMA 
+        public string[] datosVerificarFactura(string idfactura)
+        {
+            string[] datos = new string[2];
+
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+
+
+                    Comando = new SqlCommand(string.Format("SELECT ped.idpedido, fact.firma FROM pedido ped LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE ped.idfactura = '{0}';", idfactura), nuevaConexion);
+
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        datos[0] = Lector["idpedido"].ToString();
+                        datos[1] = Lector["firma"].ToString();
+                    }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return datos;
+        }
+
     }
 }

@@ -97,6 +97,7 @@
             cerrarSesiónToolStripMenuItem = new ToolStripMenuItem();
             lblDatosGenerales = new Label();
             lblDatosEntFact = new Label();
+            verificarFacturaToolStripMenuItem = new ToolStripMenuItem();
             tabControlDetallesPedido.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbComprobante).BeginInit();
@@ -881,7 +882,7 @@
             // 
             // otrasOpcionesToolStripMenuItem
             // 
-            otrasOpcionesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cuentaToolStripMenuItem, crearUsuariosToolStripMenuItem, modificarUsuariosToolStripMenuItem, generarReporteDeVentasToolStripMenuItem, logCambiosSistemaToolStripMenuItem, cerrarSesiónToolStripMenuItem });
+            otrasOpcionesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cuentaToolStripMenuItem, crearUsuariosToolStripMenuItem, modificarUsuariosToolStripMenuItem, generarReporteDeVentasToolStripMenuItem, logCambiosSistemaToolStripMenuItem, cerrarSesiónToolStripMenuItem, verificarFacturaToolStripMenuItem });
             otrasOpcionesToolStripMenuItem.Name = "otrasOpcionesToolStripMenuItem";
             otrasOpcionesToolStripMenuItem.Size = new Size(142, 26);
             otrasOpcionesToolStripMenuItem.Text = "Otras Opciones";
@@ -951,6 +952,13 @@
             lblDatosEntFact.Size = new Size(150, 20);
             lblDatosEntFact.TabIndex = 117;
             lblDatosEntFact.Text = "Facturación y Entrega";
+            // 
+            // verificarFacturaToolStripMenuItem
+            // 
+            verificarFacturaToolStripMenuItem.Name = "verificarFacturaToolStripMenuItem";
+            verificarFacturaToolStripMenuItem.Size = new Size(291, 26);
+            verificarFacturaToolStripMenuItem.Text = "Verificar Factura";
+            verificarFacturaToolStripMenuItem.Click += verificarFacturaToolStripMenuItem_Click;
             // 
             // Inicio
             // 
@@ -1067,5 +1075,6 @@
         private ToolStripMenuItem cerrarSesiónToolStripMenuItem;
         private Label lblDatosGenerales;
         private Label lblDatosEntFact;
+        private ToolStripMenuItem verificarFacturaToolStripMenuItem;
     }
 }

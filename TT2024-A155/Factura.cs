@@ -91,7 +91,7 @@ namespace TT2024_A155
         {
             //configuraciones del openfiledialog 1
             OpenFileDialog openFile = new OpenFileDialog();
-            openFile.InitialDirectory = "C:\\";
+            openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             //openFile.Filter = " (*.*)|*.pdf*";
             openFile.FilterIndex = 1;
             openFile.RestoreDirectory = true;
@@ -102,7 +102,7 @@ namespace TT2024_A155
                 string fpath = @txtprivKey.Text;
                 byteArray = File.ReadAllBytes(fpath);
                 if (byteArray != null)
-                    MessageBox.Show("Found private key");
+                    MessageBox.Show("Llave privada encontrada");
             }
 
             String line;

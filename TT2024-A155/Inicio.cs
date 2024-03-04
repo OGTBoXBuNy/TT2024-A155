@@ -542,6 +542,11 @@ namespace TT2024_A155
         {
             e.Handled = Validaciones.soloLetras(sender, e);
         }
+
+        private void verificarFacturaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
