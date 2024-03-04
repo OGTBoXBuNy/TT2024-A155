@@ -545,7 +545,8 @@ namespace TT2024_A155
 
         private void verificarFacturaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            verificarFactura verificarFactura = new();
+            verificarFactura.ShowDialog();
         }
     }
 }

@@ -2645,10 +2645,10 @@ namespace TT2024_A155
 
                     nuevacon.Open();
 
-                    factura = generarFactura(idPedido, dgvDatosFactura);
-                    firma = firmar(privateKey, factura);
+                    //factura = generarFactura(idPedido, dgvDatosFactura);
+                    //firma = firmar(privateKey, factura);
 
-                    Comando = new SqlCommand("INSERT INTO factura (iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentario, firma) VALUES (@iddatos_fiscales_emp, @iddatos_fiscales_cliente, @num_factura, @fecha_emision, @fact_sinIVA, @descuento, @fact_neto, @comentario, @firma);", nuevacon);
+                    Comando = new SqlCommand("INSERT INTO factura (iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentario) VALUES (@iddatos_fiscales_emp, @iddatos_fiscales_cliente, @num_factura, @fecha_emision, @fact_sinIVA, @descuento, @fact_neto, @comentario);", nuevacon);
 
                     Comando.Parameters.AddWithValue("@iddatos_fiscales_emp", Convert.ToInt32(iddatos_fiscales_emp));
                     Comando.Parameters.AddWithValue("@iddatos_fiscales_cliente", Convert.ToInt32(iddatos_fiscales_cliente));
@@ -2658,7 +2658,7 @@ namespace TT2024_A155
                     Comando.Parameters.AddWithValue("@descuento", Convert.ToDouble(descuento));
                     Comando.Parameters.AddWithValue("@fact_neto", Convert.ToDouble(fact_neto));
                     Comando.Parameters.AddWithValue("@comentario", comentario);
-                    Comando.Parameters.AddWithValue("@firma", PrettyPrint(firma));
+                    //Comando.Parameters.AddWithValue("@firma", PrettyPrint(firma));
 
                     //Para saber si la inserción se hizo correctamente
                     i = Comando.ExecuteNonQuery();
@@ -2677,15 +2677,26 @@ namespace TT2024_A155
                     Comando.ExecuteNonQuery();
 
 
-                    nuevacon.Close();
+                    
                     if (i == 1)
                     {
+                        
+                        factura = generarFactura(idPedido, dgvDatosFactura);
+                        firma = firmar(privateKey, factura);
+
+                        Comando = new SqlCommand("UPDATE factura SET firma = @firma WHERE idfactura = @idfactura;", nuevacon);
+
+                        Comando.Parameters.AddWithValue("@firma", PrettyPrint(firma));
+                        Comando.Parameters.AddWithValue("@idfactura", idfactura);
+
+                        Comando.ExecuteNonQuery();
                         MessageBOX.SHowDialog(3, "Factura registrada correctamente");
-                        //factura = generarFactura(idPedido, dgvDatosFactura);
-                        //firmar(privateKey, factura);
+
                     }
                     else
                         MessageBOX.SHowDialog(2, "Problemas al registrar la factura");
+
+                    nuevacon.Close();
                 }
                 return -1;
             }
@@ -3096,8 +3107,6 @@ namespace TT2024_A155
                 {
                     nuevaConexion.Open();
 
-
-
                     Comando = new SqlCommand(string.Format("SELECT ped.idpedido, fact.firma FROM pedido ped LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE ped.idfactura = '{0}';", idfactura), nuevaConexion);
 
                     Lector = Comando.ExecuteReader();
@@ -3116,6 +3125,36 @@ namespace TT2024_A155
                 MessageBox.Show("Error: " + EX.Message);
             }
             return datos;
+        }
+
+        //OBETER IDFACTURA CON BASE EN EL NUMERO DE FACTURA FIRMA 
+        public string idFactura(string numeroFactura)
+        {
+            string dato = "";
+
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+                    Comando = new SqlCommand(string.Format("SELECT idfactura FROM factura WHERE num_factura = '{0}';", numeroFactura), nuevaConexion);
+
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        dato = Lector["idfactura"].ToString();
+                        
+                    }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return dato;
         }
 
     }

@@ -98,6 +98,24 @@ namespace TT2024_A155
             return true;
 }
 
+        public bool soloNumerosDescuento(object sender, KeyPressEventArgs e)
+        {
+            bool respuesta = false;
+
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                return true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                return true;
+            }
+
+            return respuesta;
+        }
+
 
     }
 }

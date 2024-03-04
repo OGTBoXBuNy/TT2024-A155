@@ -217,6 +217,57 @@ namespace TT2024_A155
 
         }
 
+        private void verificarQr(string idFactura)
+        {
+            datos = Consulta.datosVerificarFactura(idFactura);//[0] IDPEDIDO, [1] FIRMA
+
+            txtDatosProveedor.Visible = true;
+            Consulta.datosFacturaPDF(dgvFactura, datos[0]);
+            double impuestos = double.Parse(dgvFactura.Rows[0].Cells[6].Value.ToString()) - double.Parse(dgvFactura.Rows[0].Cells[5].Value.ToString());
+            lblNumeroFact.Text = "Número de Factura: " + dgvFactura.Rows[0].Cells[1].Value.ToString();
+            txtDatosCliente.Text = dgvFactura.Rows[0].Cells[7].Value.ToString() + " \r\n" + dgvFactura.Rows[0].Cells[8].Value.ToString() + " " + dgvFactura.Rows[0].Cells[9].Value.ToString() + " " +
+                           dgvFactura.Rows[0].Cells[10].Value.ToString() + " \r\n" + dgvFactura.Rows[0].Cells[11].Value.ToString() + " " +
+                    dgvFactura.Rows[0].Cells[12].Value.ToString() + " " + dgvFactura.Rows[0].Cells[13].Value.ToString() + " \r\n" + "Cel: " + dgvFactura.Rows[0].Cells[14].Value.ToString() + " " + dgvFactura.Rows[0].Cells[15].Value.ToString()
+                    + " \r\n" + "CIF: " + dgvFactura.Rows[0].Cells[16].Value.ToString();
+
+                txtComentario.Text = dgvFactura.Rows[0].Cells[3].Value.ToString();
+                lblfechaEmision.Text = "Fecha Emisión: " + dgvFactura.Rows[0].Cells[2].Value.ToString().Substring(0, 10);
+                lblSubTotal.Text = "SubTotal: $ " + dgvFactura.Rows[0].Cells[5].Value.ToString();
+                lblImpuestos.Text = "Impuestos: $ " + impuestos.ToString("0.##");
+                lblTotal.Text = "Total: $ " + dgvFactura.Rows[0].Cells[6].Value.ToString();
+
+
+                dgvFactura.Columns[0].Visible = false;//Datos fiscales empresa
+                dgvFactura.Columns[1].Visible = false;//numero de factura
+                dgvFactura.Columns[2].Visible = false;//fecha emision
+                dgvFactura.Columns[3].Visible = false;//comentario
+                dgvFactura.Columns[4].Visible = false;//iddatos fiscales cliente
+                dgvFactura.Columns[5].Visible = false;//subtotal - impuestos
+                dgvFactura.Columns[6].Visible = false;//total
+                dgvFactura.Columns[7].Visible = false;//nombre cliente
+                dgvFactura.Columns[8].Visible = false;//calle
+                dgvFactura.Columns[9].Visible = false;//no Ext
+                dgvFactura.Columns[10].Visible = false;//no Int
+                dgvFactura.Columns[11].Visible = false;//colonia
+                dgvFactura.Columns[12].Visible = false;//cp
+                dgvFactura.Columns[13].Visible = false;//ciudad
+                dgvFactura.Columns[14].Visible = false;//telefono
+                dgvFactura.Columns[15].Visible = false;//correo
+                dgvFactura.Columns[16].Visible = false;//cif
+
+
+                dgvFactura.Columns[17].HeaderText = "Producto";//
+                dgvFactura.Columns[18].HeaderText = "Marca";//
+                dgvFactura.Columns[19].HeaderText = "Modelo";//
+                dgvFactura.Columns[20].HeaderText = "Año";//
+                dgvFactura.Columns[21].HeaderText = "Cantidad";//
+                dgvFactura.Columns[22].HeaderText = "Precio Venta\r\n($)";//
+                dgvFactura.Columns[23].HeaderText = "Descuento\r\n(%)";//
+                dgvFactura.Columns[24].HeaderText = "Total x Cantidad\r\n($)";//
+
+                MessageBOX.SHowDialog(3, "Estos son los datos que deberías visualizar en la factura");
+            
+        }
 
         private void btnVerificar_Click(object sender, EventArgs e)
         {
@@ -244,6 +295,7 @@ namespace TT2024_A155
                 btnBuscarArchivo.Enabled = true;
                 btnBuscarLlavePub.Enabled = true;
                 btnVerificar.Enabled = true;
+                cmbFactura.Enabled = true;
                 limpiar(); txtRutaArchivo.Text = ""; txtRutaLlavePublica.Text = "";
             }
             else
@@ -251,6 +303,7 @@ namespace TT2024_A155
                 btnBuscarArchivo.Enabled = false;
                 btnBuscarLlavePub.Enabled = false;
                 btnVerificar.Enabled = false;
+                cmbFactura.Enabled = false;
             }
         }
 
@@ -310,6 +363,8 @@ namespace TT2024_A155
                     if (decoded != "")
                     {
                         txtLecturaQr.Text = decoded;
+                        verificarQr(Consulta.idFactura(decoded));
+                        //FinalFrame.Stop();
                     }
                 }
                 catch (Exception ex)
@@ -323,7 +378,7 @@ namespace TT2024_A155
 
         private void btnLeer_Click(object sender, EventArgs e)
         {
-            temporizador.Start();
+                temporizador.Start();
         }
 
         private void limpiar()

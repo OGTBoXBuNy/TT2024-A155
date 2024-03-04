@@ -270,7 +270,7 @@
             txtDatosCliente.BackColor = Color.White;
             txtDatosCliente.BorderStyle = BorderStyle.None;
             txtDatosCliente.Enabled = false;
-            txtDatosCliente.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            txtDatosCliente.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             txtDatosCliente.Location = new Point(196, 380);
             txtDatosCliente.Multiline = true;
             txtDatosCliente.Name = "txtDatosCliente";
@@ -297,11 +297,11 @@
             txtDatosProveedor.BackColor = Color.White;
             txtDatosProveedor.BorderStyle = BorderStyle.None;
             txtDatosProveedor.Enabled = false;
-            txtDatosProveedor.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            txtDatosProveedor.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             txtDatosProveedor.Location = new Point(973, 603);
             txtDatosProveedor.Multiline = true;
             txtDatosProveedor.Name = "txtDatosProveedor";
-            txtDatosProveedor.Size = new Size(475, 128);
+            txtDatosProveedor.Size = new Size(475, 163);
             txtDatosProveedor.TabIndex = 30;
             txtDatosProveedor.Text = resources.GetString("txtDatosProveedor.Text");
             txtDatosProveedor.Visible = false;
@@ -463,7 +463,7 @@
             txtComentario.BackColor = Color.White;
             txtComentario.BorderStyle = BorderStyle.None;
             txtComentario.Enabled = false;
-            txtComentario.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            txtComentario.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             txtComentario.Location = new Point(196, 527);
             txtComentario.Multiline = true;
             txtComentario.Name = "txtComentario";

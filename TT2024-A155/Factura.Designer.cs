@@ -309,6 +309,7 @@
             txtDescuento.Size = new Size(285, 28);
             txtDescuento.TabIndex = 33;
             txtDescuento.TabStop = false;
+            txtDescuento.Text = "0";
             txtDescuento.UseSystemPasswordChar = false;
             txtDescuento.KeyPress += txtDescuento_KeyPress;
             // 

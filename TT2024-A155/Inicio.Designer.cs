@@ -95,9 +95,9 @@
             generarReporteDeVentasToolStripMenuItem = new ToolStripMenuItem();
             logCambiosSistemaToolStripMenuItem = new ToolStripMenuItem();
             cerrarSesiónToolStripMenuItem = new ToolStripMenuItem();
+            verificarFacturaToolStripMenuItem = new ToolStripMenuItem();
             lblDatosGenerales = new Label();
             lblDatosEntFact = new Label();
-            verificarFacturaToolStripMenuItem = new ToolStripMenuItem();
             tabControlDetallesPedido.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbComprobante).BeginInit();
@@ -841,6 +841,7 @@
             btnCrearPedido.AutoSize = true;
             btnCrearPedido.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnCrearPedido.Depth = 0;
+            btnCrearPedido.Enabled = false;
             btnCrearPedido.Icon = null;
             btnCrearPedido.Location = new Point(12, 82);
             btnCrearPedido.MouseState = MaterialSkin.MouseState.HOVER;
@@ -850,6 +851,7 @@
             btnCrearPedido.TabIndex = 1;
             btnCrearPedido.Text = "Crear Pedido";
             btnCrearPedido.UseVisualStyleBackColor = true;
+            btnCrearPedido.Visible = false;
             btnCrearPedido.Click += btnCrearPedido_Click;
             // 
             // tab2
@@ -882,7 +884,7 @@
             // 
             // otrasOpcionesToolStripMenuItem
             // 
-            otrasOpcionesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cuentaToolStripMenuItem, crearUsuariosToolStripMenuItem, modificarUsuariosToolStripMenuItem, generarReporteDeVentasToolStripMenuItem, logCambiosSistemaToolStripMenuItem, cerrarSesiónToolStripMenuItem, verificarFacturaToolStripMenuItem });
+            otrasOpcionesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cuentaToolStripMenuItem, crearUsuariosToolStripMenuItem, modificarUsuariosToolStripMenuItem, generarReporteDeVentasToolStripMenuItem, logCambiosSistemaToolStripMenuItem, verificarFacturaToolStripMenuItem, cerrarSesiónToolStripMenuItem });
             otrasOpcionesToolStripMenuItem.Name = "otrasOpcionesToolStripMenuItem";
             otrasOpcionesToolStripMenuItem.Size = new Size(142, 26);
             otrasOpcionesToolStripMenuItem.Text = "Otras Opciones";
@@ -933,6 +935,13 @@
             cerrarSesiónToolStripMenuItem.Text = "Cerrar Sesión";
             cerrarSesiónToolStripMenuItem.Click += cerrarSesiónToolStripMenuItem_Click;
             // 
+            // verificarFacturaToolStripMenuItem
+            // 
+            verificarFacturaToolStripMenuItem.Name = "verificarFacturaToolStripMenuItem";
+            verificarFacturaToolStripMenuItem.Size = new Size(291, 26);
+            verificarFacturaToolStripMenuItem.Text = "Verificar Factura";
+            verificarFacturaToolStripMenuItem.Click += verificarFacturaToolStripMenuItem_Click;
+            // 
             // lblDatosGenerales
             // 
             lblDatosGenerales.AutoSize = true;
@@ -952,13 +961,6 @@
             lblDatosEntFact.Size = new Size(150, 20);
             lblDatosEntFact.TabIndex = 117;
             lblDatosEntFact.Text = "Facturación y Entrega";
-            // 
-            // verificarFacturaToolStripMenuItem
-            // 
-            verificarFacturaToolStripMenuItem.Name = "verificarFacturaToolStripMenuItem";
-            verificarFacturaToolStripMenuItem.Size = new Size(291, 26);
-            verificarFacturaToolStripMenuItem.Text = "Verificar Factura";
-            verificarFacturaToolStripMenuItem.Click += verificarFacturaToolStripMenuItem_Click;
             // 
             // Inicio
             // 

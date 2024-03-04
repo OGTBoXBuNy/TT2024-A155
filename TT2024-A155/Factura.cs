@@ -56,7 +56,7 @@ namespace TT2024_A155
             if (string.IsNullOrEmpty(txtFactIVA.Text.Trim())) { errorFactConIva.SetError(txtFactIVA, "Campo obligatorio"); validacion = false; }
 
             //if (string.IsNullOrEmpty(txtpubKey.Text.Trim())) { errorLlavePublica.SetError(txtpubKey, "Campo obligatorio"); validacion = false; }
-            //if (string.IsNullOrEmpty(txtprivKey.Text.Trim())) { errorLlavePrivada.SetError(txtprivKey, "Campo obligatorio"); validacion = false; }
+            if (string.IsNullOrEmpty(txtprivKey.Text.Trim())) { errorLlavePrivada.SetError(txtprivKey, "Campo obligatorio"); validacion = false; }
 
             //-----------------------------
 
@@ -78,8 +78,9 @@ namespace TT2024_A155
                 string usuario = lblUsuario.Text.ToString().Trim();
                 string descripcionLog = "El usuario : " + usuario + " generó la factura de venta (PDF) del pedido: " + idPedido + " el día: " + DateTime.Now.ToString();
                 Consulta.Log(usuario, idPedido, descripcionLog, "11");
+                this.Close();
             }
-            this.Close();
+            
         }
 
         private void txtDescuento_KeyPress(object sender, KeyPressEventArgs e)
