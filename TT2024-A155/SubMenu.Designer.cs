@@ -32,11 +32,11 @@
             lblUsuario = new Label();
             lblRol = new Label();
             lblIdPedido = new Label();
-            btnModificarDatosPedido = new MaterialSkin.Controls.MaterialRaisedButton();
-            btnGenerarFactura = new MaterialSkin.Controls.MaterialRaisedButton();
-            btnGenerarRefactura = new MaterialSkin.Controls.MaterialRaisedButton();
-            btnRegistrarEntrega = new MaterialSkin.Controls.MaterialRaisedButton();
-            btnRegistrarDevolucion = new MaterialSkin.Controls.MaterialRaisedButton();
+            btnModificarDatosPedido = new Button();
+            btnGenerarFactura = new Button();
+            btnRegistrarDevolucion = new Button();
+            btnRegistrarEntrega = new Button();
+            button5 = new Button();
             SuspendLayout();
             // 
             // lblUsuario
@@ -65,97 +65,76 @@
             // 
             // btnModificarDatosPedido
             // 
-            btnModificarDatosPedido.AutoSize = true;
-            btnModificarDatosPedido.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnModificarDatosPedido.Depth = 0;
+            btnModificarDatosPedido.BackColor = Color.FromArgb(66, 165, 245);
             btnModificarDatosPedido.Enabled = false;
-            btnModificarDatosPedido.Icon = null;
-            btnModificarDatosPedido.Location = new Point(65, 90);
-            btnModificarDatosPedido.MouseState = MaterialSkin.MouseState.HOVER;
+            btnModificarDatosPedido.ForeColor = Color.White;
+            btnModificarDatosPedido.Location = new Point(80, 80);
             btnModificarDatosPedido.Name = "btnModificarDatosPedido";
-            btnModificarDatosPedido.Primary = true;
-            btnModificarDatosPedido.Size = new Size(236, 36);
-            btnModificarDatosPedido.TabIndex = 8;
-            btnModificarDatosPedido.Text = "Modificar Datos Pedido";
-            btnModificarDatosPedido.UseVisualStyleBackColor = true;
+            btnModificarDatosPedido.Size = new Size(196, 64);
+            btnModificarDatosPedido.TabIndex = 13;
+            btnModificarDatosPedido.Text = "Modificar Datos del Pedido";
+            btnModificarDatosPedido.UseVisualStyleBackColor = false;
             btnModificarDatosPedido.Click += btnModificarDatosPedido_Click;
             // 
             // btnGenerarFactura
             // 
-            btnGenerarFactura.AutoSize = true;
-            btnGenerarFactura.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnGenerarFactura.Depth = 0;
+            btnGenerarFactura.BackColor = Color.FromArgb(66, 165, 245);
             btnGenerarFactura.Enabled = false;
-            btnGenerarFactura.Icon = null;
-            btnGenerarFactura.Location = new Point(65, 150);
-            btnGenerarFactura.MouseState = MaterialSkin.MouseState.HOVER;
+            btnGenerarFactura.ForeColor = Color.White;
+            btnGenerarFactura.Location = new Point(80, 150);
             btnGenerarFactura.Name = "btnGenerarFactura";
-            btnGenerarFactura.Primary = true;
-            btnGenerarFactura.Size = new Size(178, 36);
-            btnGenerarFactura.TabIndex = 9;
+            btnGenerarFactura.Size = new Size(196, 64);
+            btnGenerarFactura.TabIndex = 14;
             btnGenerarFactura.Text = "Generar Factura";
-            btnGenerarFactura.UseVisualStyleBackColor = true;
+            btnGenerarFactura.UseVisualStyleBackColor = false;
             btnGenerarFactura.Click += btnGenerarFactura_Click;
-            // 
-            // btnGenerarRefactura
-            // 
-            btnGenerarRefactura.AutoSize = true;
-            btnGenerarRefactura.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnGenerarRefactura.Depth = 0;
-            btnGenerarRefactura.Enabled = false;
-            btnGenerarRefactura.Icon = null;
-            btnGenerarRefactura.Location = new Point(65, 330);
-            btnGenerarRefactura.MouseState = MaterialSkin.MouseState.HOVER;
-            btnGenerarRefactura.Name = "btnGenerarRefactura";
-            btnGenerarRefactura.Primary = true;
-            btnGenerarRefactura.Size = new Size(199, 36);
-            btnGenerarRefactura.TabIndex = 10;
-            btnGenerarRefactura.Text = "Generar Refactura";
-            btnGenerarRefactura.UseVisualStyleBackColor = true;
-            btnGenerarRefactura.Visible = false;
-            // 
-            // btnRegistrarEntrega
-            // 
-            btnRegistrarEntrega.AutoSize = true;
-            btnRegistrarEntrega.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnRegistrarEntrega.Depth = 0;
-            btnRegistrarEntrega.Enabled = false;
-            btnRegistrarEntrega.Icon = null;
-            btnRegistrarEntrega.Location = new Point(65, 210);
-            btnRegistrarEntrega.MouseState = MaterialSkin.MouseState.HOVER;
-            btnRegistrarEntrega.Name = "btnRegistrarEntrega";
-            btnRegistrarEntrega.Primary = true;
-            btnRegistrarEntrega.Size = new Size(193, 36);
-            btnRegistrarEntrega.TabIndex = 11;
-            btnRegistrarEntrega.Text = "Registrar Entrega";
-            btnRegistrarEntrega.UseVisualStyleBackColor = true;
-            btnRegistrarEntrega.Click += btnRegistrarEntrega_Click;
             // 
             // btnRegistrarDevolucion
             // 
-            btnRegistrarDevolucion.AutoSize = true;
-            btnRegistrarDevolucion.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnRegistrarDevolucion.Depth = 0;
+            btnRegistrarDevolucion.BackColor = Color.FromArgb(66, 165, 245);
             btnRegistrarDevolucion.Enabled = false;
-            btnRegistrarDevolucion.Icon = null;
-            btnRegistrarDevolucion.Location = new Point(65, 270);
-            btnRegistrarDevolucion.MouseState = MaterialSkin.MouseState.HOVER;
+            btnRegistrarDevolucion.ForeColor = Color.White;
+            btnRegistrarDevolucion.Location = new Point(80, 290);
             btnRegistrarDevolucion.Name = "btnRegistrarDevolucion";
-            btnRegistrarDevolucion.Primary = true;
-            btnRegistrarDevolucion.Size = new Size(221, 36);
-            btnRegistrarDevolucion.TabIndex = 12;
+            btnRegistrarDevolucion.Size = new Size(196, 64);
+            btnRegistrarDevolucion.TabIndex = 16;
             btnRegistrarDevolucion.Text = "Registrar Devolución";
-            btnRegistrarDevolucion.UseVisualStyleBackColor = true;
+            btnRegistrarDevolucion.UseVisualStyleBackColor = false;
             btnRegistrarDevolucion.Click += btnRegistrarDevolucion_Click;
+            // 
+            // btnRegistrarEntrega
+            // 
+            btnRegistrarEntrega.BackColor = Color.FromArgb(66, 165, 245);
+            btnRegistrarEntrega.Enabled = false;
+            btnRegistrarEntrega.ForeColor = Color.White;
+            btnRegistrarEntrega.Location = new Point(80, 220);
+            btnRegistrarEntrega.Name = "btnRegistrarEntrega";
+            btnRegistrarEntrega.Size = new Size(196, 64);
+            btnRegistrarEntrega.TabIndex = 15;
+            btnRegistrarEntrega.Text = "Registrar Entrega";
+            btnRegistrarEntrega.UseVisualStyleBackColor = false;
+            btnRegistrarEntrega.Click += btnRegistrarEntrega_Click;
+            // 
+            // button5
+            // 
+            button5.BackColor = Color.FromArgb(66, 165, 245);
+            button5.Enabled = false;
+            button5.ForeColor = Color.White;
+            button5.Location = new Point(80, 361);
+            button5.Name = "button5";
+            button5.Size = new Size(196, 64);
+            button5.TabIndex = 17;
+            button5.Text = "Generar Refactura";
+            button5.UseVisualStyleBackColor = false;
             // 
             // SubMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(389, 398);
+            ClientSize = new Size(360, 448);
+            Controls.Add(button5);
             Controls.Add(btnRegistrarDevolucion);
             Controls.Add(btnRegistrarEntrega);
-            Controls.Add(btnGenerarRefactura);
             Controls.Add(btnGenerarFactura);
             Controls.Add(btnModificarDatosPedido);
             Controls.Add(lblIdPedido);
@@ -174,10 +153,10 @@
         public Label lblUsuario;
         public Label lblRol;
         public Label lblIdPedido;
-        private MaterialSkin.Controls.MaterialRaisedButton btnModificarDatosPedido;
-        private MaterialSkin.Controls.MaterialRaisedButton btnGenerarFactura;
-        private MaterialSkin.Controls.MaterialRaisedButton btnGenerarRefactura;
-        private MaterialSkin.Controls.MaterialRaisedButton btnRegistrarEntrega;
-        private MaterialSkin.Controls.MaterialRaisedButton btnRegistrarDevolucion;
+        private Button btnModificarDatosPedido;
+        private Button btnGenerarFactura;
+        private Button btnRegistrarDevolucion;
+        private Button btnRegistrarEntrega;
+        private Button button5;
     }
 }

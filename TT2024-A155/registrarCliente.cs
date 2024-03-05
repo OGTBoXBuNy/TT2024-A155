@@ -75,6 +75,7 @@ namespace TT2024_A155
 
                 string descripcionLog = "Se registró un nuevo cliente con nombre de usuario:  " + usuario + " el día: " + DateTime.Now.ToString();
                 Consulta.Log(usuario, "", descripcionLog, "4");
+                this.Close();
             }
         }
 

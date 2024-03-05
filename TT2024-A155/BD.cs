@@ -3157,5 +3157,43 @@ namespace TT2024_A155
             return dato;
         }
 
+
+        //OBETER DETALLES DE ENTREGA, DEVOLUCION Y FACTURACION
+        public string[] subMenu(string idPedido)
+        {
+            string[] datos = new string[4];
+
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    Comando = new SqlCommand(string.Format("SELECT ped.aprobacionCliente ,fact.idfactura, ent.identrega, dev.iddevolucion FROM PEDIDO ped LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura LEFT OUTER JOIN entrega ent ON ent.idpedido = ped.idpedido LEFT OUTER JOIN devolucion dev ON dev.idpedido = ped.idpedido WHERE ped.idpedido = '{0}';", idPedido), nuevaConexion);
+
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        datos[0] = Lector["aprobacionCliente"].ToString();
+
+                        if (Lector["idfactura"] != string.Empty)
+                            datos[1] = Lector["idfactura"].ToString();
+                        if (Lector["identrega"] != string.Empty)
+                            datos[2] = Lector["identrega"].ToString();
+                        if (Lector["iddevolucion"] != string.Empty)
+                            datos[3] = Lector["iddevolucion"].ToString();
+                    }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return datos;
+        }
+
     }
 }
