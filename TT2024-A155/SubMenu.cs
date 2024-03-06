@@ -111,7 +111,7 @@ namespace TT2024_A155
         private void btnRegistrarEntrega_Click(object sender, EventArgs e)
         {
 
-            if (detalles[2] != string.Empty && detalles[1] != string.Empty) 
+            if (detalles[2] == string.Empty && detalles[1] != string.Empty) 
             {
                 MessageBOX mes = new MessageBOX(4, "¿Está seguro de marcar este pedido como entregado?");
 

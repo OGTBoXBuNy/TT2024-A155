@@ -25,9 +25,12 @@ namespace TT2024_A155
         Validaciones Validaciones = new();
         private string[] permisos;
         private string[] detallesPedido;
-        System.Drawing.Color _colorPendiente = System.Drawing.ColorTranslator.FromHtml("#FFD034");
-        System.Drawing.Color _colorAceptados = System.Drawing.ColorTranslator.FromHtml("#209D5C");
-        System.Drawing.Color _colorbtnRevision = System.Drawing.ColorTranslator.FromHtml("#AF8016");
+        System.Drawing.Color _colorPendiente = System.Drawing.ColorTranslator.FromHtml("#FFD034");//PENDIENTE
+        System.Drawing.Color _colorAceptados = System.Drawing.ColorTranslator.FromHtml("#A3FFAC");//REVISADOS
+        System.Drawing.Color _colorEntregado = System.Drawing.ColorTranslator.FromHtml("#F9D99A");//ENTREGADOS
+        System.Drawing.Color _colorFacturado = System.Drawing.ColorTranslator.FromHtml("#95B8F6");//FACTURADOS
+        System.Drawing.Color _colorDevuelto = System.Drawing.ColorTranslator.FromHtml("#F9A59A");//DEVUELTOS
+        System.Drawing.Color _colorbtnRevision = System.Drawing.ColorTranslator.FromHtml("#AF8016");//BTNCAFE REVISION
 
         private void Inicio_Load(object sender, EventArgs e)
         {
@@ -225,6 +228,7 @@ namespace TT2024_A155
                     subMenu.lblRol.Text = lblRol.Text;
                     subMenu.lblIdPedido.Text = idPedido;
                     subMenu.ShowDialog();
+                    inicializarDgvEmpleado(lblUsuario.Text.Trim());
 
                 }
                 else if (lblRol.Text == "2" || lblRol.Text == "3")
@@ -236,6 +240,7 @@ namespace TT2024_A155
                     subMenu.lblRol.Text = lblRol.Text;
                     subMenu.lblIdPedido.Text = idPedido;
                     subMenu.ShowDialog();
+                    inicializarDgvEmpleado(lblUsuario.Text.Trim());
                 }
                 else { }
 
@@ -280,12 +285,26 @@ namespace TT2024_A155
         {
             foreach (DataGridViewRow row in dgvPedido.Rows)
             {
-                if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
+                if (row.Cells["iddevolucion"].Value.ToString() != string.Empty)
+                {
+                    row.DefaultCellStyle.BackColor = _colorDevuelto;
+                    row.Cells["dataGridViewAceptarPedido"].Value = "Revisado";
+                }
+                else if (row.Cells["identrega"].Value.ToString() != string.Empty)
+                {
+                    row.DefaultCellStyle.BackColor = _colorEntregado;
+                    row.Cells["dataGridViewAceptarPedido"].Value = "Revisado";
+                }
+                else if (row.Cells["idfactura"].Value.ToString() != string.Empty)
+                {
+                    row.DefaultCellStyle.BackColor = _colorFacturado;
+                    row.Cells["dataGridViewAceptarPedido"].Value = "Revisado";
+                }
+                else if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
                 {
                     row.DefaultCellStyle.BackColor = _colorAceptados;
 
                     row.Cells["dataGridViewAceptarPedido"].Value = "Revisado";
-
                 }
                 else
                 {
@@ -300,7 +319,22 @@ namespace TT2024_A155
         {
             foreach (DataGridViewRow row in dgvPedido.Rows)
             {
-                if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
+                if (row.Cells["iddevolucion"].Value.ToString() != string.Empty)
+                {
+                    row.DefaultCellStyle.BackColor = _colorDevuelto;
+                    //row.Cells["dataGridViewAceptarPedido"].Value = "Revisado";
+                }
+                else if (row.Cells["identrega"].Value.ToString() != string.Empty)
+                {
+                    row.DefaultCellStyle.BackColor = _colorEntregado;
+                    //row.Cells["dataGridViewAceptarPedido"].Value = "Revisado";
+                }
+                else if (row.Cells["idfactura"].Value.ToString() != string.Empty)
+                {
+                    row.DefaultCellStyle.BackColor = _colorFacturado;
+                    //row.Cells["dataGridViewAceptarPedido"].Value = "Revisado";
+                }
+                else if (Boolean.Parse(row.Cells["Autorizado"].Value.ToString()))
                 {
                     row.DefaultCellStyle.BackColor = _colorAceptados;
                 }
@@ -322,7 +356,10 @@ namespace TT2024_A155
             dgvPedido.Columns["total"].Visible = false;
             dgvPedido.Columns["comentarios"].Visible = false;
             dgvPedido.Columns["iddetalle_pedido"].Visible = false;
-
+            dgvPedido.Columns["idfactura"].Visible = false;
+            dgvPedido.Columns["identrega"].Visible = false;
+            dgvPedido.Columns["iddevolucion"].Visible = false;
+            
             estadoPedidoColorCliente();
         }
 
@@ -338,6 +375,9 @@ namespace TT2024_A155
             dgvPedido.Columns["total"].Visible = false;
             dgvPedido.Columns["comentarios"].Visible = false;
             dgvPedido.Columns["iddetalle_pedido"].Visible = false;
+            dgvPedido.Columns["idfactura"].Visible = false;
+            dgvPedido.Columns["identrega"].Visible = false;
+            dgvPedido.Columns["iddevolucion"].Visible = false;
 
             estadoPedidoColorEmpleado();
 

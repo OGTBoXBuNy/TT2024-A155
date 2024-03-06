@@ -40,6 +40,7 @@
             lblTituloInfoPedido = new Label();
             tabControlDetallesPedido = new MaterialSkin.Controls.MaterialTabControl();
             tabPage1 = new TabPage();
+            label5 = new Label();
             lblCantidad = new MaterialSkin.Controls.MaterialLabel();
             lblAprobacion = new MaterialSkin.Controls.MaterialLabel();
             lblFechaCreacion = new MaterialSkin.Controls.MaterialLabel();
@@ -94,10 +95,16 @@
             modificarUsuariosToolStripMenuItem = new ToolStripMenuItem();
             generarReporteDeVentasToolStripMenuItem = new ToolStripMenuItem();
             logCambiosSistemaToolStripMenuItem = new ToolStripMenuItem();
-            cerrarSesiónToolStripMenuItem = new ToolStripMenuItem();
             verificarFacturaToolStripMenuItem = new ToolStripMenuItem();
+            cerrarSesiónToolStripMenuItem = new ToolStripMenuItem();
             lblDatosGenerales = new Label();
             lblDatosEntFact = new Label();
+            lblcodigoColores = new Label();
+            label6 = new Label();
+            label7 = new Label();
+            label8 = new Label();
+            label9 = new Label();
+            label10 = new Label();
             tabControlDetallesPedido.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbComprobante).BeginInit();
@@ -111,7 +118,7 @@
             // lblRol
             // 
             lblRol.AutoSize = true;
-            lblRol.Location = new Point(1344, 72);
+            lblRol.Location = new Point(1333, 35);
             lblRol.Name = "lblRol";
             lblRol.Size = new Size(36, 20);
             lblRol.TabIndex = 2;
@@ -181,6 +188,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label5);
             tabPage1.Controls.Add(lblCantidad);
             tabPage1.Controls.Add(lblAprobacion);
             tabPage1.Controls.Add(lblFechaCreacion);
@@ -206,6 +214,15 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Datos Generales";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            label5.BackColor = Color.FromArgb(106, 109, 119);
+            label5.Location = new Point(-5, 260);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(427, 2);
+            label5.TabIndex = 101;
             // 
             // lblCantidad
             // 
@@ -634,7 +651,7 @@
             // dgvDatosPDF
             // 
             dgvDatosPDF.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDatosPDF.Location = new Point(1401, 82);
+            dgvDatosPDF.Location = new Point(1390, 45);
             dgvDatosPDF.Name = "dgvDatosPDF";
             dgvDatosPDF.RowHeadersWidth = 51;
             dgvDatosPDF.RowTemplate.Height = 29;
@@ -692,7 +709,7 @@
             // dtpInicio
             // 
             dtpInicio.Format = DateTimePickerFormat.Short;
-            dtpInicio.Location = new Point(667, 126);
+            dtpInicio.Location = new Point(564, 126);
             dtpInicio.Name = "dtpInicio";
             dtpInicio.Size = new Size(112, 27);
             dtpInicio.TabIndex = 4;
@@ -701,7 +718,7 @@
             // dtpFin
             // 
             dtpFin.Format = DateTimePickerFormat.Short;
-            dtpFin.Location = new Point(667, 161);
+            dtpFin.Location = new Point(564, 161);
             dtpFin.Name = "dtpFin";
             dtpFin.Size = new Size(112, 27);
             dtpFin.TabIndex = 5;
@@ -710,7 +727,7 @@
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(1358, 101);
+            lblUsuario.Location = new Point(1402, 74);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(0, 20);
             lblUsuario.TabIndex = 0;
@@ -721,7 +738,7 @@
             lblPedido.Depth = 0;
             lblPedido.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblPedido.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblPedido.Location = new Point(554, 81);
+            lblPedido.Location = new Point(451, 81);
             lblPedido.MouseState = MaterialSkin.MouseState.HOVER;
             lblPedido.Name = "lblPedido";
             lblPedido.Size = new Size(92, 24);
@@ -734,7 +751,7 @@
             lblNombreUsuario.Depth = 0;
             lblNombreUsuario.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblNombreUsuario.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblNombreUsuario.Location = new Point(817, 82);
+            lblNombreUsuario.Location = new Point(714, 82);
             lblNombreUsuario.MouseState = MaterialSkin.MouseState.HOVER;
             lblNombreUsuario.Name = "lblNombreUsuario";
             lblNombreUsuario.Size = new Size(153, 24);
@@ -747,7 +764,7 @@
             lblFecha2.Depth = 0;
             lblFecha2.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblFecha2.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblFecha2.Location = new Point(557, 161);
+            lblFecha2.Location = new Point(454, 161);
             lblFecha2.MouseState = MaterialSkin.MouseState.HOVER;
             lblFecha2.Name = "lblFecha2";
             lblFecha2.Size = new Size(65, 24);
@@ -758,7 +775,7 @@
             // 
             txtFiltroPedido.Depth = 0;
             txtFiltroPedido.Hint = "";
-            txtFiltroPedido.Location = new Point(667, 78);
+            txtFiltroPedido.Location = new Point(564, 78);
             txtFiltroPedido.MaxLength = 32767;
             txtFiltroPedido.MouseState = MaterialSkin.MouseState.HOVER;
             txtFiltroPedido.Name = "txtFiltroPedido";
@@ -777,7 +794,7 @@
             // 
             txtFiltroUsuario.Depth = 0;
             txtFiltroUsuario.Hint = "";
-            txtFiltroUsuario.Location = new Point(999, 78);
+            txtFiltroUsuario.Location = new Point(896, 78);
             txtFiltroUsuario.MaxLength = 32767;
             txtFiltroUsuario.MouseState = MaterialSkin.MouseState.HOVER;
             txtFiltroUsuario.Name = "txtFiltroUsuario";
@@ -795,7 +812,7 @@
             // 
             txtFiltroCliente.Depth = 0;
             txtFiltroCliente.Hint = "";
-            txtFiltroCliente.Location = new Point(999, 141);
+            txtFiltroCliente.Location = new Point(896, 141);
             txtFiltroCliente.MaxLength = 32767;
             txtFiltroCliente.MouseState = MaterialSkin.MouseState.HOVER;
             txtFiltroCliente.Name = "txtFiltroCliente";
@@ -816,7 +833,7 @@
             lblNomCliente.Depth = 0;
             lblNomCliente.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblNomCliente.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblNomCliente.Location = new Point(817, 141);
+            lblNomCliente.Location = new Point(714, 141);
             lblNomCliente.MouseState = MaterialSkin.MouseState.HOVER;
             lblNomCliente.Name = "lblNomCliente";
             lblNomCliente.Size = new Size(147, 24);
@@ -829,7 +846,7 @@
             lblFecha.Depth = 0;
             lblFecha.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblFecha.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblFecha.Location = new Point(554, 126);
+            lblFecha.Location = new Point(451, 126);
             lblFecha.MouseState = MaterialSkin.MouseState.HOVER;
             lblFecha.Name = "lblFecha";
             lblFecha.Size = new Size(68, 24);
@@ -928,19 +945,19 @@
             logCambiosSistemaToolStripMenuItem.Text = "Log (Cambios Sistema)";
             logCambiosSistemaToolStripMenuItem.Click += logCambiosSistemaToolStripMenuItem_Click;
             // 
-            // cerrarSesiónToolStripMenuItem
-            // 
-            cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
-            cerrarSesiónToolStripMenuItem.Size = new Size(291, 26);
-            cerrarSesiónToolStripMenuItem.Text = "Cerrar Sesión";
-            cerrarSesiónToolStripMenuItem.Click += cerrarSesiónToolStripMenuItem_Click;
-            // 
             // verificarFacturaToolStripMenuItem
             // 
             verificarFacturaToolStripMenuItem.Name = "verificarFacturaToolStripMenuItem";
             verificarFacturaToolStripMenuItem.Size = new Size(291, 26);
             verificarFacturaToolStripMenuItem.Text = "Verificar Factura";
             verificarFacturaToolStripMenuItem.Click += verificarFacturaToolStripMenuItem_Click;
+            // 
+            // cerrarSesiónToolStripMenuItem
+            // 
+            cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
+            cerrarSesiónToolStripMenuItem.Size = new Size(291, 26);
+            cerrarSesiónToolStripMenuItem.Text = "Cerrar Sesión";
+            cerrarSesiónToolStripMenuItem.Click += cerrarSesiónToolStripMenuItem_Click;
             // 
             // lblDatosGenerales
             // 
@@ -962,11 +979,88 @@
             lblDatosEntFact.TabIndex = 117;
             lblDatosEntFact.Text = "Facturación y Entrega";
             // 
+            // lblcodigoColores
+            // 
+            lblcodigoColores.AutoSize = true;
+            lblcodigoColores.BackColor = Color.White;
+            lblcodigoColores.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblcodigoColores.Location = new Point(1259, 65);
+            lblcodigoColores.Name = "lblcodigoColores";
+            lblcodigoColores.Size = new Size(137, 20);
+            lblcodigoColores.TabIndex = 121;
+            lblcodigoColores.Text = "Código de colores:";
+            // 
+            // label6
+            // 
+            label6.BackColor = Color.FromArgb(255, 208, 52);
+            label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(1167, 91);
+            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(99, 26);
+            label6.TabIndex = 102;
+            label6.Text = "Pendiente";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            label7.BackColor = Color.FromArgb(163, 255, 172);
+            label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Location = new Point(1167, 128);
+            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(99, 26);
+            label7.TabIndex = 122;
+            label7.Text = "Revisado";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            label8.BackColor = Color.FromArgb(149, 184, 246);
+            label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label8.Location = new Point(1167, 165);
+            label8.Margin = new Padding(4, 0, 4, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(99, 26);
+            label8.TabIndex = 123;
+            label8.Text = "Facturado";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label9
+            // 
+            label9.BackColor = Color.FromArgb(249, 217, 154);
+            label9.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.Location = new Point(1320, 113);
+            label9.Margin = new Padding(4, 0, 4, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(99, 26);
+            label9.TabIndex = 124;
+            label9.Text = "Entregado";
+            label9.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label10
+            // 
+            label10.BackColor = Color.FromArgb(249, 165, 154);
+            label10.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label10.Location = new Point(1320, 159);
+            label10.Margin = new Padding(4, 0, 4, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(99, 26);
+            label10.TabIndex = 125;
+            label10.Text = "Devuelto";
+            label10.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Inicio
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1457, 775);
+            Controls.Add(label10);
+            Controls.Add(label9);
+            Controls.Add(label8);
+            Controls.Add(label7);
+            Controls.Add(label6);
+            Controls.Add(lblcodigoColores);
             Controls.Add(lblDatosEntFact);
             Controls.Add(lblDatosGenerales);
             Controls.Add(tab2);
@@ -1078,5 +1172,12 @@
         private Label lblDatosGenerales;
         private Label lblDatosEntFact;
         private ToolStripMenuItem verificarFacturaToolStripMenuItem;
+        private Label lblcodigoColores;
+        private Label label5;
+        private Label label6;
+        private Label label7;
+        private Label label8;
+        private Label label9;
+        private Label label10;
     }
 }
