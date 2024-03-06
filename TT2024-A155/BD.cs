@@ -2941,29 +2941,118 @@ namespace TT2024_A155
             }
         }
 
+        //----------------------------------VALIDAR SI EL USUARIO CUENTA CON UNA FIRMA VALIDA----------------------------------------------
+        public int verificarFirmaVigente(string us)
+        {
+            int contador = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    bool x = false;
+                    Comando = new SqlCommand(string.Format("SELECT firm.estado, fechaExp FROM firmas firm LEFT OUTER JOIN usuario us ON us.idusuario = firm.idUsuario WHERE us.idusuario = '{0}' AND firm.estado = 1;", idUsuario(us)), nuevacon);
+                    nuevacon.Open();
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read()) { x = Convert.ToBoolean(Lector["estado"].ToString()); }
+                    Lector.Close();
+                    if (x)
+                    {
+                        contador++;
+                    }
+
+                    nuevacon.Close();
+                }
+                return contador;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return contador;
+            }
+        }
+
         //----------------------------------ACTUALIZAR QUE YA SE GENERO LA FIRMA PAR EL USUARIO DE FINANZAS ----------------------------------------------
+
+     
         public void firmaSolicitada(string usuario)
         {
+
+            
 
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
+
+
                     nuevacon.Open();
+                    //Comando = new SqlCommand("INSERT INTO firmas (idUsuario, fechaInicio, fechaExp) VALUES(@idUsuario,@fechaInicio,@fechaExp);", nuevacon);
+                    //DateTime hoy = DateTime.Now;
+                    //string fechaInicio = hoy.Date.Year.ToString() + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
+                    //string fechaExp = "2028" + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
+                    //Comando.Parameters.AddWithValue("@idUsuario", idUsuario(usuario));
+                    //Comando.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                    //Comando.Parameters.AddWithValue("@fechaExp", fechaExp);
+                    
+                    //Comando.ExecuteNonQuery();
+
+
                     Comando = new SqlCommand(string.Format("UPDATE usuario SET requiereFirma = 0 WHERE nombre_usuario = '{0}';", usuario), nuevacon);
+
                     Comando.ExecuteNonQuery();
-                    MessageBOX.SHowDialog(3, "Todo se realizó exitosamente");
                     nuevacon.Close();
+                    
                 }
-
+                
             }
-            catch (Exception ex)
+            catch (Exception EX)
             {
-                MessageBox.Show(ex.Message);
-
+                MessageBox.Show("Error registrar la firma: " + EX.Message);
             }
+            
 
         }
+
+
+        //public void firmaSolicitada(string usuario)
+        //{
+
+        //    try
+        //    {
+        //        using (SqlConnection nuevacon = Conexion.conexion())
+        //        {
+        //            nuevacon.Open();
+
+
+        //            //INSERT INTO firmas (idUsuario, fechaInicio, fechaExp, estado) VALUES (@idUsuario,@fechaInicio,@fechaExp);
+        //            this.Comando = new SqlCommand("INSERT INTO firmas (idUsuario, fechaInicio, fechaExp, estado) VALUES (@idUsuario,@fechaInicio,@fechaExp);", nuevacon);
+        //            DateTime hoy = DateTime.Now;
+        //            string fechaInicio = hoy.Date.Year.ToString() + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
+        //            string fechaExp = int.Parse(((hoy.Date.Year.ToString())) + 4).ToString() + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
+        //            this.Comando.Parameters.AddWithValue("@idUsuario", idUsuario(usuario));
+        //            this.Comando.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+        //            this.Comando.Parameters.AddWithValue("@fechaExp", fechaExp);
+        //            this.Comando.ExecuteNonQuery();
+
+        //            Comando = new SqlCommand(string.Format("UPDATE usuario SET requiereFirma = 0 WHERE nombre_usuario = '{0}';", usuario), nuevacon);
+        //            Comando.ExecuteNonQuery();
+
+                   
+
+        //            MessageBOX.SHowDialog(3, "Todo se realizó exitosamente");
+        //            nuevacon.Close();
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+
+        //    }
+
+        //}
+
+
 
         public string PrettyPrint(byte[] bytes)
         {
@@ -2988,7 +3077,11 @@ namespace TT2024_A155
             firma = alice.GenerateSignature(factura);
             return firma;
         }
-        ////
+
+
+
+
+        //END CRYPTO//
         ///
         //----------------------------------VALIDAR QUE EL PEDIDO TENGA FACTURA----------------------------------------------
         public int existeFactura(string idpedido)

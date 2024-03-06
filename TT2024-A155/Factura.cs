@@ -14,6 +14,7 @@ using iText.Commons.Bouncycastle.Crypto;
 
 //Diseño
 using MaterialSkin.Controls;
+using Microsoft.Office.Interop.Excel;
 using NewBouncy::Org.BouncyCastle.Pqc.Crypto.Crystals.Dilithium;
 
 namespace TT2024_A155
@@ -26,6 +27,7 @@ namespace TT2024_A155
             MaterialUI.loadMaterial(this);
         }
         BD Consulta = new();
+        AES aesBD = new AES();
         Validaciones Validaciones = new();
         byte[] byteArray;
         DilithiumPrivateKeyParameters privateKey;
@@ -48,6 +50,8 @@ namespace TT2024_A155
             errorFactConIva.Clear();
             errorLlavePublica.Clear();
             errorLlavePrivada.Clear();
+            errorContraLlavePriv.Clear();
+
 
             if (string.IsNullOrEmpty(txtNumeroFactura.Text.Trim())) { errorNumeroFact.SetError(txtNumeroFactura, "Campo obligatorio"); validacion = false; }
             if (string.IsNullOrEmpty(txtFacturaSinIVA.Text.Trim())) { errorFactSinIva.SetError(txtFacturaSinIVA, "Campo obligatorio"); validacion = false; }
@@ -58,6 +62,10 @@ namespace TT2024_A155
             //if (string.IsNullOrEmpty(txtpubKey.Text.Trim())) { errorLlavePublica.SetError(txtpubKey, "Campo obligatorio"); validacion = false; }
             if (string.IsNullOrEmpty(txtprivKey.Text.Trim())) { errorLlavePrivada.SetError(txtprivKey, "Campo obligatorio"); validacion = false; }
 
+            if (string.IsNullOrEmpty(txtContraLlavePrivada.Text.Trim())) { errorContraLlavePriv.SetError(txtContraLlavePrivada, "Campo obligatorio"); validacion = false; }
+
+            if(Consulta.verificarFirmaVigente(lblUsuario.Text.Trim()) == 0) { validacion = false; MessageBOX.SHowDialog(2, "Tu clave privada esta expirada o ya no es válida"); }
+            
             //-----------------------------
 
             if (validacion)
@@ -90,66 +98,82 @@ namespace TT2024_A155
 
         private void btnprivKey_Click(object sender, EventArgs e)
         {
-            //configuraciones del openfiledialog 1
-            OpenFileDialog openFile = new OpenFileDialog();
-            openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            //openFile.Filter = " (*.*)|*.pdf*";
-            openFile.FilterIndex = 1;
-            openFile.RestoreDirectory = true;
+            bool validacion = true;
+            errorContraLlavePriv.Clear();
 
-            if (openFile.ShowDialog() == DialogResult.OK)
-            {
-                txtprivKey.Text = openFile.FileName;
-                string fpath = @txtprivKey.Text;
-                byteArray = File.ReadAllBytes(fpath);
-                if (byteArray != null)
-                    MessageBox.Show("Llave privada encontrada");
-            }
+            if (string.IsNullOrEmpty(txtContraLlavePrivada.Text.Trim())) { errorContraLlavePriv.SetError(txtContraLlavePrivada, "Favor de ingresar la contraseña primero"); validacion = false; }
 
-            String line;
-            try
+
+            if(validacion)
             {
-                //Pass the file path and file name to the StreamReader constructor
-                StreamReader sr = new StreamReader(openFile.FileName);
-                //Read the first line of text
-                line = sr.ReadLine();
-                //Continue to read until you reach end of file
-                string[] tempPrivateKeyParameters = new string[7];//Para guardar Ro, K, Tr, S1, S2, T0, T1
-                int i = 0;
-                while (line != null)
+                //configuraciones del openfiledialog 1
+                OpenFileDialog openFile = new OpenFileDialog();
+                openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                //openFile.Filter = " (*.*)|*.pdf*";
+                openFile.FilterIndex = 1;
+                openFile.RestoreDirectory = true;
+
+                if (openFile.ShowDialog() == DialogResult.OK)
                 {
-                    tempPrivateKeyParameters[i] = line;
-                    //write the line to console window
-                    MessageBox.Show("Llave privada base 64 desde txt: " + line);
-                    //Read the next line
-                    line = sr.ReadLine();
-                    //
-                    i++;
+                    txtprivKey.Text = openFile.FileName;
+                    string fpath = @txtprivKey.Text;
+                    byteArray = File.ReadAllBytes(fpath);
+                    //if (byteArray != null)
+                    //    MessageBox.Show("Llave privada encontrada");
                 }
-                //close the file
-                sr.Close();
 
+                String line;
+                try
+                {
+                    StreamReader sr = new StreamReader(openFile.FileName);
+                    //Read the first line of text
+                    line = sr.ReadLine();
+                    //Continue to read until you reach end of file
+                    string[] tempEncryptedPrivateKey = new string[7];//Para guardar la clave privada que esta cifrada
+                    int i = 0;
+                    while (line != null)
+                    {
+                        tempEncryptedPrivateKey[i] = line;
+                        //write the line to console window
+                        //MessageBox.Show("Llave privada base 64 desde txt: " + line);
+                        //Read the next line
+                        line = sr.ReadLine();
+                        //
+                        i++;
+                    }
+                    //close the file
+                    sr.Close();
 
-                //Recuperando la cadena se bytes de la llave publica base64
-                byte[] Rho = System.Convert.FromBase64String(tempPrivateKeyParameters[0]);
-                byte[] K = System.Convert.FromBase64String(tempPrivateKeyParameters[1]);
-                byte[] TR = System.Convert.FromBase64String(tempPrivateKeyParameters[2]);
-                byte[] S1 = System.Convert.FromBase64String(tempPrivateKeyParameters[3]);
-                byte[] S2 = System.Convert.FromBase64String(tempPrivateKeyParameters[4]);
-                byte[] T0 = System.Convert.FromBase64String(tempPrivateKeyParameters[5]);
-                byte[] T1 = System.Convert.FromBase64String(tempPrivateKeyParameters[6]);
-                //byte[] bytes = System.Convert.FromBase64String(tempPrivateKeyParameters[7]);
-                privateKey = new DilithiumPrivateKeyParameters(DilithiumParameters.Dilithium3, Rho, K, TR, S1, S2, T0, T1);
+                    string decryptedPrivateKeyText = aesBD.Decrypt(tempEncryptedPrivateKey[0], txtContraLlavePrivada.Text.Trim());
+                    string[] realPrivateKeyParameters = decryptedPrivateKeyText.Split("\n");//Para guardar Ro, K, Tr, S1, S2, T0, T1
+
+                    //Recuperando la cadena se bytes de la llave publica base64
+                    byte[] Rho = System.Convert.FromBase64String(realPrivateKeyParameters[0]);
+                    byte[] K = System.Convert.FromBase64String(realPrivateKeyParameters[1]);
+                    byte[] TR = System.Convert.FromBase64String(realPrivateKeyParameters[2]);
+                    byte[] S1 = System.Convert.FromBase64String(realPrivateKeyParameters[3]);
+                    byte[] S2 = System.Convert.FromBase64String(realPrivateKeyParameters[4]);
+                    byte[] T0 = System.Convert.FromBase64String(realPrivateKeyParameters[5]);
+                    byte[] T1 = System.Convert.FromBase64String(realPrivateKeyParameters[6]);
+                    //byte[] bytes = System.Convert.FromBase64String(tempPrivateKeyParameters[7]);
+                    privateKey = new DilithiumPrivateKeyParameters(DilithiumParameters.Dilithium3, Rho, K, TR, S1, S2, T0, T1);
+
+                    MessageBOX.SHowDialog(3, "Llave privada cargada correctamente");
+                }
+                catch (Exception ex)
+                {
+                    MessageBOX.SHowDialog(2,"Contraseña incorrecta: ");
+                    txtprivKey.Text = "";
+                    txtContraLlavePrivada.Text = "";
+                }
+                finally
+                {
+                    Console.WriteLine("Executing finally block.");
+
+                }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception: " + ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Executing finally block.");
-                
-            }
+
+            
         }
     }
 }

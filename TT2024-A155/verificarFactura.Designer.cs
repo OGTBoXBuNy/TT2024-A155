@@ -120,7 +120,7 @@
             txtRutaArchivo.Depth = 0;
             txtRutaArchivo.Enabled = false;
             txtRutaArchivo.Hint = "";
-            txtRutaArchivo.Location = new Point(196, 155);
+            txtRutaArchivo.Location = new Point(196, 151);
             txtRutaArchivo.MaxLength = 32767;
             txtRutaArchivo.MouseState = MaterialSkin.MouseState.HOVER;
             txtRutaArchivo.Name = "txtRutaArchivo";
@@ -139,7 +139,7 @@
             lblArchivo.Depth = 0;
             lblArchivo.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblArchivo.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblArchivo.Location = new Point(12, 155);
+            lblArchivo.Location = new Point(12, 151);
             lblArchivo.MouseState = MaterialSkin.MouseState.HOVER;
             lblArchivo.Name = "lblArchivo";
             lblArchivo.Size = new Size(121, 24);
@@ -152,7 +152,7 @@
             btnBuscarArchivo.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnBuscarArchivo.Depth = 0;
             btnBuscarArchivo.Icon = null;
-            btnBuscarArchivo.Location = new Point(516, 148);
+            btnBuscarArchivo.Location = new Point(516, 144);
             btnBuscarArchivo.Margin = new Padding(4, 6, 4, 6);
             btnBuscarArchivo.MouseState = MaterialSkin.MouseState.HOVER;
             btnBuscarArchivo.Name = "btnBuscarArchivo";
@@ -169,7 +169,7 @@
             btnBuscarLlavePub.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnBuscarLlavePub.Depth = 0;
             btnBuscarLlavePub.Icon = null;
-            btnBuscarLlavePub.Location = new Point(516, 196);
+            btnBuscarLlavePub.Location = new Point(516, 192);
             btnBuscarLlavePub.Margin = new Padding(4, 6, 4, 6);
             btnBuscarLlavePub.MouseState = MaterialSkin.MouseState.HOVER;
             btnBuscarLlavePub.Name = "btnBuscarLlavePub";
@@ -186,7 +186,7 @@
             lblRutaLlavePub.Depth = 0;
             lblRutaLlavePub.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblRutaLlavePub.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblRutaLlavePub.Location = new Point(12, 200);
+            lblRutaLlavePub.Location = new Point(12, 196);
             lblRutaLlavePub.MouseState = MaterialSkin.MouseState.HOVER;
             lblRutaLlavePub.Name = "lblRutaLlavePub";
             lblRutaLlavePub.Size = new Size(169, 24);
@@ -198,7 +198,7 @@
             txtRutaLlavePublica.Depth = 0;
             txtRutaLlavePublica.Enabled = false;
             txtRutaLlavePublica.Hint = "";
-            txtRutaLlavePublica.Location = new Point(196, 200);
+            txtRutaLlavePublica.Location = new Point(196, 196);
             txtRutaLlavePublica.MaxLength = 32767;
             txtRutaLlavePublica.MouseState = MaterialSkin.MouseState.HOVER;
             txtRutaLlavePublica.Name = "txtRutaLlavePublica";
@@ -217,7 +217,7 @@
             btnVerificar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnVerificar.Depth = 0;
             btnVerificar.Icon = null;
-            btnVerificar.Location = new Point(446, 289);
+            btnVerificar.Location = new Point(446, 285);
             btnVerificar.MouseState = MaterialSkin.MouseState.HOVER;
             btnVerificar.Name = "btnVerificar";
             btnVerificar.Primary = true;
@@ -414,7 +414,7 @@
             cmbFactura.AutoCompleteMode = AutoCompleteMode.Suggest;
             cmbFactura.AutoCompleteSource = AutoCompleteSource.ListItems;
             cmbFactura.FormattingEnabled = true;
-            cmbFactura.Location = new Point(196, 255);
+            cmbFactura.Location = new Point(196, 251);
             cmbFactura.Name = "cmbFactura";
             cmbFactura.Size = new Size(313, 28);
             cmbFactura.TabIndex = 37;
@@ -425,7 +425,7 @@
             lblNumFact.Depth = 0;
             lblNumFact.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblNumFact.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblNumFact.Location = new Point(12, 255);
+            lblNumFact.Location = new Point(12, 251);
             lblNumFact.MouseState = MaterialSkin.MouseState.HOVER;
             lblNumFact.Name = "lblNumFact";
             lblNumFact.Size = new Size(78, 24);

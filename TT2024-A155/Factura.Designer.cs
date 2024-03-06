@@ -59,6 +59,9 @@
             btnpubKey = new MaterialSkin.Controls.MaterialFlatButton();
             btnprivKey = new MaterialSkin.Controls.MaterialFlatButton();
             btnAceptar = new MaterialSkin.Controls.MaterialRaisedButton();
+            txtContraLlavePrivada = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            lblContrasenia = new MaterialSkin.Controls.MaterialLabel();
+            errorContraLlavePriv = new ErrorProvider(components);
             ((System.ComponentModel.ISupportInitialize)dgvDatosFactura).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorNumeroFact).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorFactSinIva).BeginInit();
@@ -66,11 +69,12 @@
             ((System.ComponentModel.ISupportInitialize)errorFactConIva).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorLlavePublica).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorLlavePrivada).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorContraLlavePriv).BeginInit();
             SuspendLayout();
             // 
             // txtComentarios
             // 
-            txtComentarios.Location = new Point(318, 325);
+            txtComentarios.Location = new Point(318, 365);
             txtComentarios.Multiline = true;
             txtComentarios.Name = "txtComentarios";
             txtComentarios.Size = new Size(285, 70);
@@ -194,7 +198,7 @@
             lblComentarios.Depth = 0;
             lblComentarios.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblComentarios.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblComentarios.Location = new Point(16, 325);
+            lblComentarios.Location = new Point(16, 365);
             lblComentarios.MouseState = MaterialSkin.MouseState.HOVER;
             lblComentarios.Name = "lblComentarios";
             lblComentarios.Size = new Size(128, 24);
@@ -220,7 +224,7 @@
             lblLlavePublica.Depth = 0;
             lblLlavePublica.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblLlavePublica.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblLlavePublica.Location = new Point(25, 467);
+            lblLlavePublica.Location = new Point(25, 521);
             lblLlavePublica.MouseState = MaterialSkin.MouseState.HOVER;
             lblLlavePublica.Name = "lblLlavePublica";
             lblLlavePublica.Size = new Size(164, 24);
@@ -318,7 +322,7 @@
             txtpubKey.Depth = 0;
             txtpubKey.Enabled = false;
             txtpubKey.Hint = "";
-            txtpubKey.Location = new Point(330, 467);
+            txtpubKey.Location = new Point(330, 521);
             txtpubKey.MaxLength = 32767;
             txtpubKey.MouseState = MaterialSkin.MouseState.HOVER;
             txtpubKey.Name = "txtpubKey";
@@ -356,7 +360,7 @@
             btnpubKey.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnpubKey.Depth = 0;
             btnpubKey.Icon = null;
-            btnpubKey.Location = new Point(622, 459);
+            btnpubKey.Location = new Point(622, 513);
             btnpubKey.Margin = new Padding(4, 6, 4, 6);
             btnpubKey.MouseState = MaterialSkin.MouseState.HOVER;
             btnpubKey.Name = "btnpubKey";
@@ -390,7 +394,7 @@
             btnAceptar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnAceptar.Depth = 0;
             btnAceptar.Icon = null;
-            btnAceptar.Location = new Point(414, 420);
+            btnAceptar.Location = new Point(505, 451);
             btnAceptar.MouseState = MaterialSkin.MouseState.HOVER;
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Primary = true;
@@ -400,11 +404,47 @@
             btnAceptar.UseVisualStyleBackColor = true;
             btnAceptar.Click += btnAceptar_Click;
             // 
+            // txtContraLlavePrivada
+            // 
+            txtContraLlavePrivada.Depth = 0;
+            txtContraLlavePrivada.Hint = "";
+            txtContraLlavePrivada.Location = new Point(318, 325);
+            txtContraLlavePrivada.MaxLength = 32767;
+            txtContraLlavePrivada.MouseState = MaterialSkin.MouseState.HOVER;
+            txtContraLlavePrivada.Name = "txtContraLlavePrivada";
+            txtContraLlavePrivada.PasswordChar = '\0';
+            txtContraLlavePrivada.SelectedText = "";
+            txtContraLlavePrivada.SelectionLength = 0;
+            txtContraLlavePrivada.SelectionStart = 0;
+            txtContraLlavePrivada.Size = new Size(285, 28);
+            txtContraLlavePrivada.TabIndex = 41;
+            txtContraLlavePrivada.TabStop = false;
+            txtContraLlavePrivada.UseSystemPasswordChar = false;
+            // 
+            // lblContrasenia
+            // 
+            lblContrasenia.AutoSize = true;
+            lblContrasenia.Depth = 0;
+            lblContrasenia.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblContrasenia.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblContrasenia.Location = new Point(13, 325);
+            lblContrasenia.MouseState = MaterialSkin.MouseState.HOVER;
+            lblContrasenia.Name = "lblContrasenia";
+            lblContrasenia.Size = new Size(221, 24);
+            lblContrasenia.TabIndex = 40;
+            lblContrasenia.Text = "Contraseña llave privada:";
+            // 
+            // errorContraLlavePriv
+            // 
+            errorContraLlavePriv.ContainerControl = this;
+            // 
             // Factura
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(683, 507);
+            ClientSize = new Size(683, 501);
+            Controls.Add(txtContraLlavePrivada);
+            Controls.Add(lblContrasenia);
             Controls.Add(btnAceptar);
             Controls.Add(btnprivKey);
             Controls.Add(btnpubKey);
@@ -438,6 +478,7 @@
             ((System.ComponentModel.ISupportInitialize)errorFactConIva).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorLlavePublica).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorLlavePrivada).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorContraLlavePriv).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -472,5 +513,8 @@
         private MaterialSkin.Controls.MaterialSingleLineTextField txtFactIVA;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtDescuento;
         private MaterialSkin.Controls.MaterialRaisedButton btnAceptar;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtContraLlavePrivada;
+        private MaterialSkin.Controls.MaterialLabel lblContrasenia;
+        private ErrorProvider errorContraLlavePriv;
     }
 }

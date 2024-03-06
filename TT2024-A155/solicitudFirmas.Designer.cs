@@ -28,12 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             lblUsuario = new Label();
             txtInfo = new TextBox();
             pbAdvertencia = new PictureBox();
             btnGenerar = new MaterialSkin.Controls.MaterialRaisedButton();
             lblRol = new Label();
+            lblContrasenia = new MaterialSkin.Controls.MaterialLabel();
+            txtContrasenia = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            errorContrasenia = new ErrorProvider(components);
             ((System.ComponentModel.ISupportInitialize)pbAdvertencia).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorContrasenia).BeginInit();
             SuspendLayout();
             // 
             // lblUsuario
@@ -72,7 +77,7 @@
             btnGenerar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnGenerar.Depth = 0;
             btnGenerar.Icon = null;
-            btnGenerar.Location = new Point(368, 216);
+            btnGenerar.Location = new Point(690, 322);
             btnGenerar.MouseState = MaterialSkin.MouseState.HOVER;
             btnGenerar.Name = "btnGenerar";
             btnGenerar.Primary = true;
@@ -90,11 +95,47 @@
             lblRol.Size = new Size(0, 20);
             lblRol.TabIndex = 4;
             // 
+            // lblContrasenia
+            // 
+            lblContrasenia.AutoSize = true;
+            lblContrasenia.Depth = 0;
+            lblContrasenia.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblContrasenia.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblContrasenia.Location = new Point(11, 267);
+            lblContrasenia.MouseState = MaterialSkin.MouseState.HOVER;
+            lblContrasenia.Name = "lblContrasenia";
+            lblContrasenia.Size = new Size(365, 24);
+            lblContrasenia.TabIndex = 5;
+            lblContrasenia.Text = "Contraseña para proteger tu clave privada:";
+            // 
+            // txtContrasenia
+            // 
+            txtContrasenia.Depth = 0;
+            txtContrasenia.Hint = "";
+            txtContrasenia.Location = new Point(394, 267);
+            txtContrasenia.MaxLength = 32767;
+            txtContrasenia.MouseState = MaterialSkin.MouseState.HOVER;
+            txtContrasenia.Name = "txtContrasenia";
+            txtContrasenia.PasswordChar = '\0';
+            txtContrasenia.SelectedText = "";
+            txtContrasenia.SelectionLength = 0;
+            txtContrasenia.SelectionStart = 0;
+            txtContrasenia.Size = new Size(250, 28);
+            txtContrasenia.TabIndex = 6;
+            txtContrasenia.TabStop = false;
+            txtContrasenia.UseSystemPasswordChar = false;
+            // 
+            // errorContrasenia
+            // 
+            errorContrasenia.ContainerControl = this;
+            // 
             // solicitudFirmas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(806, 282);
+            ClientSize = new Size(806, 370);
+            Controls.Add(txtContrasenia);
+            Controls.Add(lblContrasenia);
             Controls.Add(lblRol);
             Controls.Add(btnGenerar);
             Controls.Add(pbAdvertencia);
@@ -103,6 +144,7 @@
             Name = "solicitudFirmas";
             Text = "Solicitud de Firma";
             ((System.ComponentModel.ISupportInitialize)pbAdvertencia).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorContrasenia).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -114,5 +156,8 @@
         private PictureBox pbAdvertencia;
         private MaterialSkin.Controls.MaterialRaisedButton btnGenerar;
         public Label lblRol;
+        private MaterialSkin.Controls.MaterialLabel lblContrasenia;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtContrasenia;
+        private ErrorProvider errorContrasenia;
     }
 }
