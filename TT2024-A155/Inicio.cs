@@ -228,7 +228,7 @@ namespace TT2024_A155
                     subMenu.lblRol.Text = lblRol.Text;
                     subMenu.lblIdPedido.Text = idPedido;
                     subMenu.ShowDialog();
-                    inicializarDgvEmpleado(lblUsuario.Text.Trim());
+                    inicializarDgvCliente(lblUsuario.Text.Trim());
 
                 }
                 else if (lblRol.Text == "2" || lblRol.Text == "3")
