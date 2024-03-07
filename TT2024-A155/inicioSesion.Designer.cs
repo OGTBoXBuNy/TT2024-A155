@@ -56,7 +56,7 @@
             // 
             picInicioSesion.BackColor = Color.Transparent;
             picInicioSesion.ErrorImage = Properties.Resources.Error;
-            picInicioSesion.Image = Properties.Resources.logoAppTransMovimiento_Blanco;
+            picInicioSesion.Image = Properties.Resources.logoEscomGifApp;
             picInicioSesion.InitialImage = Properties.Resources.ESCOM;
             picInicioSesion.Location = new Point(160, 67);
             picInicioSesion.Name = "picInicioSesion";
@@ -87,6 +87,7 @@
             btnFirma.TabIndex = 8;
             btnFirma.Text = "..";
             btnFirma.UseVisualStyleBackColor = true;
+            btnFirma.Visible = false;
             btnFirma.Click += btnFirma_Click;
             // 
             // txtUsuario

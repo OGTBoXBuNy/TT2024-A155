@@ -78,7 +78,7 @@ namespace TT2024_A155
 
 
 
-                    string contenido = "Hola!!!! " + usuario + " Bienvenido al sistema de TT-2024-A155";
+                    string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>¡Bienvenido!</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f8f8f8;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 0 auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            text-align: center;\r\n            padding: 20px 0;\r\n        }\r\n\r\n        .content h1 {\r\n            color: #007bff;\r\n        }\r\n\r\n        .content p {\r\n            color: #333333;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h1>¡Bienvenido " + usuario +" al sistema de TT-2024-A155!</h1>\r\n            <p>Estamos encantados de tenerte como parte de nuestros clientes.</p>\r\n            <p>Desde ahora, podrás disfrutar de todas las funciones y productos que ofrecemos.</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>\r\n            <p>¡Gracias por unirte a nosotros!</p>\r\n            <p><a href=\"https://www.escom.ipn.mx/\">Contacto</a></p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
 
                     bodyBuilder.HtmlBody = contenido;
 
@@ -307,7 +307,7 @@ namespace TT2024_A155
         }
 
         //ENVIAR CORREO
-        public void enviaCorreoContrasenia(string destinatario, string contra)
+        public void enviaCorreoContrasenia(string destinatario, string contra, string cliente)
         {
 
 
@@ -336,14 +336,15 @@ namespace TT2024_A155
                     message.Subject = "Recuperar Acceso";
 
 
-                    message.Body = new TextPart("plain")
-                    {
-                        Text = "Estimado(a) \r\nAcabamos de recibir la solicitud para recuperar la contraseña." +
-                            "\r\n Tu contraseña temporal es: " +
-                            "\r\n\r\n" + contra +
-                            "\r\n\r\nIMPORTANTE:" +
-                            "\r\nEste correo es informativo, favor no responder a esta dirección de correo, ya que no se encuentra habilitada para recibir mensajes.\r\n"
-                    };
+                    var bodyBuilder = new BodyBuilder();
+
+
+
+                    string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Restablecimiento de Contraseña</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f5f5f5;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 20px auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            padding: 20px 0;\r\n            text-align: center;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\" alt=\"Logo de la empresa\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h2>Restablecimiento de Contraseña</h2>\r\n            <p>Estimado/a " + cliente + ",</p>\r\n            <p>Te informamos que se ha restablecido tu contraseña con éxito.</p>\r\n          <p>Su nueva contraseña es: " + contra + "  </p>\r\n            <p>Si realizaste esta acción, puedes ignorar este mensaje. Si no solicitaste este cambio, por favor, ponte en contacto con nosotros de inmediato.</p>\r\n            <p>Gracias.</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Atentamente,</p>\r\n            <p>El equipo de TT2024-A155</p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
+
+                    bodyBuilder.HtmlBody = contenido;
+
+                    message.Body = bodyBuilder.ToMessageBody();
 
                     using (var client = new SmtpClient())
                     {
@@ -393,7 +394,7 @@ namespace TT2024_A155
                         while (Lector.Read()) { destinatario = Lector["correo"].ToString(); }
                         Lector.Close();
 
-                        this.enviaCorreoContrasenia(destinatario, contra);
+                        this.enviaCorreoContrasenia(destinatario, contra, dato);
 
                         MessageBOX.SHowDialog(3, "Favor de revisar su bandeja de entrada para recuperar su acceso");
 
@@ -411,7 +412,7 @@ namespace TT2024_A155
                         while (Lector.Read()) { destinatario = Lector["correo"].ToString(); }
                         Lector.Close();
 
-                        this.enviaCorreoContrasenia(destinatario, contra);
+                        this.enviaCorreoContrasenia(destinatario, contra, dato);
 
                         MessageBOX.SHowDialog(3, "Favor de revisar su bandeja de entrada para recuperar su acceso");
                     }
@@ -882,7 +883,7 @@ namespace TT2024_A155
                         pdf = File.ReadAllBytes(fileRoute.FileName);
 
                         if (enviaCorreo)
-                            enviaCorreoPedido(correoCliente, pdf);
+                            enviaCorreoPedido(correoCliente, pdf, dgvDatosPDF.Rows[0].Cells[2].Value.ToString());
 
                         MessageBOX.SHowDialog(3, "Comprobante generado correctamente (PDF)");
 
@@ -953,7 +954,7 @@ namespace TT2024_A155
         }
 
         //ENVIAR CORREO PEDIDO CREADO CORRECTAMENTE
-        public void enviaCorreoPedido(string destinatario, byte[] pdf)
+        public void enviaCorreoPedido(string destinatario, byte[] pdf, string cliente)
         {
 
 
@@ -980,7 +981,7 @@ namespace TT2024_A155
 
                     bodyBuilder.Attachments.Add(fileName: "Comprobante", pdf, contentType: MimeKit.ContentType.Parse(MediaTypeNames.Application.Pdf));
 
-                    string contenido = "En los adjuntos de este correo encontraras el docuemnto PDF con toda la información de tu compra.";
+                    string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Agradecimiento por tu compra</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f5f5f5;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 20px auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            padding: 20px 0;\r\n            text-align: center;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\" alt=\"Logo de la empresa\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h2>¡Gracias por tu compra!</h2>\r\n            <p>Estimado/a " + cliente + " ,</p>\r\n            <p>Queremos agradecerte por tu compra. Esperamos que disfrutes de tu producto. Por favor reciba los datos en el PDF adjunto antes de aproabr el pedido</p>\r\n            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>\r\n            <p>¡Esperamos verte de nuevo pronto!</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Atentamente,</p>\r\n            <p>El equipo de TT2024-A155</p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
 
                     bodyBuilder.HtmlBody = contenido;
 
