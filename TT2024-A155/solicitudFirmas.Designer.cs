@@ -37,8 +37,10 @@
             lblContrasenia = new MaterialSkin.Controls.MaterialLabel();
             txtContrasenia = new MaterialSkin.Controls.MaterialSingleLineTextField();
             errorContrasenia = new ErrorProvider(components);
+            PicOJO = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pbAdvertencia).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorContrasenia).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PicOJO).BeginInit();
             SuspendLayout();
             // 
             // lblUsuario
@@ -123,17 +125,33 @@
             txtContrasenia.Size = new Size(250, 28);
             txtContrasenia.TabIndex = 6;
             txtContrasenia.TabStop = false;
-            txtContrasenia.UseSystemPasswordChar = false;
+            txtContrasenia.UseSystemPasswordChar = true;
+            txtContrasenia.Enter += txtContrasenia_Enter;
+            txtContrasenia.Leave += txtContrasenia_Leave;
             // 
             // errorContrasenia
             // 
             errorContrasenia.ContainerControl = this;
+            // 
+            // PicOJO
+            // 
+            PicOJO.Image = Properties.Resources.ojo;
+            PicOJO.Location = new Point(651, 267);
+            PicOJO.Margin = new Padding(4);
+            PicOJO.Name = "PicOJO";
+            PicOJO.Size = new Size(44, 28);
+            PicOJO.SizeMode = PictureBoxSizeMode.Zoom;
+            PicOJO.TabIndex = 21;
+            PicOJO.TabStop = false;
+            PicOJO.Visible = false;
+            PicOJO.MouseClick += PicOJO_MouseClick;
             // 
             // solicitudFirmas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(806, 370);
+            Controls.Add(PicOJO);
             Controls.Add(txtContrasenia);
             Controls.Add(lblContrasenia);
             Controls.Add(lblRol);
@@ -145,6 +163,7 @@
             Text = "Solicitud de Firma";
             ((System.ComponentModel.ISupportInitialize)pbAdvertencia).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorContrasenia).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PicOJO).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -159,5 +178,6 @@
         private MaterialSkin.Controls.MaterialLabel lblContrasenia;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtContrasenia;
         private ErrorProvider errorContrasenia;
+        private PictureBox PicOJO;
     }
 }

@@ -4,6 +4,7 @@ using NewBouncy::Org.BouncyCastle.Pqc.Crypto.Crystals.Dilithium;
 using NewBouncy::Org.BouncyCastle.Security;
 //Diseño
 using MaterialSkin.Controls;
+using TT2024_A155.Properties;
 
 
 namespace TT2024_A155
@@ -16,7 +17,7 @@ namespace TT2024_A155
             MaterialUI.loadMaterial(this);
         }
 
-        
+
         private DilithiumPublicKeyParameters publicKey;
         private DilithiumPrivateKeyParameters privateKey;
         private byte[] signature;
@@ -134,9 +135,8 @@ namespace TT2024_A155
                         }
 
                         MessageBox.Show($"Public key: {Consulta.PrettyPrint(pubEncoded)}");
-
+                        //Consulta.firmaSolicitada2(lblUsuario.Text.Trim());
                         Consulta.firmaSolicitada(lblUsuario.Text.Trim());
-
                         Inicio inicio = new Inicio();
                         inicio.lblUsuario.Text = lblUsuario.Text;
                         inicio.lblRol.Text = lblRol.Text;
@@ -146,9 +146,33 @@ namespace TT2024_A155
                     }
                 }
             }
-            
 
-            
+
+
+        }
+
+        private void PicOJO_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (PicOJO.Image.Height.ToString() == "128")
+            {
+                txtContrasenia.UseSystemPasswordChar = false;
+                PicOJO.Image = Resources.OjoCerrado;
+            }
+            else
+            {
+                txtContrasenia.UseSystemPasswordChar = true;
+                PicOJO.Image = Resources.ojo;
+            }
+        }
+
+        private void txtContrasenia_Enter(object sender, EventArgs e)
+        {
+            PicOJO.Visible = true;
+        }
+
+        private void txtContrasenia_Leave(object sender, EventArgs e)
+        {
+            PicOJO.Visible = false;
         }
     }
 }

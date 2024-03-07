@@ -16,6 +16,7 @@ using iText.Commons.Bouncycastle.Crypto;
 using MaterialSkin.Controls;
 using Microsoft.Office.Interop.Excel;
 using NewBouncy::Org.BouncyCastle.Pqc.Crypto.Crystals.Dilithium;
+using TT2024_A155.Properties;
 
 namespace TT2024_A155
 {
@@ -64,8 +65,8 @@ namespace TT2024_A155
 
             if (string.IsNullOrEmpty(txtContraLlavePrivada.Text.Trim())) { errorContraLlavePriv.SetError(txtContraLlavePrivada, "Campo obligatorio"); validacion = false; }
 
-            if(Consulta.verificarFirmaVigente(lblUsuario.Text.Trim()) == 0) { validacion = false; MessageBOX.SHowDialog(2, "Tu clave privada esta expirada o ya no es válida"); }
-            
+            if (Consulta.verificarFirmaVigente(lblUsuario.Text.Trim()) == 0) { validacion = false; MessageBOX.SHowDialog(2, "Tu clave privada esta expirada o ya no es válida"); }
+
             //-----------------------------
 
             if (validacion)
@@ -88,7 +89,7 @@ namespace TT2024_A155
                 Consulta.Log(usuario, idPedido, descripcionLog, "11");
                 this.Close();
             }
-            
+
         }
 
         private void txtDescuento_KeyPress(object sender, KeyPressEventArgs e)
@@ -104,7 +105,7 @@ namespace TT2024_A155
             if (string.IsNullOrEmpty(txtContraLlavePrivada.Text.Trim())) { errorContraLlavePriv.SetError(txtContraLlavePrivada, "Favor de ingresar la contraseña primero"); validacion = false; }
 
 
-            if(validacion)
+            if (validacion)
             {
                 //configuraciones del openfiledialog 1
                 OpenFileDialog openFile = new OpenFileDialog();
@@ -162,7 +163,7 @@ namespace TT2024_A155
                 }
                 catch (Exception ex)
                 {
-                    MessageBOX.SHowDialog(2,"Contraseña incorrecta: ");
+                    MessageBOX.SHowDialog(2, "Contraseña incorrecta: ");
                     txtprivKey.Text = "";
                     txtContraLlavePrivada.Text = "";
                 }
@@ -173,7 +174,31 @@ namespace TT2024_A155
                 }
             }
 
-            
+
+        }
+
+        private void txtContraLlavePrivada_Enter(object sender, EventArgs e)
+        {
+            PicOJO.Visible = true;
+        }
+
+        private void txtContraLlavePrivada_Leave(object sender, EventArgs e)
+        {
+            PicOJO.Visible = false;
+        }
+
+        private void PicOJO_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (PicOJO.Image.Height.ToString() == "128")
+            {
+                txtContraLlavePrivada.UseSystemPasswordChar = false;
+                PicOJO.Image = Resources.OjoCerrado;
+            }
+            else
+            {
+                txtContraLlavePrivada.UseSystemPasswordChar = true;
+                PicOJO.Image = Resources.ojo;
+            }
         }
     }
 }

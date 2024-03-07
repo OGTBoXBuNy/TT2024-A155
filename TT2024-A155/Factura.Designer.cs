@@ -62,6 +62,7 @@
             txtContraLlavePrivada = new MaterialSkin.Controls.MaterialSingleLineTextField();
             lblContrasenia = new MaterialSkin.Controls.MaterialLabel();
             errorContraLlavePriv = new ErrorProvider(components);
+            PicOJO = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dgvDatosFactura).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorNumeroFact).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorFactSinIva).BeginInit();
@@ -70,6 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)errorLlavePublica).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorLlavePrivada).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorContraLlavePriv).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PicOJO).BeginInit();
             SuspendLayout();
             // 
             // txtComentarios
@@ -419,7 +421,9 @@
             txtContraLlavePrivada.Size = new Size(285, 28);
             txtContraLlavePrivada.TabIndex = 41;
             txtContraLlavePrivada.TabStop = false;
-            txtContraLlavePrivada.UseSystemPasswordChar = false;
+            txtContraLlavePrivada.UseSystemPasswordChar = true;
+            txtContraLlavePrivada.Enter += txtContraLlavePrivada_Enter;
+            txtContraLlavePrivada.Leave += txtContraLlavePrivada_Leave;
             // 
             // lblContrasenia
             // 
@@ -438,11 +442,25 @@
             // 
             errorContraLlavePriv.ContainerControl = this;
             // 
+            // PicOJO
+            // 
+            PicOJO.Image = Properties.Resources.ojo;
+            PicOJO.Location = new Point(610, 325);
+            PicOJO.Margin = new Padding(4);
+            PicOJO.Name = "PicOJO";
+            PicOJO.Size = new Size(44, 28);
+            PicOJO.SizeMode = PictureBoxSizeMode.Zoom;
+            PicOJO.TabIndex = 42;
+            PicOJO.TabStop = false;
+            PicOJO.Visible = false;
+            PicOJO.MouseClick += PicOJO_MouseClick;
+            // 
             // Factura
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(683, 501);
+            Controls.Add(PicOJO);
             Controls.Add(txtContraLlavePrivada);
             Controls.Add(lblContrasenia);
             Controls.Add(btnAceptar);
@@ -479,6 +497,7 @@
             ((System.ComponentModel.ISupportInitialize)errorLlavePublica).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorLlavePrivada).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorContraLlavePriv).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PicOJO).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -516,5 +535,6 @@
         private MaterialSkin.Controls.MaterialSingleLineTextField txtContraLlavePrivada;
         private MaterialSkin.Controls.MaterialLabel lblContrasenia;
         private ErrorProvider errorContraLlavePriv;
+        private PictureBox PicOJO;
     }
 }

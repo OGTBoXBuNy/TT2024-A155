@@ -342,7 +342,7 @@ namespace TT2024_A155
 
             if (mes.ShowDialog() == DialogResult.OK)
             {
-                string usuario = lblUsuario.Text;
+                string usuario = lblUsuarioLog.Text;
                 string usuarioSistema = cmbNombreUsuario.Text;
                 Consulta.solicitarFirma(usuarioSistema);
                 string descripcionLog = "El administrador : " + usuario + " solicito la firma nuevamente para el usuario : " + usuarioSistema + " el día: " + DateTime.Now.ToString();

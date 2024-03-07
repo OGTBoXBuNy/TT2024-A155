@@ -2895,6 +2895,8 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     nuevacon.Open();
+                    Comando = new SqlCommand(string.Format("UPDATE firmas SET estado = 0 WHERE idUsuario = '{0}';", idUsuario(usuario)), nuevacon);
+                    Comando.ExecuteNonQuery();
                     Comando = new SqlCommand(string.Format("UPDATE usuario SET requiereFirma = 1 WHERE nombre_usuario = '{0}';", usuario), nuevacon);
                     Comando.ExecuteNonQuery();
                     MessageBOX.SHowDialog(3, "Se solicitó correctamente");
@@ -2950,12 +2952,19 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     bool x = false;
-                    Comando = new SqlCommand(string.Format("SELECT firm.estado, fechaExp FROM firmas firm LEFT OUTER JOIN usuario us ON us.idusuario = firm.idUsuario WHERE us.idusuario = '{0}' AND firm.estado = 1;", idUsuario(us)), nuevacon);
+                    DateTime fechaExp = DateTime.Now.AddYears(10);
+                    Comando = new SqlCommand(string.Format("SELECT firm.estado, fechaExp FROM firmas firm LEFT OUTER JOIN usuario us ON us.idusuario = firm.idUsuario WHERE us.nombre_usuario = '{0}' AND firm.estado = 1 order by fechaInicio desc;", us), nuevacon);
                     nuevacon.Open();
                     Lector = Comando.ExecuteReader();
-                    while (Lector.Read()) { x = Convert.ToBoolean(Lector["estado"].ToString()); }
+                    while (Lector.Read()) 
+                    { 
+                        x = Convert.ToBoolean(Lector["estado"].ToString());
+                        fechaExp = DateTime.Parse(Lector["fechaExp"].ToString());
+                    }
                     Lector.Close();
-                    if (x)
+                    int resultado = DateTime.Compare(DateTime.Now, fechaExp);
+
+                    if (x && resultado < 0)//Primera fecha es menor que la segunda
                     {
                         contador++;
                     }
@@ -2976,9 +2985,6 @@ namespace TT2024_A155
      
         public void firmaSolicitada(string usuario)
         {
-
-            
-
             try
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
@@ -2986,16 +2992,11 @@ namespace TT2024_A155
 
 
                     nuevacon.Open();
-                    //Comando = new SqlCommand("INSERT INTO firmas (idUsuario, fechaInicio, fechaExp) VALUES(@idUsuario,@fechaInicio,@fechaExp);", nuevacon);
-                    //DateTime hoy = DateTime.Now;
-                    //string fechaInicio = hoy.Date.Year.ToString() + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
-                    //string fechaExp = "2028" + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
-                    //Comando.Parameters.AddWithValue("@idUsuario", idUsuario(usuario));
-                    //Comando.Parameters.AddWithValue("@fechaInicio", fechaInicio);
-                    //Comando.Parameters.AddWithValue("@fechaExp", fechaExp);
-                    
-                    //Comando.ExecuteNonQuery();
-
+                    DateTime hoy = DateTime.Now;
+                    string fechaInicio = hoy.Date.Year.ToString() + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
+                    string fechaExp = hoy.Date.AddYears(4).Year.ToString() + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
+                    Comando = new SqlCommand(string.Format("INSERT INTO firmas (idUsuario, fechaInicio, fechaExp) VALUES ('{0}', '{1}', '{2}')", idUsuario(usuario), fechaInicio, fechaExp), nuevacon);
+                    Comando.ExecuteNonQuery();
 
                     Comando = new SqlCommand(string.Format("UPDATE usuario SET requiereFirma = 0 WHERE nombre_usuario = '{0}';", usuario), nuevacon);
 
@@ -3013,6 +3014,31 @@ namespace TT2024_A155
 
         }
 
+        //public void firmaSolicitada2(string usuario)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection nuevacon = Conexion.conexion())
+        //        {
+        //            nuevacon.Open();
+        //            DateTime hoy = DateTime.Now;
+        //            string fechaInicio = hoy.Date.Year.ToString() + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
+        //            string fechaExp = "2028" + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
+        //            Comando = new SqlCommand(string.Format("INSERT INTO firmas (idUsuario, fechaInicio, fechaExp) VALUES ('{0}', '{1}', '{2}')", idUsuario(usuario),fechaInicio,fechaExp), nuevacon);
+                    
+        //            Comando.ExecuteNonQuery();
+        //            nuevacon.Close();
+
+        //        }
+
+        //    }
+        //    catch (Exception EX)
+        //    {
+        //        MessageBox.Show("Error registrar la firma: " + EX.Message);
+        //    }
+
+
+        //}
 
         //public void firmaSolicitada(string usuario)
         //{
@@ -3037,7 +3063,7 @@ namespace TT2024_A155
         //            Comando = new SqlCommand(string.Format("UPDATE usuario SET requiereFirma = 0 WHERE nombre_usuario = '{0}';", usuario), nuevacon);
         //            Comando.ExecuteNonQuery();
 
-                   
+
 
         //            MessageBOX.SHowDialog(3, "Todo se realizó exitosamente");
         //            nuevacon.Close();
