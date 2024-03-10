@@ -152,7 +152,7 @@
             btnBuscarArchivo.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnBuscarArchivo.Depth = 0;
             btnBuscarArchivo.Icon = null;
-            btnBuscarArchivo.Location = new Point(516, 144);
+            btnBuscarArchivo.Location = new Point(516, 147);
             btnBuscarArchivo.Margin = new Padding(4, 6, 4, 6);
             btnBuscarArchivo.MouseState = MaterialSkin.MouseState.HOVER;
             btnBuscarArchivo.Name = "btnBuscarArchivo";
@@ -169,7 +169,7 @@
             btnBuscarLlavePub.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnBuscarLlavePub.Depth = 0;
             btnBuscarLlavePub.Icon = null;
-            btnBuscarLlavePub.Location = new Point(516, 192);
+            btnBuscarLlavePub.Location = new Point(516, 788);
             btnBuscarLlavePub.Margin = new Padding(4, 6, 4, 6);
             btnBuscarLlavePub.MouseState = MaterialSkin.MouseState.HOVER;
             btnBuscarLlavePub.Name = "btnBuscarLlavePub";
@@ -178,6 +178,7 @@
             btnBuscarLlavePub.TabIndex = 8;
             btnBuscarLlavePub.Text = "...";
             btnBuscarLlavePub.UseVisualStyleBackColor = true;
+            btnBuscarLlavePub.Visible = false;
             btnBuscarLlavePub.Click += btnBuscarLlavePub_Click;
             // 
             // lblRutaLlavePub
@@ -186,19 +187,20 @@
             lblRutaLlavePub.Depth = 0;
             lblRutaLlavePub.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblRutaLlavePub.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblRutaLlavePub.Location = new Point(12, 196);
+            lblRutaLlavePub.Location = new Point(12, 792);
             lblRutaLlavePub.MouseState = MaterialSkin.MouseState.HOVER;
             lblRutaLlavePub.Name = "lblRutaLlavePub";
             lblRutaLlavePub.Size = new Size(169, 24);
             lblRutaLlavePub.TabIndex = 7;
             lblRutaLlavePub.Text = "Ruta Llave publica:";
+            lblRutaLlavePub.Visible = false;
             // 
             // txtRutaLlavePublica
             // 
             txtRutaLlavePublica.Depth = 0;
             txtRutaLlavePublica.Enabled = false;
             txtRutaLlavePublica.Hint = "";
-            txtRutaLlavePublica.Location = new Point(196, 196);
+            txtRutaLlavePublica.Location = new Point(196, 792);
             txtRutaLlavePublica.MaxLength = 32767;
             txtRutaLlavePublica.MouseState = MaterialSkin.MouseState.HOVER;
             txtRutaLlavePublica.Name = "txtRutaLlavePublica";
@@ -210,6 +212,7 @@
             txtRutaLlavePublica.TabIndex = 6;
             txtRutaLlavePublica.TabStop = false;
             txtRutaLlavePublica.UseSystemPasswordChar = false;
+            txtRutaLlavePublica.Visible = false;
             // 
             // btnVerificar
             // 
@@ -217,7 +220,7 @@
             btnVerificar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnVerificar.Depth = 0;
             btnVerificar.Icon = null;
-            btnVerificar.Location = new Point(446, 285);
+            btnVerificar.Location = new Point(446, 242);
             btnVerificar.MouseState = MaterialSkin.MouseState.HOVER;
             btnVerificar.Name = "btnVerificar";
             btnVerificar.Primary = true;
@@ -414,10 +417,11 @@
             cmbFactura.AutoCompleteMode = AutoCompleteMode.Suggest;
             cmbFactura.AutoCompleteSource = AutoCompleteSource.ListItems;
             cmbFactura.FormattingEnabled = true;
-            cmbFactura.Location = new Point(196, 251);
+            cmbFactura.Location = new Point(196, 200);
             cmbFactura.Name = "cmbFactura";
             cmbFactura.Size = new Size(313, 28);
             cmbFactura.TabIndex = 37;
+            cmbFactura.SelectedIndexChanged += cmbFactura_SelectedIndexChanged;
             // 
             // lblNumFact
             // 
@@ -425,7 +429,7 @@
             lblNumFact.Depth = 0;
             lblNumFact.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblNumFact.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblNumFact.Location = new Point(12, 251);
+            lblNumFact.Location = new Point(12, 200);
             lblNumFact.MouseState = MaterialSkin.MouseState.HOVER;
             lblNumFact.Name = "lblNumFact";
             lblNumFact.Size = new Size(78, 24);
@@ -513,7 +517,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1460, 790);
+            ClientSize = new Size(1460, 785);
             Controls.Add(lblTotal);
             Controls.Add(lblImpuestos);
             Controls.Add(lblSubTotal);

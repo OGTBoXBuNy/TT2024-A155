@@ -218,7 +218,7 @@
             // label5
             // 
             label5.BackColor = Color.FromArgb(106, 109, 119);
-            label5.Location = new Point(-5, 260);
+            label5.Location = new Point(-5, 264);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(427, 2);

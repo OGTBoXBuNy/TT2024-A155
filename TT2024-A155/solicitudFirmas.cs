@@ -136,7 +136,7 @@ namespace TT2024_A155
 
                         MessageBox.Show($"Public key: {Consulta.PrettyPrint(pubEncoded)}");
                         //Consulta.firmaSolicitada2(lblUsuario.Text.Trim());
-                        Consulta.firmaSolicitada(lblUsuario.Text.Trim());
+                        Consulta.firmaSolicitada(lblUsuario.Text.Trim(), Consulta.PrettyPrint(pubEncoded));
                         Inicio inicio = new Inicio();
                         inicio.lblUsuario.Text = lblUsuario.Text;
                         inicio.lblRol.Text = lblRol.Text;

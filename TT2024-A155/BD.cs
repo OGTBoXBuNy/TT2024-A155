@@ -34,8 +34,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using QRCoder;
 using iText.Commons.Bouncycastle.Crypto;
 using NewBouncy::Org.BouncyCastle.Pqc.Crypto.Crystals.Dilithium;
-
-
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace TT2024_A155
 {
@@ -51,7 +50,7 @@ namespace TT2024_A155
 
 
         //ENVIAR CORREO USUARIO CREADO CORRECTAMENTE
-        public void enviaCorreoPedido(string destinatario, string usuario)
+        public void nuevoUsuarioCorreo(string destinatario, string usuario, string codigo)
         {
 
 
@@ -78,7 +77,7 @@ namespace TT2024_A155
 
 
 
-                    string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>¡Bienvenido!</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f8f8f8;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 0 auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            text-align: center;\r\n            padding: 20px 0;\r\n        }\r\n\r\n        .content h1 {\r\n            color: #007bff;\r\n        }\r\n\r\n        .content p {\r\n            color: #333333;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h1>¡Bienvenido " + usuario +" al sistema de TT-2024-A155!</h1>\r\n            <p>Estamos encantados de tenerte como parte de nuestros clientes.</p>\r\n            <p>Desde ahora, podrás disfrutar de todas las funciones y productos que ofrecemos.</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>\r\n            <p>¡Gracias por unirte a nosotros!</p>\r\n            <p><a href=\"https://www.escom.ipn.mx/\">Contacto</a></p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
+                    string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>¡Bienvenido!</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f8f8f8;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 0 auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            text-align: center;\r\n            padding: 20px 0;\r\n        }\r\n\r\n        .content h1 {\r\n            color: #007bff;\r\n        }\r\n\r\n        .content p {\r\n            color: #333333;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h1>¡Bienvenido " + usuario + " al sistema de TT-2024-A155!</h1>\r\n             <p>Estamos encantados de tenerte como parte de nuestros clientes.</p>\r\n   <p>Para finalizar el registro solo accede a la cuenta con el siguiente código: <b>" + codigo + "</b></p> <p><b>Recuerda que solo tienes 5 minutos para usar este código</b></p>        <p>Desde ahora, podrás disfrutar de todas las funciones y productos que ofrecemos.</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>\r\n            <p>¡Gracias por unirte a nosotros!</p>\r\n            <p><a href=\"https://www.escom.ipn.mx/\">Contacto</a></p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
 
                     bodyBuilder.HtmlBody = contenido;
 
@@ -162,18 +161,73 @@ namespace TT2024_A155
 
                     if (validarUsuario(us) == 1)
                     {
-                        string contraHash = "";
-                        Comando = new SqlCommand(string.Format("SELECT contrasenia, idrol FROM usuario WHERE nombre_usuario = '{0}'", us), nuevacon);
                         nuevacon.Open();
+
+                        Comando = new SqlCommand(string.Format("SELECT vcuenta.idcodigo, us.idrol, vcuenta.fechaExpiracion, us.correo, us.nombre_real FROM verificarCuenta vcuenta LEFT OUTER JOIN usuario us ON us.idusuario = vcuenta.idUsuario WHERE us.idUsuario = '{0}' AND vcuenta.codigo = '{1}' AND us.requiereVerificar = 1 order by idcodigo desc;", idUsuario(us), contra), nuevacon);
+
+                        Lector = Comando.ExecuteReader();
+                        if (Lector.Read())
+                        {
+                            
+                            contador[1] = Convert.ToInt32(Lector["idrol"].ToString());
+                            DateTime fecha = DateTime.Parse(Lector["fechaExpiracion"].ToString());
+                            string fechaExp = fecha.ToString("dd-MM-yyyy HH:mm:ss");
+                            string correo = Lector["correo"].ToString();
+                            string nombre = Lector["nombre_real"].ToString();
+
+
+                            int valor = DateTime.Compare(DateTime.Now, DateTime.Parse(fechaExp));
+
+                            if(valor < 0)
+                            {
+                                Lector.Close();
+                                Comando = new SqlCommand(string.Format("UPDATE usuario SET estado = 1, requiereVerificar = 0 WHERE nombre_usuario = '{0}';", us), nuevacon);
+                                Comando.ExecuteNonQuery();
+                                contador[0]++;
+                                MessageBOX.SHowDialog(3, "Excelente has verificado tu cuenta: " + nombre);
+                                return contador;
+
+                            }
+                            else
+                            {
+                                Lector.Close();
+                                string codigo = contraAleatoia();//CODIGO PARA VERIFICAR EL USUARIO
+                                DateTime fechaExpCodigo = DateTime.Now.AddMinutes(5);
+                                string fechaExpNueva = fechaExpCodigo.ToString("dd-MM-yyyy HH:mm:ss.fff");
+                                Comando = new SqlCommand(string.Format("INSERT INTO verificarCuenta (codigo, fechaExpiracion, idUsuario) VALUES ('{0}', '{1}', '{2}');", codigo, fechaExpNueva, idUsuario(us)), nuevacon);
+                                Comando.ExecuteNonQuery();
+
+                                nuevoUsuarioCorreo(correo, nombre, codigo);
+                                MessageBOX.SHowDialog(2, "Parece ser que ese código a expirado, no te preocupes ya se envío uno nuevo");
+                            }
+
+                            
+                            return contador;
+                        }
+                        Lector.Close();
+
+
+                        string contraHash = "";
+                        string nombreUsuario = "";
+                        Comando = new SqlCommand(string.Format("SELECT contrasenia, idrol, nombre_real FROM usuario WHERE nombre_usuario = '{0}'", us), nuevacon);
                         Lector = Comando.ExecuteReader();
                         if (Lector.Read())
                         {
                             contraHash = Lector["contrasenia"].ToString();
                             contador[1] = Convert.ToInt32(Lector["idrol"].ToString());
+                            nombreUsuario = Lector["nombre_real"].ToString();
                         }
 
                         if (BC.Verify(contra, contraHash))
+                        {
                             contador[0]++;
+                            MessageBOX.SHowDialog(3, "Bienvenido de vuelta: " + nombreUsuario);
+                        }
+                        else
+                        {
+                            MessageBOX.SHowDialog(2, "Datos incorrectos");
+                        }
+                            
                     }
 
 
@@ -236,6 +290,54 @@ namespace TT2024_A155
             }
         }
 
+        //----------------------------------VALIDAR SI YA EXISTE UN USUARIO DE FINANZAS EN LA BASE----------------------------------------------
+        public int validarExistenciaUsuarioFinanzas()
+        {
+            int contador = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    Comando = new SqlCommand("SELECT * FROM usuario WHERE idrol = 3;", nuevacon);
+                    nuevacon.Open();
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read()) { contador++; }
+                    Lector.Close();
+                    nuevacon.Close();
+                }
+                return contador;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return contador;
+            }
+        }
+
+        //----------------------------------VALIDAR NUMERO FACTURA EXISTENTE----------------------------------------------
+        public int validarNumeroFactura(string numeroFactura)
+        {
+            int contador = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    Comando = new SqlCommand(string.Format("SELECT * FROM factura WHERE num_factura = '{0}';", numeroFactura), nuevacon);
+                    nuevacon.Open();
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read()) { contador++; }
+                    Lector.Close();
+                    nuevacon.Close();
+                }
+                return contador;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return contador;
+            }
+        }
+
 
         //----------------------------------REGISTRAR USUARIO----------------------------------------------
         public int registroUsuario(string rol, string us, string nombre, string contra, string calle,
@@ -252,8 +354,9 @@ namespace TT2024_A155
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
                     nuevacon.Open();
-
-                    if (validarUsuario(us) == 0)
+                    int usuarioExistente = validarUsuario(us);
+                    int correoExistente = validarCorreoUsuario(correo);
+                    if (usuarioExistente == 0 && correoExistente == 0)
                     {
                         Comando = new SqlCommand(string.Format("SELECT idrol FROM ROL WHERE nombre = '{0}'", rol), nuevacon);
                         Lector = Comando.ExecuteReader();
@@ -262,12 +365,22 @@ namespace TT2024_A155
                         string contraHash = BC.HashPassword(contra);
                         Comando = new SqlCommand(string.Format("INSERT INTO usuario (idrol,nombre_usuario,nombre_real,contrasenia,calle,colonia,noExt,noInt,cp,ciudad,telefono,correo,requiereFirma) VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}');", x, us, nombre, contraHash, calle, colonia, noExt, noInt, cp, ciudad, telefono, correo, requiereFirma), nuevacon);
                         Comando.ExecuteNonQuery();
-                        MessageBOX.SHowDialog(3, "Se registro correctamente!");
-                        enviaCorreoPedido(correo, nombre);
+
+                        string codigo = contraAleatoia();//CODIGO PARA VERIFICAR EL USUARIO
+                        DateTime fechaExpCodigo = DateTime.Now.AddMinutes(5);
+                        string fechaExp = fechaExpCodigo.ToString("dd-MM-yyyy HH:mm:ss.fff");
+                        Comando = new SqlCommand(string.Format("INSERT INTO verificarCuenta (codigo, fechaExpiracion, idUsuario) VALUES ('{0}', '{1}', '{2}');", codigo, fechaExp, idUsuario(us) ), nuevacon);
+                        Comando.ExecuteNonQuery();
+
+
+                        MessageBOX.SHowDialog(3, "Datos capturados, para finalizar tu registro revisa tu bandeja de entrada");
+                        nuevoUsuarioCorreo(correo, nombre, codigo);
                     }
                     else
                     {
-                        MessageBOX.SHowDialog(2, "Ya existe ese nombre de usuario");
+                        if(usuarioExistente == 1)
+                            MessageBOX.SHowDialog(2, "Ya existe ese nombre de usuario");
+                        else if(correoExistente == 1) { MessageBOX.SHowDialog(2, "Ya existe ese correo registrado"); }
                     }
                     nuevacon.Close();
                 }
@@ -333,14 +446,14 @@ namespace TT2024_A155
 
 
                     ;
-                    message.Subject = "Recuperar Acceso";
+                    message.Subject = "RESTABLECIMIENTO DE CONTRASEÑA";
 
 
                     var bodyBuilder = new BodyBuilder();
 
 
 
-                    string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Restablecimiento de Contraseña</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f5f5f5;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 20px auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            padding: 20px 0;\r\n            text-align: center;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\" alt=\"Logo de la empresa\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h2>Restablecimiento de Contraseña</h2>\r\n            <p>Estimado/a " + cliente + ",</p>\r\n            <p>Te informamos que se ha restablecido tu contraseña con éxito.</p>\r\n          <p>Su nueva contraseña es: " + contra + "  </p>\r\n            <p>Si realizaste esta acción, puedes ignorar este mensaje. Si no solicitaste este cambio, por favor, ponte en contacto con nosotros de inmediato.</p>\r\n            <p>Gracias.</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Atentamente,</p>\r\n            <p>El equipo de TT2024-A155</p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
+                    string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Restablecimiento de Contraseña</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f5f5f5;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 20px auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            padding: 20px 0;\r\n            text-align: center;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\" alt=\"Logo de la empresa\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h2>Restablecimiento de Contraseña</h2>\r\n            <p>Estimado/a " + cliente + ",</p>\r\n            <p>Te informamos que se ha restablecido tu contraseña con éxito.</p>\r\n          <p>Su nueva contraseña temporal es: <b>" + contra + "  </b></p>\r\n            <p>Si realizaste esta acción, puedes ignorar este mensaje. Si no solicitaste este cambio, por favor, ponte en contacto con nosotros de inmediato.</p>\r\n            <p>Gracias.</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Atentamente,</p>\r\n            <p>El equipo de TT2024-A155</p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
 
                     bodyBuilder.HtmlBody = contenido;
 
@@ -752,11 +865,8 @@ namespace TT2024_A155
                         iText.Kernel.Pdf.PdfReader pdfReader = new iText.Kernel.Pdf.PdfReader(Application.StartupPath + "\\Comprobante.pdf");
 
 
-
-
                         iText.Kernel.Pdf.PdfDocument pdfdoc = new iText.Kernel.Pdf.PdfDocument(pdfReader, pdfWriter);
-
-
+                        
                         datosPedidoPDF(dgvDatosPDF, idPedido);
 
                         int NumeroFila = NumeroFilas(idPedido);
@@ -878,6 +988,11 @@ namespace TT2024_A155
                                         .ShowText((Items).ToString())
                                         .EndText();
 
+
+                        //TESTING METADATA//
+                        //pdfdoc.GetDocumentInfo().SetMoreInfo("TEST", "18AC3E7343F016890C510E93F935261169D9E3F565436429830FAF0934F4F8E4");
+                        ////////////////
+
                         pdfdoc.Close();
 
                         pdf = File.ReadAllBytes(fileRoute.FileName);
@@ -920,6 +1035,32 @@ namespace TT2024_A155
             {
                 MessageBox.Show(ex.Message);
                 return idVendedor;
+            }
+
+        }
+
+        //OBTENER EL NOMBRE DE USUARIO DEL UNICO USUARIO DE FINANZAS ACTIVO EN SU MOMENTO
+        public string nombreUsuarioFinanzas()
+        {
+            string nombre = "";
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+
+                    Comando = new SqlCommand("SELECT nombre_usuario FROM usuario WHERE idrol = 3 AND estado = 1;", nuevacon);
+                    nuevacon.Open();
+                    Lector = Comando.ExecuteReader();
+                    if (Lector.Read())
+                        nombre = Lector["nombre_usuario"].ToString();
+                    nuevacon.Close();
+                }
+                return nombre;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return nombre;
             }
 
         }
@@ -974,14 +1115,14 @@ namespace TT2024_A155
 
                     message.To.Add(new MailboxAddress("", destinatario));
 
-                    message.Subject = "Muchas Gracias Por Su Compra!!!!";
+                    message.Subject = "Confirmación de compra";
 
 
                     var bodyBuilder = new BodyBuilder();
 
                     bodyBuilder.Attachments.Add(fileName: "Comprobante", pdf, contentType: MimeKit.ContentType.Parse(MediaTypeNames.Application.Pdf));
 
-                    string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Agradecimiento por tu compra</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f5f5f5;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 20px auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            padding: 20px 0;\r\n            text-align: center;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\" alt=\"Logo de la empresa\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h2>¡Gracias por tu compra!</h2>\r\n            <p>Estimado/a " + cliente + " ,</p>\r\n            <p>Queremos agradecerte por tu compra. Esperamos que disfrutes de tu producto. Por favor reciba los datos en el PDF adjunto antes de aproabr el pedido</p>\r\n            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>\r\n            <p>¡Esperamos verte de nuevo pronto!</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Atentamente,</p>\r\n            <p>El equipo de TT2024-A155</p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
+                    string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Agradecimiento por tu compra</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f5f5f5;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 20px auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            padding: 20px 0;\r\n            text-align: center;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\" alt=\"Logo de la empresa\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h2>¡Gracias por tu compra!</h2>\r\n            <p>Estimado/a " + cliente + " ,</p>\r\n            <p>Queremos agradecerte por tu compra. Esperamos que disfrutes de tu producto.</p><p><b> Por favor revise los datos en el PDF adjunto antes de aproabar el pedido</b></p>\r\n            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>\r\n            <p>¡Esperamos verte de nuevo pronto!</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Atentamente,</p>\r\n            <p>El equipo de TT2024-A155</p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
 
                     bodyBuilder.HtmlBody = contenido;
 
@@ -2401,8 +2542,70 @@ namespace TT2024_A155
             bDExcel.generarExcelTest(ruta, fecha1, fecha2);
         }
 
+
+        //ENVIAR CORREO PEDIDO CREADO CORRECTAMENTE
+        public void enviaCorreoFactura(string destinatario, byte[] pdf, string cliente, string numeroFactura)
+        {
+
+
+            {
+
+                string senderNombre = "TT2024-A155";
+                string senderCorreo = "correos-jeic@jeic.com.mx";
+                string senderAppPass = "dgyvipbypyupufpm";//xldsjobozxjsrmpk
+
+
+
+                try
+                {
+
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress(senderNombre, senderCorreo));
+
+                    message.To.Add(new MailboxAddress("", destinatario));
+
+                    message.Subject = "Factura Generada";
+
+
+                    var bodyBuilder = new BodyBuilder();
+
+                    bodyBuilder.Attachments.Add(fileName: "Factura", pdf, contentType: MimeKit.ContentType.Parse(MediaTypeNames.Application.Pdf));
+
+                    string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Notificación de Factura Generada</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f5f5f5;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 20px auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            padding: 20px 0;\r\n            text-align: center;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\" alt=\"ESCOM\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h2>¡Factura Generada!</h2>\r\n            <p>Estimado/a " + cliente + "</p>\r\n            <p>Te informamos que se ha generado la factura: <b>" + numeroFactura +"</b></p>\r\n            <p>Puedes revisar los detalles de la factura en tu cuenta.</p>\r\n            <p>Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos.</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Atentamente,</p>\r\n            <p>El equipo de TT2024-A155</p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
+
+                    bodyBuilder.HtmlBody = contenido;
+
+                    message.Body = bodyBuilder.ToMessageBody();
+
+
+
+                    using (var client = new SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, false);
+
+                        // Note: only needed if the SMTP server requires authentication
+                        client.Authenticate(senderCorreo, senderAppPass);
+
+                        client.Send(message);
+                        client.Disconnect(true);
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+
+                }
+
+            }
+
+        }
+
+        //ENVIAR CORREO FACTURA END
+
         //----------------------GENERAR PDF FACTURA
-        public byte[] generarFactura(string idPedido, DataGridView dgvDatosFactura)
+        public byte[] generarFactura(string idPedido, DataGridView dgvDatosFactura, string usuarioFinanzas)
         {
             byte[] pdf = new byte[] {0x20};
             try
@@ -2459,6 +2662,8 @@ namespace TT2024_A155
                         string impuestos = Convert.ToString((Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[6].Value.ToString()) - Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[5].Value.ToString())));
                         decimal impuestosX = Convert.ToDecimal(impuestos);
                         decimal subtotal = Convert.ToDecimal(dgvDatosFactura.Rows[0].Cells[5].Value.ToString());
+
+                        string nombreRealUsuarioFinanzas = nombreVendedor(idUsuario(usuarioFinanzas).ToString());
 
                         //"\r\n
 
@@ -2520,6 +2725,17 @@ namespace TT2024_A155
                                 .MoveText(x + 463, y + 160)
                                 .ShowText("$" + dgvDatosFactura.Rows[0].Cells[6].Value.ToString())
                                 .EndText();
+
+                        //QUIEN ELABBORÓ LA FACTURA
+                        canvas.BeginText().SetFontAndSize(font, 9)
+                                .MoveText(x + 275, y + 100)
+                                .ShowText("Factura firmada por: " + nombreRealUsuarioFinanzas)
+                                .EndText();
+
+                        canvas.BeginText().SetFontAndSize(font, 9)
+                               .MoveText(x + 275, y + 90)
+                               .ShowText("Con nombre de usuario: " + usuarioFinanzas)
+                               .EndText();
 
                         //CADENA DE SELLO
                         //canvas.BeginText().SetFontAndSize(font, 9)
@@ -2586,7 +2802,7 @@ namespace TT2024_A155
                         pdf = File.ReadAllBytes(fileRoute.FileName);
 
 
-
+                        enviaCorreoFactura(dgvDatosFactura.Rows[0].Cells[15].Value.ToString(), pdf, dgvDatosFactura.Rows[0].Cells[7].Value.ToString(), dgvDatosFactura.Rows[0].Cells[1].Value.ToString());
                         MessageBOX.SHowDialog(3, "Factura generada correctamente (PDF)");
                         
                     }
@@ -2631,7 +2847,10 @@ namespace TT2024_A155
 
         }
 
-        public int registrarFactura(string idPedido, string iddatos_fiscales_emp, string iddatos_fiscales_cliente, string num_factura, string fecha_emision, string fact_sinIVA, string descuento, string fact_neto, string comentario, DataGridView dgvDatosFactura, DilithiumPrivateKeyParameters privateKey)
+
+
+
+        public int registrarFactura(string idPedido, string iddatos_fiscales_emp, string iddatos_fiscales_cliente, string num_factura, string fecha_emision, string fact_sinIVA, string descuento, string fact_neto, string comentario, DataGridView dgvDatosFactura, DilithiumPrivateKeyParameters privateKey, string usuarioFinanzas, string idFirma)
         {
 
             int i;
@@ -2649,7 +2868,7 @@ namespace TT2024_A155
                     //factura = generarFactura(idPedido, dgvDatosFactura);
                     //firma = firmar(privateKey, factura);
 
-                    Comando = new SqlCommand("INSERT INTO factura (iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentario) VALUES (@iddatos_fiscales_emp, @iddatos_fiscales_cliente, @num_factura, @fecha_emision, @fact_sinIVA, @descuento, @fact_neto, @comentario);", nuevacon);
+                    Comando = new SqlCommand("INSERT INTO factura (iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentario, idfirma) VALUES (@iddatos_fiscales_emp, @iddatos_fiscales_cliente, @num_factura, @fecha_emision, @fact_sinIVA, @descuento, @fact_neto, @comentario, @idfirma);", nuevacon);
 
                     Comando.Parameters.AddWithValue("@iddatos_fiscales_emp", Convert.ToInt32(iddatos_fiscales_emp));
                     Comando.Parameters.AddWithValue("@iddatos_fiscales_cliente", Convert.ToInt32(iddatos_fiscales_cliente));
@@ -2659,6 +2878,7 @@ namespace TT2024_A155
                     Comando.Parameters.AddWithValue("@descuento", Convert.ToDouble(descuento));
                     Comando.Parameters.AddWithValue("@fact_neto", Convert.ToDouble(fact_neto));
                     Comando.Parameters.AddWithValue("@comentario", comentario);
+                    Comando.Parameters.AddWithValue("@idfirma", idFirma);
                     //Comando.Parameters.AddWithValue("@firma", PrettyPrint(firma));
 
                     //Para saber si la inserción se hizo correctamente
@@ -2682,7 +2902,7 @@ namespace TT2024_A155
                     if (i == 1)
                     {
                         
-                        factura = generarFactura(idPedido, dgvDatosFactura);
+                        factura = generarFactura(idPedido, dgvDatosFactura, usuarioFinanzas);
                         firma = firmar(privateKey, factura);
 
                         Comando = new SqlCommand("UPDATE factura SET firma = @firma WHERE idfactura = @idfactura;", nuevacon);
@@ -2984,7 +3204,7 @@ namespace TT2024_A155
         //----------------------------------ACTUALIZAR QUE YA SE GENERO LA FIRMA PAR EL USUARIO DE FINANZAS ----------------------------------------------
 
      
-        public void firmaSolicitada(string usuario)
+        public void firmaSolicitada(string usuario, string pk)
         {
             try
             {
@@ -2996,7 +3216,7 @@ namespace TT2024_A155
                     DateTime hoy = DateTime.Now;
                     string fechaInicio = hoy.Date.Year.ToString() + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
                     string fechaExp = hoy.Date.AddYears(4).Year.ToString() + "-" + hoy.Date.Month.ToString() + "-" + hoy.Date.Date.Day.ToString();
-                    Comando = new SqlCommand(string.Format("INSERT INTO firmas (idUsuario, fechaInicio, fechaExp) VALUES ('{0}', '{1}', '{2}')", idUsuario(usuario), fechaInicio, fechaExp), nuevacon);
+                    Comando = new SqlCommand(string.Format("INSERT INTO firmas (idUsuario, fechaInicio, fechaExp, pk) VALUES ('{0}', '{1}', '{2}', '{3}')", idUsuario(usuario), fechaInicio, fechaExp, pk), nuevacon);
                     Comando.ExecuteNonQuery();
 
                     Comando = new SqlCommand(string.Format("UPDATE usuario SET requiereFirma = 0 WHERE nombre_usuario = '{0}';", usuario), nuevacon);
@@ -3313,6 +3533,66 @@ namespace TT2024_A155
                 MessageBox.Show("Error: " + EX.Message);
             }
             return datos;
+        }
+
+
+        //OBTENER EL ID DE LA LLAVE PUBLICA VALIDA PARA GUARDARLA PARA LA FACTURA
+        public string obtenerIdFirmaPk()
+        {
+            string idfirma = "";
+
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    Comando = new SqlCommand("SELECT idfirma, pk FROM firmas WHERE estado =1 order by fechaExp desc;", nuevaConexion);
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        idfirma = Lector["idfirma"].ToString();//ID FIRMA
+                    }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return idfirma;
+        }
+
+
+        //OBTENER LA LLAVE PUBLICA QUE SE USO PARA FIRMAR LA FACTURA EN CUESTION
+        public string obtenerPkNumFactura(string numeroFactura)
+        {
+            string pk = "";
+
+            try
+            {
+                using (SqlConnection nuevaConexion = Conexion.conexion())
+                {
+                    nuevaConexion.Open();
+
+                    Comando = new SqlCommand(string.Format("SELECT f.pk FROM factura fact LEFT OUTER JOIN firmas f ON f.idfirma = fact.idfirma WHERE fact.num_factura = '{0}';", numeroFactura), nuevaConexion);
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read())
+                    {
+                        pk = Lector["pk"].ToString();//PUBLIC KEY
+                    }
+                    Lector.Close();
+
+                    nuevaConexion.Close();
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("Error: " + EX.Message);
+            }
+            return pk;
         }
 
     }

@@ -11,6 +11,9 @@ using iText.Kernel.Pdf.Canvas;
 using System.Windows.Forms;
 using NewBouncy::Org.BouncyCastle.Pqc.Crypto.Utilities;
 using Org.BouncyCastle.Crypto;
+using iText.Kernel.Pdf;
+using DocumentFormat.OpenXml.Spreadsheet;
+
 
 namespace TT2024_A155
 {
@@ -416,11 +419,17 @@ namespace TT2024_A155
 
             if (openFile.ShowDialog() == DialogResult.OK)
             {
-                txtRuta.Text = openFile.FileName;
-                string fpath = @txtRuta.Text;
-                byteArray = File.ReadAllBytes(fpath);
-                if (byteArray != null)
-                    MessageBox.Show("found file");
+                iText.Kernel.Pdf.PdfReader pdfReader = new iText.Kernel.Pdf.PdfReader(openFile.FileName);
+                iText.Kernel.Pdf.PdfDocument pdfdoc = new iText.Kernel.Pdf.PdfDocument(pdfReader);
+                
+                iText.Kernel.Pdf.PdfDocumentInfo info = pdfdoc.GetDocumentInfo();
+                string hash = info.GetMoreInfo("TEST");
+                MessageBox.Show(hash);
+                ////txtRuta.Text = openFile.FileName;
+                ////string fpath = @txtRuta.Text;
+                ////byteArray = File.ReadAllBytes(fpath);
+                ////if (byteArray != null)
+                ////    MessageBox.Show("found file");
             }
         }
     }

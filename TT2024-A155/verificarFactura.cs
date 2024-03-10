@@ -61,6 +61,13 @@ namespace TT2024_A155
             cmbDispositivos.SelectedIndex = 0;
             FinalFrame = new VideoCaptureDevice();
 
+
+            //CARGANDO LA LLAVE PUBLICA DEL USUARIO DE FINANZAS
+
+            //byte[] bytes = System.Convert.FromBase64String(Consulta.obtenerPKFinanzas());
+            //publicKey = new DilithiumPublicKeyParameters(DilithiumParameters.Dilithium3, bytes);
+            //MessageBox.Show("Llave publica en bytes longitud: " + bytes.Length + "Cadena original:" + Consulta.PrettyPrint(bytes));
+
         }
 
         private void btnBuscarArchivo_Click(object sender, EventArgs e)
@@ -160,9 +167,9 @@ namespace TT2024_A155
 
             var verified = bob.VerifySignature(byteArray, signature);
 
-            if(verified == true)
+            if (verified == true)
             {
-                
+
                 txtDatosProveedor.Visible = true;
                 Consulta.datosFacturaPDF(dgvFactura, datos[0]);
                 double impuestos = double.Parse(dgvFactura.Rows[0].Cells[6].Value.ToString()) - double.Parse(dgvFactura.Rows[0].Cells[5].Value.ToString());
@@ -173,11 +180,11 @@ namespace TT2024_A155
                     + " \r\n" + "CIF: " + dgvFactura.Rows[0].Cells[16].Value.ToString();
 
                 txtComentario.Text = dgvFactura.Rows[0].Cells[3].Value.ToString();
-                lblfechaEmision.Text = "Fecha Emisión: " + dgvFactura.Rows[0].Cells[2].Value.ToString().Substring(0,10);
+                lblfechaEmision.Text = "Fecha Emisión: " + dgvFactura.Rows[0].Cells[2].Value.ToString().Substring(0, 10);
                 lblSubTotal.Text = "SubTotal: $ " + dgvFactura.Rows[0].Cells[5].Value.ToString();
                 lblImpuestos.Text = "Impuestos: $ " + impuestos.ToString("0.##");
                 lblTotal.Text = "Total: $ " + dgvFactura.Rows[0].Cells[6].Value.ToString();
-                
+
 
                 dgvFactura.Columns[0].Visible = false;//Datos fiscales empresa
                 dgvFactura.Columns[1].Visible = false;//numero de factura
@@ -230,43 +237,43 @@ namespace TT2024_A155
                     dgvFactura.Rows[0].Cells[12].Value.ToString() + " " + dgvFactura.Rows[0].Cells[13].Value.ToString() + " \r\n" + "Cel: " + dgvFactura.Rows[0].Cells[14].Value.ToString() + " " + dgvFactura.Rows[0].Cells[15].Value.ToString()
                     + " \r\n" + "CIF: " + dgvFactura.Rows[0].Cells[16].Value.ToString();
 
-                txtComentario.Text = dgvFactura.Rows[0].Cells[3].Value.ToString();
-                lblfechaEmision.Text = "Fecha Emisión: " + dgvFactura.Rows[0].Cells[2].Value.ToString().Substring(0, 10);
-                lblSubTotal.Text = "SubTotal: $ " + dgvFactura.Rows[0].Cells[5].Value.ToString();
-                lblImpuestos.Text = "Impuestos: $ " + impuestos.ToString("0.##");
-                lblTotal.Text = "Total: $ " + dgvFactura.Rows[0].Cells[6].Value.ToString();
+            txtComentario.Text = dgvFactura.Rows[0].Cells[3].Value.ToString();
+            lblfechaEmision.Text = "Fecha Emisión: " + dgvFactura.Rows[0].Cells[2].Value.ToString().Substring(0, 10);
+            lblSubTotal.Text = "SubTotal: $ " + dgvFactura.Rows[0].Cells[5].Value.ToString();
+            lblImpuestos.Text = "Impuestos: $ " + impuestos.ToString("0.##");
+            lblTotal.Text = "Total: $ " + dgvFactura.Rows[0].Cells[6].Value.ToString();
 
 
-                dgvFactura.Columns[0].Visible = false;//Datos fiscales empresa
-                dgvFactura.Columns[1].Visible = false;//numero de factura
-                dgvFactura.Columns[2].Visible = false;//fecha emision
-                dgvFactura.Columns[3].Visible = false;//comentario
-                dgvFactura.Columns[4].Visible = false;//iddatos fiscales cliente
-                dgvFactura.Columns[5].Visible = false;//subtotal - impuestos
-                dgvFactura.Columns[6].Visible = false;//total
-                dgvFactura.Columns[7].Visible = false;//nombre cliente
-                dgvFactura.Columns[8].Visible = false;//calle
-                dgvFactura.Columns[9].Visible = false;//no Ext
-                dgvFactura.Columns[10].Visible = false;//no Int
-                dgvFactura.Columns[11].Visible = false;//colonia
-                dgvFactura.Columns[12].Visible = false;//cp
-                dgvFactura.Columns[13].Visible = false;//ciudad
-                dgvFactura.Columns[14].Visible = false;//telefono
-                dgvFactura.Columns[15].Visible = false;//correo
-                dgvFactura.Columns[16].Visible = false;//cif
+            dgvFactura.Columns[0].Visible = false;//Datos fiscales empresa
+            dgvFactura.Columns[1].Visible = false;//numero de factura
+            dgvFactura.Columns[2].Visible = false;//fecha emision
+            dgvFactura.Columns[3].Visible = false;//comentario
+            dgvFactura.Columns[4].Visible = false;//iddatos fiscales cliente
+            dgvFactura.Columns[5].Visible = false;//subtotal - impuestos
+            dgvFactura.Columns[6].Visible = false;//total
+            dgvFactura.Columns[7].Visible = false;//nombre cliente
+            dgvFactura.Columns[8].Visible = false;//calle
+            dgvFactura.Columns[9].Visible = false;//no Ext
+            dgvFactura.Columns[10].Visible = false;//no Int
+            dgvFactura.Columns[11].Visible = false;//colonia
+            dgvFactura.Columns[12].Visible = false;//cp
+            dgvFactura.Columns[13].Visible = false;//ciudad
+            dgvFactura.Columns[14].Visible = false;//telefono
+            dgvFactura.Columns[15].Visible = false;//correo
+            dgvFactura.Columns[16].Visible = false;//cif
 
 
-                dgvFactura.Columns[17].HeaderText = "Producto";//
-                dgvFactura.Columns[18].HeaderText = "Marca";//
-                dgvFactura.Columns[19].HeaderText = "Modelo";//
-                dgvFactura.Columns[20].HeaderText = "Año";//
-                dgvFactura.Columns[21].HeaderText = "Cantidad";//
-                dgvFactura.Columns[22].HeaderText = "Precio Venta\r\n($)";//
-                dgvFactura.Columns[23].HeaderText = "Descuento\r\n(%)";//
-                dgvFactura.Columns[24].HeaderText = "Total x Cantidad\r\n($)";//
+            dgvFactura.Columns[17].HeaderText = "Producto";//
+            dgvFactura.Columns[18].HeaderText = "Marca";//
+            dgvFactura.Columns[19].HeaderText = "Modelo";//
+            dgvFactura.Columns[20].HeaderText = "Año";//
+            dgvFactura.Columns[21].HeaderText = "Cantidad";//
+            dgvFactura.Columns[22].HeaderText = "Precio Venta\r\n($)";//
+            dgvFactura.Columns[23].HeaderText = "Descuento\r\n(%)";//
+            dgvFactura.Columns[24].HeaderText = "Total x Cantidad\r\n($)";//
 
-                MessageBOX.SHowDialog(3, "Estos son los datos que deberías visualizar en la factura");
-            
+            MessageBOX.SHowDialog(3, "Estos son los datos que deberías visualizar en la factura");
+
         }
 
         private void btnVerificar_Click(object sender, EventArgs e)
@@ -277,7 +284,7 @@ namespace TT2024_A155
             errorRutaArchivo.Clear();
             errorFactura.Clear();
 
-            if (string.IsNullOrEmpty(txtRutaLlavePublica.Text.Trim())) { errorLlavePublica.SetError(txtRutaLlavePublica, "Campo obligatorio"); validacion = false; }
+            //if (string.IsNullOrEmpty(txtRutaLlavePublica.Text.Trim())) { errorLlavePublica.SetError(txtRutaLlavePublica, "Campo obligatorio"); validacion = false; }
             if (string.IsNullOrEmpty(txtRutaArchivo.Text.Trim())) { errorRutaArchivo.SetError(txtRutaArchivo, "Campo obligatorio"); validacion = false; }
             if (string.IsNullOrEmpty(cmbFactura.Text.Trim())) { errorFactura.SetError(cmbFactura, "Campo obligatorio"); validacion = false; }
             //-----------------------------
@@ -285,7 +292,7 @@ namespace TT2024_A155
             {
                 verificar(cmbFactura.SelectedValue.ToString());
             }
-            
+
         }
 
         private void rbtnArchivo_CheckedChanged(object sender, EventArgs e)
@@ -355,7 +362,7 @@ namespace TT2024_A155
             Result result = reader.Decode((Bitmap)pbLectorQr.Image);
             string decoded;
 
-            if(result != null)
+            if (result != null)
             {
                 try
                 {
@@ -364,6 +371,7 @@ namespace TT2024_A155
                     {
                         txtLecturaQr.Text = decoded;
                         verificarQr(Consulta.idFactura(decoded));
+                        temporizador.Stop();
                         //FinalFrame.Stop();
                     }
                 }
@@ -372,13 +380,13 @@ namespace TT2024_A155
                     MessageBox.Show(ex.Message);
                 }
             }
-            
+
 
         }
 
         private void btnLeer_Click(object sender, EventArgs e)
         {
-                temporizador.Start();
+            temporizador.Start();
         }
 
         private void limpiar()
@@ -394,6 +402,31 @@ namespace TT2024_A155
             dgvFactura.DataSource = null;
             dgvFactura.Rows.Clear();
 
+        }
+
+        private void cmbFactura_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //CARGANDO LA LLAVE PUBLICA DEL USUARIO DE FINANZAS SEGUN LA FACTURA SELECIONADA
+                string pk = Consulta.obtenerPkNumFactura(cmbFactura.Text.Trim());
+
+                
+                if (pk != "")
+                {
+                    byte[] bytes = System.Convert.FromBase64String(pk);
+                    publicKey = new DilithiumPublicKeyParameters(DilithiumParameters.Dilithium3, bytes);
+                    MessageBox.Show("Llave publica en bytes longitud: " + bytes.Length + "Cadena original:" + Consulta.PrettyPrint(bytes));
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            
+            
+            
         }
     }
 }

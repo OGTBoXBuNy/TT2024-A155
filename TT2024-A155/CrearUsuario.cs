@@ -25,6 +25,7 @@ namespace TT2024_A155
         Validaciones Validaciones = new();
         DataSet ds = new DataSet();
         DataView dv = new DataView();
+        int existeUsuarioFinanzas;
         private void CrearUsuario_Load(object sender, EventArgs e)
         {
             ds = Consulta.Roles();
@@ -32,6 +33,10 @@ namespace TT2024_A155
             cmbRol.DataSource = dv;
             cmbRol.ValueMember = "idrol";
             cmbRol.DisplayMember = "nombre";
+
+
+            existeUsuarioFinanzas = Consulta.validarExistenciaUsuarioFinanzas();
+
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -89,7 +94,7 @@ namespace TT2024_A155
                 Consulta.Log(usuario, "", descripcionLog, "17");
                 this.Close();
             }
-            
+
         }
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
@@ -140,6 +145,15 @@ namespace TT2024_A155
             {
                 txtContrasenia.UseSystemPasswordChar = true;
                 PicOJO.Image = Resources.ojo;
+            }
+        }
+
+        private void cmbRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cmbRol.Text.Trim() == "Finanzas" && existeUsuarioFinanzas == 1) 
+            {
+                cmbRol.SelectedIndex = 0;
+                MessageBOX.SHowDialog(2,"Solo puede existir un usuario de Finanzas");
             }
         }
     }

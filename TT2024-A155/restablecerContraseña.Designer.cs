@@ -46,6 +46,7 @@
             lblCrearCuenta.TabIndex = 4;
             lblCrearCuenta.TabStop = true;
             lblCrearCuenta.Text = "Crear cuenta";
+            lblCrearCuenta.Visible = false;
             lblCrearCuenta.LinkClicked += lblCrearCuenta_LinkClicked;
             // 
             // materialLabel1
@@ -105,7 +106,7 @@
             Controls.Add(lblCrearCuenta);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "restablecerContraseña";
-            Text = "RECUPERAR CONTRASEÑA";
+            Text = "RESTABLECIMIENTO DE CONTRASEÑA";
             ResumeLayout(false);
             PerformLayout();
         }

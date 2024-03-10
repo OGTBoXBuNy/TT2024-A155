@@ -123,9 +123,9 @@ namespace TT2024_A155
                     {
                         solicitudFirmas solicitudFirmas = new();
                         AddOwnedForm(solicitudFirmas);
-                        solicitudFirmas.lblUsuario.Text=txtUsuario.Text.Trim();
+                        solicitudFirmas.lblUsuario.Text = txtUsuario.Text.Trim();
                         solicitudFirmas.lblRol.Text = inicioSesion[1].ToString();
-                        solicitudFirmas.Show(); 
+                        solicitudFirmas.Show();
                         this.Hide();
                     }
                     else
@@ -135,7 +135,7 @@ namespace TT2024_A155
                         inicio.lblUsuario.Text += txtUsuario.Text.Trim();
                         inicio.lblRol.Text = inicioSesion[1].ToString();
                         inicio.Show();
-                        MessageBOX.SHowDialog(3, "Bienvenido de vuelta: " + txtUsuario.Text.Trim());
+                        //MessageBOX.SHowDialog(3, "Bienvenido de vuelta: " + txtUsuario.Text.Trim());
                         string descripcionLog = "El usuario " + txtUsuario.Text + " Inicio sesión al sistema el día: " + DateTime.Now.ToString();
                         Consulta.Log(txtUsuario.Text, "", descripcionLog, "1");
                         this.Hide();
@@ -145,7 +145,7 @@ namespace TT2024_A155
                 }
                 else
                 {
-                    MessageBOX.SHowDialog(2, "Datos incorrectos");
+                    //MessageBOX.SHowDialog(2, "Datos incorrectos");
                     txtUsuario.Text = "";
                     txtContrasenia.Text = "";
 
@@ -183,6 +183,12 @@ namespace TT2024_A155
             //    this.ToolTrip.SetToolTip(PicOJO, "Mostrar contraseña");
             //else
             //    this.ToolTrip.SetToolTip(PicOJO, "Ocultar contraseña");
+        }
+
+        private void lblCrearCuenta_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            registrarCliente registrarCliente = new registrarCliente();
+            registrarCliente.ShowDialog();
         }
     }
 }

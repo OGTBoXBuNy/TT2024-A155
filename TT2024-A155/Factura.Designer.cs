@@ -213,7 +213,7 @@
             lblLlavePrivada.Depth = 0;
             lblLlavePrivada.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblLlavePrivada.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblLlavePrivada.Location = new Point(13, 285);
+            lblLlavePrivada.Location = new Point(13, 325);
             lblLlavePrivada.MouseState = MaterialSkin.MouseState.HOVER;
             lblLlavePrivada.Name = "lblLlavePrivada";
             lblLlavePrivada.Size = new Size(164, 24);
@@ -343,7 +343,7 @@
             txtprivKey.Depth = 0;
             txtprivKey.Enabled = false;
             txtprivKey.Hint = "";
-            txtprivKey.Location = new Point(318, 285);
+            txtprivKey.Location = new Point(318, 325);
             txtprivKey.MaxLength = 32767;
             txtprivKey.MouseState = MaterialSkin.MouseState.HOVER;
             txtprivKey.Name = "txtprivKey";
@@ -379,7 +379,7 @@
             btnprivKey.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnprivKey.Depth = 0;
             btnprivKey.Icon = null;
-            btnprivKey.Location = new Point(610, 285);
+            btnprivKey.Location = new Point(610, 325);
             btnprivKey.Margin = new Padding(4, 6, 4, 6);
             btnprivKey.MouseState = MaterialSkin.MouseState.HOVER;
             btnprivKey.Name = "btnprivKey";
@@ -410,7 +410,7 @@
             // 
             txtContraLlavePrivada.Depth = 0;
             txtContraLlavePrivada.Hint = "";
-            txtContraLlavePrivada.Location = new Point(318, 325);
+            txtContraLlavePrivada.Location = new Point(318, 285);
             txtContraLlavePrivada.MaxLength = 32767;
             txtContraLlavePrivada.MouseState = MaterialSkin.MouseState.HOVER;
             txtContraLlavePrivada.Name = "txtContraLlavePrivada";
@@ -431,7 +431,7 @@
             lblContrasenia.Depth = 0;
             lblContrasenia.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
             lblContrasenia.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            lblContrasenia.Location = new Point(13, 325);
+            lblContrasenia.Location = new Point(13, 285);
             lblContrasenia.MouseState = MaterialSkin.MouseState.HOVER;
             lblContrasenia.Name = "lblContrasenia";
             lblContrasenia.Size = new Size(221, 24);
@@ -445,7 +445,7 @@
             // PicOJO
             // 
             PicOJO.Image = Properties.Resources.ojo;
-            PicOJO.Location = new Point(610, 325);
+            PicOJO.Location = new Point(610, 285);
             PicOJO.Margin = new Padding(4);
             PicOJO.Name = "PicOJO";
             PicOJO.Size = new Size(44, 28);

@@ -44,6 +44,7 @@
             errorUsuario = new ErrorProvider(components);
             errorContrasenia = new ErrorProvider(components);
             PicOJO = new PictureBox();
+            lblCrearCuenta = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)picInicioSesion).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbUsuario).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbContrasenia).BeginInit();
@@ -56,7 +57,7 @@
             // 
             picInicioSesion.BackColor = Color.Transparent;
             picInicioSesion.ErrorImage = Properties.Resources.Error;
-            picInicioSesion.Image = Properties.Resources.logoEscomGifApp;
+            picInicioSesion.Image = Properties.Resources.logoAppTransMovimiento_Blanco;
             picInicioSesion.InitialImage = Properties.Resources.ESCOM;
             picInicioSesion.Location = new Point(160, 67);
             picInicioSesion.Name = "picInicioSesion";
@@ -169,7 +170,7 @@
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(94, 20);
             lblVersion.TabIndex = 17;
-            lblVersion.Text = "Versión: 1.1.4";
+            lblVersion.Text = "Versión: 1.1.5";
             // 
             // lblUsuario
             // 
@@ -213,11 +214,25 @@
             PicOJO.MouseClick += PicOJO_MouseClick;
             PicOJO.MouseHover += PicOJO_MouseHover;
             // 
+            // lblCrearCuenta
+            // 
+            lblCrearCuenta.ActiveLinkColor = SystemColors.HotTrack;
+            lblCrearCuenta.AutoSize = true;
+            lblCrearCuenta.LinkColor = Color.Black;
+            lblCrearCuenta.Location = new Point(191, 400);
+            lblCrearCuenta.Name = "lblCrearCuenta";
+            lblCrearCuenta.Size = new Size(92, 20);
+            lblCrearCuenta.TabIndex = 21;
+            lblCrearCuenta.TabStop = true;
+            lblCrearCuenta.Text = "Crear cuenta";
+            lblCrearCuenta.LinkClicked += lblCrearCuenta_LinkClicked;
+            // 
             // inicioSesion
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(464, 500);
+            Controls.Add(lblCrearCuenta);
             Controls.Add(PicOJO);
             Controls.Add(lblContrasenia);
             Controls.Add(lblUsuario);
@@ -261,5 +276,6 @@
         private ErrorProvider errorUsuario;
         private ErrorProvider errorContrasenia;
         private PictureBox PicOJO;
+        private LinkLabel lblCrearCuenta;
     }
 }

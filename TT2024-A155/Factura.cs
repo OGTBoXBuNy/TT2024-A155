@@ -32,6 +32,7 @@ namespace TT2024_A155
         Validaciones Validaciones = new();
         byte[] byteArray;
         DilithiumPrivateKeyParameters privateKey;
+        string idFirmaPk;
 
         private void Factura_Load(object sender, EventArgs e)
         {
@@ -55,6 +56,7 @@ namespace TT2024_A155
 
 
             if (string.IsNullOrEmpty(txtNumeroFactura.Text.Trim())) { errorNumeroFact.SetError(txtNumeroFactura, "Campo obligatorio"); validacion = false; }
+            if (Consulta.validarNumeroFactura(txtNumeroFactura.Text.Trim()) == 1) { errorNumeroFact.SetError(txtNumeroFactura, "Ese número de factura ya existe, favor de ingresar uno diferente"); validacion = false; }
             if (string.IsNullOrEmpty(txtFacturaSinIVA.Text.Trim())) { errorFactSinIva.SetError(txtFacturaSinIVA, "Campo obligatorio"); validacion = false; }
 
             if (string.IsNullOrEmpty(txtDescuento.Text.Trim())) { errorDescuento.SetError(txtDescuento, "Campo obligatorio"); validacion = false; }
@@ -80,9 +82,10 @@ namespace TT2024_A155
                 string comentarios = txtComentarios.Text.Trim();
                 string iddatos_fiscales_emp = dgvDatosFactura.Rows[0].Cells[0].Value.ToString();
                 string iddatos_fiscales_cliente = dgvDatosFactura.Rows[0].Cells[4].Value.ToString();
-
+                string usuarioFinanzas = lblUsuario.Text.Trim();
+                string idFirma = Consulta.obtenerIdFirmaPk();//ES EL ID DE LA ULTIMA PUBLIC KEY GENERADA
                 //Consulta.generarFactura("1", dgvDatosFactura);
-                Consulta.registrarFactura(idPedido, iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentarios, dgvDatosFactura, privateKey);
+                Consulta.registrarFactura(idPedido, iddatos_fiscales_emp, iddatos_fiscales_cliente, num_factura, fecha_emision, fact_sinIVA, descuento, fact_neto, comentarios, dgvDatosFactura, privateKey, usuarioFinanzas, idFirma);
 
                 string usuario = lblUsuario.Text.ToString().Trim();
                 string descripcionLog = "El usuario : " + usuario + " generó la factura de venta (PDF) del pedido: " + idPedido + " el día: " + DateTime.Now.ToString();
