@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="TT2024_A155.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <userSettings>
+        <TT2024_A155.Properties.Settings>
+            <setting name="SecretMessage" serializeAs="String">
+                <value>Data Source=TT2024-A155.mssql.somee.com;Initial Catalog=TT2024-A155;User Id=tt2024a155_SQLLogin_1;Password=4fr979kv7w</value>
+            </setting>
+        </TT2024_A155.Properties.Settings>
+    </userSettings>
+</configuration>
