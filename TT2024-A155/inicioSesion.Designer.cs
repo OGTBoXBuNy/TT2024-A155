@@ -57,7 +57,7 @@
             // 
             picInicioSesion.BackColor = Color.Transparent;
             picInicioSesion.ErrorImage = Properties.Resources.Error;
-            picInicioSesion.Image = Properties.Resources.logoAppTransMovimiento_Blanco;
+            picInicioSesion.Image = Properties.Resources.logoEscomGifApp;
             picInicioSesion.InitialImage = Properties.Resources.ESCOM;
             picInicioSesion.Location = new Point(160, 67);
             picInicioSesion.Name = "picInicioSesion";
@@ -170,7 +170,7 @@
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(94, 20);
             lblVersion.TabIndex = 17;
-            lblVersion.Text = "Versión: 1.1.5";
+            lblVersion.Text = "Versión: 1.1.6";
             // 
             // lblUsuario
             // 
