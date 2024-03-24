@@ -999,7 +999,7 @@
             label6.Name = "label6";
             label6.Size = new Size(99, 26);
             label6.TabIndex = 102;
-            label6.Text = "Pendiente";
+            label6.Text = "En revisión";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7

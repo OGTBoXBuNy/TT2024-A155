@@ -158,75 +158,104 @@ namespace TT2024_A155
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
+                    nuevacon.Open();
+
 
                     if (validarUsuario(us) == 1)
                     {
-                        nuevacon.Open();
 
-                        Comando = new SqlCommand(string.Format("SELECT vcuenta.idcodigo, us.idrol, vcuenta.fechaExpiracion, us.correo, us.nombre_real FROM verificarCuenta vcuenta LEFT OUTER JOIN usuario us ON us.idusuario = vcuenta.idUsuario WHERE us.idUsuario = '{0}' AND vcuenta.codigo = '{1}' AND us.requiereVerificar = 1 order by idcodigo desc;", idUsuario(us), contra), nuevacon);
-
-                        Lector = Comando.ExecuteReader();
-                        if (Lector.Read())
+                        if (validarVerificarCuenta(us) == 1)
                         {
-                            
-                            contador[1] = Convert.ToInt32(Lector["idrol"].ToString());
-                            DateTime fecha = DateTime.Parse(Lector["fechaExpiracion"].ToString());
-                            string fechaExp = fecha.ToString("dd-MM-yyyy HH:mm:ss");
-                            string correo = Lector["correo"].ToString();
-                            string nombre = Lector["nombre_real"].ToString();
+                            Comando = new SqlCommand(string.Format("SELECT vcuenta.idcodigo, us.idrol, vcuenta.fechaExpiracion, us.correo, us.nombre_real FROM verificarCuenta vcuenta LEFT OUTER JOIN usuario us ON us.idusuario = vcuenta.idUsuario WHERE us.idUsuario = '{0}' AND vcuenta.codigo = '{1}' AND us.requiereVerificar = 1 order by idcodigo desc;", idUsuario(us), contra), nuevacon);
 
-
-                            int valor = DateTime.Compare(DateTime.Now, DateTime.Parse(fechaExp));
-
-                            if(valor < 0)
+                            Lector = Comando.ExecuteReader();
+                            if (Lector.Read())
                             {
-                                Lector.Close();
-                                Comando = new SqlCommand(string.Format("UPDATE usuario SET estado = 1, requiereVerificar = 0 WHERE nombre_usuario = '{0}';", us), nuevacon);
-                                Comando.ExecuteNonQuery();
-                                contador[0]++;
-                                MessageBOX.SHowDialog(3, "Excelente has verificado tu cuenta: " + nombre);
+
+                                contador[1] = Convert.ToInt32(Lector["idrol"].ToString());
+                                DateTime fecha = DateTime.Parse(Lector["fechaExpiracion"].ToString());
+                                string fechaExp = fecha.ToString("dd-MM-yyyy HH:mm:ss");
+                                string correo = Lector["correo"].ToString();
+                                string nombre = Lector["nombre_real"].ToString();
+
+
+                                int valor = DateTime.Compare(DateTime.Now, DateTime.Parse(fechaExp));
+
+                                if (valor < 0)
+                                {
+                                    Lector.Close();
+                                    Comando = new SqlCommand(string.Format("UPDATE usuario SET estado = 1, requiereVerificar = 0 WHERE nombre_usuario = '{0}';", us), nuevacon);
+                                    Comando.ExecuteNonQuery();
+                                    contador[0]++;
+                                    MessageBOX.SHowDialog(3, "Excelente has verificado tu cuenta: " + nombre);
+                                    return contador;
+
+                                }
+                                else
+                                {
+                                    Lector.Close();
+                                    string codigo = contraAleatoia();//CODIGO PARA VERIFICAR EL USUARIO
+                                    DateTime fechaExpCodigo = DateTime.Now.AddMinutes(5);
+                                    string fechaExpNueva = fechaExpCodigo.ToString("dd-MM-yyyy HH:mm:ss.fff");
+                                    Comando = new SqlCommand(string.Format("INSERT INTO verificarCuenta (codigo, fechaExpiracion, idUsuario) VALUES ('{0}', '{1}', '{2}');", codigo, fechaExpNueva, idUsuario(us)), nuevacon);
+                                    Comando.ExecuteNonQuery();
+
+                                    nuevoUsuarioCorreo(correo, nombre, codigo);
+                                    MessageBOX.SHowDialog(2, "Parece ser que ese código a expirado, no te preocupes ya se envío uno nuevo");
+                                }
+
+                                Lector.Close();//test
                                 return contador;
-
                             }
-                            else
-                            {
-                                Lector.Close();
-                                string codigo = contraAleatoia();//CODIGO PARA VERIFICAR EL USUARIO
-                                DateTime fechaExpCodigo = DateTime.Now.AddMinutes(5);
-                                string fechaExpNueva = fechaExpCodigo.ToString("dd-MM-yyyy HH:mm:ss.fff");
-                                Comando = new SqlCommand(string.Format("INSERT INTO verificarCuenta (codigo, fechaExpiracion, idUsuario) VALUES ('{0}', '{1}', '{2}');", codigo, fechaExpNueva, idUsuario(us)), nuevacon);
-                                Comando.ExecuteNonQuery();
-
-                                nuevoUsuarioCorreo(correo, nombre, codigo);
-                                MessageBOX.SHowDialog(2, "Parece ser que ese código a expirado, no te preocupes ya se envío uno nuevo");
-                            }
-
-                            
-                            return contador;
-                        }
-                        Lector.Close();
-
-
-                        string contraHash = "";
-                        string nombreUsuario = "";
-                        Comando = new SqlCommand(string.Format("SELECT contrasenia, idrol, nombre_real FROM usuario WHERE nombre_usuario = '{0}'", us), nuevacon);
-                        Lector = Comando.ExecuteReader();
-                        if (Lector.Read())
-                        {
-                            contraHash = Lector["contrasenia"].ToString();
-                            contador[1] = Convert.ToInt32(Lector["idrol"].ToString());
-                            nombreUsuario = Lector["nombre_real"].ToString();
-                        }
-
-                        if (BC.Verify(contra, contraHash))
-                        {
-                            contador[0]++;
-                            MessageBOX.SHowDialog(3, "Bienvenido de vuelta: " + nombreUsuario);
                         }
                         else
                         {
-                            MessageBOX.SHowDialog(2, "Datos incorrectos");
+                            string contraHash = "";
+                            string nombreUsuario = "";
+                            Comando = new SqlCommand(string.Format("SELECT contrasenia, idrol, nombre_real FROM usuario WHERE nombre_usuario = '{0}'", us), nuevacon);
+                            Lector = Comando.ExecuteReader();
+                            if (Lector.Read())
+                            {
+                                contraHash = Lector["contrasenia"].ToString();
+                                contador[1] = Convert.ToInt32(Lector["idrol"].ToString());
+                                nombreUsuario = Lector["nombre_real"].ToString();
+                            }
+
+                            if (BC.Verify(contra, contraHash))
+                            {
+                                contador[0]++;
+                                MessageBOX.SHowDialog(3, "Bienvenido de vuelta: " + nombreUsuario);
+                            }
+                            else
+                            {
+                                MessageBOX.SHowDialog(2, "Datos incorrectos");
+                            }
+
                         }
+
+                    }
+                    else
+                    {
+                        
+                    }
+                    
+
+
+
+                    
+                    
+                    
+                    
+                    if (validarUsuario(us) == 1)
+                    {
+                        
+
+                        
+                        
+                        //Lector.Close();
+
+
+                       
                             
                     }
 
@@ -242,6 +271,31 @@ namespace TT2024_A155
             }
 
         }
+
+        //----------------------------------VALIDAR SI REQUIERE VERIFICAR CUENTA----------------------------------------------
+        public int validarVerificarCuenta(string us)
+        {
+            int contador = 0;
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    Comando = new SqlCommand(string.Format("SELECT * FROM usuario WHERE nombre_usuario = '{0}' AND requiereVerificar = 1;", us), nuevacon);
+                    nuevacon.Open();
+                    Lector = Comando.ExecuteReader();
+                    while (Lector.Read()) { contador++; }
+                    Lector.Close();
+                    nuevacon.Close();
+                }
+                return contador;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return contador;
+            }
+        }
+
         //----------------------------------VALIDAR USUARIO EXISTENTE----------------------------------------------
         public int validarUsuario(string us)
         {

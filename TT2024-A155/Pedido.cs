@@ -206,23 +206,47 @@ namespace TT2024_A155
             lblSubtotal.Text = "SubTotal: $ " + subTotal.ToString();
             lblTotal.Text = "Total + IVA(16%): $ " + total.ToString();
 
-            var editButton = new DataGridViewButtonColumn();
+            //var editButton = new DataGridViewButtonColumn();
+            //editButton.Name = "dataGridViewEditButton";
+            //editButton.HeaderText = "Editar";
+            //editButton.Text = "Editar";
+            //editButton.FlatStyle = FlatStyle.Popup;
+            //editButton.CellTemplate.Style.BackColor = Color.DarkCyan;
+            //editButton.UseColumnTextForButtonValue = true;
+            //this.dgvPedido.Columns.Add(editButton);
+
+            var editButton = new DataGridViewImageColumn();
             editButton.Name = "dataGridViewEditButton";
             editButton.HeaderText = "Editar";
-            editButton.Text = "Editar";
-            editButton.FlatStyle = FlatStyle.Popup;
-            editButton.CellTemplate.Style.BackColor = Color.DarkCyan;
-            editButton.UseColumnTextForButtonValue = true;
+            editButton.Image = Properties.Resources.editar;
+            editButton.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            editButton.Description = "Zoomed";
+            //editButton.Text = "Editar";
+            //editButton.FlatStyle = FlatStyle.Popup;
+            //editButton.CellTemplate.Style.BackColor = Color.DarkCyan;
+            //editButton.UseColumnTextForButtonValue = true;
             this.dgvPedido.Columns.Add(editButton);
 
 
-            var deleteButton = new DataGridViewButtonColumn();
+            //var deleteButton = new DataGridViewButtonColumn();
+            //deleteButton.Name = "dataGridViewDeleteButton";
+            //deleteButton.HeaderText = "Eliminar";
+            //deleteButton.Text = "Eliminar";
+            //deleteButton.FlatStyle = FlatStyle.Popup;
+            //deleteButton.CellTemplate.Style.BackColor = Color.Red;
+            //deleteButton.UseColumnTextForButtonValue = true;
+            //this.dgvPedido.Columns.Add(deleteButton);
+
+            var deleteButton = new DataGridViewImageColumn();
             deleteButton.Name = "dataGridViewDeleteButton";
             deleteButton.HeaderText = "Eliminar";
-            deleteButton.Text = "Eliminar";
-            deleteButton.FlatStyle = FlatStyle.Popup;
-            deleteButton.CellTemplate.Style.BackColor = Color.Red;
-            deleteButton.UseColumnTextForButtonValue = true;
+            deleteButton.Image = Properties.Resources.bote_de_basura;
+            deleteButton.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            deleteButton.Description = "Zoomed";
+            //deleteButton.Text = "Eliminar";
+            //deleteButton.FlatStyle = FlatStyle.Popup;
+            //deleteButton.CellTemplate.Style.BackColor = Color.Red;
+            //deleteButton.UseColumnTextForButtonValue = true;
             this.dgvPedido.Columns.Add(deleteButton);
 
             dt = new DataTable();

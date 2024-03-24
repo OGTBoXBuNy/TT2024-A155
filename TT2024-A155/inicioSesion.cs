@@ -145,7 +145,7 @@ namespace TT2024_A155
                 }
                 else
                 {
-                    //MessageBOX.SHowDialog(2, "Datos incorrectos");
+                    MessageBOX.SHowDialog(2, "Oops algo salió mal... intentemoslo de nuevo");
                     txtUsuario.Text = "";
                     txtContrasenia.Text = "";
 
