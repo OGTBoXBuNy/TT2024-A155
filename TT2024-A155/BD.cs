@@ -3050,7 +3050,10 @@ namespace TT2024_A155
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
-                    da = new SqlDataAdapter(string.Format("SELECT l.idLog AS 'ID DE CAMBIO',l.descripcion AS 'DESCRIPCIÓN',l.idpedido AS 'PEDIDO', us.nombre_usuario AS 'USUARIO', us.nombre_real AS 'NOMBRE REAL', clog.tipo AS 'TIPO DE MOVIMIENTO',l.fecha AS 'FECHA' FROM LOG l LEFT OUTER JOIN USUARIO us ON us.idusuario = l.idUsuario LEFT OUTER JOIN CAMBIOSLOG clog ON clog.idCambio = l.idCambio WHERE l.idpedido LIKE '%{0}%' AND us.nombre_usuario LIKE '%{1}%' AND us.nombre_real LIKE '%{2}%' AND clog.tipo = '{3}' AND fecha BETWEEN '{4}' AND '{5}';", idPedido, usuario, nombreReal, tipo, fechaInicial, fechaFinal), nuevacon);
+                    if(tipo != "Mostrar Todo")
+                        da = new SqlDataAdapter(string.Format("SELECT l.idLog AS 'ID DE CAMBIO',l.descripcion AS 'DESCRIPCIÓN',l.idpedido AS 'PEDIDO', us.nombre_usuario AS 'USUARIO', us.nombre_real AS 'NOMBRE REAL', clog.tipo AS 'TIPO DE MOVIMIENTO',l.fecha AS 'FECHA' FROM LOG l LEFT OUTER JOIN USUARIO us ON us.idusuario = l.idUsuario LEFT OUTER JOIN CAMBIOSLOG clog ON clog.idCambio = l.idCambio WHERE l.idpedido LIKE '%{0}%' AND us.nombre_usuario LIKE '%{1}%' AND us.nombre_real LIKE '%{2}%' AND clog.tipo = '{3}' AND fecha BETWEEN '{4}' AND '{5}';", idPedido, usuario, nombreReal, tipo, fechaInicial, fechaFinal), nuevacon);
+                    else
+                        da = new SqlDataAdapter(string.Format("SELECT l.idLog AS 'ID DE CAMBIO',l.descripcion AS 'DESCRIPCIÓN',l.idpedido AS 'PEDIDO', us.nombre_usuario AS 'USUARIO', us.nombre_real AS 'NOMBRE REAL', clog.tipo AS 'TIPO DE MOVIMIENTO',l.fecha AS 'FECHA' FROM LOG l LEFT OUTER JOIN USUARIO us ON us.idusuario = l.idUsuario LEFT OUTER JOIN CAMBIOSLOG clog ON clog.idCambio = l.idCambio WHERE l.idpedido LIKE '%{0}%' AND us.nombre_usuario LIKE '%{1}%' AND us.nombre_real LIKE '%{2}%' AND fecha BETWEEN '{3}' AND '{4}';", idPedido, usuario, nombreReal, fechaInicial, fechaFinal), nuevacon);
 
                     nuevacon.Open();
                     dt = new DataTable();
@@ -3065,7 +3068,29 @@ namespace TT2024_A155
             }
         }
 
-
+        //----------------LLENAR TABLA LOG BUSCAR POR RANGO DE FECHAS ----------------------------------
+        public void LogBuscar(DataGridView dtgv, string idPedido, string usuario, string nombreReal, string tipo)
+        {
+            try
+            {
+                using (SqlConnection nuevacon = Conexion.conexion())
+                {
+                    if (tipo != "Mostrar Todo")
+                        da = new SqlDataAdapter(string.Format("SELECT l.idLog AS 'ID DE CAMBIO',l.descripcion AS 'DESCRIPCIÓN',l.idpedido AS 'PEDIDO', us.nombre_usuario AS 'USUARIO', us.nombre_real AS 'NOMBRE REAL', clog.tipo AS 'TIPO DE MOVIMIENTO',l.fecha AS 'FECHA' FROM LOG l LEFT OUTER JOIN USUARIO us ON us.idusuario = l.idUsuario LEFT OUTER JOIN CAMBIOSLOG clog ON clog.idCambio = l.idCambio WHERE l.idpedido LIKE '%{0}%' AND us.nombre_usuario LIKE '%{1}%' AND us.nombre_real LIKE '%{2}%' AND clog.tipo = '{3}';", idPedido, usuario, nombreReal, tipo), nuevacon);
+                    else
+                        da = new SqlDataAdapter(string.Format("SELECT l.idLog AS 'ID DE CAMBIO',l.descripcion AS 'DESCRIPCIÓN',l.idpedido AS 'PEDIDO', us.nombre_usuario AS 'USUARIO', us.nombre_real AS 'NOMBRE REAL', clog.tipo AS 'TIPO DE MOVIMIENTO',l.fecha AS 'FECHA' FROM LOG l LEFT OUTER JOIN USUARIO us ON us.idusuario = l.idUsuario LEFT OUTER JOIN CAMBIOSLOG clog ON clog.idCambio = l.idCambio WHERE l.idpedido LIKE '%{0}%' AND us.nombre_usuario LIKE '%{1}%' AND us.nombre_real LIKE '%{2}%';", idPedido, usuario, nombreReal), nuevacon);
+                    nuevacon.Open();
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    dtgv.DataSource = dt;
+                    nuevacon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
 
         //---------------- NOMBRES DE LOS CAMBIOS LOG (TIPO)
         public DataSet cLogTipo()

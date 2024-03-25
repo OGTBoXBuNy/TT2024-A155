@@ -105,6 +105,13 @@
             label8 = new Label();
             label9 = new Label();
             label10 = new Label();
+            lblNum1 = new Label();
+            label11 = new Label();
+            label12 = new Label();
+            label13 = new Label();
+            label14 = new Label();
+            label15 = new Label();
+            pictureBox1 = new PictureBox();
             tabControlDetallesPedido.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbComprobante).BeginInit();
@@ -113,6 +120,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvDatosPDF).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvPedido).BeginInit();
             materialMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // lblRol
@@ -689,7 +697,7 @@
             dataGridViewCellStyle2.BackColor = SystemColors.ControlText;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Info;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvPedido.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
@@ -697,7 +705,7 @@
             dataGridViewCellStyle3.BackColor = Color.FromArgb(51, 51, 51);
             dataGridViewCellStyle3.Font = new Font("Arial Narrow", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(66, 165, 245);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Info;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.ControlText;
             dgvPedido.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvPedido.RowTemplate.Height = 29;
@@ -994,7 +1002,7 @@
             // 
             label6.BackColor = Color.FromArgb(255, 208, 52);
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(1167, 91);
+            label6.Location = new Point(1190, 92);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(99, 26);
@@ -1006,7 +1014,7 @@
             // 
             label7.BackColor = Color.FromArgb(163, 255, 172);
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(1167, 128);
+            label7.Location = new Point(1190, 128);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(99, 26);
@@ -1018,7 +1026,7 @@
             // 
             label8.BackColor = Color.FromArgb(149, 184, 246);
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.Location = new Point(1167, 165);
+            label8.Location = new Point(1190, 165);
             label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
             label8.Size = new Size(99, 26);
@@ -1030,7 +1038,7 @@
             // 
             label9.BackColor = Color.FromArgb(249, 217, 154);
             label9.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.Location = new Point(1320, 113);
+            label9.Location = new Point(1345, 92);
             label9.Margin = new Padding(4, 0, 4, 0);
             label9.Name = "label9";
             label9.Size = new Size(99, 26);
@@ -1042,7 +1050,7 @@
             // 
             label10.BackColor = Color.FromArgb(249, 165, 154);
             label10.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label10.Location = new Point(1320, 159);
+            label10.Location = new Point(1345, 128);
             label10.Margin = new Padding(4, 0, 4, 0);
             label10.Name = "label10";
             label10.Size = new Size(99, 26);
@@ -1050,11 +1058,101 @@
             label10.Text = "Devuelto";
             label10.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // lblNum1
+            // 
+            lblNum1.AutoSize = true;
+            lblNum1.BackColor = SystemColors.ActiveCaptionText;
+            lblNum1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblNum1.ForeColor = Color.White;
+            lblNum1.Location = new Point(1159, 128);
+            lblNum1.Name = "lblNum1";
+            lblNum1.Size = new Size(24, 28);
+            lblNum1.TabIndex = 126;
+            lblNum1.Text = "2";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.BackColor = SystemColors.ActiveCaptionText;
+            label11.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label11.ForeColor = Color.White;
+            label11.Location = new Point(1159, 92);
+            label11.Name = "label11";
+            label11.Size = new Size(24, 28);
+            label11.TabIndex = 127;
+            label11.Text = "1";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.BackColor = SystemColors.ActiveCaptionText;
+            label12.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label12.ForeColor = Color.White;
+            label12.Location = new Point(1159, 165);
+            label12.Name = "label12";
+            label12.Size = new Size(24, 28);
+            label12.TabIndex = 128;
+            label12.Text = "3";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.BackColor = SystemColors.ActiveCaptionText;
+            label13.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label13.ForeColor = Color.White;
+            label13.Location = new Point(1314, 92);
+            label13.Name = "label13";
+            label13.Size = new Size(24, 28);
+            label13.TabIndex = 129;
+            label13.Text = "4";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.BackColor = SystemColors.ActiveCaptionText;
+            label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label14.ForeColor = Color.White;
+            label14.Location = new Point(1314, 128);
+            label14.Name = "label14";
+            label14.Size = new Size(24, 28);
+            label14.TabIndex = 130;
+            label14.Text = "5";
+            // 
+            // label15
+            // 
+            label15.BackColor = SystemColors.Info;
+            label15.BorderStyle = BorderStyle.Fixed3D;
+            label15.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label15.Location = new Point(1345, 165);
+            label15.Margin = new Padding(4, 0, 4, 0);
+            label15.Name = "label15";
+            label15.Size = new Size(99, 26);
+            label15.TabIndex = 131;
+            label15.Text = "Selección";
+            label15.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.flecha_correcta;
+            pictureBox1.Location = new Point(1324, 171);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(14, 20);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 132;
+            pictureBox1.TabStop = false;
+            // 
             // Inicio
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1457, 775);
+            Controls.Add(pictureBox1);
+            Controls.Add(label15);
+            Controls.Add(label14);
+            Controls.Add(label13);
+            Controls.Add(label12);
+            Controls.Add(label11);
+            Controls.Add(lblNum1);
             Controls.Add(label10);
             Controls.Add(label9);
             Controls.Add(label8);
@@ -1101,6 +1199,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvPedido).EndInit();
             materialMenuStrip1.ResumeLayout(false);
             materialMenuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1179,5 +1278,12 @@
         private Label label8;
         private Label label9;
         private Label label10;
+        private Label lblNum1;
+        private Label label11;
+        private Label label12;
+        private Label label13;
+        private Label label14;
+        private Label label15;
+        private PictureBox pictureBox1;
     }
 }

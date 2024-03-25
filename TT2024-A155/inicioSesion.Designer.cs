@@ -74,10 +74,10 @@
             lblRestablecerContrasenia.LinkColor = Color.Black;
             lblRestablecerContrasenia.Location = new Point(12, 380);
             lblRestablecerContrasenia.Name = "lblRestablecerContrasenia";
-            lblRestablecerContrasenia.Size = new Size(136, 17);
+            lblRestablecerContrasenia.Size = new Size(144, 17);
             lblRestablecerContrasenia.TabIndex = 4;
             lblRestablecerContrasenia.TabStop = true;
-            lblRestablecerContrasenia.Text = "Recuperar contraseña";
+            lblRestablecerContrasenia.Text = "Restablecer contraseña";
             lblRestablecerContrasenia.LinkClicked += lblRestablecerContrasenia_LinkClicked;
             // 
             // btnFirma
@@ -170,7 +170,7 @@
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(94, 20);
             lblVersion.TabIndex = 17;
-            lblVersion.Text = "Versión: 1.1.8";
+            lblVersion.Text = "Versión: 1.1.9";
             // 
             // lblUsuario
             // 

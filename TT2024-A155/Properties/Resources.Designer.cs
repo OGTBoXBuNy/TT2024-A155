@@ -163,6 +163,16 @@ namespace TT2024_A155.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap flecha_correcta {
+            get {
+                object obj = ResourceManager.GetObject("flecha-correcta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap GiftHECHO {
             get {
                 object obj = ResourceManager.GetObject("GiftHECHO", resourceCulture);

@@ -40,7 +40,7 @@ namespace TT2024_A155
             string fechaInicial = Fecha_in.Value.Year.ToString() + "-" + Fecha_in.Value.Month.ToString() + "-" + Fecha_in.Value.Day.ToString();
             string fechaFinal = Fecha_Fin.Value.Year.ToString() + "-" + Fecha_Fin.Value.Month.ToString() + "-" + Fecha_Fin.Value.Day.ToString();
 
-            Consulta.LogBuscar(dgvLog, idpedido, nomUsuario, nomReal, tipo, fechaInicial, fechaFinal);
+            Consulta.LogBuscar(dgvLog, idpedido, nomUsuario, nomReal, tipo);
         }
 
         private void Fecha_in_ValueChanged(object sender, EventArgs e)
@@ -76,7 +76,7 @@ namespace TT2024_A155
             string fechaInicial = Fecha_in.Value.Year.ToString() + "-" + Fecha_in.Value.Month.ToString() + "-" + Fecha_in.Value.Day.ToString();
             string fechaFinal = Fecha_Fin.Value.Year.ToString() + "-" + Fecha_Fin.Value.Month.ToString() + "-" + Fecha_Fin.Value.Day.ToString();
 
-            Consulta.LogBuscar(dgvLog, idpedido, nomUsuario, nomReal, tipo, fechaInicial, fechaFinal);
+            Consulta.LogBuscar(dgvLog, idpedido, nomUsuario, nomReal, tipo);
         }
 
         private void txtFiltroNomUsuario_KeyUp(object sender, KeyEventArgs e)
@@ -88,7 +88,7 @@ namespace TT2024_A155
             string fechaInicial = Fecha_in.Value.Year.ToString() + "-" + Fecha_in.Value.Month.ToString() + "-" + Fecha_in.Value.Day.ToString();
             string fechaFinal = Fecha_Fin.Value.Year.ToString() + "-" + Fecha_Fin.Value.Month.ToString() + "-" + Fecha_Fin.Value.Day.ToString();
 
-            Consulta.LogBuscar(dgvLog, idpedido, nomUsuario, nomReal, tipo, fechaInicial, fechaFinal);
+            Consulta.LogBuscar(dgvLog, idpedido, nomUsuario, nomReal, tipo);
         }
 
         private void txtFiltroNomReal_KeyUp(object sender, KeyEventArgs e)
@@ -100,7 +100,7 @@ namespace TT2024_A155
             string fechaInicial = Fecha_in.Value.Year.ToString() + "-" + Fecha_in.Value.Month.ToString() + "-" + Fecha_in.Value.Day.ToString();
             string fechaFinal = Fecha_Fin.Value.Year.ToString() + "-" + Fecha_Fin.Value.Month.ToString() + "-" + Fecha_Fin.Value.Day.ToString();
 
-            Consulta.LogBuscar(dgvLog, idpedido, nomUsuario, nomReal, tipo, fechaInicial, fechaFinal);
+            Consulta.LogBuscar(dgvLog, idpedido, nomUsuario, nomReal, tipo);
         }
 
         private void txtFiltroPedido_KeyPress(object sender, KeyPressEventArgs e)
