@@ -241,6 +241,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(457, 440);
             Controls.Add(btnAceptar);
             Controls.Add(lblDescuento);
@@ -259,6 +260,7 @@
             Controls.Add(txtDescuento);
             Controls.Add(txtPrecioVenta);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Producto";
             Text = "Seleccionar Producto";
             Load += Producto_Load;

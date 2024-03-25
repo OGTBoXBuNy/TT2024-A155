@@ -1079,6 +1079,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1001, 560);
             Controls.Add(btnSolicitarFirma);
             Controls.Add(rbtnDatosFiscales);
@@ -1090,6 +1091,7 @@
             Controls.Add(rbtnPermisos);
             Controls.Add(panelDatos);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "ModificarUsuario";
             Text = "MODIFICAR USUARIOS";
             Load += ModificarUsuario_Load;

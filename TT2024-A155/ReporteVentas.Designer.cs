@@ -105,6 +105,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(429, 219);
             Controls.Add(btnAceptar);
             Controls.Add(lblHasta);
@@ -113,6 +114,7 @@
             Controls.Add(dtpFechaFinal);
             Controls.Add(dtpFechaInicio);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "ReporteVentas";
             Text = "REPORTE DE VENTAS";
             ResumeLayout(false);

@@ -99,12 +99,14 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(800, 202);
             Controls.Add(btnAceptar);
             Controls.Add(txtRecuperacion);
             Controls.Add(materialLabel1);
             Controls.Add(lblCrearCuenta);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "restablecerContraseña";
             Text = "RESTABLECIMIENTO DE CONTRASEÑA";
             ResumeLayout(false);

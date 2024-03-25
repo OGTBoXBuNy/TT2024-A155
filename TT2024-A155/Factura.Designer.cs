@@ -459,6 +459,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(683, 501);
             Controls.Add(PicOJO);
             Controls.Add(txtContraLlavePrivada);
@@ -486,6 +487,7 @@
             Controls.Add(dtpFechEmision);
             Controls.Add(txtComentarios);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Factura";
             Text = "Generación de Factura";
             Load += Factura_Load;

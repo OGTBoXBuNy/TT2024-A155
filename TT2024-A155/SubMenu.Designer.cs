@@ -131,6 +131,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(360, 448);
             Controls.Add(button5);
             Controls.Add(btnRegistrarDevolucion);
@@ -141,6 +142,7 @@
             Controls.Add(lblRol);
             Controls.Add(lblUsuario);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "SubMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Submenú";

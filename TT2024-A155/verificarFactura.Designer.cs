@@ -517,6 +517,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1460, 785);
             Controls.Add(lblTotal);
             Controls.Add(lblImpuestos);
@@ -548,6 +549,7 @@
             Controls.Add(lblUsuario);
             Controls.Add(rbtnQr);
             Controls.Add(rbtnArchivo);
+            MaximizeBox = false;
             Name = "verificarFactura";
             Text = "Verificar Factura";
             FormClosing += verificarFactura_FormClosing;

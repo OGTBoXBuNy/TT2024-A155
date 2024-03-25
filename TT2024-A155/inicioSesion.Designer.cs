@@ -170,7 +170,7 @@
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(94, 20);
             lblVersion.TabIndex = 17;
-            lblVersion.Text = "Versión: 1.1.9";
+            lblVersion.Text = "Versión: 1.2.1";
             // 
             // lblUsuario
             // 
@@ -231,6 +231,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(464, 500);
             Controls.Add(lblCrearCuenta);
             Controls.Add(PicOJO);
@@ -246,6 +247,7 @@
             Controls.Add(lblRestablecerContrasenia);
             Controls.Add(picInicioSesion);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "inicioSesion";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Inicio de Sesión";

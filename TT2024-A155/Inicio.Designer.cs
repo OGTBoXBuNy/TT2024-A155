@@ -671,6 +671,8 @@
             // 
             dgvPedido.AllowUserToAddRows = false;
             dgvPedido.AllowUserToDeleteRows = false;
+            dgvPedido.AllowUserToResizeColumns = false;
+            dgvPedido.AllowUserToResizeRows = false;
             dgvPedido.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvPedido.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvPedido.BackgroundColor = Color.White;
@@ -692,6 +694,7 @@
             dgvPedido.Location = new Point(440, 195);
             dgvPedido.Margin = new Padding(4);
             dgvPedido.Name = "dgvPedido";
+            dgvPedido.ReadOnly = true;
             dgvPedido.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.ControlText;
@@ -1145,6 +1148,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1457, 775);
             Controls.Add(pictureBox1);
             Controls.Add(label15);
@@ -1183,6 +1187,7 @@
             Controls.Add(materialMenuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = materialMenuStrip1;
+            MaximizeBox = false;
             Name = "Inicio";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Pantalla principal";

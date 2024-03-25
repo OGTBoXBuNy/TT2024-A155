@@ -493,6 +493,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(894, 469);
             Controls.Add(PicOJO);
             Controls.Add(btnAceptar);
@@ -519,6 +520,7 @@
             Controls.Add(lblUsuario);
             Controls.Add(lblNombre);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "registrarCliente";
             Text = "REGISTRO NUEVO CLIENTE";
             ((System.ComponentModel.ISupportInitialize)errorNombre).EndInit();

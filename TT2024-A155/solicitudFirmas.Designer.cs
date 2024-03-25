@@ -150,6 +150,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(806, 370);
             Controls.Add(PicOJO);
             Controls.Add(txtContrasenia);
@@ -159,6 +160,7 @@
             Controls.Add(pbAdvertencia);
             Controls.Add(txtInfo);
             Controls.Add(lblUsuario);
+            MaximizeBox = false;
             Name = "solicitudFirmas";
             Text = "Solicitud de Firma";
             ((System.ComponentModel.ISupportInitialize)pbAdvertencia).EndInit();

@@ -231,6 +231,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1260, 756);
             Controls.Add(txtFiltroNomReal);
             Controls.Add(txtFiltroNomUsuario);
@@ -246,6 +247,7 @@
             Controls.Add(Fecha_in);
             Controls.Add(dgvLog);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Log";
             Text = "Control de Cambios (LOG)";
             Load += Log_Load;

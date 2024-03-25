@@ -183,6 +183,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(636, 192);
             Controls.Add(PicOjoRes);
             Controls.Add(PicOJO);
@@ -194,6 +195,7 @@
             Controls.Add(lblRol);
             Controls.Add(lblUsuario);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "cambioContraseña";
             Text = "CREAR NUEVA CONTRASEÑA";
             ((System.ComponentModel.ISupportInitialize)errorContrasenia).EndInit();

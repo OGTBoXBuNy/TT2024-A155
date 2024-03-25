@@ -613,6 +613,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(955, 463);
             Controls.Add(PicOJO);
             Controls.Add(rbtnDatosFiscales);
@@ -647,6 +648,7 @@
             Controls.Add(lblUsuarioF);
             Controls.Add(cmbRol);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Administrar";
             Text = "ADMINISTRAR CUENTA";
             Load += Administrar_Load;

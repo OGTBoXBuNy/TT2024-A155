@@ -102,6 +102,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.White;
             ClientSize = new Size(308, 238);
             Controls.Add(btnNO);
@@ -110,6 +111,7 @@
             Controls.Add(GifHecho);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "MessageBOX";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dialog";

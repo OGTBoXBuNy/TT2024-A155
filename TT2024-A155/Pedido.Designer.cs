@@ -115,12 +115,14 @@
             // 
             dgvPedido.AllowUserToAddRows = false;
             dgvPedido.AllowUserToDeleteRows = false;
+            dgvPedido.AllowUserToResizeColumns = false;
             dgvPedido.AllowUserToResizeRows = false;
             dgvPedido.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvPedido.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvPedido.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPedido.Location = new Point(12, 390);
             dgvPedido.Name = "dgvPedido";
+            dgvPedido.ReadOnly = true;
             dgvPedido.RowHeadersWidth = 51;
             dgvPedido.RowTemplate.Height = 29;
             dgvPedido.Size = new Size(1106, 188);
@@ -646,6 +648,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1344, 690);
             Controls.Add(btnAceptar);
             Controls.Add(btnAgregarProducto);
@@ -684,6 +687,7 @@
             Controls.Add(txtComentarios);
             Controls.Add(lblUsuario);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Pedido";
             Text = "Solicitar Cotización (Pedido)";
             Load += Pedido_Load;
