@@ -283,7 +283,7 @@
             lblCif.Name = "lblCif";
             lblCif.Size = new Size(48, 24);
             lblCif.TabIndex = 63;
-            lblCif.Text = "CIF: ";
+            lblCif.Text = "R.F.C.: ";
             // 
             // txtNombre
             // 

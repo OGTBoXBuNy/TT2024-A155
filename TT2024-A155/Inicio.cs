@@ -270,14 +270,14 @@ namespace TT2024_A155
 
         private void pbFactura_Click(object sender, EventArgs e)
         {
-            if (detallesPedido != null)
-            {
-                Consulta.generarFactura(detallesPedido[0], dgvDatosPDF, Consulta.nombreUsuarioFinanzas());
-                string usuario = lblUsuario.Text.ToString().Trim();
-                string pedido = detallesPedido[0];
-                string descripcionLog = "El usuario : " + usuario + " generó la factura (PDF) del pedido: " + pedido + " el día: " + DateTime.Now.ToString();
-                Consulta.Log(usuario, pedido, descripcionLog, "16");
-            }
+            //if (detallesPedido != null)
+            //{
+            //    Consulta.generarFactura(detallesPedido[0], dgvDatosPDF, Consulta.nombreUsuarioFinanzas());
+            //    string usuario = lblUsuario.Text.ToString().Trim();
+            //    string pedido = detallesPedido[0];
+            //    string descripcionLog = "El usuario : " + usuario + " generó la factura (PDF) del pedido: " + pedido + " el día: " + DateTime.Now.ToString();
+            //    Consulta.Log(usuario, pedido, descripcionLog, "16");
+            //}
         }
 
 

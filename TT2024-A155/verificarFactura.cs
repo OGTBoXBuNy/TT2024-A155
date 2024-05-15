@@ -177,7 +177,7 @@ namespace TT2024_A155
                 txtDatosCliente.Text = dgvFactura.Rows[0].Cells[7].Value.ToString() + " \r\n" + dgvFactura.Rows[0].Cells[8].Value.ToString() + " " + dgvFactura.Rows[0].Cells[9].Value.ToString() + " " +
                            dgvFactura.Rows[0].Cells[10].Value.ToString() + " \r\n" + dgvFactura.Rows[0].Cells[11].Value.ToString() + " " +
                     dgvFactura.Rows[0].Cells[12].Value.ToString() + " " + dgvFactura.Rows[0].Cells[13].Value.ToString() + " \r\n" + "Cel: " + dgvFactura.Rows[0].Cells[14].Value.ToString() + " " + dgvFactura.Rows[0].Cells[15].Value.ToString()
-                    + " \r\n" + "CIF: " + dgvFactura.Rows[0].Cells[16].Value.ToString();
+                    + " \r\n" + "R.F.C.: " + dgvFactura.Rows[0].Cells[16].Value.ToString();
 
                 txtComentario.Text = dgvFactura.Rows[0].Cells[3].Value.ToString();
                 lblfechaEmision.Text = "Fecha Emisión: " + dgvFactura.Rows[0].Cells[2].Value.ToString().Substring(0, 10);
@@ -235,7 +235,7 @@ namespace TT2024_A155
             txtDatosCliente.Text = dgvFactura.Rows[0].Cells[7].Value.ToString() + " \r\n" + dgvFactura.Rows[0].Cells[8].Value.ToString() + " " + dgvFactura.Rows[0].Cells[9].Value.ToString() + " " +
                            dgvFactura.Rows[0].Cells[10].Value.ToString() + " \r\n" + dgvFactura.Rows[0].Cells[11].Value.ToString() + " " +
                     dgvFactura.Rows[0].Cells[12].Value.ToString() + " " + dgvFactura.Rows[0].Cells[13].Value.ToString() + " \r\n" + "Cel: " + dgvFactura.Rows[0].Cells[14].Value.ToString() + " " + dgvFactura.Rows[0].Cells[15].Value.ToString()
-                    + " \r\n" + "CIF: " + dgvFactura.Rows[0].Cells[16].Value.ToString();
+                    + " \r\n" + "R.F.C.: " + dgvFactura.Rows[0].Cells[16].Value.ToString();
 
             txtComentario.Text = dgvFactura.Rows[0].Cells[3].Value.ToString();
             lblfechaEmision.Text = "Fecha Emisión: " + dgvFactura.Rows[0].Cells[2].Value.ToString().Substring(0, 10);
@@ -411,22 +411,27 @@ namespace TT2024_A155
                 //CARGANDO LA LLAVE PUBLICA DEL USUARIO DE FINANZAS SEGUN LA FACTURA SELECIONADA
                 string pk = Consulta.obtenerPkNumFactura(cmbFactura.Text.Trim());
 
-                
+
                 if (pk != "")
                 {
                     byte[] bytes = System.Convert.FromBase64String(pk);
                     publicKey = new DilithiumPublicKeyParameters(DilithiumParameters.Dilithium3, bytes);
                     MessageBox.Show("Llave publica en bytes longitud: " + bytes.Length + "Cadena original:" + Consulta.PrettyPrint(bytes));
                 }
-                
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-            
-            
-            
+
+
+
+        }
+
+        private void btnVerificar_ClientSizeChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

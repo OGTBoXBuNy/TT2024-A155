@@ -35,6 +35,7 @@ using QRCoder;
 using iText.Commons.Bouncycastle.Crypto;
 using NewBouncy::Org.BouncyCastle.Pqc.Crypto.Crystals.Dilithium;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TT2024_A155
 {
@@ -53,13 +54,10 @@ namespace TT2024_A155
         public void nuevoUsuarioCorreo(string destinatario, string usuario, string codigo)
         {
 
-
             {
-
                 string senderNombre = "TT2024-A155";
                 string senderCorreo = "correos-jeic@jeic.com.mx";
                 string senderAppPass = "dgyvipbypyupufpm";//xldsjobozxjsrmpk
-
 
 
                 try
@@ -74,7 +72,6 @@ namespace TT2024_A155
 
 
                     var bodyBuilder = new BodyBuilder();
-
 
 
                     string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>¡Bienvenido!</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f8f8f8;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 0 auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            text-align: center;\r\n            padding: 20px 0;\r\n        }\r\n\r\n        .content h1 {\r\n            color: #007bff;\r\n        }\r\n\r\n        .content p {\r\n            color: #333333;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h1>¡Bienvenido " + usuario + " al sistema de TT-2024-A155!</h1>\r\n             <p>Estamos encantados de tenerte como parte de nuestros clientes.</p>\r\n   <p>Para finalizar el registro solo accede a la cuenta con el siguiente código: <b>" + codigo + "</b></p> <p><b>Recuerda que solo tienes 5 minutos para usar este código</b></p>        <p>Desde ahora, podrás disfrutar de todas las funciones y productos que ofrecemos.</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>\r\n            <p>¡Gracias por unirte a nosotros!</p>\r\n            <p><a href=\"https://www.escom.ipn.mx/\">Contacto</a></p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
@@ -476,15 +473,10 @@ namespace TT2024_A155
         //ENVIAR CORREO
         public void enviaCorreoContrasenia(string destinatario, string contra, string cliente)
         {
-
-
             {
-
                 string senderNombre = "TT2024-A155";
                 string senderCorreo = "correos-jeic@jeic.com.mx";
                 string senderAppPass = "dgyvipbypyupufpm";//xldsjobozxjsrmpk
-
-
 
                 try
                 {
@@ -493,19 +485,9 @@ namespace TT2024_A155
                     message.From.Add(new MailboxAddress(senderNombre, senderCorreo));
 
                     message.To.Add(new MailboxAddress("", destinatario));
-
-
-
-
-
-
-                    ;
                     message.Subject = "RESTABLECIMIENTO DE CONTRASEÑA";
 
-
                     var bodyBuilder = new BodyBuilder();
-
-
 
                     string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Restablecimiento de Contraseña</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f5f5f5;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 20px auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            padding: 20px 0;\r\n            text-align: center;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\" alt=\"Logo de la empresa\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h2>Restablecimiento de Contraseña</h2>\r\n            <p>Estimado/a " + cliente + ",</p>\r\n            <p>Te informamos que se ha restablecido tu contraseña con éxito.</p>\r\n          <p>Su nueva contraseña temporal es: <b>" + contra + "  </b></p>\r\n            <p>Si realizaste esta acción, puedes ignorar este mensaje. Si no solicitaste este cambio, por favor, ponte en contacto con nosotros de inmediato.</p>\r\n            <p>Gracias.</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Atentamente,</p>\r\n            <p>El equipo de TT2024-A155</p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
 
@@ -1151,15 +1133,10 @@ namespace TT2024_A155
         //ENVIAR CORREO PEDIDO CREADO CORRECTAMENTE
         public void enviaCorreoPedido(string destinatario, byte[] pdf, string cliente)
         {
-
-
             {
-
                 string senderNombre = "TT2024-A155";
                 string senderCorreo = "correos-jeic@jeic.com.mx";
                 string senderAppPass = "dgyvipbypyupufpm";//xldsjobozxjsrmpk
-
-
 
                 try
                 {
@@ -2658,15 +2635,130 @@ namespace TT2024_A155
 
         //ENVIAR CORREO FACTURA END
 
+        //GENERAR XML CON LA INFORMACION DE LA FACTURA
+
+        public byte[] generarXML(string idPedido, DataGridView dgvDatosFactura, string usuarioFinanzas, int NumeroFila, DilithiumPrivateKeyParameters privateKey)
+        {
+            byte[] firma = null;
+            List<string> datosXML = new List<string>();
+            datosXML.Add(idPedido);
+
+            //correo Cliente 
+            datosXML.Add(dgvDatosFactura.Rows[0].Cells[14].Value.ToString());
+
+            //direccion
+            datosXML.Add(dgvDatosFactura.Rows[0].Cells[8].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[9].Value.ToString() + " " +
+                dgvDatosFactura.Rows[0].Cells[10].Value.ToString());
+
+            //direccion 2
+             datosXML.Add(dgvDatosFactura.Rows[0].Cells[11].Value.ToString() + " " +
+                dgvDatosFactura.Rows[0].Cells[12].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[13].Value.ToString());
+
+            //direccion 3
+            datosXML.Add(dgvDatosFactura.Rows[0].Cells[14].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[15].Value.ToString());
+
+            //CIF	
+            datosXML.Add(dgvDatosFactura.Rows[0].Cells[16].Value.ToString());
+
+
+            //IMPUESTOS
+            string impuestos = Convert.ToString((Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[6].Value.ToString()) - Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[5].Value.ToString())));
+            datosXML.Add(impuestos);
+            decimal impuestosX = Convert.ToDecimal(impuestos);
+            datosXML.Add(impuestosX.ToString());
+            decimal subtotal = Convert.ToDecimal(dgvDatosFactura.Rows[0].Cells[5].Value.ToString());
+            datosXML.Add(subtotal.ToString());
+
+            //NOMBRE REAL USUARIO FINANZAS
+            datosXML.Add(usuarioFinanzas);
+
+            //NUMERO FACTURA
+            datosXML.Add(dgvDatosFactura.Rows[0].Cells[1].Value.ToString());
+
+            //DATOS FISCALES CLIENTE-NOMBRE
+            datosXML.Add(dgvDatosFactura.Rows[0].Cells[7].Value.ToString());
+
+            //TOTAL
+            datosXML.Add(dgvDatosFactura.Rows[0].Cells[6].Value.ToString());
+
+
+            //PRODUCTOS
+
+            string producto;
+            for (int count = 0; count < NumeroFila; count++)
+            {
+                producto = dgvDatosFactura.Rows[count].Cells[17].Value.ToString() + " " + dgvDatosFactura.Rows[count].Cells[18].Value.ToString() + " " +
+                dgvDatosFactura.Rows[count].Cells[19].Value.ToString() + " " + dgvDatosFactura.Rows[count].Cells[20].Value.ToString();
+
+                datosXML.Add(producto);
+
+                //CANTIDAD
+                datosXML.Add(dgvDatosFactura.Rows[count].Cells[21].Value.ToString());
+
+
+                //PRECIO POR PRODUCTO
+                datosXML.Add(dgvDatosFactura.Rows[count].Cells[22].Value.ToString());
+
+                //DESCUENTO POR PRODUCTO
+                datosXML.Add(dgvDatosFactura.Rows[count].Cells[23].Value.ToString());
+            
+                // TOTAL POR PRODUCTO (PRECIO UNITARIO)
+                decimal totalXProd = Convert.ToDecimal(dgvDatosFactura.Rows[count].Cells[24].Value.ToString());
+                datosXML.Add(totalXProd.ToString());
+            }
+
+            string[] datosFacturaXML = datosXML.ToArray();
+
+            SaveFileDialog fileRoute = new SaveFileDialog();
+            fileRoute.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            fileRoute.Title = "FACTURA (XML)";
+            fileRoute.CheckPathExists = true;
+            fileRoute.DefaultExt = "xub";
+            fileRoute.Filter = "XUB files (*.xub)|*.xub";
+            fileRoute.RestoreDirectory = true;
+            fileRoute.FileName = "Factura_Pedido_" + idPedido;
+
+
+            if (fileRoute.ShowDialog() == DialogResult.OK)
+            {
+                if (!File.Exists(fileRoute.FileName))
+                {
+                    //File.Create(fileRoute.FileName).Dispose();
+                    
+                    //File.AppendAllLines(fileRoute.FileName,datosFacturaXML);
+
+                    System.IO.File.WriteAllLines(fileRoute.FileName, datosXML);
+                }
+            }
+           
+            //AQUI VAMOS A MANDAR EL XML QUE SERIA EL ARCHIVO QUE SE FIRMA
+            byte[] xmlBytes =  File.ReadAllBytes(fileRoute.FileName);
+            firma = firmar(privateKey, xmlBytes);
+
+
+            //TEST VERIFICAR
+           
+
+            //TEST
+
+
+            return firma;
+        }
+
+
         //----------------------GENERAR PDF FACTURA
-        public byte[] generarFactura(string idPedido, DataGridView dgvDatosFactura, string usuarioFinanzas)
+        public List<byte[]> generarFactura(string idPedido, DataGridView dgvDatosFactura, string usuarioFinanzas, DilithiumPrivateKeyParameters privateKey)
         {
             byte[] pdf = new byte[] {0x20};
+            byte[] firma;
+            string firmaB64;
+
+            List<byte[]> datosFinales = new List<byte[]>();// SE GUARDA LA FIRMA [0] Y SE GUARDA EL PDF [1]
             try
             {
                 SaveFileDialog fileRoute = new SaveFileDialog();
                 fileRoute.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                fileRoute.Title = "FACTURA";
+                fileRoute.Title = "FACTURA (PDF)";
                 fileRoute.CheckPathExists = true;
                 fileRoute.DefaultExt = "pdf";
                 fileRoute.Filter = "PDF files (*.pdf)|*.pdf";
@@ -2711,7 +2803,7 @@ namespace TT2024_A155
 
                         string direccion3 = "Cel: " + dgvDatosFactura.Rows[0].Cells[14].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[15].Value.ToString();
 
-                        string cif = "CIF: " + dgvDatosFactura.Rows[0].Cells[16].Value.ToString();
+                        string cif = "R.F.C.: " + dgvDatosFactura.Rows[0].Cells[16].Value.ToString();
 
                         string impuestos = Convert.ToString((Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[6].Value.ToString()) - Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[5].Value.ToString())));
                         decimal impuestosX = Convert.ToDecimal(impuestos);
@@ -2782,14 +2874,14 @@ namespace TT2024_A155
 
                         //QUIEN ELABBORÓ LA FACTURA
                         canvas.BeginText().SetFontAndSize(font, 9)
-                                .MoveText(x + 275, y + 100)
+                                .MoveText(x + 270, y + 135)
                                 .ShowText("Factura firmada por: " + nombreRealUsuarioFinanzas)
                                 .EndText();
 
-                        canvas.BeginText().SetFontAndSize(font, 9)
-                               .MoveText(x + 275, y + 90)
-                               .ShowText("Con nombre de usuario: " + usuarioFinanzas)
-                               .EndText();
+                        //canvas.BeginText().SetFontAndSize(font, 9)
+                        //       .MoveText(x + 275, y + 90)
+                        //       .ShowText("Con nombre de usuario: " + usuarioFinanzas)
+                        //       .EndText();
 
                         //CADENA DE SELLO
                         //canvas.BeginText().SetFontAndSize(font, 9)
@@ -2797,10 +2889,8 @@ namespace TT2024_A155
                         //        .ShowText("Cadena de sello: ")
                         //        .EndText();
 
-                        generarQr(dgvDatosFactura.Rows[0].Cells[1].Value.ToString());
-                        iText.IO.Image.ImageData img = iText.IO.Image.ImageDataFactory.Create(Application.StartupPath + "\\tempQr.png");
-                        canvas.AddImageAt(img, Convert.ToSingle(x + 490), Convert.ToSingle(y + 25), false);
-                        File.Delete(Application.StartupPath + "\\tempQr.png");
+
+                        
 
                         string producto;
                         for (int count = 0; count < NumeroFila; count++)
@@ -2850,11 +2940,53 @@ namespace TT2024_A155
                             y -= 22;
                         }
 
+                        //EL QR VA A CONTENER EL RESULTADO DE LA FIRMA DEL XML
+
+                        firma = generarXML(idPedido, dgvDatosFactura, nombreRealUsuarioFinanzas, NumeroFila, privateKey);
+                        datosFinales.Add(firma);
+                        
+                        firmaB64 = PrettyPrint(firma);
+                        char[] firmaB64Char = firmaB64.ToArray();
+                        for (int i = 0; i< firmaB64.Length; i++)
+                        {
+
+                            if(i % 180 == 0)
+                            {
+                                firmaB64Char[i] = '\n';
+                            }
+                        }
+                        string s = new string(firmaB64Char);
+                        string[] ss = s.Split('\n');
+                        //CADENA DE SELLO
+                        canvas.BeginText().SetFontAndSize(font, 7)
+                                .MoveText(x + 270, y + 148)
+                                .ShowText("Cadena de firma: ")
+                                .EndText();
+                        for (int i = 1;i< ss.Length;i++)
+                        {
+                            //CADENA DE SELLO
+                            canvas.BeginText().SetFontAndSize(font, 3)
+                                    .MoveText(x + 270, y + 141)
+                                    .ShowText(ss[i])
+                                    .EndText();
+
+                            y -= 3;
+                        }
+                        
+
+                        //END DEL FIRMADO PARA EL QR
+
+
+                        generarQr(dgvDatosFactura.Rows[0].Cells[1].Value.ToString());
+                        iText.IO.Image.ImageData img = iText.IO.Image.ImageDataFactory.Create(Application.StartupPath + "\\tempQr.png");
+                        canvas.AddImageAt(img, Convert.ToSingle(x + 490), Convert.ToSingle(550), false);
+                        File.Delete(Application.StartupPath + "\\tempQr.png");
+
 
                         pdfdoc.Close();
 
                         pdf = File.ReadAllBytes(fileRoute.FileName);
-
+                        datosFinales.Add(pdf);
 
                         enviaCorreoFactura(dgvDatosFactura.Rows[0].Cells[15].Value.ToString(), pdf, dgvDatosFactura.Rows[0].Cells[7].Value.ToString(), dgvDatosFactura.Rows[0].Cells[1].Value.ToString());
                         MessageBOX.SHowDialog(3, "Factura generada correctamente (PDF)");
@@ -2862,13 +2994,13 @@ namespace TT2024_A155
                     }
                     
                 }
-                return pdf;
+                return datosFinales;
             }
             catch (Exception err)
             {
                 MessageBox.Show("Ocurrió un problema FACTURA \nMayor Detalle:\n" + err.Message + "\n\n*Si muestra en ingles, proceda a traducirlo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            return pdf;
+            return datosFinales;
 
         }
 
@@ -2881,7 +3013,7 @@ namespace TT2024_A155
             {
 
                 QRCodeGenerator qrGenerador = new QRCodeGenerator();
-                QRCodeData qrDatos = qrGenerador.CreateQrCode(cadena, QRCodeGenerator.ECCLevel.H);
+                QRCodeData qrDatos = qrGenerador.CreateQrCode(cadena, QRCodeGenerator.ECCLevel.L);
                 QRCode qrCodigo = new QRCode(qrDatos);
 
                 Bitmap qrImagen = qrCodigo.GetGraphic(3, System.Drawing.Color.Black, System.Drawing.Color.White, true);
@@ -2909,7 +3041,7 @@ namespace TT2024_A155
 
             int i;
             int idfactura = 0;
-            byte[] factura;
+            List<byte[]> factura = new List<byte[]>();
             byte[] firma;
 
             try
@@ -2956,12 +3088,12 @@ namespace TT2024_A155
                     if (i == 1)
                     {
                         
-                        factura = generarFactura(idPedido, dgvDatosFactura, usuarioFinanzas);
-                        firma = firmar(privateKey, factura);
+                        factura = generarFactura(idPedido, dgvDatosFactura, usuarioFinanzas, privateKey);
+                        //firma = firmar(privateKey, factura);//SE MOVIO EL DIA 15/05/2024 PORQUE AHORA SE FIRMA EL XML
 
                         Comando = new SqlCommand("UPDATE factura SET firma = @firma WHERE idfactura = @idfactura;", nuevacon);
 
-                        Comando.Parameters.AddWithValue("@firma", PrettyPrint(firma));
+                        Comando.Parameters.AddWithValue("@firma", PrettyPrint(factura[0]));
                         Comando.Parameters.AddWithValue("@idfactura", idfactura);
 
                         Comando.ExecuteNonQuery();

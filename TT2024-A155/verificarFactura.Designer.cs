@@ -142,9 +142,9 @@
             lblArchivo.Location = new Point(12, 151);
             lblArchivo.MouseState = MaterialSkin.MouseState.HOVER;
             lblArchivo.Name = "lblArchivo";
-            lblArchivo.Size = new Size(121, 24);
+            lblArchivo.Size = new Size(175, 24);
             lblArchivo.TabIndex = 4;
-            lblArchivo.Text = "Ruta Archivo:";
+            lblArchivo.Text = "Ruta Archivo (.xml):";
             // 
             // btnBuscarArchivo
             // 
@@ -228,6 +228,7 @@
             btnVerificar.TabIndex = 9;
             btnVerificar.Text = "Verificar";
             btnVerificar.UseVisualStyleBackColor = true;
+            btnVerificar.ClientSizeChanged += btnVerificar_ClientSizeChanged;
             btnVerificar.Click += btnVerificar_Click;
             // 
             // errorRutaArchivo
