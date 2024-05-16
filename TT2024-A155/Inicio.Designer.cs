@@ -309,6 +309,7 @@
             pbComprobante.SizeMode = PictureBoxSizeMode.Zoom;
             pbComprobante.TabIndex = 23;
             pbComprobante.TabStop = false;
+            pbComprobante.Visible = false;
             pbComprobante.Click += pbComprobante_Click;
             // 
             // lblCliente
@@ -388,6 +389,7 @@
             lblComprobantePDF.Size = new Size(135, 24);
             lblComprobantePDF.TabIndex = 3;
             lblComprobantePDF.Text = "Comprobante: ";
+            lblComprobantePDF.Visible = false;
             // 
             // lblPrecio
             // 

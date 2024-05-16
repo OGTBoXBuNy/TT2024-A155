@@ -85,7 +85,7 @@ namespace TT2024_A155
                 string fpath = @txtRutaArchivo.Text;
                 byteArray = File.ReadAllBytes(fpath);
                 if (byteArray != null)
-                    MessageBox.Show("Archivo Encontrado");
+                    //MessageBox.Show("Archivo Encontrado");
 
                 limpiar();
             }
@@ -106,7 +106,7 @@ namespace TT2024_A155
                 string fpath = txtRutaLlavePublica.Text;
                 byteArray = File.ReadAllBytes(fpath);
                 if (byteArray != null)
-                    MessageBox.Show("Llave pública encontrada");
+                    //MessageBox.Show("Llave pública encontrada");
                 limpiar();
             }
 
@@ -136,7 +136,7 @@ namespace TT2024_A155
 
                 byte[] bytes = System.Convert.FromBase64String(temp);
                 publicKey = new DilithiumPublicKeyParameters(DilithiumParameters.Dilithium3, bytes);
-                MessageBox.Show("Llave publica en bytes longitud: " + bytes.Length + "Cadena original:" + Consulta.PrettyPrint(bytes));
+                //MessageBox.Show("Llave publica en bytes longitud: " + bytes.Length + "Cadena original:" + Consulta.PrettyPrint(bytes));
             }
             catch (Exception ex)
             {
@@ -400,6 +400,7 @@ namespace TT2024_A155
             lblSubTotal.Text = "SubTotal:";
             lblImpuestos.Text = "Impuestos:";
             lblTotal.Text = "Total:";
+            txtFirma.Text = "";
             txtDatosProveedor.Visible = false;
             dgvFactura.DataSource = null;
             dgvFactura.Rows.Clear();
@@ -418,7 +419,7 @@ namespace TT2024_A155
                 {
                     byte[] bytes = System.Convert.FromBase64String(pk);
                     publicKey = new DilithiumPublicKeyParameters(DilithiumParameters.Dilithium3, bytes);
-                    MessageBox.Show("Llave publica en bytes longitud: " + bytes.Length + "Cadena original:" + Consulta.PrettyPrint(bytes));
+                    //MessageBox.Show("Llave publica en bytes longitud: " + bytes.Length + "Cadena original:" + Consulta.PrettyPrint(bytes));
                 }
 
             }
