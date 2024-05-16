@@ -107,6 +107,7 @@
             lblRolF.Size = new Size(36, 20);
             lblRolF.TabIndex = 49;
             lblRolF.Text = "ROL";
+            lblRolF.Visible = false;
             // 
             // lblUsuarioF
             // 
@@ -115,6 +116,7 @@
             lblUsuarioF.Name = "lblUsuarioF";
             lblUsuarioF.Size = new Size(0, 20);
             lblUsuarioF.TabIndex = 48;
+            lblUsuarioF.Visible = false;
             // 
             // lblNombre
             // 
@@ -281,7 +283,7 @@
             lblCif.Location = new Point(423, 410);
             lblCif.MouseState = MaterialSkin.MouseState.HOVER;
             lblCif.Name = "lblCif";
-            lblCif.Size = new Size(48, 24);
+            lblCif.Size = new Size(70, 24);
             lblCif.TabIndex = 63;
             lblCif.Text = "R.F.C.: ";
             // 

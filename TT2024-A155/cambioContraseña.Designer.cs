@@ -55,6 +55,7 @@
             lblUsuario.Size = new Size(59, 20);
             lblUsuario.TabIndex = 6;
             lblUsuario.Text = "Usuario";
+            lblUsuario.Visible = false;
             // 
             // lblRol
             // 
@@ -64,6 +65,7 @@
             lblRol.Size = new Size(36, 20);
             lblRol.TabIndex = 7;
             lblRol.Text = "ROL";
+            lblRol.Visible = false;
             // 
             // materialLabel1
             // 

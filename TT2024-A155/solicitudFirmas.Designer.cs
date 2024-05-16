@@ -50,6 +50,7 @@
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(0, 20);
             lblUsuario.TabIndex = 0;
+            lblUsuario.Visible = false;
             // 
             // txtInfo
             // 
@@ -96,6 +97,7 @@
             lblRol.Name = "lblRol";
             lblRol.Size = new Size(0, 20);
             lblRol.TabIndex = 4;
+            lblRol.Visible = false;
             // 
             // lblContrasenia
             // 

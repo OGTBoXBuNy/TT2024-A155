@@ -58,6 +58,7 @@
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(0, 20);
             lblUsuario.TabIndex = 6;
+            lblUsuario.Visible = false;
             // 
             // lblDesde
             // 

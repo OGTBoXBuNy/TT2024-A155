@@ -102,6 +102,7 @@
             lblUsuario.Size = new Size(59, 20);
             lblUsuario.TabIndex = 0;
             lblUsuario.Text = "Usuario";
+            lblUsuario.Visible = false;
             // 
             // txtComentarios
             // 
@@ -149,6 +150,7 @@
             dgvDatosPDF.RowTemplate.Height = 29;
             dgvDatosPDF.Size = new Size(44, 10);
             dgvDatosPDF.TabIndex = 38;
+            dgvDatosPDF.Visible = false;
             // 
             // lblRol
             // 
@@ -158,6 +160,7 @@
             lblRol.Size = new Size(36, 20);
             lblRol.TabIndex = 39;
             lblRol.Text = "ROL";
+            lblRol.Visible = false;
             // 
             // lblIdPedido
             // 
@@ -167,6 +170,7 @@
             lblIdPedido.Size = new Size(70, 20);
             lblIdPedido.TabIndex = 40;
             lblIdPedido.Text = "IDPedido";
+            lblIdPedido.Visible = false;
             // 
             // lblCliente
             // 
@@ -255,7 +259,7 @@
             lblCif.Location = new Point(547, 170);
             lblCif.MouseState = MaterialSkin.MouseState.HOVER;
             lblCif.Name = "lblCif";
-            lblCif.Size = new Size(43, 24);
+            lblCif.Size = new Size(65, 24);
             lblCif.TabIndex = 48;
             lblCif.Text = "R.F.C.:";
             // 

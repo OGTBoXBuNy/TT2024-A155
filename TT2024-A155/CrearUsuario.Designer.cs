@@ -100,6 +100,7 @@
             lblUsuarioLog.Name = "lblUsuarioLog";
             lblUsuarioLog.Size = new Size(0, 20);
             lblUsuarioLog.TabIndex = 89;
+            lblUsuarioLog.Visible = false;
             // 
             // lblNombre
             // 

@@ -171,6 +171,7 @@ namespace TT2024_A155
             {
 
                 txtDatosProveedor.Visible = true;
+                txtFirma.Visible = true;
                 Consulta.datosFacturaPDF(dgvFactura, datos[0]);
                 double impuestos = double.Parse(dgvFactura.Rows[0].Cells[6].Value.ToString()) - double.Parse(dgvFactura.Rows[0].Cells[5].Value.ToString());
                 lblNumeroFact.Text = "Número de Factura: " + dgvFactura.Rows[0].Cells[1].Value.ToString();
@@ -184,7 +185,7 @@ namespace TT2024_A155
                 lblSubTotal.Text = "SubTotal: $ " + dgvFactura.Rows[0].Cells[5].Value.ToString();
                 lblImpuestos.Text = "Impuestos: $ " + impuestos.ToString("0.##");
                 lblTotal.Text = "Total: $ " + dgvFactura.Rows[0].Cells[6].Value.ToString();
-
+                txtFirma.Text = dgvFactura.Rows[0].Cells[25].Value.ToString();
 
                 dgvFactura.Columns[0].Visible = false;//Datos fiscales empresa
                 dgvFactura.Columns[1].Visible = false;//numero de factura
@@ -203,7 +204,7 @@ namespace TT2024_A155
                 dgvFactura.Columns[14].Visible = false;//telefono
                 dgvFactura.Columns[15].Visible = false;//correo
                 dgvFactura.Columns[16].Visible = false;//cif
-
+                dgvFactura.Columns[25].Visible = false;//Firma
 
                 dgvFactura.Columns[17].HeaderText = "Producto";//
                 dgvFactura.Columns[18].HeaderText = "Marca";//
@@ -229,6 +230,7 @@ namespace TT2024_A155
             datos = Consulta.datosVerificarFactura(idFactura);//[0] IDPEDIDO, [1] FIRMA
 
             txtDatosProveedor.Visible = true;
+            txtFirma.Visible = true;
             Consulta.datosFacturaPDF(dgvFactura, datos[0]);
             double impuestos = double.Parse(dgvFactura.Rows[0].Cells[6].Value.ToString()) - double.Parse(dgvFactura.Rows[0].Cells[5].Value.ToString());
             lblNumeroFact.Text = "Número de Factura: " + dgvFactura.Rows[0].Cells[1].Value.ToString();
@@ -242,7 +244,7 @@ namespace TT2024_A155
             lblSubTotal.Text = "SubTotal: $ " + dgvFactura.Rows[0].Cells[5].Value.ToString();
             lblImpuestos.Text = "Impuestos: $ " + impuestos.ToString("0.##");
             lblTotal.Text = "Total: $ " + dgvFactura.Rows[0].Cells[6].Value.ToString();
-
+            txtFirma.Text = dgvFactura.Rows[0].Cells[25].Value.ToString();
 
             dgvFactura.Columns[0].Visible = false;//Datos fiscales empresa
             dgvFactura.Columns[1].Visible = false;//numero de factura
@@ -261,7 +263,7 @@ namespace TT2024_A155
             dgvFactura.Columns[14].Visible = false;//telefono
             dgvFactura.Columns[15].Visible = false;//correo
             dgvFactura.Columns[16].Visible = false;//cif
-
+            dgvFactura.Columns[25].Visible = false;//Firma
 
             dgvFactura.Columns[17].HeaderText = "Producto";//
             dgvFactura.Columns[18].HeaderText = "Marca";//

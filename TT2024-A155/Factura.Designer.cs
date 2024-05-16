@@ -97,6 +97,7 @@
             lblIDPedido.Size = new Size(77, 20);
             lblIDPedido.TabIndex = 14;
             lblIDPedido.Text = "IDPEDIDO";
+            lblIDPedido.Visible = false;
             // 
             // dgvDatosFactura
             // 
@@ -117,6 +118,7 @@
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(0, 20);
             lblUsuario.TabIndex = 22;
+            lblUsuario.Visible = false;
             // 
             // errorNumeroFact
             // 

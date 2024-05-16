@@ -46,6 +46,7 @@
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(0, 20);
             lblUsuario.TabIndex = 4;
+            lblUsuario.Visible = false;
             // 
             // lblRol
             // 
@@ -54,6 +55,7 @@
             lblRol.Name = "lblRol";
             lblRol.Size = new Size(0, 20);
             lblRol.TabIndex = 5;
+            lblRol.Visible = false;
             // 
             // lblIdPedido
             // 
@@ -62,6 +64,7 @@
             lblIdPedido.Name = "lblIdPedido";
             lblIdPedido.Size = new Size(0, 20);
             lblIdPedido.TabIndex = 6;
+            lblIdPedido.Visible = false;
             // 
             // btnModificarDatosPedido
             // 

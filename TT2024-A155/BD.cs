@@ -857,7 +857,7 @@ namespace TT2024_A155
             {
                 using (SqlConnection nuevacon = Conexion.conexion())
                 {
-                    da = new SqlDataAdapter(string.Format("SELECT (1) AS 'Datos Fiscales Empresa', fact.num_factura, fact.fecha_emision, fact.comentario, dfc.iddatos_fiscales_cli, ped.impuesto, ped.total, dfc.nombre, dfc.calle, dfc.noExt, dfc.noInt, dfc.colonia, dfc.cp, dfc.ciudad, dfc.telefono, dfc.correo, dfc.cif, prod.nombre, mar.marca, veh.modelo, veh.anio, detp.cantidad, prod.precio_venta, detp.descuento, ((prod.precio_venta * ((100 - detp.descuento)/100)) * detp.cantidad) AS 'Total'   FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN datos_fiscales_cliente dfc ON dfc.iddatos_fiscales_cli = us.iddatos_fiscales_cli LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE ped.idpedido = '{0}';", idPedido), nuevacon);
+                    da = new SqlDataAdapter(string.Format("SELECT (1) AS 'Datos Fiscales Empresa', fact.num_factura, fact.fecha_emision, fact.comentario, dfc.iddatos_fiscales_cli, ped.impuesto, ped.total, dfc.nombre, dfc.calle, dfc.noExt, dfc.noInt, dfc.colonia, dfc.cp, dfc.ciudad, dfc.telefono, dfc.correo, dfc.cif, prod.nombre, mar.marca, veh.modelo, veh.anio, detp.cantidad, prod.precio_venta, detp.descuento, ((prod.precio_venta * ((100 - detp.descuento)/100)) * detp.cantidad) AS 'Total', fact.firma AS 'Firma'   FROM detalle_pedido detp LEFT OUTER JOIN pedido ped ON ped.idpedido = detp.idpedido LEFT OUTER JOIN usuario us ON us.idusuario = ped.idusuarioCliente LEFT OUTER JOIN datos_fiscales_cliente dfc ON dfc.iddatos_fiscales_cli = us.iddatos_fiscales_cli LEFT OUTER JOIN producto prod ON prod.idproducto = detp.idproducto LEFT OUTER JOIN vehiculo veh ON veh.idvehiculo = detp.idvehiculo LEFT OUTER JOIN marca mar ON mar.idmarca = veh.idmarca LEFT OUTER JOIN factura fact ON fact.idfactura = ped.idfactura WHERE ped.idpedido = '{0}';", idPedido), nuevacon);
                     dt = new DataTable();
                     da.Fill(dt);
                     dgv.DataSource = dt;
@@ -2575,7 +2575,7 @@ namespace TT2024_A155
 
 
         //ENVIAR CORREO PEDIDO CREADO CORRECTAMENTE
-        public void enviaCorreoFactura(string destinatario, byte[] pdf, string cliente, string numeroFactura)
+        public void enviaCorreoFactura(string destinatario, byte[] pdf, string cliente, string numeroFactura, byte[] xml)
         {
 
 
@@ -2601,7 +2601,7 @@ namespace TT2024_A155
                     var bodyBuilder = new BodyBuilder();
 
                     bodyBuilder.Attachments.Add(fileName: "Factura.pdf", pdf, contentType: MimeKit.ContentType.Parse(MediaTypeNames.Application.Pdf));
-
+                    bodyBuilder.Attachments.Add(fileName: "Factura.xub", xml);
                     string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Notificación de Factura Generada</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f5f5f5;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 20px auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            padding: 20px 0;\r\n            text-align: center;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\" alt=\"ESCOM\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h2>¡Factura Generada!</h2>\r\n            <p>Estimado/a " + cliente + "</p>\r\n            <p>Te informamos que se ha generado la factura: <b>" + numeroFactura +"</b></p>\r\n            <p>Puedes revisar los detalles de la factura en tu cuenta.</p>\r\n            <p>Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos.</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Atentamente,</p>\r\n            <p>El equipo de TT2024-A155</p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
 
                     bodyBuilder.HtmlBody = contenido;
@@ -2637,12 +2637,12 @@ namespace TT2024_A155
 
         //GENERAR XML CON LA INFORMACION DE LA FACTURA
 
-        public byte[] generarXML(string idPedido, DataGridView dgvDatosFactura, string usuarioFinanzas, int NumeroFila, DilithiumPrivateKeyParameters privateKey)
+        public List<byte[]> generarXML(string idPedido, DataGridView dgvDatosFactura, string usuarioFinanzas, int NumeroFila, DilithiumPrivateKeyParameters privateKey)
         {
-            byte[] firma = null;
+            byte[] firma;
             List<string> datosXML = new List<string>();
             datosXML.Add(idPedido);
-
+            List<byte[]> datosFinales = new List<byte[]>();// BYTES XML [0] Y FIRMA [1]
             //correo Cliente 
             datosXML.Add(dgvDatosFactura.Rows[0].Cells[14].Value.ToString());
 
@@ -2734,15 +2734,16 @@ namespace TT2024_A155
             //AQUI VAMOS A MANDAR EL XML QUE SERIA EL ARCHIVO QUE SE FIRMA
             byte[] xmlBytes =  File.ReadAllBytes(fileRoute.FileName);
             firma = firmar(privateKey, xmlBytes);
-
+            datosFinales.Add(xmlBytes);
+            datosFinales.Add(firma);
 
             //TEST VERIFICAR
-           
+
 
             //TEST
 
 
-            return firma;
+            return datosFinales;
         }
 
 
@@ -2750,7 +2751,7 @@ namespace TT2024_A155
         public List<byte[]> generarFactura(string idPedido, DataGridView dgvDatosFactura, string usuarioFinanzas, DilithiumPrivateKeyParameters privateKey)
         {
             byte[] pdf = new byte[] {0x20};
-            byte[] firma;
+            List<byte[]> datosFinalesXML = new List<byte[]>();
             string firmaB64;
 
             List<byte[]> datosFinales = new List<byte[]>();// SE GUARDA LA FIRMA [0] Y SE GUARDA EL PDF [1]
@@ -2942,15 +2943,15 @@ namespace TT2024_A155
 
                         //EL QR VA A CONTENER EL RESULTADO DE LA FIRMA DEL XML
 
-                        firma = generarXML(idPedido, dgvDatosFactura, nombreRealUsuarioFinanzas, NumeroFila, privateKey);
-                        datosFinales.Add(firma);
+                        datosFinalesXML = generarXML(idPedido, dgvDatosFactura, nombreRealUsuarioFinanzas, NumeroFila, privateKey);
+                        datosFinales.Add(datosFinalesXML[1]);//[0] BYTES XML, [1] RESULTADO FIRMAR XML
                         
-                        firmaB64 = PrettyPrint(firma);
+                        firmaB64 = PrettyPrint(datosFinalesXML[1]);
                         char[] firmaB64Char = firmaB64.ToArray();
                         for (int i = 0; i< firmaB64.Length; i++)
                         {
 
-                            if(i % 180 == 0)
+                            if(i % 180 == 0 && i != 0)
                             {
                                 firmaB64Char[i] = '\n';
                             }
@@ -2962,7 +2963,7 @@ namespace TT2024_A155
                                 .MoveText(x + 270, y + 148)
                                 .ShowText("Cadena de firma: ")
                                 .EndText();
-                        for (int i = 1;i< ss.Length;i++)
+                        for (int i = 0;i< ss.Length;i++)
                         {
                             //CADENA DE SELLO
                             canvas.BeginText().SetFontAndSize(font, 3)
@@ -2988,7 +2989,7 @@ namespace TT2024_A155
                         pdf = File.ReadAllBytes(fileRoute.FileName);
                         datosFinales.Add(pdf);
 
-                        enviaCorreoFactura(dgvDatosFactura.Rows[0].Cells[15].Value.ToString(), pdf, dgvDatosFactura.Rows[0].Cells[7].Value.ToString(), dgvDatosFactura.Rows[0].Cells[1].Value.ToString());
+                        enviaCorreoFactura(dgvDatosFactura.Rows[0].Cells[15].Value.ToString(), pdf, dgvDatosFactura.Rows[0].Cells[7].Value.ToString(), dgvDatosFactura.Rows[0].Cells[1].Value.ToString(), datosFinalesXML[0]);
                         MessageBOX.SHowDialog(3, "Factura generada correctamente (PDF)");
                         
                     }

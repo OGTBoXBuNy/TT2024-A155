@@ -64,6 +64,8 @@
             lblSubTotal = new MaterialSkin.Controls.MaterialLabel();
             lblImpuestos = new MaterialSkin.Controls.MaterialLabel();
             lblTotal = new MaterialSkin.Controls.MaterialLabel();
+            txtFirma = new TextBox();
+            lblCadfirma = new MaterialSkin.Controls.MaterialLabel();
             ((System.ComponentModel.ISupportInitialize)errorRutaArchivo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorLlavePublica).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorFactura).BeginInit();
@@ -142,9 +144,9 @@
             lblArchivo.Location = new Point(12, 151);
             lblArchivo.MouseState = MaterialSkin.MouseState.HOVER;
             lblArchivo.Name = "lblArchivo";
-            lblArchivo.Size = new Size(175, 24);
+            lblArchivo.Size = new Size(174, 24);
             lblArchivo.TabIndex = 4;
-            lblArchivo.Text = "Ruta Archivo (.xml):";
+            lblArchivo.Text = "Ruta Archivo (.xub):";
             // 
             // btnBuscarArchivo
             // 
@@ -299,12 +301,13 @@
             // txtDatosProveedor
             // 
             txtDatosProveedor.BackColor = Color.White;
-            txtDatosProveedor.BorderStyle = BorderStyle.None;
+            txtDatosProveedor.BorderStyle = BorderStyle.FixedSingle;
             txtDatosProveedor.Enabled = false;
             txtDatosProveedor.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             txtDatosProveedor.Location = new Point(973, 603);
             txtDatosProveedor.Multiline = true;
             txtDatosProveedor.Name = "txtDatosProveedor";
+            txtDatosProveedor.ReadOnly = true;
             txtDatosProveedor.Size = new Size(475, 163);
             txtDatosProveedor.TabIndex = 30;
             txtDatosProveedor.Text = resources.GetString("txtDatosProveedor.Text");
@@ -514,12 +517,41 @@
             lblTotal.TabIndex = 44;
             lblTotal.Text = "Total:";
             // 
+            // txtFirma
+            // 
+            txtFirma.BackColor = Color.White;
+            txtFirma.BorderStyle = BorderStyle.FixedSingle;
+            txtFirma.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            txtFirma.Location = new Point(973, 420);
+            txtFirma.Multiline = true;
+            txtFirma.Name = "txtFirma";
+            txtFirma.ReadOnly = true;
+            txtFirma.ScrollBars = ScrollBars.Vertical;
+            txtFirma.Size = new Size(475, 163);
+            txtFirma.TabIndex = 45;
+            txtFirma.Visible = false;
+            // 
+            // lblCadfirma
+            // 
+            lblCadfirma.AutoSize = true;
+            lblCadfirma.Depth = 0;
+            lblCadfirma.Font = new Font("Roboto", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCadfirma.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            lblCadfirma.Location = new Point(973, 370);
+            lblCadfirma.MouseState = MaterialSkin.MouseState.HOVER;
+            lblCadfirma.Name = "lblCadfirma";
+            lblCadfirma.Size = new Size(163, 24);
+            lblCadfirma.TabIndex = 46;
+            lblCadfirma.Text = "Cadena de Firma: ";
+            // 
             // verificarFactura
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(1460, 785);
+            Controls.Add(lblCadfirma);
+            Controls.Add(txtFirma);
             Controls.Add(lblTotal);
             Controls.Add(lblImpuestos);
             Controls.Add(lblSubTotal);
@@ -600,5 +632,7 @@
         private MaterialSkin.Controls.MaterialLabel lblTotal;
         private MaterialSkin.Controls.MaterialLabel lblImpuestos;
         private MaterialSkin.Controls.MaterialLabel lblSubTotal;
+        private TextBox txtFirma;
+        private MaterialSkin.Controls.MaterialLabel lblCadfirma;
     }
 }

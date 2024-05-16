@@ -456,7 +456,7 @@
             lblCif.Location = new Point(432, 300);
             lblCif.MouseState = MaterialSkin.MouseState.HOVER;
             lblCif.Name = "lblCif";
-            lblCif.Size = new Size(48, 24);
+            lblCif.Size = new Size(70, 24);
             lblCif.TabIndex = 91;
             lblCif.Text = "R.F.C.: ";
             // 
@@ -959,6 +959,7 @@
             lblUsuarioLog.Name = "lblUsuarioLog";
             lblUsuarioLog.Size = new Size(0, 20);
             lblUsuarioLog.TabIndex = 85;
+            lblUsuarioLog.Visible = false;
             // 
             // lblCliente
             // 

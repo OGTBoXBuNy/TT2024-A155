@@ -131,6 +131,7 @@
             lblRol.Size = new Size(36, 20);
             lblRol.TabIndex = 2;
             lblRol.Text = "ROL";
+            lblRol.Visible = false;
             // 
             // label4
             // 
