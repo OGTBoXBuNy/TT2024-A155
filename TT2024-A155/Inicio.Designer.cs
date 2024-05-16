@@ -743,6 +743,7 @@
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(0, 20);
             lblUsuario.TabIndex = 0;
+            lblUsuario.Visible = false;
             // 
             // lblPedido
             // 
