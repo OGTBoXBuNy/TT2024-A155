@@ -2641,13 +2641,15 @@ namespace TT2024_A155
         {
             byte[] firma;
             List<string> datosXML = new List<string>();
-            datosXML.Add(idPedido);
+            datosXML.Add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+            datosXML.Add("El presente documento forma parte de la factura " + dgvDatosFactura.Rows[0].Cells[1].Value.ToString() +", emitida para la persona " + usuarioFinanzas + ", con RFC: " + dgvDatosFactura.Rows[0].Cells[16].Value.ToString() + ", desde el \"Sistema de información de firma digital para una refaccionaria utilizando algoritmos postcuánticos\", en la fecha " + DateTime.Now.ToString() +" . Este documento tiene como objetivo preservar la autenticidad e integridad de la información contenida.");
+            datosXML.Add("<IDPEDIDO>" + idPedido + "</IDPEDIDO>");
             List<byte[]> datosFinales = new List<byte[]>();// BYTES XML [0] Y FIRMA [1]
-            //correo Cliente 
-            datosXML.Add(dgvDatosFactura.Rows[0].Cells[14].Value.ToString());
+            //TELEFONO CEL 
+            datosXML.Add("<CEL>"+dgvDatosFactura.Rows[0].Cells[14].Value.ToString()+"</CEL>");
 
             //direccion
-            datosXML.Add(dgvDatosFactura.Rows[0].Cells[8].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[9].Value.ToString() + " " +
+            datosXML.Add("<DOMICILIO FISCAL>" + dgvDatosFactura.Rows[0].Cells[8].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[9].Value.ToString() + " " +
                 dgvDatosFactura.Rows[0].Cells[10].Value.ToString());
 
             //direccion 2
@@ -2655,31 +2657,31 @@ namespace TT2024_A155
                 dgvDatosFactura.Rows[0].Cells[12].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[13].Value.ToString());
 
             //direccion 3
-            datosXML.Add(dgvDatosFactura.Rows[0].Cells[14].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[15].Value.ToString());
+            datosXML.Add(dgvDatosFactura.Rows[0].Cells[14].Value.ToString() + " " + dgvDatosFactura.Rows[0].Cells[15].Value.ToString() + "</DOMICILIO FISCAL");
 
             //CIF	
-            datosXML.Add(dgvDatosFactura.Rows[0].Cells[16].Value.ToString());
+            datosXML.Add("<RFC>" + dgvDatosFactura.Rows[0].Cells[16].Value.ToString() + "</RFC>");
 
 
             //IMPUESTOS
             string impuestos = Convert.ToString((Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[6].Value.ToString()) - Convert.ToDouble(dgvDatosFactura.Rows[0].Cells[5].Value.ToString())));
-            datosXML.Add(impuestos);
-            decimal impuestosX = Convert.ToDecimal(impuestos);
-            datosXML.Add(impuestosX.ToString());
+            datosXML.Add("<IMPUESTOS>" + impuestos + "</IMPUESTOS>");
+            //decimal impuestosX = Convert.ToDecimal(impuestos);
+            //datosXML.Add(impuestosX.ToString());
             decimal subtotal = Convert.ToDecimal(dgvDatosFactura.Rows[0].Cells[5].Value.ToString());
-            datosXML.Add(subtotal.ToString());
+            datosXML.Add("<SUBTOTAL>" + subtotal.ToString() + "</SUBTOTAL>");
 
             //NOMBRE REAL USUARIO FINANZAS
-            datosXML.Add(usuarioFinanzas);
+            datosXML.Add("<NOMBRE>" + usuarioFinanzas + "</NOMBRE>");
 
             //NUMERO FACTURA
-            datosXML.Add(dgvDatosFactura.Rows[0].Cells[1].Value.ToString());
+            datosXML.Add("<NÚMERO FACTURA>" + dgvDatosFactura.Rows[0].Cells[1].Value.ToString() + "</NÚMERO FACTURA>");
 
             //DATOS FISCALES CLIENTE-NOMBRE
-            datosXML.Add(dgvDatosFactura.Rows[0].Cells[7].Value.ToString());
+            datosXML.Add("<RAZÓN SOCIAL>" + dgvDatosFactura.Rows[0].Cells[7].Value.ToString() + "</RAZÓN SOCIAL>");
 
             //TOTAL
-            datosXML.Add(dgvDatosFactura.Rows[0].Cells[6].Value.ToString());
+            datosXML.Add("<TOTAL>" + dgvDatosFactura.Rows[0].Cells[6].Value.ToString() + "</TOTAL>");
 
 
             //PRODUCTOS
@@ -2690,21 +2692,21 @@ namespace TT2024_A155
                 producto = dgvDatosFactura.Rows[count].Cells[17].Value.ToString() + " " + dgvDatosFactura.Rows[count].Cells[18].Value.ToString() + " " +
                 dgvDatosFactura.Rows[count].Cells[19].Value.ToString() + " " + dgvDatosFactura.Rows[count].Cells[20].Value.ToString();
 
-                datosXML.Add(producto);
+                datosXML.Add("<PRODUCTO>" + producto + "</PRODUCTO>");
 
                 //CANTIDAD
-                datosXML.Add(dgvDatosFactura.Rows[count].Cells[21].Value.ToString());
+                datosXML.Add("<CANTIDAD>" + dgvDatosFactura.Rows[count].Cells[21].Value.ToString() + "</CANTIDAD>");
 
 
                 //PRECIO POR PRODUCTO
-                datosXML.Add(dgvDatosFactura.Rows[count].Cells[22].Value.ToString());
+                datosXML.Add("<PRECIO>" + dgvDatosFactura.Rows[count].Cells[22].Value.ToString() + "</PRECIO>");
 
                 //DESCUENTO POR PRODUCTO
-                datosXML.Add(dgvDatosFactura.Rows[count].Cells[23].Value.ToString());
+                datosXML.Add("<DESCUENTO>" + dgvDatosFactura.Rows[count].Cells[23].Value.ToString() + "</DESCUENTO>");
             
                 // TOTAL POR PRODUCTO (PRECIO UNITARIO)
                 decimal totalXProd = Convert.ToDecimal(dgvDatosFactura.Rows[count].Cells[24].Value.ToString());
-                datosXML.Add(totalXProd.ToString());
+                datosXML.Add("<PRECIO FINAL PRODUCTO>" + totalXProd.ToString() + "</PRECIO FINAL PRODUCTO>");
             }
 
             string[] datosFacturaXML = datosXML.ToArray();
