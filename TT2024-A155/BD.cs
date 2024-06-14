@@ -2601,7 +2601,7 @@ namespace TT2024_A155
                     var bodyBuilder = new BodyBuilder();
 
                     bodyBuilder.Attachments.Add(fileName: "Factura.pdf", pdf, contentType: MimeKit.ContentType.Parse(MediaTypeNames.Application.Pdf));
-                    bodyBuilder.Attachments.Add(fileName: "Factura.xub", xml);
+                    bodyBuilder.Attachments.Add(fileName: "Factura.xml", xml);
                     string contenido = "<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Notificación de Factura Generada</title>\r\n    <style>\r\n        body {\r\n            font-family: Arial, sans-serif;\r\n            background-color: #f5f5f5;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        .container {\r\n            max-width: 600px;\r\n            margin: 20px auto;\r\n            padding: 20px;\r\n            background-color: #ffffff;\r\n            border-radius: 10px;\r\n            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);\r\n        }\r\n\r\n        .header {\r\n            text-align: center;\r\n            padding-bottom: 20px;\r\n            border-bottom: 1px solid #dddddd;\r\n        }\r\n\r\n        .header img {\r\n            max-width: 150px;\r\n        }\r\n\r\n        .content {\r\n            padding: 20px 0;\r\n            text-align: center;\r\n        }\r\n\r\n        .footer {\r\n            text-align: center;\r\n            padding-top: 20px;\r\n        }\r\n\r\n        .footer a {\r\n            color: #007bff;\r\n            text-decoration: none;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <div class=\"container\">\r\n        <div class=\"header\">\r\n            <img src=\"https://www.escom.ipn.mx/images/conocenos/escudoESCOM.png\" alt=\"ESCOM\">\r\n        </div>\r\n        <div class=\"content\">\r\n            <h2>¡Factura Generada!</h2>\r\n            <p>Estimado/a " + cliente + "</p>\r\n            <p>Te informamos que se ha generado la factura: <b>" + numeroFactura +"</b></p>\r\n            <p>Puedes revisar los detalles de la factura en tu cuenta.</p>\r\n            <p>Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos.</p>\r\n        </div>\r\n        <div class=\"footer\">\r\n            <p>Atentamente,</p>\r\n            <p>El equipo de TT2024-A155</p>\r\n        </div>\r\n    </div>\r\n\r\n</body>\r\n</html>\r\n";
 
                     bodyBuilder.HtmlBody = contenido;
@@ -2716,7 +2716,7 @@ namespace TT2024_A155
             fileRoute.Title = "FACTURA (XML)";
             fileRoute.CheckPathExists = true;
             fileRoute.DefaultExt = "xub";
-            fileRoute.Filter = "XUB files (*.xub)|*.xub";
+            fileRoute.Filter = "XUB files (*.xml)|*.xml";
             fileRoute.RestoreDirectory = true;
             fileRoute.FileName = "Factura_Pedido_" + idPedido;
 

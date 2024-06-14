@@ -146,7 +146,7 @@
             lblArchivo.Name = "lblArchivo";
             lblArchivo.Size = new Size(174, 24);
             lblArchivo.TabIndex = 4;
-            lblArchivo.Text = "Ruta Archivo (.xub):";
+            lblArchivo.Text = "Ruta Archivo (.xml):";
             // 
             // btnBuscarArchivo
             // 
